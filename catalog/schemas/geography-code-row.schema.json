@@ -1,0 +1,74 @@
+{
+  "additionalProperties": false,
+  "description": "One row of catalog/geographies/codes/*.csv: an external code for one of our places.",
+  "properties": {
+    "geography_id": {
+      "pattern": "^LK[A-Za-z0-9-]*$",
+      "title": "Geography Id",
+      "type": "string"
+    },
+    "vintage": {
+      "title": "Vintage",
+      "type": "string"
+    },
+    "code_system": {
+      "pattern": "^[a-z0-9][a-z0-9_-]*$",
+      "title": "Code System",
+      "type": "string"
+    },
+    "external_code": {
+      "title": "External Code",
+      "type": "string"
+    },
+    "external_name": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "External Name"
+    },
+    "match_method": {
+      "enum": [
+        "exact_code",
+        "name_and_parent",
+        "spatial",
+        "manual"
+      ],
+      "title": "Match Method",
+      "type": "string"
+    },
+    "confidence": {
+      "maximum": 1,
+      "minimum": 0,
+      "title": "Confidence",
+      "type": "number"
+    },
+    "notes": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Notes"
+    }
+  },
+  "required": [
+    "geography_id",
+    "vintage",
+    "code_system",
+    "external_code",
+    "match_method",
+    "confidence"
+  ],
+  "title": "GeoCodeRow",
+  "type": "object"
+}

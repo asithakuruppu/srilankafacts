@@ -1,0 +1,16 @@
+# Seed entry (F02). Status of rights is checked by R02; never invent licences or contacts.
+id: osm
+name: OpenStreetMap contributors
+publisher_type: community
+homepage: https://www.openstreetmap.org
+contact: null
+access_classes: [download_table, api]
+rights:
+  status: permitted_with_conditions   # open licence with share-alike for derived databases
+  licence: ODbL-1.0
+  commercial_reuse: "yes"
+  attribution: "© OpenStreetMap contributors"
+  evidence: [https://www.openstreetmap.org/copyright]
+  last_reviewed: 2026-11-07
+notes: >
+  Basemap and infrastructure. Derived databases are ODbL share-alike (data-model.md §2.4).

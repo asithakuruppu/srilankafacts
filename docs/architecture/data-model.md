@@ -99,7 +99,19 @@ cross_checks:
 status: active                        # proposed | active | paused | retired
 ```
 
-### 2.3 Rights rules
+### 2.3 Catalogue tables (CSV) and schemas
+
+Schemas live in `pipeline/slf/schemas.py` and are exported as JSON Schema to `catalog/schemas/` (`uv run slf catalog schemas`). `uv run slf catalog validate` checks every file and the links between them. Unknown keys are errors, so a typo never passes silently.
+
+| File | Columns |
+|---|---|
+| `catalog/geographies/codes/*.csv` (GEO_CODE) | `geography_id, vintage, code_system, external_code, external_name, match_method, confidence, notes` |
+| `catalog/geographies/relations/*.csv` (GEO_RELATION, an edge table, D-021) | `geography_id, related_id, relation` (`parent`, `composed_of`, `succeeded_by`, `preceded_by`), `vintage, weight` (required for `composed_of`), `method` (`attribute`, `official_list`, `overlay_buildings`, `overlay_population`, `overlay_area`, `manual`), `source, valid_from, valid_to, notes` |
+| `overrides/*.csv` (OVERRIDE) | `override_id, dataset_id, target, field, old_value, new_value, reason, evidence, reviewer, date` |
+
+`spatial.crs_source` takes `EPSG:<code>`, `unconfirmed`, or `not_applicable` (tables without geometry). A dataset is **not publishable** while its effective rights are `unclear` or `restricted`, or its source CRS is unconfirmed.
+
+### 2.4 Rights rules
 
 - No dataset is published until `rights.status` is not `unclear`, **or** you make an explicit, recorded decision to publish with attribution and a visible notice (decision-log entry).
 - The output licence is the **most restrictive** of the inputs. OSM-derived databases are ODbL (share-alike). Our own text, charts and derived tables are CC BY 4.0 where the inputs allow it.
@@ -149,7 +161,7 @@ Sri Lankan data comes in geographies that don't nest: local authorities, polling
 
 ### 3.5 Spatial support and adjacency
 
-Every dataset declares a `spatial` block (support, scheme, level, vintage, coverage, where measured, positional accuracy, source CRS, cell resolution, **information unit and count**, derivation method). Cell resolution and information resolution are different: WorldPop's 100 m Sri Lanka grid draws its population information from 13,938 GN units of the 2012 Census ✅. `national` is a valid support: national figures attach to `LK` and are never pushed down. Each vintage of the spine also ships a **contiguity graph** (`GEO_ADJACENCY`). Data moves between supports (area, point, line, grid) only through named methods, and anything apportioned is `modelled_estimate`. Full design: [spatial-first-analytics.md](spatial-first-analytics.md) §3–4 (D-013, D-014).
+Every dataset declares a `spatial` block (support, scheme, level, vintage, coverage, where measured, positional accuracy, source CRS, cell resolution, **information unit and count**, derivation method). Cell resolution and information resolution are different: WorldPop's 100 m Sri Lanka grid draws its population information from 13,938 GN units of the 2012 Census ✅. `national` is a valid support: national figures attach to `LK` and are never pushed down. Each vintage of the spine also ships a **contiguity graph** (`GEO_ADJACENCY`). Hierarchy, contiguity, crosswalks and lineage are edge tables in Parquet, not a graph database (D-021). Data moves between supports (area, point, line, grid) only through named methods, and anything apportioned is `modelled_estimate`. Full design: [spatial-first-analytics.md](spatial-first-analytics.md) §3–4 (D-013, D-014).
 
 ### 3.6 Names
 

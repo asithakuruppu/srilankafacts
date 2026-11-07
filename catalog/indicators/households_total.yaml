@@ -1,0 +1,17 @@
+id: households_total
+name: Total households
+short_name: Households
+topic: [housing]
+measure_type: count
+unit: households
+universe: households
+numerator: null
+denominator: null
+aggregation: sum
+higher_is: neutral
+decimals: 0
+sensitivity: public
+definition: >
+  Number of households enumerated by the Census of Population and Housing in the area.
+source_definition_ref: null
+methodology_notes: null

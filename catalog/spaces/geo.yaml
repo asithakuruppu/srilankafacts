@@ -1,0 +1,17 @@
+# The `geo` space: where a place is, as a point on the sphere (vector-space-model.md §4).
+# Built by G01 from each unit's label point. Distances here are geographic, not similarity.
+id: geo
+version: "0.1"
+title: Geographic position
+entity_types: [place]
+dimensions: 3
+metric: euclidean            # chord distance between unit vectors; monotonic with great-circle distance
+inputs:
+  - {id: label_point, kind: geometry, weight: 1.0}
+transformations:
+  - "label point (lon, lat in EPSG:4326) -> 3D unit vector (cos lat cos lon, cos lat sin lon, sin lat)"
+excludes: [ethnicity, religion]
+status: active
+method_notes: >
+  Label point is a point guaranteed inside the polygon (representative point), computed from
+  canonical, unsimplified geometry. Space version follows the boundary vintage it was built from.

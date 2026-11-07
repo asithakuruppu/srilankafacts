@@ -1,0 +1,18 @@
+id: households_cooking_firewood
+name: Households using firewood as main cooking fuel (count)
+short_name: Firewood households
+topic: [housing, energy]
+measure_type: count
+unit: households
+universe: households
+numerator: null
+denominator: null
+aggregation: sum
+higher_is: neutral
+decimals: 0
+sensitivity: public
+definition: >
+  Number of households whose principal cooking fuel is firewood, as recorded by the Census
+  of Population and Housing. Component of households_cooking_firewood_share.
+source_definition_ref: "CPH 2024, House-CookingFuel table"
+methodology_notes: null

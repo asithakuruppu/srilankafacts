@@ -1,0 +1,16 @@
+# Seed entry (F02). Status of rights is checked by R02; never invent licences or contacts.
+id: nsdi
+name: National Spatial Data Infrastructure (geoportal)
+publisher_type: government
+homepage: https://geoportal.nsdi.gov.lk
+contact: null
+access_classes: [api]
+rights:
+  status: unclear
+  licence: null
+  commercial_reuse: unknown
+  attribution: null
+  evidence: []
+  last_reviewed: 2026-11-07
+notes: >
+  ArcGIS REST boundaries, used as a cross-check only until reuse terms are known (R02, R04).

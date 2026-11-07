@@ -1,0 +1,28 @@
+id: worldpop-population-100m
+source: worldpop
+title: "WorldPop 100 m population grid for Sri Lanka"
+landing_page: null
+pipeline_module: null
+schedule: manual
+geography_scheme: grid
+geography_vintage: null
+reference_period: null
+rights: inherit
+spatial:
+  support: grid
+  scheme: grid
+  level: null
+  vintage: null
+  coverage: LK
+  measured_in: null
+  positional_accuracy: null
+  crs_source: unconfirmed
+  resolution: "100 m"
+  information_unit: gn-2012
+  information_count: 13938
+  derived_by: null
+indicators: []
+cross_checks: []
+status: proposed
+notes: >
+  Stage 3+. Population information comes from 13,938 GN totals of the 2012 Census (multi-scale-features.md, verified).

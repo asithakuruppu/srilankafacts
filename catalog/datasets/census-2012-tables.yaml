@@ -1,0 +1,28 @@
+id: census-2012-tables
+source: dcs
+title: "Census of Population and Housing 2012: tables"
+landing_page: null
+pipeline_module: null
+schedule: manual
+geography_scheme: admin
+geography_vintage: "2012"
+reference_period: "2012"
+rights: inherit
+spatial:
+  support: area
+  scheme: admin
+  level: gn
+  vintage: "2012"
+  coverage: LK
+  measured_in: null
+  positional_accuracy: null
+  crs_source: not_applicable
+  resolution: null
+  information_unit: gn-2012
+  information_count: null
+  derived_by: null
+indicators: []
+cross_checks: []
+status: proposed
+notes: >
+  Stage 2. Historical baseline for 2012 to 2024 comparison through a boundary crosswalk.

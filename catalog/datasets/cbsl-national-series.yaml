@@ -1,0 +1,28 @@
+id: cbsl-national-series
+source: cbsl
+title: "CBSL national context series"
+landing_page: null
+pipeline_module: null
+schedule: manual
+geography_scheme: null
+geography_vintage: null
+reference_period: null
+rights: inherit
+spatial:
+  support: national
+  scheme: null
+  level: null
+  vintage: null
+  coverage: LK
+  measured_in: null
+  positional_accuracy: null
+  crs_source: not_applicable
+  resolution: null
+  information_unit: null
+  information_count: null
+  derived_by: null
+indicators: []
+cross_checks: []
+status: proposed
+notes: >
+  Stage 3. National figures attach to LK and are never pushed down.

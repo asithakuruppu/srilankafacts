@@ -1,0 +1,133 @@
+{
+  "$defs": {
+    "SpaceInput": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "indicator",
+            "geometry",
+            "embedding",
+            "derived"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "weight": {
+          "default": 1.0,
+          "title": "Weight",
+          "type": "number"
+        }
+      },
+      "required": [
+        "id",
+        "kind"
+      ],
+      "title": "SpaceInput",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "pattern": "^[a-z0-9][a-z0-9_-]*$",
+      "title": "Id",
+      "type": "string"
+    },
+    "version": {
+      "title": "Version",
+      "type": "string"
+    },
+    "title": {
+      "title": "Title",
+      "type": "string"
+    },
+    "entity_types": {
+      "items": {
+        "enum": [
+          "place",
+          "indicator",
+          "place_period",
+          "feature",
+          "cell"
+        ],
+        "type": "string"
+      },
+      "title": "Entity Types",
+      "type": "array"
+    },
+    "dimensions": {
+      "anyOf": [
+        {
+          "minimum": 1,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Dimensions"
+    },
+    "metric": {
+      "enum": [
+        "euclidean",
+        "cosine",
+        "inner_product"
+      ],
+      "title": "Metric",
+      "type": "string"
+    },
+    "inputs": {
+      "items": {
+        "$ref": "#/$defs/SpaceInput"
+      },
+      "title": "Inputs",
+      "type": "array"
+    },
+    "transformations": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Transformations",
+      "type": "array"
+    },
+    "excludes": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Excludes",
+      "type": "array"
+    },
+    "status": {
+      "default": "proposed",
+      "enum": [
+        "proposed",
+        "active",
+        "paused",
+        "retired"
+      ],
+      "title": "Status",
+      "type": "string"
+    },
+    "method_notes": {
+      "title": "Method Notes",
+      "type": "string"
+    }
+  },
+  "required": [
+    "id",
+    "version",
+    "title",
+    "entity_types",
+    "metric",
+    "inputs",
+    "method_notes"
+  ],
+  "title": "VectorSpace",
+  "type": "object"
+}

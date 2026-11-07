@@ -1,0 +1,16 @@
+# Seed entry (F02). Status of rights is checked by R02; never invent licences or contacts.
+id: lanka-data-layer
+name: Lanka Data Layer (Prabhava Labs)
+publisher_type: civil_society
+homepage: https://lanka-data-layer.prabhavalabs.com
+contact: null
+access_classes: [download_table]
+rights:
+  status: unclear
+  licence: null
+  commercial_reuse: unknown
+  attribution: null
+  evidence: []
+  last_reviewed: 2026-11-07
+notes: >
+  Open boundary and gazetteer project; used for comparison only, never as authority (G01 constraint). Audit: docs/lanka-data-layer-audit.md.

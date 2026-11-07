@@ -1,0 +1,77 @@
+{
+  "additionalProperties": false,
+  "description": "One row of overrides/*.csv: a human correction with evidence (AGENTS rule 3).",
+  "properties": {
+    "override_id": {
+      "pattern": "^[a-z0-9][a-z0-9_-]*$",
+      "title": "Override Id",
+      "type": "string"
+    },
+    "dataset_id": {
+      "pattern": "^[a-z0-9][a-z0-9_-]*$",
+      "title": "Dataset Id",
+      "type": "string"
+    },
+    "target": {
+      "title": "Target",
+      "type": "string"
+    },
+    "field": {
+      "title": "Field",
+      "type": "string"
+    },
+    "old_value": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Old Value"
+    },
+    "new_value": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "New Value"
+    },
+    "reason": {
+      "title": "Reason",
+      "type": "string"
+    },
+    "evidence": {
+      "title": "Evidence",
+      "type": "string"
+    },
+    "reviewer": {
+      "title": "Reviewer",
+      "type": "string"
+    },
+    "date": {
+      "format": "date",
+      "title": "Date",
+      "type": "string"
+    }
+  },
+  "required": [
+    "override_id",
+    "dataset_id",
+    "target",
+    "field",
+    "reason",
+    "evidence",
+    "reviewer",
+    "date"
+  ],
+  "title": "OverrideRow",
+  "type": "object"
+}

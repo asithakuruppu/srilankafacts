@@ -1,0 +1,28 @@
+id: osm-sri-lanka
+source: osm
+title: "OpenStreetMap extract for Sri Lanka"
+landing_page: null
+pipeline_module: null
+schedule: manual
+geography_scheme: null
+geography_vintage: null
+reference_period: null
+rights: inherit
+spatial:
+  support: point
+  scheme: null
+  level: null
+  vintage: null
+  coverage: LK
+  measured_in: null
+  positional_accuracy: null
+  crs_source: unconfirmed
+  resolution: null
+  information_unit: null
+  information_count: null
+  derived_by: null
+indicators: []
+cross_checks: []
+status: proposed
+notes: >
+  Stage 1 basemap and Stage 2 features. Mixed points, lines and polygons; split into feature classes in G08.

@@ -1,0 +1,381 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "claim_id": {
+      "title": "Claim Id",
+      "type": "string"
+    },
+    "indicator_id": {
+      "pattern": "^[a-z0-9][a-z0-9_-]*$",
+      "title": "Indicator Id",
+      "type": "string"
+    },
+    "geography_id": {
+      "anyOf": [
+        {
+          "pattern": "^LK[A-Za-z0-9-]*$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Geography Id"
+    },
+    "geography_vintage": {
+      "title": "Geography Vintage",
+      "type": "string"
+    },
+    "period": {
+      "title": "Period",
+      "type": "string"
+    },
+    "time_start": {
+      "format": "date",
+      "title": "Time Start",
+      "type": "string"
+    },
+    "time_end": {
+      "format": "date",
+      "title": "Time End",
+      "type": "string"
+    },
+    "time_support": {
+      "enum": [
+        "instant",
+        "interval_total",
+        "interval_mean",
+        "snapshot",
+        "observed_around"
+      ],
+      "title": "Time Support",
+      "type": "string"
+    },
+    "support_type": {
+      "enum": [
+        "area_total",
+        "area_mean",
+        "location_uncertain",
+        "object_extent",
+        "field_sample"
+      ],
+      "title": "Support Type",
+      "type": "string"
+    },
+    "footprint_ref": {
+      "title": "Footprint Ref",
+      "type": "string"
+    },
+    "point": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Point"
+    },
+    "uncertainty_m": {
+      "anyOf": [
+        {
+          "minimum": 0,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Uncertainty M"
+    },
+    "information_footprint_ref": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Information Footprint Ref"
+    },
+    "universe": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Universe"
+    },
+    "collection_method": {
+      "anyOf": [
+        {
+          "enum": [
+            "enumeration",
+            "admin_register",
+            "sample_survey",
+            "satellite_observation",
+            "model",
+            "crowd_mapped"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Collection Method"
+    },
+    "sensitivity": {
+      "default": "public",
+      "enum": [
+        "public",
+        "sensitive_group",
+        "small_cell"
+      ],
+      "title": "Sensitivity",
+      "type": "string"
+    },
+    "revision_status": {
+      "anyOf": [
+        {
+          "enum": [
+            "provisional",
+            "final",
+            "revised"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Revision Status"
+    },
+    "origin_ref": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Origin Ref"
+    },
+    "destination_ref": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Destination Ref"
+    },
+    "preferred": {
+      "default": false,
+      "title": "Preferred",
+      "type": "boolean"
+    },
+    "preferred_reason": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Preferred Reason"
+    },
+    "breakdown": {
+      "anyOf": [
+        {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Breakdown"
+    },
+    "value": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Value"
+    },
+    "value_status": {
+      "enum": [
+        "normal",
+        "not_available",
+        "not_applicable",
+        "suppressed",
+        "provisional"
+      ],
+      "title": "Value Status",
+      "type": "string"
+    },
+    "unit": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Unit"
+    },
+    "uncertainty_low": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Uncertainty Low"
+    },
+    "uncertainty_high": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Uncertainty High"
+    },
+    "se": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Se"
+    },
+    "data_nature": {
+      "enum": [
+        "census_count",
+        "administrative_count",
+        "survey_estimate",
+        "official_estimate",
+        "modelled_estimate",
+        "reconstruction"
+      ],
+      "title": "Data Nature",
+      "type": "string"
+    },
+    "verification": {
+      "enum": [
+        "machine_extracted",
+        "spot_checked",
+        "human_verified",
+        "reconciled",
+        "disputed"
+      ],
+      "title": "Verification",
+      "type": "string"
+    },
+    "dataset_id": {
+      "pattern": "^[a-z0-9][a-z0-9_-]*$",
+      "title": "Dataset Id",
+      "type": "string"
+    },
+    "snapshot_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Snapshot Sha256",
+      "type": "string"
+    },
+    "source_locator": {
+      "title": "Source Locator",
+      "type": "string"
+    },
+    "override_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Override Id"
+    },
+    "note_ids": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Note Ids",
+      "type": "array"
+    },
+    "release": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Release"
+    }
+  },
+  "required": [
+    "claim_id",
+    "indicator_id",
+    "geography_vintage",
+    "period",
+    "time_start",
+    "time_end",
+    "time_support",
+    "support_type",
+    "footprint_ref",
+    "value_status",
+    "data_nature",
+    "verification",
+    "dataset_id",
+    "snapshot_sha256",
+    "source_locator"
+  ],
+  "title": "Observation",
+  "type": "object"
+}

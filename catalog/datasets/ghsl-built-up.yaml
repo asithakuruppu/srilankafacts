@@ -1,0 +1,28 @@
+id: ghsl-built-up
+source: ghsl
+title: "GHSL built-up surface grid"
+landing_page: null
+pipeline_module: null
+schedule: manual
+geography_scheme: grid
+geography_vintage: null
+reference_period: null
+rights: inherit
+spatial:
+  support: grid
+  scheme: grid
+  level: null
+  vintage: null
+  coverage: LK
+  measured_in: null
+  positional_accuracy: null
+  crs_source: unconfirmed
+  resolution: unconfirmed
+  information_unit: null
+  information_count: null
+  derived_by: null
+indicators: []
+cross_checks: []
+status: proposed
+notes: >
+  Stage 3+. Product and resolution to be chosen.

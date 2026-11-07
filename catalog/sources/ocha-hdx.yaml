@@ -1,0 +1,16 @@
+# Seed entry (F02). Status of rights is checked by R02; never invent licences or contacts.
+id: ocha-hdx
+name: OCHA Humanitarian Data Exchange
+publisher_type: international
+homepage: https://data.humdata.org
+contact: null
+access_classes: [download_table, api]
+rights:
+  status: unclear
+  licence: null
+  commercial_reuse: unknown
+  attribution: null
+  evidence: []
+  last_reviewed: 2026-11-07
+notes: >
+  Rights differ per dataset on HDX, so they are recorded on each dataset, not here.

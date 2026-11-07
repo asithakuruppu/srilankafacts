@@ -1,0 +1,17 @@
+id: population_total
+name: Total population
+short_name: Population
+topic: [population]
+measure_type: count
+unit: persons
+universe: persons
+numerator: null
+denominator: null
+aggregation: sum
+higher_is: neutral
+decimals: 0
+sensitivity: public
+definition: >
+  Number of persons enumerated by the Census of Population and Housing in the area.
+source_definition_ref: null    # to be filled with the CPH 2024 table reference by D01
+methodology_notes: null

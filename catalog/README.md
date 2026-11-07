@@ -8,4 +8,4 @@ Reviewed metadata in YAML and small CSVs, kept in Git. Nothing here is generated
 - `geographies/`: schemes, vintages, code crosswalks (`codes/`), relations, manual-review queue.
 - `spaces/`: vector-space definitions (recipe, metric, entity types), see `docs/architecture/vector-space-model.md`.
 
-Schemas and the validator arrive with prompt F02. Field names follow `docs/architecture/data-model.md` and `docs/architecture/footprint-model.md`.
+Schemas: `catalog/schemas/*.schema.json` (generated from `pipeline/slf/schemas.py`); check with `uv run slf catalog validate` in `pipeline/`. Field names follow `docs/architecture/data-model.md` and `docs/architecture/footprint-model.md`.

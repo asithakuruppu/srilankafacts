@@ -1,0 +1,38 @@
+id: cod-ab-lka
+source: ocha-hdx
+title: "Sri Lanka - Subnational Administrative Boundaries (COD-AB), version 03"
+landing_page: https://data.humdata.org/dataset/cod-ab-lka
+pipeline_module: slf.datasets.cod_ab_admin
+schedule: manual
+geography_scheme: admin
+geography_vintage: cod-ab-v03
+reference_period: null
+rights: 
+  status: open
+  licence: CC-BY-IGO-3.0
+  commercial_reuse: "yes"
+  attribution: "Survey Department of Sri Lanka; OCHA (COD-AB, via HDX)"
+  evidence:
+    - https://data.humdata.org/api/3/action/package_show?id=cod-ab-lka
+    - http://creativecommons.org/licenses/by/3.0/igo/legalcode
+  last_reviewed: 2026-11-07
+spatial:
+  support: area
+  scheme: admin
+  level: gn
+  vintage: cod-ab-v03
+  coverage: LK
+  measured_in: null
+  positional_accuracy: null
+  crs_source: unconfirmed
+  resolution: null
+  information_unit: gn-cod-ab-v03
+  information_count: 14043
+  derived_by: null
+indicators: []
+cross_checks:
+  - upstream: lanka-data-layer
+    note: unit counts compared in G01; geometry never used as source
+status: active
+notes: >
+  HDX states: version 03; boundaries created by the Survey Department 2022-08-02; reviewed 2025-10-30; 9/25/339/14,043 units at levels 1-4; 530 level-4 features with conflicting Sinhala names and 65 with unknown English names (HDX caveats, read 2026-11-07). CRS confirmed by G01.

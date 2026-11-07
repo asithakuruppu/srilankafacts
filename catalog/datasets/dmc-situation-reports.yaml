@@ -1,0 +1,28 @@
+id: dmc-situation-reports
+source: dmc
+title: "DMC situation reports: disaster impacts"
+landing_page: null
+pipeline_module: null
+schedule: manual
+geography_scheme: admin
+geography_vintage: null
+reference_period: null
+rights: inherit
+spatial:
+  support: area
+  scheme: admin
+  level: ds
+  vintage: null
+  coverage: LK
+  measured_in: null
+  positional_accuracy: null
+  crs_source: not_applicable
+  resolution: null
+  information_unit: null
+  information_count: null
+  derived_by: null
+indicators: []
+cross_checks: []
+status: proposed
+notes: >
+  Stage 3+. PDF reports; nuuuwan scrapes them (ecosystem-landscape.md).

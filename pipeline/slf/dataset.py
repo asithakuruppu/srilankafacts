@@ -4,7 +4,7 @@ snapshot → extract → harmonise → validate → publish (docs/architecture/a
 
 Observations follow the footprint model (docs/architecture/footprint-model.md): every value has a
 where (footprint), a when (time footprint) and a what (indicator), plus value and provenance.
-F02 replaces the plain dicts used here with validated schemas.
+Rows are plain dicts here; the full row schema is slf.schemas.Observation (F02).
 """
 
 from __future__ import annotations
@@ -13,6 +13,7 @@ from abc import ABC, abstractmethod
 from dataclasses import dataclass, field
 from typing import Any
 
+from slf.schemas import SUPPORT_TYPES, TIME_SUPPORTS
 from slf.snapshot import SnapshotRef
 from slf.storage import Storage
 
@@ -37,9 +38,6 @@ REQUIRED_OBSERVATION_FIELDS: tuple[str, ...] = (
     "snapshot_sha256",
     "source_locator",
 )
-
-SUPPORT_TYPES = {"area_total", "area_mean", "location_uncertain", "object_extent", "field_sample"}
-TIME_SUPPORTS = {"instant", "interval_total", "interval_mean", "snapshot", "observed_around"}
 
 
 @dataclass

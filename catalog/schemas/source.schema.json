@@ -1,0 +1,159 @@
+{
+  "$defs": {
+    "Rights": {
+      "additionalProperties": false,
+      "properties": {
+        "status": {
+          "enum": [
+            "open",
+            "permitted_with_conditions",
+            "unclear",
+            "restricted"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "licence": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Licence"
+        },
+        "commercial_reuse": {
+          "default": "unknown",
+          "enum": [
+            "yes",
+            "no",
+            "unknown"
+          ],
+          "title": "Commercial Reuse",
+          "type": "string"
+        },
+        "attribution": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Attribution"
+        },
+        "evidence": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Evidence",
+          "type": "array"
+        },
+        "last_reviewed": {
+          "format": "date",
+          "title": "Last Reviewed",
+          "type": "string"
+        }
+      },
+      "required": [
+        "status",
+        "last_reviewed"
+      ],
+      "title": "Rights",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "pattern": "^[a-z0-9][a-z0-9_-]*$",
+      "title": "Id",
+      "type": "string"
+    },
+    "name": {
+      "title": "Name",
+      "type": "string"
+    },
+    "publisher_type": {
+      "enum": [
+        "government",
+        "international",
+        "academic",
+        "civil_society",
+        "commercial",
+        "community"
+      ],
+      "title": "Publisher Type",
+      "type": "string"
+    },
+    "homepage": {
+      "anyOf": [
+        {
+          "format": "uri",
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Homepage"
+    },
+    "contact": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Contact"
+    },
+    "access_classes": {
+      "items": {
+        "enum": [
+          "download_table",
+          "pdf",
+          "api",
+          "web_query",
+          "on_request",
+          "licensed_microdata"
+        ],
+        "type": "string"
+      },
+      "title": "Access Classes",
+      "type": "array"
+    },
+    "rights": {
+      "$ref": "#/$defs/Rights"
+    },
+    "notes": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Notes"
+    }
+  },
+  "required": [
+    "id",
+    "name",
+    "publisher_type",
+    "rights"
+  ],
+  "title": "Source",
+  "type": "object"
+}

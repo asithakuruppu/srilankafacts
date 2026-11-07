@@ -1,0 +1,28 @@
+id: nsdi-admin-boundaries
+source: nsdi
+title: "NSDI geoportal administrative boundaries"
+landing_page: null
+pipeline_module: null
+schedule: manual
+geography_scheme: admin
+geography_vintage: null
+reference_period: null
+rights: inherit
+spatial:
+  support: area
+  scheme: admin
+  level: gn
+  vintage: null
+  coverage: LK
+  measured_in: null
+  positional_accuracy: null
+  crs_source: unconfirmed
+  resolution: null
+  information_unit: null
+  information_count: null
+  derived_by: null
+indicators: []
+cross_checks: []
+status: proposed
+notes: >
+  Cross-check only. The audit counted 9/25/332 features (329 codes)/14,051 (docs/lanka-data-layer-audit.md).

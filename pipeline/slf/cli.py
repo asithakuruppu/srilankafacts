@@ -7,7 +7,7 @@ from typing import Annotated
 
 import typer
 
-from slf.catalog import validate_catalog
+from slf.catalog import export_json_schemas, validate_catalog
 from slf.datasets import REGISTRY
 from slf.storage import from_env
 
@@ -90,11 +90,35 @@ def release() -> None:
 @catalog_app.command("validate")
 def catalog_validate(
     root: Annotated[Path, typer.Option(help="Path to the catalog folder.")] = Path("../catalog"),
+    overrides: Annotated[
+        Path | None, typer.Option(help="Path to the overrides folder (default: next to catalog).")
+    ] = None,
 ) -> None:
-    """Check the catalogue (minimal until prompt F02)."""
-    problems = validate_catalog(root)
-    for p in problems:
-        typer.echo(p, err=True)
-    if problems:
+    """Check every catalogue file against the schemas and the links between them."""
+    report = validate_catalog(
+        root, overrides if overrides is not None else root.parent / "overrides"
+    )
+    for e in report.errors:
+        typer.echo(f"ERROR {e}", err=True)
+    counts = ", ".join(f"{v} {k}" for k, v in report.counts.items())
+    if counts:
+        typer.echo(f"checked: {counts}")
+    if report.not_publishable:
+        typer.echo(f"not publishable: {len(report.not_publishable)} findings")
+        for n in report.not_publishable:
+            typer.echo(f"  - {n}")
+    if not report.ok:
+        typer.echo(f"catalogue FAILED: {len(report.errors)} errors", err=True)
         raise typer.Exit(code=1)
-    typer.echo(f"catalogue OK ({root}); full schema checks arrive with F02")
+    typer.echo(f"catalogue OK ({root})")
+
+
+@catalog_app.command("schemas")
+def catalog_schemas(
+    out_dir: Annotated[Path, typer.Option(help="Where to write JSON Schema files.")] = Path(
+        "../catalog/schemas"
+    ),
+) -> None:
+    """Export the catalogue schemas as JSON Schema files (for editors and reviewers)."""
+    for path in export_json_schemas(out_dir):
+        typer.echo(f"wrote {path}")

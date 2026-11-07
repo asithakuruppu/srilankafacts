@@ -1,0 +1,17 @@
+id: population_female
+name: Female population
+short_name: Females
+topic: [population]
+measure_type: count
+unit: persons
+universe: persons
+numerator: null
+denominator: null
+aggregation: sum
+higher_is: neutral
+decimals: 0
+sensitivity: public
+definition: >
+  Number of persons enumerated as female by the Census of Population and Housing in the area.
+source_definition_ref: null
+methodology_notes: null

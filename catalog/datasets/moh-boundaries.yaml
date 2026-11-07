@@ -1,0 +1,28 @@
+id: moh-boundaries
+source: ministry-of-health
+title: "MOH area boundaries"
+landing_page: null
+pipeline_module: null
+schedule: manual
+geography_scheme: health
+geography_vintage: null
+reference_period: null
+rights: inherit
+spatial:
+  support: area
+  scheme: health
+  level: moh
+  vintage: null
+  coverage: LK
+  measured_in: null
+  positional_accuracy: null
+  crs_source: unconfirmed
+  resolution: null
+  information_unit: null
+  information_count: null
+  derived_by: null
+indicators: []
+cross_checks: []
+status: proposed
+notes: >
+  Stage 2. ~330-350 areas; nuuuwan holds a 330-area version (ecosystem-landscape.md §6). Authoritative source to be found.

@@ -1,0 +1,163 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "pattern": "^[a-z0-9][a-z0-9_-]*$",
+      "title": "Id",
+      "type": "string"
+    },
+    "name": {
+      "title": "Name",
+      "type": "string"
+    },
+    "short_name": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Short Name"
+    },
+    "topic": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Topic",
+      "type": "array"
+    },
+    "measure_type": {
+      "enum": [
+        "count",
+        "share",
+        "rate",
+        "ratio",
+        "currency",
+        "index",
+        "mean",
+        "median"
+      ],
+      "title": "Measure Type",
+      "type": "string"
+    },
+    "unit": {
+      "title": "Unit",
+      "type": "string"
+    },
+    "universe": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Universe"
+    },
+    "numerator": {
+      "anyOf": [
+        {
+          "pattern": "^[a-z0-9][a-z0-9_-]*$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Numerator"
+    },
+    "denominator": {
+      "anyOf": [
+        {
+          "pattern": "^[a-z0-9][a-z0-9_-]*$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Denominator"
+    },
+    "aggregation": {
+      "enum": [
+        "sum",
+        "recompute_from_components",
+        "none"
+      ],
+      "title": "Aggregation",
+      "type": "string"
+    },
+    "higher_is": {
+      "default": "neutral",
+      "enum": [
+        "better",
+        "worse",
+        "neutral"
+      ],
+      "title": "Higher Is",
+      "type": "string"
+    },
+    "decimals": {
+      "default": 0,
+      "maximum": 6,
+      "minimum": 0,
+      "title": "Decimals",
+      "type": "integer"
+    },
+    "sensitivity": {
+      "default": "public",
+      "enum": [
+        "public",
+        "sensitive_group",
+        "small_cell"
+      ],
+      "title": "Sensitivity",
+      "type": "string"
+    },
+    "definition": {
+      "title": "Definition",
+      "type": "string"
+    },
+    "source_definition_ref": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Source Definition Ref"
+    },
+    "methodology_notes": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Methodology Notes"
+    }
+  },
+  "required": [
+    "id",
+    "name",
+    "measure_type",
+    "unit",
+    "aggregation",
+    "definition"
+  ],
+  "title": "Indicator",
+  "type": "object"
+}

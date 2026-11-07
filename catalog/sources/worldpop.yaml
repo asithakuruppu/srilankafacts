@@ -1,0 +1,16 @@
+# Seed entry (F02). Status of rights is checked by R02; never invent licences or contacts.
+id: worldpop
+name: WorldPop
+publisher_type: academic
+homepage: https://www.worldpop.org
+contact: null
+access_classes: [download_table]
+rights:
+  status: unclear
+  licence: null
+  commercial_reuse: unknown
+  attribution: null
+  evidence: []
+  last_reviewed: 2026-11-07
+notes: >
+  Modelled 100 m population grids. Licence id to be confirmed in R02 before use.

@@ -165,6 +165,14 @@ These were stated by you or are standing rules in [brainstorm-decisions.md](../b
 - **Consequences:** a rolling-partition pattern in the pipeline; new Stage 3 "Living Sri Lanka" and Stage 4 "Movement" in the roadmap.
 - **Revisit when:** a feed or customer genuinely needs sub-minute updates.
 
+## D-021: Relationships are a graph in the data model, not a graph database
+- **Status:** Accepted · 2026-11-07 (accepted by the lead 2026-11-07; proposed the same day) · Extends D-004, D-013, D-016
+- **Context:** The lead asked why not use a graph database. Much of the data is graph-shaped: the admin hierarchy, contiguity, weighted crosswalks between schemes and vintages, lineage (splits and merges), claim → snapshot → source provenance, and features inside places.
+- **Decision:** Model exact relationships as **node and edge tables** (Parquet in each release; `GEO_RELATION`, `GEO_ADJACENCY`, crosswalks, lineage, provenance), each edge with a source and a time footprint like any fact. Query them with DuckDB (recursive SQL) or networkx in the pipeline. **No graph database server.** Three views of one truth: the ledger says what is true, the graph says what is connected (exact), vector spaces say what is similar (derived, D-016). Exact relations are never inferred from vectors (AGENTS rule 13).
+- **Alternatives:** Neo4j or another graph database (rejected for now: a server to host and pay for, breaks static-first, weak polygon support, columnar analytics are slower, GPL/commercial licensing for the free edition 🟡, agents less fluent in graph query languages, downloads harder to use).
+- **Consequences:** edge tables are published as downloads, which also eases a later linked-data export (JSON-LD, Wikidata links). F02 defines the relation schema; G01 builds the hierarchy and contiguity edges.
+- **Revisit when:** users need interactive multi-hop queries over millions of edges, or road-network analysis (travel time to services) becomes a core product. First try a graph extension inside DuckDB (DuckPGQ, community extension 🟡) or Postgres before adding a separate database.
+
 ---
 
 ## Template

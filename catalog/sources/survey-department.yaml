@@ -1,0 +1,16 @@
+# Seed entry (F02). Status of rights is checked by R02; never invent licences or contacts.
+id: survey-department
+name: Survey Department of Sri Lanka
+publisher_type: government
+homepage: http://www.survey.gov.lk
+contact: null
+access_classes: [on_request]
+rights:
+  status: unclear
+  licence: null
+  commercial_reuse: unknown
+  attribution: null
+  evidence: []
+  last_reviewed: 2026-11-07
+notes: >
+  Authority for national boundaries; COD-AB is derived from its data (per HDX). Geodetic data is sold (multi-scale-features.md). Homepage as stated by HDX; the site refused an automated check on 2026-11-07.

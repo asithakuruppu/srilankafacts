@@ -1,0 +1,30 @@
+id: census-2024-gnd-tables
+source: dcs
+title: "Census of Population and Housing 2024: GN-level topic tables"
+landing_page: https://www.statistics.gov.lk/Resource/en/Population/CPH_2024/CPH2024_Final_Eng.pdf
+pipeline_module: null
+schedule: manual
+geography_scheme: admin
+geography_vintage: "2024"
+reference_period: "2024"
+rights: inherit
+spatial:
+  support: area
+  scheme: admin
+  level: gn
+  vintage: "2024"
+  coverage: LK
+  measured_in: null
+  positional_accuracy: null
+  crs_source: not_applicable
+  resolution: null
+  information_unit: gn-2024
+  information_count: null
+  derived_by: null
+indicators: [population_total, population_male, population_female, households_total, households_cooking_firewood, households_cooking_firewood_share]
+cross_checks:
+  - upstream: nuuuwan/lk_census_2024
+    note: comparison only, never as authority
+status: proposed
+notes: >
+  Tables carry GN codes but no geometry, so the source CRS does not apply. Landing page is the final report PDF cited in ecosystem-landscape.md; the table download location is to be recorded by R01.

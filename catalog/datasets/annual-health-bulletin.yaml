@@ -1,0 +1,28 @@
+id: annual-health-bulletin
+source: ministry-of-health
+title: "Annual Health Bulletin: facilities and services by RDHS"
+landing_page: null
+pipeline_module: null
+schedule: manual
+geography_scheme: health
+geography_vintage: null
+reference_period: null
+rights: inherit
+spatial:
+  support: area
+  scheme: health
+  level: rdhs
+  vintage: null
+  coverage: LK
+  measured_in: null
+  positional_accuracy: null
+  crs_source: not_applicable
+  resolution: null
+  information_unit: null
+  information_count: null
+  derived_by: null
+indicators: []
+cross_checks: []
+status: proposed
+notes: >
+  Stage 3.

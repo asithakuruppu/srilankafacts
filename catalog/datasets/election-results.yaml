@@ -1,0 +1,28 @@
+id: election-results
+source: election-commission
+title: "Election results by electoral district and polling division"
+landing_page: null
+pipeline_module: null
+schedule: manual
+geography_scheme: electoral
+geography_vintage: null
+reference_period: null
+rights: inherit
+spatial:
+  support: area
+  scheme: electoral
+  level: polling_division
+  vintage: null
+  coverage: LK
+  measured_in: null
+  positional_accuracy: null
+  crs_source: not_applicable
+  resolution: null
+  information_unit: null
+  information_count: null
+  derived_by: null
+indicators: []
+cross_checks: []
+status: proposed
+notes: >
+  Stage 2. Postal votes are reported per electoral district and are never pushed down.

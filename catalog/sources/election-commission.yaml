@@ -1,0 +1,16 @@
+# Seed entry (F02). Status of rights is checked by R02; never invent licences or contacts.
+id: election-commission
+name: Election Commission of Sri Lanka
+publisher_type: government
+homepage: null
+contact: null
+access_classes: [pdf, web_query]
+rights:
+  status: unclear
+  licence: null
+  commercial_reuse: unknown
+  attribution: null
+  evidence: []
+  last_reviewed: 2026-11-07
+notes: >
+  Primary source for election results (Stage 2). Homepage not yet recorded.

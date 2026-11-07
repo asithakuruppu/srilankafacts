@@ -1,0 +1,108 @@
+{
+  "additionalProperties": false,
+  "description": "One row of catalog/geographies/relations/*.csv: an edge in the place graph (D-021).",
+  "properties": {
+    "geography_id": {
+      "pattern": "^LK[A-Za-z0-9-]*$",
+      "title": "Geography Id",
+      "type": "string"
+    },
+    "related_id": {
+      "pattern": "^LK[A-Za-z0-9-]*$",
+      "title": "Related Id",
+      "type": "string"
+    },
+    "relation": {
+      "enum": [
+        "parent",
+        "composed_of",
+        "succeeded_by",
+        "preceded_by"
+      ],
+      "title": "Relation",
+      "type": "string"
+    },
+    "vintage": {
+      "title": "Vintage",
+      "type": "string"
+    },
+    "weight": {
+      "anyOf": [
+        {
+          "maximum": 1,
+          "minimum": 0,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Weight"
+    },
+    "method": {
+      "enum": [
+        "attribute",
+        "official_list",
+        "overlay_buildings",
+        "overlay_population",
+        "overlay_area",
+        "manual"
+      ],
+      "title": "Method",
+      "type": "string"
+    },
+    "source": {
+      "title": "Source",
+      "type": "string"
+    },
+    "valid_from": {
+      "anyOf": [
+        {
+          "format": "date",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Valid From"
+    },
+    "valid_to": {
+      "anyOf": [
+        {
+          "format": "date",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Valid To"
+    },
+    "notes": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Notes"
+    }
+  },
+  "required": [
+    "geography_id",
+    "related_id",
+    "relation",
+    "vintage",
+    "method",
+    "source"
+  ],
+  "title": "GeoRelationRow",
+  "type": "object"
+}

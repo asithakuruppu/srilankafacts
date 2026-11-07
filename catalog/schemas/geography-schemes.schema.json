@@ -1,0 +1,137 @@
+{
+  "$defs": {
+    "GeographyScheme": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "pattern": "^[a-z0-9][a-z0-9_-]*$",
+          "title": "Id",
+          "type": "string"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "authority": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Authority"
+        },
+        "id_prefix": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Id Prefix"
+        },
+        "levels": {
+          "items": {
+            "$ref": "#/$defs/SchemeLevel"
+          },
+          "title": "Levels",
+          "type": "array"
+        },
+        "nests_in_admin": {
+          "anyOf": [
+            {
+              "enum": [
+                "yes",
+                "no",
+                "partly",
+                "unknown"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Nests In Admin"
+        },
+        "derived": {
+          "default": false,
+          "title": "Derived",
+          "type": "boolean"
+        },
+        "stage": {
+          "title": "Stage",
+          "type": "string"
+        },
+        "notes": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Notes"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "levels",
+        "stage"
+      ],
+      "title": "GeographyScheme",
+      "type": "object"
+    },
+    "SchemeLevel": {
+      "additionalProperties": false,
+      "properties": {
+        "level": {
+          "minimum": 0,
+          "title": "Level",
+          "type": "integer"
+        },
+        "id": {
+          "pattern": "^[a-z0-9][a-z0-9_-]*$",
+          "title": "Id",
+          "type": "string"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        }
+      },
+      "required": [
+        "level",
+        "id",
+        "name"
+      ],
+      "title": "SchemeLevel",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schemes": {
+      "items": {
+        "$ref": "#/$defs/GeographyScheme"
+      },
+      "title": "Schemes",
+      "type": "array"
+    }
+  },
+  "required": [
+    "schemes"
+  ],
+  "title": "GeographySchemes",
+  "type": "object"
+}

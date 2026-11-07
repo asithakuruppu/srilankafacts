@@ -1,0 +1,28 @@
+id: labour-force-survey
+source: dcs
+title: "Labour Force Survey: district indicators"
+landing_page: null
+pipeline_module: null
+schedule: manual
+geography_scheme: admin
+geography_vintage: null
+reference_period: null
+rights: inherit
+spatial:
+  support: area
+  scheme: admin
+  level: district
+  vintage: null
+  coverage: LK
+  measured_in: null
+  positional_accuracy: null
+  crs_source: not_applicable
+  resolution: null
+  information_unit: null
+  information_count: null
+  derived_by: null
+indicators: []
+cross_checks: []
+status: proposed
+notes: >
+  Stage 3.

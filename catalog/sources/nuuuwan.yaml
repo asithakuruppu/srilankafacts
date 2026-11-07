@@ -1,0 +1,16 @@
+# Seed entry (F02). Status of rights is checked by R02; never invent licences or contacts.
+id: nuuuwan
+name: nuuuwan (open data repositories)
+publisher_type: community
+homepage: https://github.com/nuuuwan
+contact: null
+access_classes: [download_table]
+rights:
+  status: unclear
+  licence: null
+  commercial_reuse: unknown
+  attribution: null
+  evidence: []
+  last_reviewed: 2026-11-07
+notes: >
+  Machine-readable census and other repositories; cross-check only. Licences per repository to be checked.

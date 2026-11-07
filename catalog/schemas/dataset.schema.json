@@ -1,0 +1,416 @@
+{
+  "$defs": {
+    "CrossCheck": {
+      "additionalProperties": false,
+      "properties": {
+        "upstream": {
+          "title": "Upstream",
+          "type": "string"
+        },
+        "note": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Note"
+        }
+      },
+      "required": [
+        "upstream"
+      ],
+      "title": "CrossCheck",
+      "type": "object"
+    },
+    "Rights": {
+      "additionalProperties": false,
+      "properties": {
+        "status": {
+          "enum": [
+            "open",
+            "permitted_with_conditions",
+            "unclear",
+            "restricted"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "licence": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Licence"
+        },
+        "commercial_reuse": {
+          "default": "unknown",
+          "enum": [
+            "yes",
+            "no",
+            "unknown"
+          ],
+          "title": "Commercial Reuse",
+          "type": "string"
+        },
+        "attribution": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Attribution"
+        },
+        "evidence": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Evidence",
+          "type": "array"
+        },
+        "last_reviewed": {
+          "format": "date",
+          "title": "Last Reviewed",
+          "type": "string"
+        }
+      },
+      "required": [
+        "status",
+        "last_reviewed"
+      ],
+      "title": "Rights",
+      "type": "object"
+    },
+    "Spatial": {
+      "additionalProperties": false,
+      "description": "The spatial contract (spatial-first-analytics.md \u00a73).",
+      "properties": {
+        "support": {
+          "enum": [
+            "area",
+            "point",
+            "line",
+            "grid",
+            "national"
+          ],
+          "title": "Support",
+          "type": "string"
+        },
+        "scheme": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Scheme"
+        },
+        "level": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Level"
+        },
+        "vintage": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Vintage"
+        },
+        "coverage": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            }
+          ],
+          "default": "LK",
+          "title": "Coverage"
+        },
+        "measured_in": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Measured In"
+        },
+        "positional_accuracy": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Positional Accuracy"
+        },
+        "crs_source": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Crs Source"
+        },
+        "resolution": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Resolution"
+        },
+        "information_unit": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Information Unit"
+        },
+        "information_count": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Information Count"
+        },
+        "derived_by": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Derived By"
+        }
+      },
+      "required": [
+        "support"
+      ],
+      "title": "Spatial",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "pattern": "^[a-z0-9][a-z0-9_-]*$",
+      "title": "Id",
+      "type": "string"
+    },
+    "source": {
+      "pattern": "^[a-z0-9][a-z0-9_-]*$",
+      "title": "Source",
+      "type": "string"
+    },
+    "title": {
+      "title": "Title",
+      "type": "string"
+    },
+    "landing_page": {
+      "anyOf": [
+        {
+          "format": "uri",
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Landing Page"
+    },
+    "pipeline_module": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Pipeline Module"
+    },
+    "schedule": {
+      "default": "manual",
+      "enum": [
+        "manual",
+        "daily",
+        "weekly",
+        "monthly",
+        "on_release"
+      ],
+      "title": "Schedule",
+      "type": "string"
+    },
+    "geography_scheme": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Geography Scheme"
+    },
+    "geography_vintage": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Geography Vintage"
+    },
+    "reference_period": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Reference Period"
+    },
+    "rights": {
+      "anyOf": [
+        {
+          "const": "inherit",
+          "type": "string"
+        },
+        {
+          "$ref": "#/$defs/Rights"
+        }
+      ],
+      "default": "inherit",
+      "title": "Rights"
+    },
+    "spatial": {
+      "$ref": "#/$defs/Spatial"
+    },
+    "indicators": {
+      "items": {
+        "pattern": "^[a-z0-9][a-z0-9_-]*$",
+        "type": "string"
+      },
+      "title": "Indicators",
+      "type": "array"
+    },
+    "cross_checks": {
+      "items": {
+        "$ref": "#/$defs/CrossCheck"
+      },
+      "title": "Cross Checks",
+      "type": "array"
+    },
+    "status": {
+      "default": "proposed",
+      "enum": [
+        "proposed",
+        "active",
+        "paused",
+        "retired"
+      ],
+      "title": "Status",
+      "type": "string"
+    },
+    "notes": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Notes"
+    }
+  },
+  "required": [
+    "id",
+    "source",
+    "title",
+    "spatial"
+  ],
+  "title": "Dataset",
+  "type": "object"
+}

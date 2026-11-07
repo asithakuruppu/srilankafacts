@@ -1,0 +1,68 @@
+# Geography schemes and their levels (data-model.md §3.1).
+# Level ids are what datasets use in spatial.level. Only `admin` is built in Stage 0.
+schemes:
+  - id: admin
+    name: Administrative units
+    authority: Survey Department / DCS / Ministry of Public Administration
+    id_prefix: LK            # OCHA p-codes: LK, LK1, LK11, LK1103, LK1103005 (D-004)
+    levels:
+      - {level: 0, id: country, name: Country}
+      - {level: 1, id: province, name: Province}
+      - {level: 2, id: district, name: District}
+      - {level: 3, id: ds, name: Divisional Secretariat division}
+      - {level: 4, id: gn, name: Grama Niladhari division}
+    nests_in_admin: null
+    stage: "0-1"
+  - id: la
+    name: Local authorities (Municipal Council, Urban Council, Pradeshiya Sabha)
+    authority: Ministry / Provincial Councils
+    id_prefix: LK-LA-
+    levels:
+      - {level: 0, id: local_authority, name: Local authority}
+    nests_in_admin: "no"     # made of GNs, not of DS divisions
+    stage: "2"
+  - id: electoral
+    name: Electoral geography
+    authority: Election Commission
+    id_prefix: LK-ED- / LK-PD-
+    levels:
+      - {level: 0, id: electoral_district, name: Electoral district}
+      - {level: 1, id: polling_division, name: Polling division}
+    nests_in_admin: partly
+    stage: "2"
+  - id: health
+    name: Health geography
+    authority: Ministry of Health
+    id_prefix: LK-MOH-
+    levels:
+      - {level: 0, id: rdhs, name: Regional Director of Health Services area}
+      - {level: 1, id: moh, name: Medical Officer of Health area}
+    nests_in_admin: unknown  # roughly DS-aligned, not verified
+    stage: "2"
+  - id: education
+    name: Education geography
+    authority: Ministry of Education
+    levels:
+      - {level: 0, id: province, name: Province}
+      - {level: 1, id: zone, name: Education zone}
+      - {level: 2, id: division, name: Education division}
+    nests_in_admin: unknown
+    stage: "3"
+  - id: police
+    name: Police geography
+    authority: Sri Lanka Police
+    levels:
+      - {level: 0, id: division, name: Police division}
+      - {level: 1, id: station_area, name: Police station area}
+    nests_in_admin: unknown
+    stage: "3+"
+  - id: grid
+    name: H3 hexagonal cells (derived)
+    authority: null
+    levels:
+      - {level: 6, id: h3_6, name: H3 resolution 6 (display)}
+      - {level: 8, id: h3_8, name: H3 resolution 8 (analysis)}
+      - {level: 10, id: h3_10, name: H3 resolution 10 (the ~100 m atom)}
+    nests_in_admin: unknown  # joined via GN-to-cell weights and zonal statistics
+    derived: true
+    stage: "2+"

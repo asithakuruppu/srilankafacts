@@ -1,0 +1,16 @@
+# Seed entry (F02). Status of rights is checked by R02; never invent licences or contacts.
+id: protomaps
+name: Protomaps
+publisher_type: commercial
+homepage: https://protomaps.com
+contact: null
+access_classes: [download_table]
+rights:
+  status: unclear
+  licence: null
+  commercial_reuse: unknown
+  attribution: null
+  evidence: []
+  last_reviewed: 2026-11-07
+notes: >
+  Basemap builds derived from OpenStreetMap; terms of the build itself to be checked in R02.

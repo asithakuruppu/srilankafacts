@@ -1,0 +1,28 @@
+id: dengue-by-moh
+source: epidemiology-unit
+title: "Dengue cases by MOH area"
+landing_page: null
+pipeline_module: null
+schedule: weekly
+geography_scheme: health
+geography_vintage: null
+reference_period: null
+rights: inherit
+spatial:
+  support: area
+  scheme: health
+  level: moh
+  vintage: null
+  coverage: LK
+  measured_in: null
+  positional_accuracy: null
+  crs_source: not_applicable
+  resolution: null
+  information_unit: null
+  information_count: null
+  derived_by: null
+indicators: []
+cross_checks: []
+status: proposed
+notes: >
+  Stage 3.
