@@ -196,3 +196,74 @@ def crosswalk_build(
     report.parent.mkdir(parents=True, exist_ok=True)
     report.write_text(crosswalk_admin.render_report(b, spine), encoding="utf-8")
     typer.echo(f"wrote {report}")
+
+
+geom_app = typer.Typer(help="Geometry QA commands (G03).", no_args_is_help=True)
+app.add_typer(geom_app, name="geometry-qa")
+
+
+@geom_app.command("snapshot-nsdi")
+def geometry_snapshot_nsdi() -> None:
+    """Fetch NSDI district and DS polygons (paged, polite) into raw storage."""
+    from slf.datasets import geometry_qa
+
+    ref = geometry_qa.snapshot_nsdi_geometry(from_env())
+    typer.echo(f"snapshot {ref.key} sha256={ref.sha256} ({ref.size_bytes:,} bytes)")
+
+
+@geom_app.command("build")
+def geometry_build(
+    spine_dir: Annotated[Path, typer.Option(help="Spine build folder.")] = Path(
+        "./data/build/geography-spine"
+    ),
+    out_dir: Annotated[Path, typer.Option(help="Output folder.")] = Path(
+        "./data/build/geometry-qa"
+    ),
+    catalog: Annotated[Path, typer.Option(help="Catalogue folder.")] = Path("../catalog"),
+    report_dir: Annotated[Path, typer.Option(help="Report folder.")] = Path(
+        "../docs/research/geography"
+    ),
+) -> None:
+    """Run geometry QA on the canonical spine and compare with NSDI shapes."""
+    import geopandas as gpd
+    import pandas as pd
+
+    from slf.datasets import crosswalk_admin, geometry_qa
+
+    storage = from_env()
+    versions = gpd.read_parquet(spine_dir / "geography_versions.geoparquet")
+    geos = pd.read_parquet(spine_dir / "geographies.parquet")
+    nsdi_codes = pd.read_csv(catalog / "geographies" / "codes" / "nsdi.csv", dtype=str)
+    try:
+        ref = crosswalk_admin.latest(
+            storage, "raw/nsdi/nsdi-admin-boundaries/", "nsdi_district_ds_geometry.json"
+        )
+        nsdi = geometry_qa.load_nsdi_geometry(storage, ref)
+    except FileNotFoundError:
+        ref, nsdi = None, None
+        typer.echo("NSDI geometry snapshot not found; skipping the NSDI comparison", err=True)
+    attrs = crosswalk_admin.parse_nsdi(
+        storage,
+        crosswalk_admin.latest(
+            storage, "raw/nsdi/nsdi-admin-boundaries/", "nsdi_gn_ds_attributes.json"
+        ),
+    )
+    gn_map = dict(zip(nsdi_codes["external_code"], nsdi_codes["geography_id"], strict=False))
+    flagged = attrs[(attrs["level"] == 4) & attrs["extra"].notna()]
+    disputes = pd.DataFrame(
+        {
+            "geography_id": [gn_map.get(c) for c in flagged["code"]],
+            "nsdi_code": flagged["code"],
+            "dispute": flagged["extra"],
+        }
+    )
+    disputes = disputes.dropna(subset=["geography_id"]).drop_duplicates("geography_id")
+    qa = geometry_qa.run(versions, geos, nsdi, nsdi_codes, ref, disputes)
+    out_dir.mkdir(parents=True, exist_ok=True)
+    gpkg = out_dir / "geometry_qa_cod-ab-v03.gpkg"
+    geometry_qa.write_gpkg(qa, versions, nsdi, gpkg)
+    img = geometry_qa.thumbnails(qa, versions, report_dir / "img")
+    names = dict(zip(geos["geography_id"], geos["name_en"], strict=False))
+    report = report_dir / "geometry-qa-cod-ab-v03.md"
+    report.write_text(geometry_qa.render(qa, names, img), encoding="utf-8")
+    typer.echo(f"wrote {gpkg}\nwrote {report}")
