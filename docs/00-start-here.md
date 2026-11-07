@@ -6,9 +6,9 @@ Sri Lanka Facts: *every place in Sri Lanka, every number about it, with its sour
 
 | | |
 |---|---|
-| **Stage** | **Stage 0 in progress.** All decisions D-001 to D-020 accepted (2026-11-07). Repository bootstrapped (F01): pipeline package, web placeholder, CI. |
+| **Stage** | **Stage 0: core built; some agent tasks and lead actions still open.** Decisions D-001 to D-021 accepted. Done: repository and CI (F01); catalogue schemas, validator and seed catalogue (F02); geography spine v0 from COD-AB with QA report, contiguity graph and `geo` vectors (G01, [QA report](qa/geography-spine-v0.md)); outreach drafts (R04, [log](outreach/log.md)). |
 | **Team** | One product/research lead plus AI agents. Self-funded. No institutional relationships yet. |
-| **Next actions** | Create the GitHub repository ([accounts checklist](ops/accounts-setup.md)); then F02 (catalogue schemas), G01 (geography spine) and R04 (DCS reuse-terms letter). See the [first 30 days checklist](roadmap/development-strategy.md#9-first-30-days-concrete-checklist). |
+| **Next actions** | **Lead:** send the outreach drafts; do the [QGIS spot-check](ops/qgis-spot-check.md); domain, name check and charter; R2 buckets and Vercel ([accounts checklist](ops/accounts-setup.md)). **Agents, still open in Stage 0:** R01 source dossiers and R02 rights memos (COD-AB, DCS, NSDI, OSM), G02 crosswalk to DCS census codes (resolves 339 vs 331 DS), G03 geometry QA against NSDI. Then the Stage 0 retrospective (M02). |
 | **Last updated** | 2026-11-07 |
 
 ## Reading order
