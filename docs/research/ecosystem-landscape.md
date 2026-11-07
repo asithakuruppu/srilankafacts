@@ -100,13 +100,15 @@ Codes are not stable across sources. For example, DS code 2309 is Walapane in NS
 
 ## 6. Seed source register
 
+Dossiers (R01): `docs/research/sources/`. Rights memos (R02): `docs/research/rights/`.
+
 A starting list for `catalog/sources/` (prompt R01 creates one YAML file per source). Access: **D** downloadable table · **P** PDF only · **A** API · **W** web query tool · **R** on request.
 
 | Source | Key datasets | Access | Rights known? | Priority |
 |---|---|---|---|---|
-| DCS Census 2024 | GN-level topic tables; final report tables | D, P | ❌ ask | **Stage 0–1** |
-| HDX COD-AB (Survey Dept) | Admin boundaries 0–4 | D | ✅ CC BY-IGO | **Stage 0** |
-| NSDI ArcGIS REST | Boundaries (cross-check) | A | ❌ ask | Stage 0 (check only) |
+| DCS Census 2024 | GN-level topic tables; final report tables | D, P | ❌ no terms found anywhere (R01/R02, 2026-11-07); ask | **Stage 0–1** |
+| HDX COD-AB (Survey Dept) | Admin boundaries 0–4 | D | ✅ CC BY-IGO (HDX licence field, 2026-11-07) | **Stage 0** (spine v0 built) |
+| NSDI ArcGIS REST | Boundaries (cross-check) | A | ❌ empty copyright field; ask | Stage 0 (check only; compared in G02/G03) |
 | DCS Census 2012 / 2001 / 1981 / 1971 | Historical census tables | P, D | ❌ | Stage 2 |
 | Election Commission | Results by ED/PD; LG 2025 | P, W | ❌ | Stage 2 |
 | Local-authority boundaries | 341 LAs | ❓ | ❓ | Stage 2 |

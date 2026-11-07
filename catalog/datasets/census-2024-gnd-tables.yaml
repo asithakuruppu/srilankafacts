@@ -1,7 +1,7 @@
 id: census-2024-gnd-tables
 source: dcs
 title: "Census of Population and Housing 2024: GN-level topic tables"
-landing_page: https://www.statistics.gov.lk/Resource/en/Population/CPH_2024/CPH2024_Final_Eng.pdf
+landing_page: https://www.statistics.gov.lk/Population/StaticalInformation/CPH2024
 pipeline_module: null
 schedule: manual
 geography_scheme: admin
@@ -27,4 +27,4 @@ cross_checks:
     note: comparison only, never as authority
 status: proposed
 notes: >
-  Tables carry GN codes but no geometry, so the source CRS does not apply. Landing page is the final report PDF cited in ecosystem-landscape.md; the table download location is to be recorded by R01.
+  GN-level Excel workbooks (population by sex and age, housing, households, occupied housing units; tables by ethnicity, age, local government area, religion and sector) are linked from the landing page; the GN population workbook is labelled provisional (14,008 GN rows, 340 DS). Tables carry codes but no geometry, so the source CRS does not apply. Dossier: docs/research/sources/dcs.md.

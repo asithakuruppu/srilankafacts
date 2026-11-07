@@ -16,7 +16,7 @@ For administrative boundaries we currently use the Common Operational Dataset of
 2. **Reuse terms.** On what terms may the administrative boundaries published on the NSDI geoportal be reused and redistributed, for example in public maps and downloadable files, with attribution to the Survey Department?
 3. **Attribution.** Is there a preferred attribution wording?
 
-In return, we will attribute the Department wherever its boundaries are used and share with you, privately and before publication, any inconsistencies our quality checks find. For example, the OCHA release notes that 65 GN divisions lack an English name, and that 530 GN divisions belong to groups with identical English names but different Sinhala spellings.
+In return, we will attribute the Department wherever its boundaries are used and share with you, privately and before publication, any inconsistencies our quality checks find. For example, the OCHA release notes that 65 GN divisions lack an English name, and that 530 GN divisions belong to groups with identical English names but different Sinhala spellings. Our comparison also found that, in the NSDI boundary service, four DS division polygons appear to carry the name and code of a similarly named division elsewhere (for example, Ambalangoda and Ambalantota appear swapped), and we would be glad to share the details.
 
 Thank you for your time.
 
@@ -37,7 +37,8 @@ Yours faithfully,
 | NSDI lists 14,051 GN divisions | `docs/lanka-data-layer-audit.md` §11 (queried 2026-11-07) 🟡 |
 | 331 DS divisions commonly cited | `docs/research/ecosystem-landscape.md` §1 🟡 |
 | 65 GN without English name; 530 in conflicting-Sinhala-name sets | ✅ HDX caveats (quoted in the QA report §1); 65 also confirmed in our build (§6) |
-| NSDI shows no licence text | `docs/lanka-data-layer-audit.md` §11 |
+| NSDI shows no licence text | `docs/lanka-data-layer-audit.md` §11; ✅ `copyrightText` empty (2026-11-07) |
+| Four NSDI DS polygons carry another unit's name and code (Ambalangoda/Ambalantota swapped) | ✅ `docs/research/geography/geometry-qa-cod-ab-v03.md` §4 |
 
 ## Notes for the lead
 - The Survey Department website refused an automated check on 2026-11-07, so I could not confirm a current contact address. Please choose it yourself.

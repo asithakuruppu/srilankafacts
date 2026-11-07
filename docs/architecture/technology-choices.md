@@ -46,6 +46,7 @@ Installed by the F01 bootstrap; read from `pipeline/uv.lock` and `web/node_modul
 | Pipeline | pydantic (catalogue schemas, F02) | 2.14.3 |
 | Pipeline | geopandas · pyogrio (GDAL 3.12.4 bundled) · shapely · pyproj (G01) | 1.2.0 · 0.13.0 · 2.2.0 · 3.8.0 |
 | Pipeline | pandas · numpy · pyarrow | 3.1.1 · 2.5.4 · 26.0.1 |
+| Pipeline | openpyxl (DCS workbooks, G02) · matplotlib (QA thumbnails, G03) | see `pipeline/uv.lock` |
 | Pipeline dev | ruff | 0.17.4 |
 | Pipeline dev | pyright | 1.1.414 |
 | Pipeline dev | pytest | 9.2.0 |

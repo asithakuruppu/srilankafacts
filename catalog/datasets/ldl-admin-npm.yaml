@@ -1,0 +1,28 @@
+id: ldl-admin-npm
+source: lanka-data-layer
+title: "@lanka-data-layer/admin npm package (admin units keyed by COD-AB p-codes)"
+landing_page: https://www.npmjs.com/package/@lanka-data-layer/admin
+pipeline_module: slf.datasets.crosswalk_admin
+schedule: manual
+geography_scheme: admin
+geography_vintage: null
+reference_period: null
+rights: inherit
+spatial:
+  support: area
+  scheme: admin
+  level: gn
+  vintage: null
+  coverage: LK
+  measured_in: null
+  positional_accuracy: null
+  crs_source: not_applicable
+  resolution: null
+  information_unit: null
+  information_count: null
+  derived_by: null
+indicators: []
+cross_checks: []
+status: active
+notes: >
+  Cross-check only (G02). Package licence MIT; its data sources are stated as geoBoundaries and OCHA COD-AB (CC BY-IGO). Never used as authority. Dossier: docs/research/sources/lanka-data-layer.md.

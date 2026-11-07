@@ -6,9 +6,9 @@ Sri Lanka Facts: *every place in Sri Lanka, every number about it, with its sour
 
 | | |
 |---|---|
-| **Stage** | **Stage 0: core built; some agent tasks and lead actions still open.** Decisions D-001 to D-021 accepted. Done: repository and CI (F01); catalogue schemas, validator and seed catalogue (F02); geography spine v0 from COD-AB with QA report, contiguity graph and `geo` vectors (G01, [QA report](qa/geography-spine-v0.md)); outreach drafts (R04, [log](outreach/log.md)). |
+| **Stage** | **Stage 0: agent tasks done; lead actions open.** Decisions D-001 to D-021 accepted. Done: repository and CI (F01); catalogue schemas and validator (F02); geography spine v0 from COD-AB ([QA](qa/geography-spine-v0.md), G01); code crosswalk to DCS Census 2024, NSDI, Lanka Data Layer and nuuuwan ([report](research/geography/crosswalk-report.md), G02); geometry QA and NSDI comparison ([report](research/geography/geometry-qa-cod-ab-v03.md), G03); source dossiers ([sources](research/sources/), R01) and rights memos ([rights](research/rights/), R02); outreach drafts ([log](outreach/log.md), R04). |
 | **Team** | One product/research lead plus AI agents. Self-funded. No institutional relationships yet. |
-| **Next actions** | **Lead:** send the outreach drafts; do the [QGIS spot-check](ops/qgis-spot-check.md); domain, name check and charter; R2 buckets and Vercel ([accounts checklist](ops/accounts-setup.md)). **Agents, still open in Stage 0:** R01 source dossiers and R02 rights memos (COD-AB, DCS, NSDI, OSM), G02 crosswalk to DCS census codes (resolves 339 vs 331 DS), G03 geometry QA against NSDI. Then the Stage 0 retrospective (M02). |
+| **Next actions** | **Lead:** send the outreach drafts; review the crosswalk queue (`catalog/geographies/manual-review.csv`, 478 items, of which 64 are DCS census units; the rest are NSDI cross-checks and nuuuwan copies of the DCS items); QGIS spot-check ([guide](ops/qgis-spot-check.md)); decide on Kalmunai North Sub (provisional unit or not) and on publishing census tables before DCS replies; domain, name check, charter; R2 and Vercel ([accounts](ops/accounts-setup.md)). Then the Stage 0 retrospective (M02) and Stage 1. |
 | **Last updated** | 2026-11-07 |
 
 ## Reading order

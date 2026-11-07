@@ -3,7 +3,7 @@ id: dcs
 name: Department of Census and Statistics
 publisher_type: government
 homepage: https://www.statistics.gov.lk
-contact: null
+contact: "information@statistics.gov.lk; 011 214 7000 (CPH 2024 final report, back cover)"
 access_classes: [download_table, pdf, licensed_microdata]
 rights:
   status: unclear
@@ -13,4 +13,4 @@ rights:
   evidence: []
   last_reviewed: 2026-11-07
 notes: >
-  No public reuse licence found as of 2026-11-07 (ecosystem-landscape.md §6). Written clarification to be requested (R04).
+  No copyright notice, licence or terms found on the CPH 2024 page, the homepage, the GN workbook or the final report (checked 2026-11-07; docs/research/rights/census-2024-gnd-tables.md). Appendix D covers licensed microdata only. Reuse terms requested in docs/outreach/2026-11-07-dcs-reuse-terms.md (draft).

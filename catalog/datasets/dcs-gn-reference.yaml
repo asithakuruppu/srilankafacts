@@ -1,0 +1,28 @@
+id: dcs-gn-reference
+source: dcs
+title: "Grama Niladhari Divisions reference list"
+landing_page: https://www.statistics.gov.lk/ref/GNbyDistrict
+pipeline_module: slf.datasets.crosswalk_admin
+schedule: manual
+geography_scheme: admin
+geography_vintage: null
+reference_period: null
+rights: inherit
+spatial:
+  support: area
+  scheme: admin
+  level: gn
+  vintage: null
+  coverage: LK
+  measured_in: null
+  positional_accuracy: null
+  crs_source: not_applicable
+  resolution: null
+  information_unit: null
+  information_count: null
+  derived_by: null
+indicators: []
+cross_checks: []
+status: active
+notes: >
+  Snapshotted 2026-11-07 for G02 follow-up; content not yet analysed. Possibly the official current GN list (open question in docs/research/sources/dcs.md).

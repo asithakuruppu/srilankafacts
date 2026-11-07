@@ -1,0 +1,28 @@
+id: nuuuwan-lk-census-2024
+source: nuuuwan
+title: "lk_census_2024: Census 2024 GN-level data parsed from DCS"
+landing_page: https://github.com/nuuuwan/lk_census_2024
+pipeline_module: slf.datasets.crosswalk_admin
+schedule: manual
+geography_scheme: admin
+geography_vintage: null
+reference_period: null
+rights: inherit
+spatial:
+  support: area
+  scheme: admin
+  level: gn
+  vintage: null
+  coverage: LK
+  measured_in: null
+  positional_accuracy: null
+  crs_source: not_applicable
+  resolution: null
+  information_unit: null
+  information_count: null
+  derived_by: null
+indicators: []
+cross_checks: []
+status: active
+notes: >
+  Cross-check only. Repository MIT; the figures originate from DCS, so their rights follow DCS (assumption). GN ids are DCS codes with an LK- prefix (verified in G02).
