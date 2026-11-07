@@ -14,6 +14,7 @@ dependencies = [
     "pyarrow>=26.0.1",
     "shapely>=2.2.0",
     "pyproj>=3.8.0",
+    "openpyxl>=3.1.5",
 ]
 
 [project.optional-dependencies]
@@ -52,3 +53,7 @@ typeCheckingMode = "standard"
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 addopts = "-q"
+
+[tool.ruff.lint.per-file-ignores]
+# Report templates with long prose lines; splitting them would hurt readability.
+"slf/datasets/crosswalk_admin.py" = ["E501"]

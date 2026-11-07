@@ -159,3 +159,40 @@ def spine_build(
     if result.errors:
         raise typer.Exit(code=1)
     typer.echo("spine OK")
+
+
+crosswalk_app = typer.Typer(help="Code crosswalk commands (G02).", no_args_is_help=True)
+app.add_typer(crosswalk_app, name="crosswalk")
+
+
+@crosswalk_app.command("snapshot-nsdi")
+def crosswalk_snapshot_nsdi() -> None:
+    """Fetch NSDI GN and DS attributes (paged, polite) into raw storage."""
+    from slf.datasets import crosswalk_admin
+
+    ref = crosswalk_admin.snapshot_nsdi_attributes(from_env())
+    typer.echo(f"snapshot {ref.key} sha256={ref.sha256}")
+
+
+@crosswalk_app.command("build")
+def crosswalk_build(
+    spine_dir: Annotated[Path, typer.Option(help="Spine build folder.")] = Path(
+        "./data/build/geography-spine"
+    ),
+    catalog: Annotated[Path, typer.Option(help="Catalogue folder.")] = Path("../catalog"),
+    report: Annotated[Path, typer.Option(help="Report path.")] = Path(
+        "../docs/research/geography/crosswalk-report.md"
+    ),
+) -> None:
+    """Match DCS, NSDI, Lanka Data Layer and nuuuwan codes to spine p-codes."""
+    import pandas as pd
+
+    from slf.datasets import crosswalk_admin
+
+    spine = pd.read_parquet(spine_dir / "geographies.parquet")
+    b = crosswalk_admin.build(from_env(), spine)
+    for p in crosswalk_admin.write_outputs(b.results, catalog):
+        typer.echo(f"wrote {p}")
+    report.parent.mkdir(parents=True, exist_ok=True)
+    report.write_text(crosswalk_admin.render_report(b, spine), encoding="utf-8")
+    typer.echo(f"wrote {report}")
