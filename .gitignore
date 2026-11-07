@@ -1,0 +1,35 @@
+# Local data: raw snapshots and releases live in object storage, never in Git
+/data/
+pipeline/data/
+
+# Secrets
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.ruff_cache/
+.pyright/
+*.egg-info/
+dist/
+build/
+
+# Node / web
+node_modules/
+web/.next/
+web/out/
+web/test-results/
+web/playwright-report/
+web/coverage/
+*.tsbuildinfo
+next-env.d.ts
+
+# OS / editors
+.DS_Store
+.idea/
+.vscode/
+*.swp

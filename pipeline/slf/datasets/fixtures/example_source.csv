@@ -1,0 +1,4 @@
+unit_code,unit_name,households,households_firewood
+TEST-001,Synthetic Unit A,120,30
+TEST-002,Synthetic Unit B,80,
+TEST-003,Synthetic Unit C,200,50
