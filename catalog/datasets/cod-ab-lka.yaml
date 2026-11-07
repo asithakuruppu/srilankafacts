@@ -24,7 +24,7 @@ spatial:
   coverage: LK
   measured_in: null
   positional_accuracy: null
-  crs_source: unconfirmed
+  crs_source: EPSG:4326        # confirmed by G01 inspection of all layers, 2026-11-07
   resolution: null
   information_unit: gn-cod-ab-v03
   information_count: 14043
@@ -35,4 +35,4 @@ cross_checks:
     note: unit counts compared in G01; geometry never used as source
 status: active
 notes: >
-  HDX states: version 03; boundaries created by the Survey Department 2022-08-02; reviewed 2025-10-30; 9/25/339/14,043 units at levels 1-4; 530 level-4 features with conflicting Sinhala names and 65 with unknown English names (HDX caveats, read 2026-11-07). CRS confirmed by G01.
+  HDX states: version 03; boundaries created by the Survey Department 2022-08-02; reviewed 2025-10-30; 9/25/339/14,043 units at levels 1-4; 530 level-4 features with conflicting Sinhala names and 65 with unknown English names (HDX caveats, read 2026-11-07). CRS EPSG:4326 confirmed on all layers by G01 (docs/qa/geography-spine-v0.md).

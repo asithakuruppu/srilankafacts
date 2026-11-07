@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import csv
 import json
+from collections import Counter
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
@@ -186,12 +187,12 @@ def check_links(cat: Catalog, report: CatalogReport) -> None:
     for ov in cat.overrides:
         if ov.dataset_id not in cat.datasets:
             report.errors.append(f"override {ov.override_id}: dataset '{ov.dataset_id}' not found")
-    ov_ids = [o.override_id for o in cat.overrides]
-    for dup in sorted({i for i in ov_ids if ov_ids.count(i) > 1}):
+    ov_ids = Counter(o.override_id for o in cat.overrides)
+    for dup in sorted(i for i, n in ov_ids.items() if n > 1):
         report.errors.append(f"overrides: duplicate override_id '{dup}'")
 
-    edges = [(r.geography_id, r.related_id, r.relation, r.vintage) for r in cat.relations]
-    for dup in sorted({e for e in edges if edges.count(e) > 1}):
+    edges = Counter((r.geography_id, r.related_id, r.relation, r.vintage) for r in cat.relations)
+    for dup in sorted(e for e, n in edges.items() if n > 1):
         report.errors.append(f"relations: duplicate edge {dup}")
 
 

@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import os
 from pathlib import Path
 from typing import Annotated
 
@@ -122,3 +123,39 @@ def catalog_schemas(
     """Export the catalogue schemas as JSON Schema files (for editors and reviewers)."""
     for path in export_json_schemas(out_dir):
         typer.echo(f"wrote {path}")
+
+
+spine_app = typer.Typer(help="Geography spine commands (G01).", no_args_is_help=True)
+app.add_typer(spine_app, name="spine")
+
+
+@spine_app.command("build")
+def spine_build(
+    out_dir: Annotated[Path, typer.Option(help="Where to write the build.")] = Path(
+        "./data/build/geography-spine"
+    ),
+    refresh: Annotated[bool, typer.Option(help="Download a fresh snapshot.")] = False,
+    relations_csv: Annotated[
+        Path | None, typer.Option(help="Also write parent edges to this catalogue CSV.")
+    ] = None,
+) -> None:
+    """Build the admin geography spine (levels 0-4) from COD-AB, with a QA report."""
+    from slf.datasets import cod_ab_admin
+
+    storage = from_env()
+    root = Path(os.environ.get("SLF_DATA_DIR", "data"))
+    result = cod_ab_admin.build_spine(storage, root, out_dir, refresh=refresh)
+    for p in result.outputs:
+        typer.echo(f"wrote {p}")
+    if relations_csv is not None:
+        import pandas as pd
+
+        rel = pd.read_parquet(out_dir / "geography_relations.parquet")
+        relations_csv.parent.mkdir(parents=True, exist_ok=True)
+        relations_csv.write_text(cod_ab_admin.relations_csv(rel), encoding="utf-8")
+        typer.echo(f"wrote {relations_csv} ({len(rel)} parent edges)")
+    for e in result.errors:
+        typer.echo(f"ERROR {e}", err=True)
+    if result.errors:
+        raise typer.Exit(code=1)
+    typer.echo("spine OK")

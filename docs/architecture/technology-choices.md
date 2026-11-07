@@ -43,6 +43,9 @@ Installed by the F01 bootstrap; read from `pipeline/uv.lock` and `web/node_modul
 | Python runtime | CPython (`pipeline/.python-version`) | 3.12 |
 | Pipeline | typer | 0.28.0 |
 | Pipeline | pyyaml | 6.0.3 |
+| Pipeline | pydantic (catalogue schemas, F02) | 2.14.3 |
+| Pipeline | geopandas · pyogrio (GDAL 3.12.4 bundled) · shapely · pyproj (G01) | 1.2.0 · 0.13.0 · 2.2.0 · 3.8.0 |
+| Pipeline | pandas · numpy · pyarrow | 3.1.1 · 2.5.4 · 26.0.1 |
 | Pipeline dev | ruff | 0.17.4 |
 | Pipeline dev | pyright | 1.1.414 |
 | Pipeline dev | pytest | 9.2.0 |
@@ -57,7 +60,7 @@ Installed by the F01 bootstrap; read from `pipeline/uv.lock` and `web/node_modul
 | Package manager | pnpm (`packageManager` in `web/package.json`) | 12.18.0 |
 | CI | actions/checkout · setup-node · astral-sh/setup-uv · pnpm/action-setup | v7.0.1 · v7.1.0 · v10.3.3 · v6.1.1 (pinned by SHA) |
 
-DuckDB, GeoPandas, GDAL and MapLibre are not installed yet; they arrive with G01 and W02.
+GDAL comes bundled inside pyogrio, so no system GDAL install is needed. DuckDB is not installed yet: G01 did not need it, so it arrives with the first task that does (G02 or D01). MapLibre arrives with W02.
 
 ---
 

@@ -57,6 +57,8 @@ Prerequisites: `uv` (Python 3.12 is fetched by uv), Node.js 20+ and pnpm 12 (`np
 | Type check | `uv run pyright` |
 | Tests | `uv run pytest` |
 | Catalogue check | `uv run slf catalog validate --root ../catalog` |
+| Regenerate JSON schemas after editing `slf/schemas.py` | `uv run slf catalog schemas` |
+| Build the geography spine (downloads COD-AB once, ~60 MB) | `uv run slf spine build --relations-csv ../catalog/geographies/relations/admin_cod-ab-v03.csv` |
 | Run a dataset end to end (local) | `uv run slf build <dataset> --out-dir ./data/build` |
 | Snapshot only / validate only | `uv run slf snapshot <dataset>` · `uv run slf validate <dataset>` |
 | Release | `uv run slf release` (stub until D04) |
