@@ -591,7 +591,58 @@ class CrosswalkBuild:
     equivalence: dict[str, tuple[int, int, list[tuple[str, str, str]]]]
 
 
-def build(storage: Storage, spine: pd.DataFrame) -> CrosswalkBuild:
+def apply_manual(
+    res: MatchResult, system: str, manual: pd.DataFrame, spine: pd.DataFrame
+) -> MatchResult:
+    """Apply person-made decisions (catalog/geographies/manual-matches.csv); they win over automatic ones."""
+    rows = manual[manual["system"] == system]
+    if rows.empty:
+        return res
+    names = dict(zip(spine["geography_id"], spine["name_en"], strict=False))
+    m, r = res.matches.copy(), res.review.copy()
+    for d in rows.itertuples(index=False):
+        level = int(d.level)
+        prev = m[(m["code"] == d.code) & (m["level"] == level)]
+        prev_r = r[(r["code"] == d.code) & (r["level"] == level)]
+        name = (
+            prev["name_in_system"].iloc[0]
+            if len(prev)
+            else (prev_r["name_in_system"].iloc[0] if len(prev_r) else None)
+        )
+        m = m[~((m["code"] == d.code) & (m["level"] == level))]
+        r = r[~((r["code"] == d.code) & (r["level"] == level))]
+        base = {"system": system, "level": level, "code": d.code, "name_in_system": name}
+        if d.decision == "match":
+            m = pd.concat([m, pd.DataFrame([{**base, "geography_id": d.geography_id, "match_method": "manual", "confidence": 0.9,
+                                              "note": f"manual ({d.decided_by}, {d.date}): {d.evidence}"}])], ignore_index=True)  # fmt: skip
+        elif d.decision == "review":
+            was = (
+                f"; automatic match was {prev['geography_id'].iloc[0]} {names.get(prev['geography_id'].iloc[0])}"
+                if len(prev)
+                else ""
+            )
+            r = pd.concat([r, pd.DataFrame([{**base, "parent_in_system": None, "parent_geography_id": None,
+                                              "reason": f"manual review ({d.decided_by}, {d.date}): {d.evidence}{was}", "candidates": None}])], ignore_index=True)  # fmt: skip
+    used = set(m["geography_id"])
+    nc = res.no_counterpart
+    # spine units freed by a manual decision become "no counterpart"
+    freed = spine[spine["level"].isin(res.matches["level"].unique()) & ~spine["geography_id"].isin(used)
+                  & spine["geography_id"].isin(res.matches["geography_id"])][["geography_id", "level", "name_en", "parent_id"]]  # fmt: skip
+    nc = pd.concat([nc, freed], ignore_index=True).drop_duplicates("geography_id")
+    return MatchResult(
+        matches=m.sort_values(["level", "code"]).reset_index(drop=True),
+        review=r.reset_index(drop=True),
+        no_counterpart=nc,
+    )
+
+
+def build(
+    storage: Storage, spine: pd.DataFrame, manual: pd.DataFrame | None = None
+) -> CrosswalkBuild:
+    full_spine = spine
+    if "status" in spine.columns:
+        # provisional units are matched only by a person
+        spine = pd.DataFrame(spine[spine["status"] == "current"])
     refs = {k: latest(storage, pre, fn) for k, (pre, fn, _) in SNAPSHOTS.items()}
     units = {k: SNAPSHOTS[k][2](storage, refs[k]) for k in SNAPSHOTS}
     equiv = {k: test_code_equivalence(u, spine) for k, u in units.items()}
@@ -599,6 +650,8 @@ def build(storage: Storage, spine: pd.DataFrame) -> CrosswalkBuild:
     for k in ("dcs_census2024", "nsdi", "ldl"):
         ok, n, _ = equiv[k]
         results[k] = match_system(units[k], spine, code_equivalence=ok >= 0.9 * n)
+        if manual is not None:
+            results[k] = apply_manual(results[k], k, manual, full_spine)
     nu = units["nuuuwan"]
     results["nuuuwan"] = inherit_matches(
         nu,
@@ -635,6 +688,7 @@ def render_report(b: CrosswalkBuild, spine: pd.DataFrame) -> str:
                 "System": k, "Level": LEVEL[lv], "Units in system": f"{n:,}",
                 "exact_code": int((m["match_method"] == "exact_code").sum()),
                 "name_and_parent": int((m["match_method"] == "name_and_parent").sum()),
+                "manual": int((m["match_method"] == "manual").sum()),
                 "Matched %": f"{100 * len(m) / n:.2f}",
                 "Review queue": int((res.review["level"] == lv).sum()),
                 "Spine units with no counterpart": int((res.no_counterpart["level"] == lv).sum()),
@@ -732,9 +786,11 @@ def render_report(b: CrosswalkBuild, spine: pd.DataFrame) -> str:
         "",
         "## 4. DS divisions: 340 (DCS) vs 339 (COD-AB) vs 332 (NSDI) vs 331 (commonly cited)",
         "",
-        "**DCS 340 vs COD-AB 339.** All 339 COD-AB DS units have a DCS counterpart. The extra DCS unit is **Kalmunai North Sub** (DCS code 5221): "
-        "COD-AB has one Kalmunai unit (`LK5221`), which DCS's \"Kalmunai\" (5224) matches by name. Kalmunai North Sub is in the review queue; its GN divisions "
-        "are among the unmatched DCS GNs. Whether it should become a provisional spine unit (`LK-ADM3-P0001`) is a decision for the lead.",
+        "**DCS 340 vs COD-AB 339: Kalmunai.** COD-AB has one Kalmunai unit (`LK5221`, 58 GNs). DCS splits that area into two DS divisions: "
+        "**Kalmunai North Sub** (DCS 5221) and **Kalmunai** (DCS 5224), 29 GNs each. The 29 *named* COD-AB GNs in `LK5221` are exactly the 29 DCS 5221 GNs (codes and names agree); "
+        "the other 29 COD-AB GNs have no names, so they cannot yet be matched one to one with DCS 5224's GNs. By the lead's decision (D-022), Kalmunai North Sub is the provisional unit "
+        "`LK-ADM3-P0001`, composed of its 29 GNs (`catalog/geographies/provisional.csv`). DCS 5224 is **not** equivalent to `LK5221` and stays in the review queue with this explanation "
+        "(`catalog/geographies/manual-matches.csv`); `LK5221` is therefore listed as having no DCS counterpart.",
         "",
         "**DS codes differ between DCS and COD-AB for 13 units** (matched by name within the district):",
         "",

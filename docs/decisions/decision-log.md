@@ -173,6 +173,14 @@ These were stated by you or are standing rules in [brainstorm-decisions.md](../b
 - **Consequences:** edge tables are published as downloads, which also eases a later linked-data export (JSON-LD, Wikidata links). F02 defines the relation schema; G01 builds the hierarchy and contiguity edges.
 - **Revisit when:** users need interactive multi-hop queries over millions of edges, or road-network analysis (travel time to services) becomes a core product. First try a graph extension inside DuckDB (DuckPGQ, community extension 🟡) or Postgres before adding a separate database.
 
+## D-022: Provisional units for divisions missing from COD-AB; first one is Kalmunai North Sub
+- **Status:** Accepted · 2026-11-08 (decided by the lead) · Applies data-model §3.2
+- **Context:** DCS Census 2024 publishes 340 DS divisions; COD-AB v03 has 339. The difference is Kalmunai: COD-AB has one unit (`LK5221`, 58 GNs), while DCS publishes **Kalmunai North Sub** (DS 5221) and **Kalmunai** (DS 5224) separately, 29 GNs each. The 29 named COD-AB GNs in `LK5221` are exactly DCS 5221's GNs; the other 29 COD-AB GNs have no names. Without a unit for Kalmunai North Sub, DCS figures for it cannot be joined.
+- **Decision:** Add **`LK-ADM3-P0001` Kalmunai North Sub** as a provisional DS unit under Ampara (`LK52`), defined by `composed_of` relations to its 29 GNs (`catalog/geographies/provisional.csv`, `relations/provisional.csv`); its geometry is derived as their union. General rule: units missing from COD-AB get `LK-ADM{level}-P{nnnn}` ids, never reused, defined by composition, `status: provisional` until an official boundary source settles them. Provisional units overlap COD-AB units, so they are excluded from area roll-ups, the contiguity graph and geometry QA. Person-made crosswalk decisions live in `catalog/geographies/manual-matches.csv`. The naming follows the DCS publication and implies no position on any administrative question (AGENTS rule 12).
+- **Alternatives:** keep COD-AB only (rejected: loses published census figures); split `LK5221` into two units by inference (rejected: the remaining 29 GNs are unnamed, so their match to DCS 5224 is unverified).
+- **Consequences:** DCS 5221 → `LK-ADM3-P0001` (manual match). DCS 5224 Kalmunai is **not** equivalent to `LK5221` and stays in review; whether to add a second provisional unit for it depends on matching the 29 unnamed GNs (needs a GN list with names, or geometry). Sinhala and Tamil names are to be recorded from an official source.
+- **Revisit when:** the Survey Department or DCS supplies an official DS list or boundaries; or the 29 unnamed GNs are identified.
+
 ---
 
 ## Template

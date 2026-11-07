@@ -1,0 +1,108 @@
+{
+  "additionalProperties": false,
+  "description": "One row of catalog/geographies/provisional.csv: a unit missing from COD-AB (D-022).\n\nProvisional ids are never reused. The unit is defined by its `composed_of` relations to\nspine units (catalog/geographies/relations/provisional.csv); its geometry is derived.",
+  "properties": {
+    "geography_id": {
+      "pattern": "^LK-ADM[1-4]-P\\d{4}$",
+      "title": "Geography Id",
+      "type": "string"
+    },
+    "scheme": {
+      "const": "admin",
+      "title": "Scheme",
+      "type": "string"
+    },
+    "level": {
+      "maximum": 4,
+      "minimum": 1,
+      "title": "Level",
+      "type": "integer"
+    },
+    "name_en": {
+      "title": "Name En",
+      "type": "string"
+    },
+    "name_si": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Name Si"
+    },
+    "name_ta": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Name Ta"
+    },
+    "parent_id": {
+      "pattern": "^LK[A-Za-z0-9-]*$",
+      "title": "Parent Id",
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "provisional",
+        "retired"
+      ],
+      "title": "Status",
+      "type": "string"
+    },
+    "valid_from": {
+      "anyOf": [
+        {
+          "format": "date",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Valid From"
+    },
+    "source": {
+      "title": "Source",
+      "type": "string"
+    },
+    "evidence": {
+      "title": "Evidence",
+      "type": "string"
+    },
+    "notes": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Notes"
+    }
+  },
+  "required": [
+    "geography_id",
+    "scheme",
+    "level",
+    "name_en",
+    "parent_id",
+    "status",
+    "source",
+    "evidence"
+  ],
+  "title": "ProvisionalGeographyRow",
+  "type": "object"
+}

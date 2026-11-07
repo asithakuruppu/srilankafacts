@@ -44,7 +44,7 @@ No blocking errors.
 | 0 country | 1 | 1 |  |  |
 | 1 province | 9 | 9 | 9 |  |
 | 2 district | 25 | 25 | 25 |  |
-| 3 ds | 339 | 339 | 332 features (329 codes) | 331 |
+| 3 ds | 339 (+1 provisional) | 339 | 332 features (329 codes) | 331 |
 | 4 gn | 14,043 | 14,043 | 14,051 | 14,022 |
 
 ## 5. Geometry
@@ -64,7 +64,7 @@ Area roll-up per level against the country polygon:
 
 ### Units outside their attribute parent (> 1% of area)
 
-0 of 14416 units exceed the threshold. Top 10:
+0 of 14417 units exceed the threshold. Top 10:
 
 None.
 
@@ -72,9 +72,30 @@ Distribution of the share outside parent, all units: 50% ≤ 0.00000, 90% ≤ 0.
 
 ### Attribute parent vs spatial parent (label point)
 
-0 units have a label point outside their attribute parent. Parents are **not** changed; any fix needs the lead's decision or an override with evidence.
+29 units have a label point outside their attribute parent. Parents are **not** changed; any fix needs the lead's decision or an override with evidence.
 
-None.
+| geography_id | attribute_parent | spatial_parent |
+|---|---|---|
+| LK5221005 | LK5221 | LK-ADM3-P0001 |
+| LK5221010 | LK5221 | LK-ADM3-P0001 |
+| LK5221015 | LK5221 | LK-ADM3-P0001 |
+| LK5221020 | LK5221 | LK-ADM3-P0001 |
+| LK5221025 | LK5221 | LK-ADM3-P0001 |
+| LK5221030 | LK5221 | LK-ADM3-P0001 |
+| LK5221035 | LK5221 | LK-ADM3-P0001 |
+| LK5221040 | LK5221 | LK-ADM3-P0001 |
+| LK5221045 | LK5221 | LK-ADM3-P0001 |
+| LK5221050 | LK5221 | LK-ADM3-P0001 |
+| LK5221055 | LK5221 | LK-ADM3-P0001 |
+| LK5221060 | LK5221 | LK-ADM3-P0001 |
+| LK5221065 | LK5221 | LK-ADM3-P0001 |
+| LK5221070 | LK5221 | LK-ADM3-P0001 |
+| LK5221075 | LK5221 | LK-ADM3-P0001 |
+| LK5221080 | LK5221 | LK-ADM3-P0001 |
+| LK5221085 | LK5221 | LK-ADM3-P0001 |
+| LK5221090 | LK5221 | LK-ADM3-P0001 |
+| LK5221095 | LK5221 | LK-ADM3-P0001 |
+| LK5221100 | LK5221 | LK-ADM3-P0001 |
 
 ## 6. Names
 
@@ -85,7 +106,7 @@ Coverage (% of units with a name) per level and language:
 | 0 | 1 | 100.0 | 100.0 | 100.0 |
 | 1 | 9 | 100.0 | 100.0 | 100.0 |
 | 2 | 25 | 100.0 | 100.0 | 100.0 |
-| 3 | 339 | 100.0 | 100.0 | 100.0 |
+| 3 | 340 | 100.0 | 99.7 | 99.7 |
 | 4 | 14043 | 99.5 | 99.5 | 0.0 |
 
 Missing names (count of units) per level:
@@ -95,7 +116,7 @@ Missing names (count of units) per level:
 | 0 | 0 | 0 | 0 |
 | 1 | 0 | 0 | 0 |
 | 2 | 0 | 0 | 0 |
-| 3 | 0 | 0 | 0 |
+| 3 | 0 | 1 | 1 |
 | 4 | 65 | 65 | 14043 |
 
 Missing Tamil names stay null: names are never machine-transliterated into the published field (data-model.md §3.6).
@@ -135,6 +156,14 @@ Rook contiguity in EPSG:5235: boundaries within 1 m count as touching; a shared 
 - Level 3 without border neighbours (islands or separated units): LK4142 Delft
 - Level 4 without border neighbours (islands or separated units): LK4103015 Eluvaitivu, LK4512020 Iranaithivu, LK6203010 Palliyawatta
 
-## 8. Outputs
+## 8. Provisional units (D-022)
+
+Units missing from COD-AB, added from `catalog/geographies/provisional.csv`. Geometry is the union of their `composed_of` units. They overlap COD-AB units, so they are excluded from area roll-ups and the contiguity graph.
+
+| geography_id | level | name_en | parent_id |
+|---|---|---|---|
+| LK-ADM3-P0001 | 3 | Kalmunai North Sub | LK52 |
+
+## 9. Outputs
 
 `geographies.parquet`, `geography_relations.parquet` (parent edges, D-021), `geography_versions.geoparquet`, `spatial/adjacency_{level}_cod-ab-v03.parquet`, `vectors/geo_cod-ab-v03.parquet`, and `geography_spine_cod-ab-v03.gpkg` (layers per level, label points and `qa_outside_parent` for QGIS).

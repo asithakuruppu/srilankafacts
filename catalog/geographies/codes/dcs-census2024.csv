@@ -1,4 +1,5 @@
 geography_id,vintage,code_system,external_code,external_name,match_method,confidence,notes
+LK-ADM3-P0001,cod-ab-v03,dcs-census2024,5221,Kalmunai North Sub,manual,0.9,"manual (lead, 2026-11-08): DCS CPH 2024 GN workbook lists DS 5221 'Kalmunai North Sub' with 29 GNs; provisional unit created for it (D-022)"
 LK1103,cod-ab-v03,dcs-census2024,1103,Colombo,exact_code,1.0,
 LK1103005,cod-ab-v03,dcs-census2024,1103005,Sammanthranapura,exact_code,1.0,
 LK1103010,cod-ab-v03,dcs-census2024,1103010,Mattakkuliya,exact_code,1.0,
@@ -8454,7 +8455,6 @@ LK5218240,cod-ab-v03,dcs-census2024,5218240,Kallarichchel 01,exact_code,1.0,
 LK5218245,cod-ab-v03,dcs-census2024,5218245,Valathapitty 02,exact_code,1.0,
 LK5218250,cod-ab-v03,dcs-census2024,5218250,Valathapitty 01,exact_code,1.0,
 LK5218255,cod-ab-v03,dcs-census2024,5218255,Malwatte 04,exact_code,1.0,
-LK5221,cod-ab-v03,dcs-census2024,5224,Kalmunai,name_and_parent,0.9,parent LK52; code LK5224 differs
 LK5221005,cod-ab-v03,dcs-census2024,5221005,Periyaneelavanai  01B,exact_code,1.0,
 LK5221010,cod-ab-v03,dcs-census2024,5221010,Periyaneelavanai  01A,exact_code,1.0,
 LK5221015,cod-ab-v03,dcs-census2024,5221015,Periyaneelavanai  01,exact_code,1.0,

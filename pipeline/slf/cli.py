@@ -138,21 +138,27 @@ def spine_build(
     relations_csv: Annotated[
         Path | None, typer.Option(help="Also write parent edges to this catalogue CSV.")
     ] = None,
+    catalog: Annotated[Path, typer.Option(help="Catalogue folder (provisional units).")] = Path(
+        "../catalog"
+    ),
 ) -> None:
     """Build the admin geography spine (levels 0-4) from COD-AB, with a QA report."""
     from slf.datasets import cod_ab_admin
 
     storage = from_env()
     root = Path(os.environ.get("SLF_DATA_DIR", "data"))
-    result = cod_ab_admin.build_spine(storage, root, out_dir, refresh=refresh)
+    result = cod_ab_admin.build_spine(storage, root, out_dir, refresh=refresh, catalog_root=catalog)
     for p in result.outputs:
         typer.echo(f"wrote {p}")
     if relations_csv is not None:
         import pandas as pd
 
         rel = pd.read_parquet(out_dir / "geography_relations.parquet")
+        rel = rel[
+            rel["method"] == "attribute"
+        ]  # COD-AB edges only; provisional edges live in the catalogue
         relations_csv.parent.mkdir(parents=True, exist_ok=True)
-        relations_csv.write_text(cod_ab_admin.relations_csv(rel), encoding="utf-8")
+        relations_csv.write_text(cod_ab_admin.relations_csv(pd.DataFrame(rel)), encoding="utf-8")
         typer.echo(f"wrote {relations_csv} ({len(rel)} parent edges)")
     for e in result.errors:
         typer.echo(f"ERROR {e}", err=True)
@@ -190,7 +196,9 @@ def crosswalk_build(
     from slf.datasets import crosswalk_admin
 
     spine = pd.read_parquet(spine_dir / "geographies.parquet")
-    b = crosswalk_admin.build(from_env(), spine)
+    mm_path = catalog / "geographies" / "manual-matches.csv"
+    manual = pd.read_csv(mm_path, dtype=str) if mm_path.exists() else None
+    b = crosswalk_admin.build(from_env(), spine, manual)
     for p in crosswalk_admin.write_outputs(b.results, catalog):
         typer.echo(f"wrote {p}")
     report.parent.mkdir(parents=True, exist_ok=True)
@@ -232,6 +240,8 @@ def geometry_build(
 
     storage = from_env()
     versions = gpd.read_parquet(spine_dir / "geography_versions.geoparquet")
+    if "status" in versions.columns:  # provisional units overlap COD-AB units by design
+        versions = gpd.GeoDataFrame(versions[versions["status"] == "current"], crs=versions.crs)
     geos = pd.read_parquet(spine_dir / "geographies.parquet")
     nsdi_codes = pd.read_csv(catalog / "geographies" / "codes" / "nsdi.csv", dtype=str)
     try:

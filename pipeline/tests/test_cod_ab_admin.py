@@ -159,6 +159,7 @@ def test_committed_hierarchy_is_a_tree_rooted_at_lk() -> None:
 @pytest.mark.skipif(not (BUILD / "geographies.parquet").exists(), reason="run `slf spine build`")
 def test_local_build_matches_committed_hierarchy() -> None:
     geos = pd.read_parquet(BUILD / "geographies.parquet")
+    geos = pd.DataFrame(geos[geos["status"] == "current"])  # provisional edges: catalogue
     built = set(
         zip(
             geos["parent_id"].dropna(),
@@ -168,3 +169,44 @@ def test_local_build_matches_committed_hierarchy() -> None:
     )
     committed = {(e["geography_id"], e["related_id"]) for e in _edges()}
     assert built == committed
+
+
+def test_provisional_unit_is_composed_of_kalmunai_north_gns() -> None:
+    rel = pd.read_csv(REPO / "catalog" / "geographies" / "relations" / "provisional.csv", dtype=str)
+    members = rel[(rel["geography_id"] == "LK-ADM3-P0001") & (rel["relation"] == "composed_of")]
+    assert len(members) == 29
+    parent = {e["related_id"]: e["geography_id"] for e in _edges()}
+    assert {parent[m] for m in members["related_id"]} == {"LK5221"}  # all inside COD-AB Kalmunai
+
+
+def test_add_provisional_unions_members(
+    tmp_path: Path, toy: tuple[pd.DataFrame, gpd.GeoDataFrame]
+) -> None:
+    geos, g = toy
+    geos = geos.assign(status="current", name_en=geos["geography_id"])
+    g = gpd.GeoDataFrame(g.assign(status="current"), crs="EPSG:4326")
+    (tmp_path / "geographies" / "relations").mkdir(parents=True)
+    (tmp_path / "geographies" / "provisional.csv").write_text(
+        "geography_id,scheme,level,name_en,name_si,name_ta,parent_id,status,valid_from,source,evidence,notes\n"
+        "LK-ADM1-P0001,admin,1,Toy Sub,,,LK,provisional,,x,y,\n"
+    )
+    (tmp_path / "geographies" / "relations" / "provisional.csv").write_text(
+        "geography_id,related_id,relation,vintage,weight,method,source,valid_from,valid_to,notes\n"
+        "LK-ADM1-P0001,LK11,composed_of,v,1.0,official_list,x,,,\n"
+        "LK-ADM1-P0001,LK12,composed_of,v,1.0,official_list,x,,,\n"
+    )
+    ref = cab.SnapshotRef(
+        key="k",
+        sha256="a" * 64,
+        url=None,
+        retrieved_at="t",
+        size_bytes=1,
+        licence_note=None,
+        reused=True,
+    )
+    geos2, v2, _rel, errors = cab.add_provisional(geos, g, tmp_path, ref)
+    assert errors == []
+    row = v2[v2["geography_id"] == "LK-ADM1-P0001"].iloc[0]
+    assert row["status"] == "provisional"
+    assert row["area_km2"] == pytest.approx(2 * 1.1 * 1.1, rel=0.05)  # two ~1.1 km squares
+    assert cab.check_hierarchy(geos2) == []

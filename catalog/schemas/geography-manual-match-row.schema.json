@@ -1,0 +1,67 @@
+{
+  "additionalProperties": false,
+  "description": "One row of catalog/geographies/manual-matches.csv: a crosswalk decision made by a person.\n\nApplied after automatic matching and wins over it. `decision: review` forces an item into the\nreview queue with the stated reason (for matches that look right but are not equivalent).",
+  "properties": {
+    "system": {
+      "pattern": "^[a-z0-9][a-z0-9_-]*$",
+      "title": "System",
+      "type": "string"
+    },
+    "level": {
+      "maximum": 4,
+      "minimum": 1,
+      "title": "Level",
+      "type": "integer"
+    },
+    "code": {
+      "title": "Code",
+      "type": "string"
+    },
+    "decision": {
+      "enum": [
+        "match",
+        "review",
+        "no_counterpart"
+      ],
+      "title": "Decision",
+      "type": "string"
+    },
+    "geography_id": {
+      "anyOf": [
+        {
+          "pattern": "^LK[A-Za-z0-9-]*$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Geography Id"
+    },
+    "evidence": {
+      "title": "Evidence",
+      "type": "string"
+    },
+    "decided_by": {
+      "title": "Decided By",
+      "type": "string"
+    },
+    "date": {
+      "format": "date",
+      "title": "Date",
+      "type": "string"
+    }
+  },
+  "required": [
+    "system",
+    "level",
+    "code",
+    "decision",
+    "evidence",
+    "decided_by",
+    "date"
+  ],
+  "title": "ManualMatchRow",
+  "type": "object"
+}

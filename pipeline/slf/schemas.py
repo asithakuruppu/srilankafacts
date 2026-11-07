@@ -284,6 +284,56 @@ class GeoRelationRow(Strict):
         return self
 
 
+class ProvisionalGeographyRow(Strict):
+    """One row of catalog/geographies/provisional.csv: a unit missing from COD-AB (D-022).
+
+    Provisional ids are never reused. The unit is defined by its `composed_of` relations to
+    spine units (catalog/geographies/relations/provisional.csv); its geometry is derived.
+    """
+
+    geography_id: Annotated[str, StringConstraints(pattern=r"^LK-ADM[1-4]-P\d{4}$")]
+    scheme: Literal["admin"]
+    level: int = Field(ge=1, le=4)
+    name_en: str
+    name_si: str | None = None
+    name_ta: str | None = None
+    parent_id: GeographyId
+    status: Literal["provisional", "retired"]
+    valid_from: dt.date | None = None
+    source: str
+    evidence: str
+    notes: str | None = None
+
+    @model_validator(mode="after")
+    def _level_in_id(self) -> ProvisionalGeographyRow:
+        if self.geography_id[6] != str(self.level):
+            raise ValueError("the level in the id (LK-ADM<level>-P…) must match `level`")
+        return self
+
+
+class ManualMatchRow(Strict):
+    """One row of catalog/geographies/manual-matches.csv: a crosswalk decision made by a person.
+
+    Applied after automatic matching and wins over it. `decision: review` forces an item into the
+    review queue with the stated reason (for matches that look right but are not equivalent).
+    """
+
+    system: Slug
+    level: int = Field(ge=1, le=4)
+    code: str
+    decision: Literal["match", "review", "no_counterpart"]
+    geography_id: GeographyId | None = None
+    evidence: str
+    decided_by: str
+    date: dt.date
+
+    @model_validator(mode="after")
+    def _target(self) -> ManualMatchRow:
+        if (self.decision == "match") != (self.geography_id is not None):
+            raise ValueError("geography_id is required for 'match' and must be empty otherwise")
+        return self
+
+
 class OverrideRow(Strict):
     """One row of overrides/*.csv: a human correction with evidence (AGENTS rule 3)."""
 
@@ -396,6 +446,8 @@ EXPORTED_SCHEMAS: dict[str, type[BaseModel]] = {
     "geography-schemes": GeographySchemes,
     "geography-code-row": GeoCodeRow,
     "geography-relation-row": GeoRelationRow,
+    "geography-provisional-row": ProvisionalGeographyRow,
+    "geography-manual-match-row": ManualMatchRow,
     "override-row": OverrideRow,
     "vector-space": VectorSpace,
     "observation": Observation,

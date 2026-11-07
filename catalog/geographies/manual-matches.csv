@@ -1,0 +1,3 @@
+system,level,code,decision,geography_id,evidence,decided_by,date
+dcs_census2024,3,5221,match,LK-ADM3-P0001,"DCS CPH 2024 GN workbook lists DS 5221 'Kalmunai North Sub' with 29 GNs; provisional unit created for it (D-022)",lead,2026-11-08
+dcs_census2024,3,5224,review,,"COD-AB LK5221 'Kalmunai' covers DCS 5221 and 5224 together (58 GNs). DCS 5224 corresponds to LK5221 minus LK-ADM3-P0001; its 29 GNs likely match the 29 unnamed COD-AB GNs LK5221150-LK5221300 (same count; unverified). Not equivalent to LK5221.",agent (G02 follow-up),2026-11-08

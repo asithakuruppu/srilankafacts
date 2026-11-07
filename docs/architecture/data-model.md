@@ -137,7 +137,7 @@ Schemas live in `pipeline/slf/schemas.py` and are exported as JSON Schema to `ca
 
 - **Admin units use OCHA p-codes** as the public ID: `LK`, `LK1`, `LK11`, `LK1103`, `LK1103005`. They are the humanitarian standard and compatible with HDX and Lanka Data Layer. nuuuwan's census IDs (`LK-1103015`) have the same structure ✅, but whether every code refers to the same unit must be tested in G02 before relying on it. (D-004)
 - **Other schemes** get prefixed IDs: `LK-ED-01`, `LK-PD-01A`, `LK-LA-0001`, `LK-MOH-11001`. Use the authority's code where it is stable; otherwise mint a sequential code and record the authority code in `GEO_CODE`.
-- **Units missing from COD-AB** (for example new DS divisions) get a provisional ID `LK-ADM3-P0001` with `status: provisional` until reconciled. Provisional IDs are never reused.
+- **Units missing from COD-AB** (for example new DS divisions) get a provisional ID `LK-ADM3-P0001` with `status: provisional` until reconciled. Provisional IDs are never reused. They are defined by `composed_of` relations to spine units (geometry derived as their union) in `catalog/geographies/provisional.csv` and `relations/provisional.csv` (D-022). The first is `LK-ADM3-P0001` Kalmunai North Sub.
 - **IDs never encode meaning we rely on.** Hierarchy comes from `GEO_RELATION`, not from parsing the code, because DS divisions split and codes drift across sources (DS 2309 Walapane vs Nildandahinna ✅).
 - **External codes** live in `GEO_CODE` with `match_method` (`exact_code`, `name_and_parent`, `spatial`, `manual`) and `confidence`.
 

@@ -31,15 +31,15 @@ The transformation holds broadly, so codes are used, but **only unit by unit**: 
 
 ## 3. Match rates
 
-| System | Level | Units in system | exact_code | name_and_parent | Matched % | Review queue | Spine units with no counterpart |
-|---|---|---|---|---|---|---|---|
-| dcs_census2024 | DS | 340 | 326 | 13 | 99.71 | 1 | 0 |
-| dcs_census2024 | GN | 14,008 | 13782 | 163 | 99.55 | 63 | 98 |
-| nsdi | DS | 332 | 324 | 4 | 98.80 | 4 | 11 |
-| nsdi | GN | 14,051 | 13704 | 0 | 97.53 | 347 | 339 |
-| ldl | DS | 339 | 339 | 0 | 100.00 | 0 | 0 |
-| ldl | GN | 14,043 | 14043 | 0 | 100.00 | 0 | 0 |
-| nuuuwan | GN | 14,008 | 13782 | 163 | 99.55 | 63 | 98 |
+| System | Level | Units in system | exact_code | name_and_parent | manual | Matched % | Review queue | Spine units with no counterpart |
+|---|---|---|---|---|---|---|---|---|
+| dcs_census2024 | DS | 340 | 326 | 12 | 1 | 99.71 | 1 | 1 |
+| dcs_census2024 | GN | 14,008 | 13782 | 163 | 0 | 99.55 | 63 | 98 |
+| nsdi | DS | 332 | 324 | 4 | 0 | 98.80 | 4 | 11 |
+| nsdi | GN | 14,051 | 13704 | 0 | 0 | 97.53 | 347 | 339 |
+| ldl | DS | 339 | 339 | 0 | 0 | 100.00 | 0 | 0 |
+| ldl | GN | 14,043 | 14043 | 0 | 0 | 100.00 | 0 | 0 |
+| nuuuwan | GN | 14,008 | 13782 | 163 | 0 | 99.55 | 63 | 98 |
 
 **Review queue: 478 items** (all systems) in `catalog/geographies/manual-review.csv`, each with a reason and up to three candidates. Nothing is dropped: every unit is matched, queued, or (for spine units) listed as having no counterpart.
 
@@ -49,7 +49,7 @@ Name normalisation: Unicode → ASCII, lower case, `&` → `and`, punctuation re
 
 ## 4. DS divisions: 340 (DCS) vs 339 (COD-AB) vs 332 (NSDI) vs 331 (commonly cited)
 
-**DCS 340 vs COD-AB 339.** All 339 COD-AB DS units have a DCS counterpart. The extra DCS unit is **Kalmunai North Sub** (DCS code 5221): COD-AB has one Kalmunai unit (`LK5221`), which DCS's "Kalmunai" (5224) matches by name. Kalmunai North Sub is in the review queue; its GN divisions are among the unmatched DCS GNs. Whether it should become a provisional spine unit (`LK-ADM3-P0001`) is a decision for the lead.
+**DCS 340 vs COD-AB 339: Kalmunai.** COD-AB has one Kalmunai unit (`LK5221`, 58 GNs). DCS splits that area into two DS divisions: **Kalmunai North Sub** (DCS 5221) and **Kalmunai** (DCS 5224), 29 GNs each. The 29 *named* COD-AB GNs in `LK5221` are exactly the 29 DCS 5221 GNs (codes and names agree); the other 29 COD-AB GNs have no names, so they cannot yet be matched one to one with DCS 5224's GNs. By the lead's decision (D-022), Kalmunai North Sub is the provisional unit `LK-ADM3-P0001`, composed of its 29 GNs (`catalog/geographies/provisional.csv`). DCS 5224 is **not** equivalent to `LK5221` and stays in the review queue with this explanation (`catalog/geographies/manual-matches.csv`); `LK5221` is therefore listed as having no DCS counterpart.
 
 **DS codes differ between DCS and COD-AB for 13 units** (matched by name within the district):
 
@@ -66,7 +66,6 @@ Name normalisation: Unicode → ASCII, lower case, `&` → `and`, punctuation re
 | 3137 | Rathgama | LK3163 | Rathgama |
 | 5112 | Eravur Pattu | LK5115 | Eravur Pattu |
 | 5115 | Eravur Town | LK5139 | Eravur Town |
-| 5224 | Kalmunai | LK5221 | Kalmunai |
 | 9119 | Kaltota | LK9154 | Kalthota |
 
 So a DCS DS code cannot be turned into a p-code by rule in these districts (Nuwara Eliya, Galle, Batticaloa, Ampara, Badulla). Example: DCS 2309 is Walapane, COD-AB `LK2309` is Nildandahinna.

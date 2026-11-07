@@ -1,0 +1,2 @@
+geography_id,scheme,level,name_en,name_si,name_ta,parent_id,status,valid_from,source,evidence,notes
+LK-ADM3-P0001,admin,3,Kalmunai North Sub,,,LK52,provisional,,census-2024-gnd-tables,"DCS CPH 2024 GN population workbook lists 'Kalmunai North Sub' (DS code 5221) with 29 GN divisions (snapshot raw/dcs/census-2024-gnd-tables/20261107T165036Z/GN_population.xlsx, sha256 2e0168c5…)","COD-AB v03 has no separate unit: its 29 GNs are inside LK5221 Kalmunai, which also contains 29 unnamed GNs. Sinhala and Tamil names not yet recorded. Added by lead decision 2026-11-08 (D-022)."

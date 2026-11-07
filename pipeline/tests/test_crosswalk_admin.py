@@ -121,12 +121,27 @@ def test_known_cases_in_committed_crosswalk() -> None:
     )
     assert dcs["2309"] == "LK2324"  # Walapane (code drift, audit §11)
     assert dcs["2310"] == "LK2309"  # Nildandahinna
-    assert dcs["5224"] == "LK5221"  # Kalmunai
+    assert dcs["5221"] == "LK-ADM3-P0001"  # Kalmunai North Sub, provisional (D-022)
+    assert "5224" not in dcs  # Kalmunai: LK5221 covers 5221 + 5224, so not equivalent
     review = pd.read_csv(CATALOG / "manual-review.csv", dtype=str)
-    assert "Kalmunai North Sub" in set(review["name_in_system"])
+    k = review[(review["system"] == "dcs_census2024") & (review["code"] == "5224")]
+    assert "not equivalent" in k["reason"].item().lower()
 
 
 def test_ldl_is_identical_to_spine_codes() -> None:
     ldl = _codes("ldl")
     assert bool((ldl["external_code"] == ldl["geography_id"]).all())
     assert Counter(ldl["geography_id"].str.len()) == {6: 339, 9: 14043}
+
+
+def test_manual_decision_overrides_automatic_match() -> None:
+    u = units([(3, "2309", "Walapane", "23")])
+    res = cw.match_system(u, spine(), code_equivalence=True)
+    manual = pd.DataFrame(
+        [{"system": "toy", "level": "3", "code": "2309", "decision": "review", "geography_id": None,
+          "evidence": "not equivalent", "decided_by": "lead", "date": "2026-11-08"}]
+    )  # fmt: skip
+    out = cw.apply_manual(res, "toy", manual, spine())
+    assert out.matches.empty
+    assert "automatic match was LK2324" in out.review["reason"].item()
+    assert "LK2324" in set(out.no_counterpart["geography_id"])

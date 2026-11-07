@@ -28,7 +28,9 @@ from slf.schemas import (
     GeographySchemes,
     GeoRelationRow,
     Indicator,
+    ManualMatchRow,
     OverrideRow,
+    ProvisionalGeographyRow,
     Rights,
     Source,
     VectorSpace,
@@ -57,6 +59,8 @@ class Catalog:
     schemes: GeographySchemes | None = None
     codes: list[GeoCodeRow] = field(default_factory=list)
     relations: list[GeoRelationRow] = field(default_factory=list)
+    provisional: list[ProvisionalGeographyRow] = field(default_factory=list)
+    manual_matches: list[ManualMatchRow] = field(default_factory=list)
     overrides: list[OverrideRow] = field(default_factory=list)
 
 
@@ -97,18 +101,24 @@ def _load_models[M: BaseModel](folder: Path, model: type[M], report: CatalogRepo
     return out
 
 
+def _load_csv_file[M: BaseModel](path: Path, model: type[M], report: CatalogReport) -> list[M]:
+    rows: list[M] = []
+    with path.open(encoding="utf-8", newline="") as fh:
+        for i, raw in enumerate(csv.DictReader(fh), start=2):  # row 1 is the header
+            clean = {k: (v if v != "" else None) for k, v in raw.items()}
+            try:
+                rows.append(model.model_validate(clean))
+            except ValidationError as exc:
+                report.errors.extend(_fmt(path, exc, row=i))
+    return rows
+
+
 def _load_csv_rows[M: BaseModel](folder: Path, model: type[M], report: CatalogReport) -> list[M]:
     rows: list[M] = []
     if not folder.is_dir():
         return rows
     for path in sorted(folder.glob("*.csv")):
-        with path.open(encoding="utf-8", newline="") as fh:
-            for i, raw in enumerate(csv.DictReader(fh), start=2):  # row 1 is the header
-                clean = {k: (v if v != "" else None) for k, v in raw.items()}
-                try:
-                    rows.append(model.model_validate(clean))
-                except ValidationError as exc:
-                    report.errors.extend(_fmt(path, exc, row=i))
+        rows.extend(_load_csv_file(path, model, report))
     return rows
 
 
@@ -131,6 +141,12 @@ def load_catalog(root: Path, overrides_root: Path | None, report: CatalogReport)
                 report.errors.extend(_fmt(schemes_path, exc))
     cat.codes = _load_csv_rows(root / "geographies" / "codes", GeoCodeRow, report)
     cat.relations = _load_csv_rows(root / "geographies" / "relations", GeoRelationRow, report)
+    prov = root / "geographies" / "provisional.csv"
+    if prov.exists():
+        cat.provisional = _load_csv_file(prov, ProvisionalGeographyRow, report)
+    mm = root / "geographies" / "manual-matches.csv"
+    if mm.exists():
+        cat.manual_matches = _load_csv_file(mm, ManualMatchRow, report)
     if overrides_root is not None:
         cat.overrides = _load_csv_rows(overrides_root, OverrideRow, report)
     return cat
@@ -191,6 +207,27 @@ def check_links(cat: Catalog, report: CatalogReport) -> None:
     for dup in sorted(i for i, n in ov_ids.items() if n > 1):
         report.errors.append(f"overrides: duplicate override_id '{dup}'")
 
+    prov_ids = Counter(p.geography_id for p in cat.provisional)
+    for dup in sorted(i for i, n in prov_ids.items() if n > 1):
+        report.errors.append(
+            f"provisional.csv: duplicate id '{dup}' (provisional ids are never reused)"
+        )
+    prov_set = set(prov_ids)
+    for m in cat.manual_matches:
+        if (
+            m.geography_id
+            and m.geography_id.startswith("LK-ADM")
+            and m.geography_id not in prov_set
+        ):
+            report.errors.append(f"manual-matches: {m.geography_id} is not in provisional.csv")
+    mm_keys = Counter((m.system, m.code) for m in cat.manual_matches)
+    for dup in sorted(k for k, n in mm_keys.items() if n > 1):
+        report.errors.append(f"manual-matches: duplicate decision for {dup}")
+    composed = Counter(r.geography_id for r in cat.relations if r.relation == "composed_of")
+    for p in cat.provisional:
+        if p.status == "provisional" and not composed.get(p.geography_id):
+            report.errors.append(f"provisional unit {p.geography_id} has no composed_of relations")
+
     edges = Counter((r.geography_id, r.related_id, r.relation, r.vintage) for r in cat.relations)
     for dup in sorted(e for e, n in edges.items() if n > 1):
         report.errors.append(f"relations: duplicate edge {dup}")
@@ -212,6 +249,8 @@ def validate_catalog(root: Path, overrides_root: Path | None = None) -> CatalogR
         "code rows": len(cat.codes),
         "relation rows": len(cat.relations),
         "overrides": len(cat.overrides),
+        "provisional units": len(cat.provisional),
+        "manual matches": len(cat.manual_matches),
     }
     return report
 

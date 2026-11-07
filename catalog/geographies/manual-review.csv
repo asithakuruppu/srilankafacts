@@ -60,9 +60,9 @@ dcs_census2024,4,8124160,Kottagoda,Hali-Ela,LK8124,code exists but names differ,
 dcs_census2024,4,8215105,Horombuwa,Moneragala,LK8215,no same-name unit in parent,LK8215085 Viharamulla (0.53); LK8215130 Kahambana (0.44); LK8215100 Kumbukkana (0.44)
 dcs_census2024,4,8218090,Pussellawa,Badalkumbura,LK8218,no same-name unit in parent,LK8218165 Muthukeliyawa (0.63); LK8218015 Ella (0.55); LK8218110 Punsisigama (0.53)
 dcs_census2024,4,1321190,Pothupitiya North,,,"spine unit already matched to 1321110 'Pothupitiya North'; possibly a unit COD-AB does not have, or a duplicate","LK1321110 (name_and_parent, 0.9)"
-dcs_census2024,3,5221,Kalmunai North Sub,,,"spine unit already matched to 5224 'Kalmunai'; possibly a unit COD-AB does not have, or a duplicate","LK5221 (exact_code, 0.8)"
 dcs_census2024,4,5224080,Kalmunaikudi 01,,,"spine unit already matched to 5221080 'Kalmunai  01A'; possibly a unit COD-AB does not have, or a duplicate","LK5221080 (exact_code, 0.9)"
 dcs_census2024,4,7151120,Perimiyankulama,,,"spine unit already matched to 7151020 'Perimiyankulama'; possibly a unit COD-AB does not have, or a duplicate","LK7151020 (name_and_parent, 0.9)"
+dcs_census2024,3,5224,Kalmunai,,,"manual review (agent (G02 follow-up), 2026-11-08): COD-AB LK5221 'Kalmunai' covers DCS 5221 and 5224 together (58 GNs). DCS 5224 corresponds to LK5221 minus LK-ADM3-P0001; its 29 GNs likely match the 29 unnamed COD-AB GNs LK5221150-LK5221300 (same count; unverified). Not equivalent to LK5221.; automatic match was LK5221 Kalmunai",
 nsdi,3,9999,Water Area,Batticaloa,LK51,no same-name unit in parent,LK5115 Eravur Pattu (0.53); LK5139 Eravur Town (0.42); LK5104 Koralai Pattu Central (0.37)
 nsdi,3,9999,Water Area,Gampaha,LK12,no same-name unit in parent,LK1218 Wattala (0.67); LK1206 Katana (0.53); LK1227 Attanagalla (0.44)
 nsdi,4,0,,KATANA,LK0,no unit with this code or name in the parent,

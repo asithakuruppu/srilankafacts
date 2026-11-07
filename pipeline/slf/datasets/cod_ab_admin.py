@@ -225,6 +225,7 @@ def build_versions(units: gpd.GeoDataFrame, gdb_ref: SnapshotRef) -> gpd.GeoData
             "label_lat": shapely.get_y(label),
             "source_dataset": DATASET_ID,
             "snapshot_sha256": gdb_ref.sha256,
+            "status": "current",
         },
         geometry=units.geometry.values,
         crs="EPSG:4326",
@@ -438,6 +439,66 @@ def _md_table(df: pd.DataFrame, floatfmt: str = ".3f") -> str:
     return "\n".join([head, sep, *body])
 
 
+def add_provisional(
+    geos: pd.DataFrame,
+    versions: gpd.GeoDataFrame,
+    catalog_root: Path,
+    gdb_ref: SnapshotRef,
+) -> tuple[pd.DataFrame, gpd.GeoDataFrame, pd.DataFrame, list[str]]:
+    """Add provisional units (D-022) from the catalogue; geometry = union of composed_of units.
+
+    Returns updated geographies and versions, the provisional relation edges, and errors.
+    """
+    prov_path = catalog_root / "geographies" / "provisional.csv"
+    rel_path = catalog_root / "geographies" / "relations" / "provisional.csv"
+    if not prov_path.exists():
+        return geos, versions, pd.DataFrame(columns=build_relations(geos.head(0)).columns), []
+    prov = pd.read_csv(prov_path, dtype=str, keep_default_na=False).replace("", None)
+    rel = pd.read_csv(rel_path, dtype=str, keep_default_na=False).replace("", None)
+    rel["weight"] = pd.to_numeric(rel["weight"])
+    errors: list[str] = []
+    level_of = dict(zip(geos["geography_id"], geos["level"], strict=False))
+    geom_of = versions.set_index("geography_id").geometry
+    new_geos, new_versions = [], []
+    for p in prov.itertuples(index=False):
+        level = int(p.level)
+        members = rel[(rel["geography_id"] == p.geography_id) & (rel["relation"] == "composed_of")][
+            "related_id"
+        ]
+        missing = [m for m in members if m not in level_of]
+        wrong = [m for m in members if m in level_of and level_of[m] != level + 1]
+        if missing or wrong or members.empty:
+            errors.append(
+                f"{p.geography_id}: composed_of members missing {missing[:5]} or at the wrong level {wrong[:5]}"
+            )
+            continue
+        geom = shapely.union_all(geom_of.reindex(members).values)
+        label = shapely.point_on_surface(geom)
+        valid_from = pd.to_datetime(p.valid_from).date() if p.valid_from else None
+        new_geos.append({
+            "geography_id": p.geography_id, "scheme": "admin", "level": level,
+            "level_name": LEVEL_NAMES[level], "name_en": p.name_en, "name_si": p.name_si,
+            "name_ta": p.name_ta, "alt_names": [], "parent_id": p.parent_id,
+            "status": p.status, "valid_from": valid_from, "valid_to": None,
+        })  # fmt: skip
+        new_versions.append({
+            "geography_id": p.geography_id, "level": level, "vintage": VINTAGE,
+            "valid_from": valid_from,
+            "area_km2": float(gpd.GeoSeries([geom], crs="EPSG:4326").to_crs(AREA_CRS).area.iloc[0]) / 1e6,
+            "source_area_sqkm": np.nan, "label_lon": shapely.get_x(label), "label_lat": shapely.get_y(label),
+            "source_dataset": f"{p.source} (geometry: union of {len(members)} COD-AB units)",
+            "snapshot_sha256": gdb_ref.sha256, "status": p.status, "geometry": geom,
+        })  # fmt: skip
+    if new_geos:
+        g2 = pd.DataFrame(new_geos)
+        g2["level"] = g2["level"].astype("int8")
+        geos = pd.concat([geos, g2], ignore_index=True)
+        v2 = gpd.GeoDataFrame(new_versions, geometry="geometry", crs="EPSG:4326")
+        v2["level"] = v2["level"].astype("int8")
+        versions = gpd.GeoDataFrame(pd.concat([versions, v2], ignore_index=True), crs="EPSG:4326")
+    return geos, versions, rel, errors
+
+
 @dataclass
 class SpineResult:
     errors: list[str]
@@ -446,7 +507,12 @@ class SpineResult:
 
 
 def build_spine(
-    storage: Storage, storage_root: Path, out_dir: Path, *, refresh: bool = False
+    storage: Storage,
+    storage_root: Path,
+    out_dir: Path,
+    *,
+    refresh: bool = False,
+    catalog_root: Path | None = None,
 ) -> SpineResult:
     meta_ref, gdb_ref = snapshot(storage, refresh=refresh)
     hdx = json.loads(storage.get(meta_ref.key))["result"]
@@ -456,8 +522,15 @@ def build_spine(
     geos = build_geographies(units)
     versions = build_versions(units, gdb_ref)
     relations = build_relations(geos)
+    prov_errors: list[str] = []
+    if catalog_root is not None:
+        geos, versions, prov_rel, prov_errors = add_provisional(
+            geos, versions, catalog_root, gdb_ref
+        )
+        relations = pd.concat([relations, prov_rel], ignore_index=True)
+    current = versions[versions["status"] == "current"]
 
-    errors = list(insp.problems) + check_hierarchy(geos)
+    errors = list(insp.problems) + check_hierarchy(geos) + prov_errors
     ampara = geos.loc[geos["geography_id"] == "LK52", "parent_id"].tolist()
     if ampara != ["LK5"]:
         errors.append(f"regression: Ampara LK52 parent is {ampara}, expected ['LK5']")
@@ -466,11 +539,11 @@ def build_spine(
     outside = outside_parent(versions, geos)
     offenders = outside[outside["share_outside"] > OUTSIDE_PARENT_THRESHOLD]
     disagree = spatial_parent_disagreements(versions, geos)
-    rollups = area_rollups(versions)
+    rollups = area_rollups(current)  # provisional units overlap COD-AB units; not counted
     names = name_coverage(geos)
     dups = duplicate_names(geos)
 
-    adj = {lv: adjacency(versions, lv) for lv in range(1, 5)}
+    adj = {lv: adjacency(current, lv) for lv in range(1, 5)}
     isolated = {
         lv: sorted(set(df.loc[df["type"] == "distance_band", "geography_id"]))
         for lv, df in adj.items()
@@ -556,17 +629,19 @@ def render_report(
     adj: dict[int, pd.DataFrame],
     isolated: dict[int, list[str]],
 ) -> str:
-    counts = geos.groupby("level").size().to_dict()
+    counts = geos[geos["status"] == "current"].groupby("level").size().to_dict()
+    prov_counts = geos[geos["status"] == "provisional"].groupby("level").size().to_dict()
     cmp_rows = []
     for lv, lname in LEVEL_NAMES.items():
-        row = {"Level": f"{lv} {lname}", "COD-AB v03 (this build)": f"{counts.get(lv, 0):,}"}
+        extra = f" (+{prov_counts[lv]} provisional)" if lv in prov_counts else ""
+        row = {"Level": f"{lv} {lname}", "COD-AB v03 (this build)": f"{counts.get(lv, 0):,}{extra}"}
         for ref, vals in REFERENCE_COUNTS.items():
             row[ref] = vals.get(lv, "")
         cmp_rows.append(row)
     adj_rows = []
     for lv, df in adj.items():
         border = df[df["type"] == "border"]
-        n = int((geos["level"] == lv).sum())
+        n = int(((geos["level"] == lv) & (geos["status"] == "current")).sum())
         adj_rows.append(
             {
                 "Level": f"{lv} {LEVEL_NAMES[lv]}",
@@ -691,7 +766,21 @@ def render_report(
             if v
         ],
         "",
-        "## 8. Outputs",
+        "## 8. Provisional units (D-022)",
+        "",
+        "Units missing from COD-AB, added from `catalog/geographies/provisional.csv`. Geometry is the union of "
+        "their `composed_of` units. They overlap COD-AB units, so they are excluded from area roll-ups and the "
+        "contiguity graph.",
+        "",
+        _md_table(
+            geos.loc[
+                geos["status"] == "provisional", ["geography_id", "level", "name_en", "parent_id"]
+            ]
+        )
+        if (geos["status"] == "provisional").any()
+        else "None.",
+        "",
+        "## 9. Outputs",
         "",
         "`geographies.parquet`, `geography_relations.parquet` (parent edges, D-021), "
         "`geography_versions.geoparquet`, `spatial/adjacency_{level}_" + VINTAGE + ".parquet`, "
