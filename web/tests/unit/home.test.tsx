@@ -1,11 +1,21 @@
 import { render, screen } from "@testing-library/react";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
+
+vi.mock("next/navigation", () => ({
+  useRouter: () => ({ push: vi.fn(), replace: vi.fn() }),
+}));
+
 import Home from "@/app/page";
 
 describe("home page", () => {
-  it("states the project promise and that nothing is published yet", () => {
+  it("states the promise and the national population from the release", () => {
     render(<Home />);
-    expect(screen.getByRole("heading", { name: "Sri Lanka Facts" })).toBeDefined();
-    expect(screen.getByText(/Nothing here is published data yet/)).toBeDefined();
+    expect(
+      screen.getByRole("heading", {
+        name: /Every place in Sri Lanka, every number about it, with its source/i,
+      }),
+    ).toBeDefined();
+    expect(screen.getByText("21,781,800")).toBeDefined();
+    expect(screen.getByRole("heading", { name: "14 indicators in this preview" })).toBeDefined();
   });
 });

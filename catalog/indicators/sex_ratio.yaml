@@ -1,0 +1,18 @@
+id: sex_ratio
+name: Sex ratio
+short_name: Sex ratio
+topic: [population, sex]
+measure_type: ratio
+unit: males per 100 females
+universe: persons
+numerator: population_male
+denominator: population_female
+aggregation: recompute_from_components
+higher_is: neutral
+decimals: 1
+sensitivity: public
+definition: >
+  Number of males per 100 females, computed as 100 × male population ÷ female population.
+  A value below 100 means more females than males.
+source_definition_ref: "CPH 2024, GN population by sex and age group (derived)"
+methodology_notes: docs/methods/census-2024.md

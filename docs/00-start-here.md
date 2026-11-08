@@ -6,10 +6,10 @@ Sri Lanka Facts: *every place in Sri Lanka, every number about it, with its sour
 
 | | |
 |---|---|
-| **Stage** | **Stage 0: agent tasks done; lead actions open.** Decisions D-001 to D-022 accepted. Done: repository and CI (F01); catalogue schemas and validator (F02); geography spine v0 from COD-AB ([QA](qa/geography-spine-v0.md), G01); code crosswalk to DCS Census 2024, NSDI, Lanka Data Layer and nuuuwan ([report](research/geography/crosswalk-report.md), G02); geometry QA and NSDI comparison ([report](research/geography/geometry-qa-cod-ab-v03.md), G03); source dossiers ([sources](research/sources/), R01) and rights memos ([rights](research/rights/), R02); outreach drafts ([log](outreach/log.md), R04). |
+| **Stage** | **Stage 1A: private preview built; Stage 1B blocked on rights and lead actions.** Stage 0's agent deliverables are complete and the [retrospective](roadmap/retros/stage-0-2026-11-08.md) is written, but Stage 0 did **not** formally exit: the rights letters are unsent, and the QGIS spot-check and domain/charter remain lead actions. The retrospective re-estimated Stage 1 and split it into 1A and 1B. Decisions D-001 to D-028 accepted. The Census 2024 preview covers GN population by sex and age plus occupied housing units, with neighbour, parent, national and cluster context ([QA](qa/census-2024-gnd-tables.md), [dataset method](methods/census-2024.md), [spatial method](methods/spatial-context.md)). Every release payload is `publishable: false`. |
 | **Team** | One product/research lead plus AI agents. Self-funded. No institutional relationships yet. |
-| **Next actions** | **Lead:** send the outreach drafts; review the crosswalk queue (`catalog/geographies/manual-review.csv`, 478 items, of which 64 are DCS census units; the rest are NSDI cross-checks and nuuuwan copies of the DCS items); QGIS spot-check ([guide](ops/qgis-spot-check.md)); decide on publishing census tables before DCS replies; domain, name check, charter; R2 and Vercel ([accounts](ops/accounts-setup.md)). Then the Stage 0 retrospective (M02) and Stage 1. |
-| **Last updated** | 2026-11-07 |
+| **Next actions** | **Lead:** send the approved DCS reuse-terms letter (D-023) and the Survey Department/NSDI boundary letter, and record the dates; run the QGIS spot-check ([guide](ops/qgis-spot-check.md)); domain, name check, charter; user testing. **Agents:** build the approved A03 profile vectors (D-025); server-render the `/explore` initial table before 1B (D-027); resolve the 65 null-name GNs through crosswalk review before 1B (D-028). **Then:** Stage 1B public beta, which cannot start while rights are `unclear`. |
+| **Last updated** | 2026-11-08 |
 
 ## Reading order
 
@@ -63,7 +63,7 @@ docs/
 └── lankadata-audit.md            Input: audit of LankaData.net (2026-11-07)
 ```
 
-**Folders that later tasks will create** (not yet present): `docs/research/sources/`, `docs/research/rights/`, `docs/research/audits/`, `docs/research/geography/`, `docs/research/user-research/`, `docs/methods/`, `docs/design/`, `docs/ops/`, `docs/outreach/`, `docs/roadmap/retros/`.
+**Folders now in use:** `docs/research/sources/`, `docs/research/rights/`, `docs/research/geography/`, `docs/methods/`, `docs/ops/`, `docs/outreach/`, `docs/qa/`, `docs/roadmap/retros/`. Still to create: `docs/design/` (W01) and `docs/research/user-research/` (R05).
 
 ## How these documents stay useful
 

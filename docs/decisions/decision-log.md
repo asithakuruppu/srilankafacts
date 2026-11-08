@@ -2,7 +2,7 @@
 
 The single place where project decisions are recorded. AI agents must read this before working and **must not contradict an Accepted decision**. If a task seems to need that, they stop and raise it.
 
-**Statuses:** `Proposed` (awaiting the lead's confirmation) · `Accepted` (D-001 to D-020 accepted by the lead on 2026-11-07) · `Superseded by D-NNN` · `Rejected`.
+**Statuses:** `Proposed` (awaiting the lead's confirmation) · `Accepted` (D-001 to D-028 accepted by the lead, 2026-11-07 to 2026-11-08) · `Superseded by D-NNN` · `Rejected`.
 **To change a decision:** add a new entry that supersedes the old one. Don't edit history. Change only the old entry's status line.
 
 ---
@@ -180,6 +180,54 @@ These were stated by you or are standing rules in [brainstorm-decisions.md](../b
 - **Alternatives:** keep COD-AB only (rejected: loses published census figures); split `LK5221` into two units by inference (rejected: the remaining 29 GNs are unnamed, so their match to DCS 5224 is unverified).
 - **Consequences:** DCS 5221 → `LK-ADM3-P0001` (manual match). DCS 5224 Kalmunai is **not** equivalent to `LK5221` and stays in review; whether to add a second provisional unit for it depends on matching the 29 unnamed GNs (needs a GN list with names, or geometry). Sinhala and Tamil names are to be recorded from an official source.
 - **Revisit when:** the Survey Department or DCS supplies an official DS list or boundaries; or the 29 unnamed GNs are identified.
+
+## D-023: Stage 1A stays private; the DCS reuse-terms letter is approved for sending
+- **Status:** Accepted · 2026-11-08 (decided by the lead)
+- **Context:** DCS has published no licence or reuse terms for the CPH 2024 tables, so `rights.status` stays `unclear`. Stage 1A is technically complete, but Stage 0's "rights letters sent" exit criterion is unmet because the letter at `docs/outreach/2026-11-07-dcs-reuse-terms.md` has not been sent. AGENTS rule 9 forbids agents from sending it.
+- **Decision:** Stage 1A remains a private preview: `publishable: false`, no public mirror, no redistribution of DCS source files, and no public beta until DCS replies or the lead records a different rights position in this log. The DCS reuse-terms letter is approved for the lead to send; the agent must not send it. The send date and any reply are recorded in `docs/outreach/log.md` and, if rights change, in the dataset catalogue entry.
+- **Alternatives:** publish now with attribution and a notice (rejected: the terms are unclear and the public-beta gate is not met); wait without sending (rejected: the blocker would not move).
+- **Consequences:** 1A can be reviewed internally; 1B stays blocked. Non-commercial publication with attribution is **not** authorised by this entry; it would need a new decision, with legal advice if DCS does not reply. The Survey Department/NSDI boundary letter is also still unsent, so Stage 0's "rights letters sent" criterion stays open until both letters are sent.
+- **Revisit when:** DCS replies, or the lead records a rights position with a legal basis.
+
+## D-024: Stage 1 is split into 1A and 1B; Stage 1 work uses branch + PR + Q05
+- **Status:** Accepted · 2026-11-08 (decided by the lead)
+- **Context:** The Stage 0 retrospective found that all work landed on `main`, no pull requests or Q05 reviews ran, and the original 10–14 week Stage 1 estimate mixed engineering with rights and verification. Stage 1 is now two tracks.
+- **Decision:** Approve the split in [development-strategy](../roadmap/development-strategy.md): **1A** is a 3–4 week private preview built from the two held workbooks; **1B** is a 5–6 week public beta that starts only after 1A and a recorded rights position. From Stage 1, every task uses a branch, a pull request and a Q05 review, including agent work. The current uncommitted work moves to a task branch when it is committed; history on `main` is not rewritten. 1A uses the English UI with the Sinhala names already in the spine; Tamil stays marked "not yet available" until a translator reviews it (D-012). DCS 5224 Kalmunai stays in review under D-022.
+- **Alternatives:** keep the single 10–14 week track (rejected: hides the rights blocker); keep committing directly to `main` (rejected: no review or rework measure).
+- **Consequences:** 1A is approved to proceed; 1B remains gated. The retrospective's review-process metric becomes measurable.
+- **Revisit when:** the lead decides the review overhead is disproportionate, or Stage 1B closes.
+
+## D-025: Approve the `profile` space v0.1 (two blocks, nine indicators)
+- **Status:** Accepted · 2026-11-08 (decided by the lead)
+- **Context:** A03 proposed a joint place–indicator space in `catalog/spaces/profile.yaml`, limited to the two DCS workbooks actually held. No profile vectors have been computed.
+- **Decision:** Approve `profile` v0.1 as written: nine non-sensitive inputs in two blocks (demography: population total, four age shares, sex ratio; housing: occupied housing units, persons per occupied unit, population density); log and share transforms; z-standardisation by level; ±5 SD winsorising; equal block weights; PCA by SVD with the eigenvalue/loading rule; no imputation; places with population below 100 or a missing input are listed with a reason. Ethnicity and religion stay excluded (D-015). A03 steps 2–7 may now build the vectors, similar places, unusualness, contrasts and sensitivity check.
+- **Alternatives:** wait for the missing amenity and education/work tables (rejected: blocks 1A for no gain); include ethnicity or religion (rejected: D-015).
+- **Consequences:** vectors, axes and neighbour lists are machine-derived; axis labels stay AI-generated drafts until the lead approves them. Amenities and education/work are deferred until those tables are held and catalogued.
+- **Revisit when:** the missing tables arrive, or user testing shows the axes are unreadable.
+
+## D-026: The small-denominator threshold is 100
+- **Status:** Accepted · 2026-11-08 (decided by the lead)
+- **Context:** D06 used 100 as a provisional threshold; the preview release and its smoothed values were built with it, and the methods note marked it as an assumption.
+- **Decision:** Confirm **100**. The flag applies to population for shares, age shares and density; to females for the sex ratio; and to occupied housing units for persons per occupied unit. The code constant in `pipeline/slf/enrich.py` stays 100; changing it requires a new decision and a rebuild because flags and smoothed values change. Published census values are never changed.
+- **Alternatives:** another threshold (no evidence yet that it improves the flags); no flag (rejected: small bases produce unstable rates).
+- **Consequences:** the threshold changes from `❓ assumption` to `✅ confirmed` in the methods note; preview.1 already used 100, so no rebuild is needed for this decision.
+- **Revisit when:** a sensitivity check shows a different threshold materially changes GN flags, or DCS publishes a rule.
+
+## D-027: `/explore` must server-render an initial table before Stage 1B
+- **Status:** Accepted · 2026-11-08 (decided by the lead)
+- **Context:** Place, indicator, data and methods pages render server-side, but `/explore` builds its table in the browser, so it needs JavaScript. The map is optional everywhere; the table is the accessible alternative.
+- **Decision:** Stage 1A may keep the current client-rendered explorer table, with the limitation stated in the QA report. Before the 1B public beta, `/explore` must server-render an initial table from the URL state or the default indicator and level, so the page is readable without JavaScript. The map remains an enhancement. This becomes a 1B exit requirement.
+- **Alternatives:** leave the table client-only (rejected: the main exploration page would fail without JavaScript); server-render it now (not required for the private preview, but may be done earlier).
+- **Consequences:** W02/W05 work before 1B; the accessibility check includes a JavaScript-disabled pass.
+- **Revisit when:** the explorer is replaced by a different interaction.
+
+## D-028: Null-name GN divisions keep p-code labels for 1A; names resolved by crosswalk review before 1B
+- **Status:** Accepted · 2026-11-08 (decided by the lead)
+- **Context:** 65 COD-AB GN divisions have no English, Sinhala or Tamil name in the spine. Seven have a DCS `external_name` in the crosswalk, but it has not been checked or promoted.
+- **Decision:** For 1A, the website shows a level label plus p-code (for example "Grama Niladhari division LK5104002") and does not promote `external_name` values ad hoc. Before 1B, resolve the names through the crosswalk review, record the name source and licence, and update the spine/crosswalk together. Sinhala and Tamil names follow D-012.
+- **Alternatives:** promote the seven DCS names now (rejected: incomplete and unverified); invent or transliterate names (rejected: AGENTS rules 1 and 12).
+- **Consequences:** some 1A place pages show p-codes; the seven candidates stay in the review queue.
+- **Revisit when:** the crosswalk review resolves the names, or an official GN list arrives.
 
 ---
 

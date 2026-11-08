@@ -1,8 +1,8 @@
 id: census-2024-gnd-tables
 source: dcs
-title: "Census of Population and Housing 2024: GN-level topic tables"
+title: "Census of Population and Housing 2024: GN-level population and occupied housing units"
 landing_page: https://www.statistics.gov.lk/Population/StaticalInformation/CPH2024
-pipeline_module: null
+pipeline_module: slf.datasets.census_2024_gnd
 schedule: manual
 geography_scheme: admin
 geography_vintage: "2024"
@@ -19,12 +19,33 @@ spatial:
   crs_source: not_applicable
   resolution: null
   information_unit: gn-2024
-  information_count: null
+  information_count: 14008
   derived_by: null
-indicators: [population_total, population_male, population_female, households_total, households_cooking_firewood, households_cooking_firewood_share]
+indicators:
+  - population_total
+  - population_male
+  - population_female
+  - population_age_0_14
+  - population_age_15_59
+  - population_age_60_64
+  - population_age_65_plus
+  - population_age_60_plus
+  - occupied_housing_units
+  - sex_ratio
+  - population_age_0_14_share
+  - population_age_60_plus_share
+  - persons_per_occupied_housing_unit
+  - population_density
 cross_checks:
   - upstream: nuuuwan/lk_census_2024
-    note: comparison only, never as authority
-status: proposed
+    note: comparison only, never as authority; same 14,008 DCS GN units
+status: active
 notes: >
-  GN-level Excel workbooks (population by sex and age, housing, households, occupied housing units; tables by ethnicity, age, local government area, religion and sector) are linked from the landing page; the GN population workbook is labelled provisional (14,008 GN rows, 340 DS). Tables carry codes but no geometry, so the source CRS does not apply. Dossier: docs/research/sources/dcs.md.
+  Two workbooks are held, not the full topic set: (1) GN population by sex and age group
+  (provisional; 14,008 GN rows, 340 DS divisions) and (2) occupied housing units by GN
+  (14,008 GN rows). Both carry DCS codes and no geometry, so the source CRS does not apply.
+  DS and higher aggregates are sums of the GN rows; 63 DCS GN units are not yet matched to the
+  spine (G02 review queue) and enter DS/district totals but not GN-level output. DCS 5224
+  Kalmunai is not joined to COD-AB LK5221 (D-022). Rights are unclear; the dataset is not
+  publishable until the lead records a decision or DCS replies. Dossier:
+  docs/research/sources/dcs.md. Method: docs/methods/census-2024.md.

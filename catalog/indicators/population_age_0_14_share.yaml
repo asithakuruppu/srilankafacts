@@ -1,0 +1,18 @@
+id: population_age_0_14_share
+name: Share of population aged 0–14
+short_name: Aged 0–14 share
+topic: [population, age]
+measure_type: share
+unit: percent
+universe: persons
+numerator: population_age_0_14
+denominator: population_total
+aggregation: recompute_from_components
+higher_is: neutral
+decimals: 1
+sensitivity: public
+definition: >
+  Share of the population aged 0 to 14 years, computed as 100 × population aged 0–14 ÷ total
+  population.
+source_definition_ref: "CPH 2024, GN population by sex and age group (derived)"
+methodology_notes: docs/methods/census-2024.md

@@ -1,0 +1,19 @@
+id: population_density
+name: Population density
+short_name: Density
+topic: [population]
+measure_type: rate
+unit: persons per km2
+universe: persons
+numerator: population_total
+denominator: null
+aggregation: none
+higher_is: neutral
+decimals: 1
+sensitivity: public
+definition: >
+  Total population divided by the land area of the unit in square kilometres. Area is
+  computed from the COD-AB v03 boundary in EPSG:5235 (SLD99), not from the census table.
+  Density is shown for context, not as a census count.
+source_definition_ref: "CPH 2024 population; COD-AB v03 boundary area (derived)"
+methodology_notes: docs/methods/census-2024.md

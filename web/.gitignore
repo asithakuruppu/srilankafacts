@@ -17,6 +17,10 @@
 /.next/
 /out/
 
+# generated from the release at build time
+/public/release
+/public/search-index.json
+
 # production
 /build
 

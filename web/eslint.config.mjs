@@ -12,6 +12,9 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Copied from the release by scripts/prepare-release.mjs at build time.
+    "public/release/**",
+    "public/search-index.json",
   ]),
 ]);
 

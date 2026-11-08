@@ -13,5 +13,5 @@ decimals: 0
 sensitivity: public
 definition: >
   Number of persons enumerated by the Census of Population and Housing in the area.
-source_definition_ref: null    # to be filled with the CPH 2024 table reference by D01
-methodology_notes: null
+source_definition_ref: "CPH 2024, GN population by sex and age group, column 'Total'"
+methodology_notes: docs/methods/census-2024.md

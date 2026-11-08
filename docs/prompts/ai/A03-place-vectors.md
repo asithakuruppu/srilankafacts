@@ -2,10 +2,15 @@
 
 | Stage | Workstream | Version | Last revised | Status |
 |---|---|---|---|---|
-| 1 (typology: 2) | AI / analytics | 2 | 2026-11-07 | active |
+| 1 (typology: 2) | AI / analytics | 3 | 2026-11-08 | active |
 
 ## When to use
 After census observations are validated (D01) for the blocks in use. Builds profile vectors, similar places with reasons, and later the typology.
+
+**Approved recipe (2026-11-08, D-025):** `catalog/spaces/profile.yaml` v0.1 is active.
+Only two blocks exist in the held data — demography and housing, nine indicators. The
+amenity and education/work blocks named below are deferred until those tables are held.
+A03 steps 2–7 are authorised; the recipe itself is no longer open for proposal.
 
 ## Read first
 - `AGENTS.md`
@@ -17,8 +22,8 @@ After census observations are validated (D01) for the blocks in use. Builds prof
 ```
 LEVELS: gn, ds
 VINTAGE: 2024
-BLOCKS: demography, housing_amenities, education_work   # Stage 1 blocks
-RECIPE_VERSION: v1
+BLOCKS: demography, housing   # only blocks held; amenities and education/work deferred
+RECIPE_VERSION: v0.1
 TOP_K: 20
 MODE: similarity        # similarity | typology (Stage 2)
 ```

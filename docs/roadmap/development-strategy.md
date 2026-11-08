@@ -38,7 +38,7 @@ gantt
 | Stage | Goal | Indicative duration ❓ | Exit criteria |
 |---|---|---|---|
 | **0. Foundations** | Decisions made; a verified geography spine | 6–8 weeks | Spine v0 with QA report; DS/GN discrepancies listed; rights letters sent; repo, CI and catalogue working |
-| **1. Census Atlas 2024 (public beta)** | One flagship that proves the whole chain | 10–14 weeks | Public beta live; accuracy audit passed; 10+ named people from target audiences have used it; first citation or press mention |
+| **1. Census Atlas 2024 (public beta)** | One flagship that proves the whole chain | 3–4 weeks to private preview + 5–6 weeks to public beta after rights clear (re-estimated after Stage 0) | Preview chain works; public beta live; accuracy audit passed; 10+ named people from target audiences have used it; first citation or press mention |
 | **2. Every geography, over time** | Non-nesting geographies, denominators, history; distribution channels | 4–5 months | LA, ED/PD and MOH profiles; historical district series; MCP server; embeds used by at least one outlet; one paid pilot |
 | **3. Beyond the census** | Curated sub-national indicators; trilingual core | 4–6 months | 30–50 verified indicators across 5+ topics; Sinhala/Tamil core pages; data release calendar |
 | **4. Services, products, institution** | Sustainable revenue and formal partnerships | Ongoing (paid work can start in Stage 1) | Recurring revenue covering running costs; first MoU or data feed; organisational structure decided |
@@ -66,21 +66,37 @@ Durations are estimates for a solo lead at a steady part-time to full-time pace 
 
 **Your personal work:** decisions, sending letters, reviewing the QA report, a 1–2 hour boundary spot-check in QGIS (the agent prepares a project file for you).
 
-### Stage 1: Census Atlas 2024 (10–14 weeks)
+### Stage 1: Census Atlas 2024 (re-estimated after Stage 0)
 
-**Deliverables**
-1. Census 2024 GN-level topic tables and final-report tables ingested, harmonised and validated against published totals (D01, D02 for PDF tables).
-2. Release `v2027.MM.1`: Parquet/CSV/GeoPackage, `datapackage.json`, changelog, QA report (D04).
-3. Boundary PMTiles and Sri Lanka basemap extract (G04).
-4. Spatial context (D-015, D06, A03): neighbour, parent and national comparison for every value; clusters and outliers for core indicators; small-number handling; the `profile` vector space for places and indicators, with "places like this" explained exactly by indicator contributions (D-016).
-5. "Sources disagree" panel (D-019) for unit counts and census totals where DCS, COD-AB, NSDI and others differ.
-6. Web: design system and performance budget (W01), persistent map shell and explorer (W02), place pages (W03), indicator pages and charts (W04), downloads and static API (W05), place search (W06).
-7. Content: methodology page, sources pages, corrections log, 2–3 explainers (C01, C02).
-8. Quality: accuracy audit (Q01), performance (Q02), accessibility (Q03), security review (Q04).
-9. Launch: soft launch to 20–30 hand-picked users (journalists, researchers, NGO analysts), collect feedback, then public beta.
-10. Customer discovery: 8–10 conversations with potential paying users (R05).
+Stage 0 showed that the engineering chain is fast but the **data scope and rights** are the constraints. Stage 1 is therefore split. Neither track may publish while DCS rights remain unclear.
 
-**Exit gate:** do not go public until Q01 passes. A visibly wrong number on launch day costs more than a month's delay.
+#### Stage 1A: private preview (3–4 weeks, can start now)
+
+**Purpose:** prove the whole chain end to end with the two census workbooks already held, without publishing.
+
+1. Ingest the GN population-by-sex-and-age workbook and the occupied-housing-units workbook; validate national and district totals against the Final Report (D01). The other ten topic tables are **not** held yet; do not pretend they are.
+2. Build a deterministic **candidate** release with Parquet/CSV, GeoPackage, `datapackage.json`, changelog, QA summary and static API. It is marked `publishable: false` with the rights reason (D04, preview mode).
+3. Spatial context: neighbour, parent and national comparisons; Local Moran clusters/outliers with FDR; small-number flags (D06).
+4. Profile vectors: the `profile` space v0.1 (two blocks, nine indicators) is approved
+   (D-025). Build the PCA coordinates, similar places with exact contributions and the
+   sensitivity check. Amenities and education/work stay deferred; ethnicity and religion
+   stay excluded.
+5. Web: design tokens and performance budget (W01), persistent map shell and explorer (W02), place pages (W03), indicator pages and charts (W04), downloads and static API (W05), place search (W06). If PMTiles tooling is unavailable, use simplified GeoJSON and record the deviation.
+6. Content: methodology page, source page, corrections log (C01). Quality: accuracy, performance and accessibility audits on the preview (Q01–Q03).
+7. "Sources disagree" panel (D-019) for unit counts and census totals where DCS, COD-AB, NSDI and others differ.
+
+**Exit gate for 1A:** every preview value traces to a file, sheet and cell; the release is reproducible; Q01 passes on a sample; the site is clearly labelled “internal preview — not for publication”.
+
+#### Stage 1B: public beta (5–6 weeks after 1A and after rights clear)
+
+1. Snapshot and ingest the remaining census topic tables (ethnicity, religion, housing amenities, household structure, etc.); use D02 for PDF-only tables.
+2. Human-verify the key national, district and sample GN values (Q01); record the verification sheet and compute verified values per hour.
+3. Resolve or explicitly defer the 63 unmatched DCS GN units and DCS 5224 Kalmunai.
+4. Legal/rights decision recorded in the decision log; attribution and licence text finalised.
+5. Soft launch to 20–30 hand-picked users (journalists, researchers, NGO analysts); collect feedback; then public beta.
+6. Customer discovery: 8–10 conversations with potential paying users (R05).
+
+**Exit gate for 1B:** do not go public until Q01 passes, the rights position is recorded, and `/explore` renders an initial table without JavaScript (D-027). A visibly wrong number or an unauthorised republication on launch day costs more than a month's delay.
 
 ### Stage 2: Every geography, over time (4–5 months)
 

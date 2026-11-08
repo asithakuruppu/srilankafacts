@@ -2,7 +2,7 @@
 
 | Stage | Workstream | Version | Last revised | Status |
 |---|---|---|---|---|
-| 1 | Data | 1 | 2026-11-07 | active |
+| 1 | Data | 2 | 2026-11-08 | active |
 
 ## When to use
 After the first validated census observations exist (D01) and the contiguity graph exists (G01). Adds the *enrich* stage that makes every value answer "compared to where?". Re-run for each release.
@@ -17,7 +17,7 @@ After the first validated census observations exist (D01) and the contiguity gra
 ```
 INDICATORS: {{INDICATOR_IDS}}        # start with 10–20 core census indicators
 LEVELS: gn, ds, district
-SMALL_DENOMINATOR_THRESHOLD: {{N}}   # e.g. 100 people; the lead confirms
+SMALL_DENOMINATOR_THRESHOLD: 100   # confirmed by the lead 2026-11-08 (D-026)
 FDR_Q: 0.05
 PERMUTATIONS: 999
 ```

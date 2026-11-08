@@ -33,5 +33,9 @@ Catalogue status stays `rights.status: unclear`, `commercial_reuse: unknown` (no
 2. Preferred attribution wording?
 3. Machine-readable files and the official GN/DS code list?
 
-## Decision for the lead (Stage 1 blocker)
-data-model §2.4 allows publishing an `unclear` dataset only with a recorded decision (attribution plus a visible notice). If DCS hasn't replied when Stage 1 needs it, decide whether to (a) wait, (b) publish non-commercially with attribution and a notice, or (c) take legal advice first. Recommendation: send the letter now; take a lawyer's view on (b) in parallel.
+## Recorded decision (2026-11-08)
+D-023 keeps Stage 1A private, approves this letter for the lead to send, and forbids a
+public release until DCS replies or a new rights position is recorded. The agent cannot
+send it (AGENTS rule 9). If DCS has not replied by the end of 1A, the default is to wait;
+publishing non-commercially with attribution and a notice would need a new decision and,
+preferably, legal advice.

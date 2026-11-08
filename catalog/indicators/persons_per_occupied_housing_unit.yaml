@@ -1,0 +1,20 @@
+id: persons_per_occupied_housing_unit
+name: Persons per occupied housing unit
+short_name: Persons per housing unit
+topic: [population, housing]
+measure_type: ratio
+unit: persons per housing unit
+universe: persons
+numerator: population_total
+denominator: occupied_housing_units
+aggregation: recompute_from_components
+higher_is: neutral
+decimals: 2
+sensitivity: public
+definition: >
+  Mean number of persons per occupied housing unit, computed as total population ÷ occupied
+  housing units. This is not the mean household size: one housing unit can contain more than
+  one household, and the 2024 census reports 6,111,315 households against 6,030,541 occupied
+  housing units nationally.
+source_definition_ref: "CPH 2024, GN population and occupied housing units (derived)"
+methodology_notes: docs/methods/census-2024.md

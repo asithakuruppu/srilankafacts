@@ -2,10 +2,17 @@
 
 | Stage | Workstream | Version | Last revised | Status |
 |---|---|---|---|---|
-| 1+ | Data engineering | 1 | 2026-11-07 | active |
+| 1+ | Data engineering | 2 | 2026-11-08 | active |
 
 ## When to use
 To turn validated datasets into an immutable public release. The first use is the Census Atlas 2024 beta.
+
+**Implemented 2026-11-08 (Stage 1A):** `slf release` has a `--preview` mode for a private,
+rights-blocked build. It writes the same tree with `publishable: false`, refuses a public
+release when any included dataset's rights are `unclear` or `restricted`, derives the
+GeoPackage metadata date from the release version (never the clock), and writes strict
+JSON only (non-finite values become `null`). A preview release is not a public release and
+must not be mirrored.
 
 ## Read first
 - `AGENTS.md`
