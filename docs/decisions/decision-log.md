@@ -258,12 +258,12 @@ These were stated by you or are standing rules in [brainstorm-decisions.md](../b
 
 
 ## D-031: Publish similar places for DS divisions, not for GN divisions, until GN lists are stable
-- **Status:** Proposed · 2026-11-12 (agent; awaiting the lead)
+- **Status:** Accepted · 2026-11-12 (decided by the lead)
 - **Context:** The profile space v0.2 (D-029) gives every GN and DS a top-20 list of similar places. The stability checks (`docs/qa/profile-space-v0.2.md` §4b) show:
   - The axes are stable ✅: refitting on resampled places leaves 89% of GN lists and 93% of DS lists unchanged.
   - DS lists are robust to ordinary small-number variation ✅: 84% unchanged when every count is redrawn from a Poisson distribution with the published count as its mean.
   - GN lists are not ✅: 13% unchanged. A typical GN moves 0.32 in the space under that variation, while its 20th-nearest neighbour is 0.16 away. GNs with 5,000+ people keep 61% (346 GNs); GNs under 2,000 people keep 7–9%.
-- **Decision (proposed):** For 1B, the website and API show:
+- **Decision:** For 1B, the website and API show:
   - similar places, with reasons, for DS divisions;
   - for GN divisions: the GN's position on the profile axes and its distance from the national centre, plus a link to its DS division's similar places. No GN similar-places list.
   - The GN vectors stay in the build for analysis. They are not shown as a list.

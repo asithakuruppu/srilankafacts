@@ -74,7 +74,7 @@ with the smallest parts and "most different" the three with the largest.
     100–1,999 people keep 7–9%.
   - Removing a block (QA §4) changes what the space measures, so its low overlap is not a
     noise test.
-  - D-031 (proposed) sets what the website shows as a result.
+  - D-031 (accepted 2026-11-12) sets what the website shows as a result: similar places for DS divisions only.
 - **Size is counted twice.** Persons per housing unit is population ÷ housing units, so log
   housing units adds little beyond log population, and settlement size gets extra weight. D-029
   lists dropping housing units as a v0.3 option.
