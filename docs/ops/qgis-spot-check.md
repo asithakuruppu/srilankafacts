@@ -28,3 +28,9 @@ Layers: `admin0_country` … `admin4_gn` (one per level) and `label_points` (one
 A short list: what looked right, what looked wrong (with the `geography_id` from the attribute table), and anything you're unsure about. Corrections go through `overrides/` with evidence; nothing is changed by editing the file.
 
 The full numbers are in [docs/qa/geography-spine-v0.md](../qa/geography-spine-v0.md). For boundary quality and the NSDI comparison, also follow the checklist in [geometry-qa-cod-ab-v03.md](../research/geography/geometry-qa-cod-ab-v03.md) §6 (run `uv run slf geometry-qa build` first).
+
+## Result
+
+**2026-11-12 (reported by the lead):** spot-check done; "looks alright". No corrections were
+reported, so no `overrides/` entries were made. The lead did not report item-by-item notes,
+so which of the six checks (and the geometry QA §6 checklist) were covered is not recorded.
