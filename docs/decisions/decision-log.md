@@ -229,6 +229,7 @@ These were stated by you or are standing rules in [brainstorm-decisions.md](../b
 - **Alternatives:** promote the seven DCS names now (rejected: incomplete and unverified); invent or transliterate names (rejected: AGENTS rules 1 and 12).
 - **Consequences:** some 1A place pages show p-codes; the seven candidates stay in the review queue.
 - **Revisit when:** the crosswalk review resolves the names, or an official GN list arrives.
+- **Evidence (2026-11-12):** `docs/research/geography/null-name-gns.md`. Of the 65 null-name GNs, 8 have the same English name in DCS 2024 and NSDI 2017 (with an NSDI Sinhala gazetted name), 4 have a DCS name only, 29 are Kalmunai (D-022), 7 are disputed Eravur Pattu units, and 17 have no candidate in any held source. The review also found and corrected a Kandalama/Kiralessa swap. Promotion waits for the lead's decision.
 
 ## D-030: Census 2024 tables may be published non-commercially, with attribution and a notice, while DCS has not replied
 - **Status:** Accepted · 2026-11-12 (decided by the lead) · Amends D-023 (the "stays private" part)
