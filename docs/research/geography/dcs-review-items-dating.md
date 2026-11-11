@@ -56,3 +56,12 @@ The lead accepted the **22 low-risk matches** (16 spelling and 6 code-gap items)
 in `catalog/geographies/manual-matches.csv` (`decided_by: lead`). The DCS review queue drops
 from 64 to 42: 30 Kalmunai, 8 name differences, 3 Eravur, 1 likely new GN. The six code-gap
 matches stay unverified until GN geometry or an official GN list confirms them.
+
+## Correction (2026-11-12, later the same day)
+
+The Kiralessa row above was wrong. COD-AB's `LK2206300` "Kandalama" really is Kandalama: it
+contains Kandalama village, and its neighbours' NSDI GN numbers fit Kandalama's E449. The
+unnamed `LK2206125` fits Kiralessa (E441C). The matches are now 2206125 Kandalama → `LK2206300`
+and 2206265 Kiralessa → `LK2206125`, pending the lead's review. Evidence:
+[`null-name-gns.md`](null-name-gns.md).
+

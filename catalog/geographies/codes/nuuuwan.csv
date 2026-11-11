@@ -3764,7 +3764,7 @@ LK2206105,cod-ab-v03,nuuuwan,LK-2206105,Etawarahena,exact_code,1.0,via DCS code 
 LK2206110,cod-ab-v03,nuuuwan,LK-2206110,Pallegama,exact_code,1.0,via DCS code (ids identical)
 LK2206115,cod-ab-v03,nuuuwan,LK-2206115,Bulagala,exact_code,1.0,via DCS code (ids identical)
 LK2206120,cod-ab-v03,nuuuwan,LK-2206120,Pelvehera,exact_code,1.0,via DCS code (ids identical)
-LK2206125,cod-ab-v03,nuuuwan,LK-2206125,Kandalama,exact_code,0.8,a name is missing on one side; matched on code only; via DCS code (ids identical)
+LK2206125,cod-ab-v03,nuuuwan,LK-2206265,Kiralessa,manual,0.9,"manual (agent (evidence; corrects lead's 2026-11-12 match; pending lead review), 2026-11-12): Swap correction: OSM Nominatim places Kandalama village (7.8954, 80.7045) inside COD-AB LK2206300, which COD-AB names Kandalama; LK2206125 is 12.6 km away. NSDI 2017 GN numbers: Kandalama E449, Kiralessa E441C; LK2206300's neighbours are E446-E452, LK2206125's are E440-E442A. Replaces the 2026-11-12 match 2206265->LK2206300 and the automatic code-only match 2206125->LK2206125 (docs/research/geography/null-name-gns.md); via DCS code (ids identical)"
 LK2206130,cod-ab-v03,nuuuwan,LK-2206130,Pahala Erevula,exact_code,1.0,via DCS code (ids identical)
 LK2206135,cod-ab-v03,nuuuwan,LK-2206135,Ihala Ereula,exact_code,1.0,via DCS code (ids identical)
 LK2206140,cod-ab-v03,nuuuwan,LK-2206140,Welangolla,exact_code,1.0,via DCS code (ids identical)
@@ -3798,7 +3798,7 @@ LK2206280,cod-ab-v03,nuuuwan,LK-2206280,Athabandiwewa,exact_code,0.95,via DCS co
 LK2206285,cod-ab-v03,nuuuwan,LK-2206285,Lenadora North,exact_code,1.0,via DCS code (ids identical)
 LK2206290,cod-ab-v03,nuuuwan,LK-2206290,Lenadora South,exact_code,1.0,via DCS code (ids identical)
 LK2206295,cod-ab-v03,nuuuwan,LK-2206295,Nayakumbura,exact_code,1.0,via DCS code (ids identical)
-LK2206300,cod-ab-v03,nuuuwan,LK-2206265,Kiralessa,manual,0.9,"manual (lead, 2026-11-12): GN count 59 in DCS, NSDI and COD-AB; DCS and NSDI 2017 have 2206265 Kiralessa, COD-AB lacks that code and has one extra code LK2206300 'Kandalama' instead; unverified without GN geometry (docs/research/geography/dcs-review-items-dating.md); via DCS code (ids identical)"
+LK2206300,cod-ab-v03,nuuuwan,LK-2206125,Kandalama,manual,0.9,"manual (agent (evidence; corrects lead's 2026-11-12 match; pending lead review), 2026-11-12): Swap correction: OSM Nominatim places Kandalama village (7.8954, 80.7045) inside COD-AB LK2206300, which COD-AB names Kandalama; LK2206125 is 12.6 km away. NSDI 2017 GN numbers: Kandalama E449, Kiralessa E441C; LK2206300's neighbours are E446-E452, LK2206125's are E440-E442A. Replaces the 2026-11-12 match 2206265->LK2206300 and the automatic code-only match 2206125->LK2206125 (docs/research/geography/null-name-gns.md); via DCS code (ids identical)"
 LK2209005,cod-ab-v03,nuuuwan,LK-2209005,Ussattawa,exact_code,1.0,via DCS code (ids identical)
 LK2209010,cod-ab-v03,nuuuwan,LK-2209010,Nikula,exact_code,1.0,via DCS code (ids identical)
 LK2209015,cod-ab-v03,nuuuwan,LK-2209015,Serudandapola,exact_code,1.0,via DCS code (ids identical)

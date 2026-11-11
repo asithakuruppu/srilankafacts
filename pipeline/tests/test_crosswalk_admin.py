@@ -124,6 +124,13 @@ def test_known_cases_in_committed_crosswalk() -> None:
     assert dcs["5221"] == "LK-ADM3-P0001"  # Kalmunai North Sub, provisional (D-022)
     assert dcs["2215150"] == "LK2215285"  # Aluthwatta: COD-AB code gap, lead match 2026-11-12
     assert dcs["5218020"] == "LK5218020"  # Sammanthurai "Tamil Division" = "TD"
+    # Kandalama/Kiralessa swap: COD-AB's "Kandalama" polygon contains Kandalama village, and
+    # the unnamed LK2206125 sits among E440-E442 GNs like Kiralessa (E441C).
+    assert dcs["2206125"] == "LK2206300"  # Kandalama
+    assert dcs["2206265"] == "LK2206125"  # Kiralessa
+    nsdi = dict(zip(*(_codes("nsdi")[c] for c in ("external_code", "geography_id")), strict=True))
+    assert nsdi["2206125"] == "LK2206300"
+    assert nsdi["2206265"] == "LK2206125"
     assert "5224" not in dcs  # Kalmunai: LK5221 covers 5221 + 5224, so not equivalent
     review = pd.read_csv(CATALOG / "manual-review.csv", dtype=str)
     k = review[(review["system"] == "dcs_census2024") & (review["code"] == "5224")]

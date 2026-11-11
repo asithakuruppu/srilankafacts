@@ -203,3 +203,10 @@ Rebuilt after the lead accepted 22 DCS crosswalk matches
   (`NOTICE.md`, every API response). It is still `publishable: false` because it was built
   with `--preview`; no public build exists for hosting.
 
+## Addendum: `v2026.11.6-preview.1` (2026-11-12)
+
+Corrects a swap in v2026.11.5: DCS Kandalama (2206125) now joins `LK2206300` and DCS Kiralessa
+(2206265) joins `LK2206125` (`docs/research/geography/null-name-gns.md`). `CHANGELOG.md` against
+v2026.11.5: **0 new, 28 changed** (2 GNs × 14 indicators), **0 removed**. 0 errors, 3 warnings;
+national and district anchors unchanged (the swap is within DS 2206).
+
