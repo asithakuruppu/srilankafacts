@@ -65,6 +65,16 @@ TOP_K = 20
 CONTRAST_PERCENTILE = 95.0
 CHECK_PAIRS = 100
 SEED = 20241108
+BOOTSTRAP_RUNS = 10
+NOISE_RUNS = 5
+WIDE_K = 200
+POPULATION_BANDS = [(100, 1000), (1000, 2000), (2000, 5000), (5000, None)]
+NOISE_COUNTS = [
+    *AGE_COUNTS,
+    "population_male",
+    "population_female",
+    "occupied_housing_units",
+]
 LABEL_STATUS = "machine_generated_draft"
 
 
@@ -147,6 +157,10 @@ class Fit:
     threshold: float
     clipped: dict[str, int] = field(default_factory=dict)
     fallback: str | None = None
+    mean: np.ndarray | None = None  # standardisation parameters, kept so new rows can be
+    sd: np.ndarray | None = None  # projected exactly as the fitted rows were
+    weights: np.ndarray | None = None
+    centre: np.ndarray | None = None
 
     @property
     def basis(self) -> np.ndarray:
@@ -170,7 +184,8 @@ def fit(x: pd.DataFrame, blocks: dict[str, list[str]] = BLOCKS) -> Fit:
     z = np.clip(z, -WINSOR_SD, WINSOR_SD)
     weights = np.concatenate([np.full(len(b), 1 / np.sqrt(len(b))) for b in blocks.values()])
     z = z * weights
-    z = z - z.mean(axis=0)
+    centre = z.mean(axis=0)
+    z = z - centre
     _, s, vt = np.linalg.svd(z, full_matrices=False)
     eig = s**2 / len(z)
     v = vt.T
@@ -193,7 +208,20 @@ def fit(x: pd.DataFrame, blocks: dict[str, list[str]] = BLOCKS) -> Fit:
         retained=retained,
         threshold=threshold,
         clipped=clipped,
+        mean=raw.mean(axis=0),
+        sd=sd,
+        weights=weights,
+        centre=centre,
     )
+
+
+def project(f: Fit, x: pd.DataFrame) -> np.ndarray:
+    """Standardise new rows with a fit's own parameters (same clip, weights and centre)."""
+    if f.mean is None or f.sd is None or f.weights is None or f.centre is None:
+        raise ValueError("fit has no standardisation parameters")
+    raw = x[f.columns].to_numpy(dtype=float)
+    z = np.clip((raw - f.mean) / f.sd, -WINSOR_SD, WINSOR_SD) * f.weights
+    return z - f.centre
 
 
 def decompose(f: Fit, a: int, b: int | None = None) -> tuple[float, np.ndarray, np.ndarray]:
@@ -214,7 +242,13 @@ def decompose(f: Fit, a: int, b: int | None = None) -> tuple[float, np.ndarray, 
 
 def nearest(f: Fit, k: int = TOP_K, chunk: int = 512) -> tuple[np.ndarray, np.ndarray]:
     """Top-k nearest places for every place (self excluded), ties broken by row order."""
-    s = f.scores
+    return nearest_scores(f.scores, k, chunk)
+
+
+def nearest_scores(
+    s: np.ndarray, k: int = TOP_K, chunk: int = 512
+) -> tuple[np.ndarray, np.ndarray]:
+    """Top-k nearest rows of a score matrix (self excluded), ties broken by row order."""
     n = len(s)
     k = min(k, n - 1)
     sq = (s**2).sum(axis=1)
@@ -269,6 +303,7 @@ class LevelResult:
     contrasts: pd.DataFrame
     sensitivity: dict[str, dict[str, object]]
     check_max_error: float
+    stability: dict[str, object] = field(default_factory=dict)
 
 
 @dataclass
@@ -312,6 +347,95 @@ def _sensitivity(x: pd.DataFrame, full: np.ndarray) -> dict[str, dict[str, objec
             "share_at_least_half": round(float((ov >= 0.5).mean()), 3),
             "note": f.fallback,
         }
+    return out
+
+
+def perturb_counts(wide: pd.DataFrame, rng: np.random.Generator) -> pd.DataFrame:
+    """Redraw each count from a Poisson distribution with the published count as its mean.
+
+    The census is a full count, not a sample. This models the ordinary random variation that
+    makes small-area rates unstable (the reason for D-026); it is a sensitivity test, not an
+    estimate of census error. Area is held fixed, so density moves with population.
+    """
+    w = wide.copy()
+    for col in NOISE_COUNTS:
+        w[col] = rng.poisson(w[col].fillna(0).clip(lower=0).to_numpy()).astype(float)
+    w["population_total"] = w[AGE_COUNTS].sum(axis=1)
+    w["sex_ratio"] = w["population_male"] / w["population_female"] * 100
+    w["persons_per_occupied_housing_unit"] = w["population_total"] / w["occupied_housing_units"]
+    w["population_density"] = (
+        wide["population_density"] * w["population_total"] / wide["population_total"]
+    )
+    return w
+
+
+def stability(
+    wide: pd.DataFrame, x: pd.DataFrame, f: Fit, idx: np.ndarray, dist: np.ndarray
+) -> dict[str, object]:
+    """How much a place's similar-places list depends on the fit, the axes and small counts."""
+    n, k = idx.shape
+    rng = np.random.default_rng(SEED)
+    out: dict[str, object] = {"k": k, "chance_overlap": round(k / (n - 1), 4)}
+
+    axes: dict[str, float] = {}
+    for m in (len(f.retained) - 1, len(f.retained) + 1):
+        if 1 <= m <= len(f.eigenvalues):
+            ids_m, _ = nearest_scores(f.z @ f.loadings[:, :m], k)
+            axes[f"{m}_axes"] = round(float(overlap(idx, ids_m).mean()), 3)
+    out["axis_count"] = axes
+
+    boot = []
+    for _ in range(BOOTSTRAP_RUNS):
+        fb = fit(x.iloc[rng.choice(n, n, replace=True)])
+        ids_b, _ = nearest_scores(project(fb, x) @ fb.basis, k)
+        boot.append(float(overlap(idx, ids_b).mean()))
+    out["bootstrap"] = {
+        "runs": BOOTSTRAP_RUNS,
+        "mean_overlap": round(float(np.mean(boot)), 3),
+        "min_overlap": round(float(np.min(boot)), 3),
+    }
+
+    wide_idx, _ = nearest(f, WIDE_K)
+    pop = wide.loc[f.ids, "population_total"].to_numpy(dtype=float)
+    exact, within, shift, fallback = [], [], [], []
+    for _ in range(NOISE_RUNS):
+        xp = transform(perturb_counts(wide, rng).loc[f.ids])
+        zp = project(f, xp)
+        bad = ~np.isfinite(zp).all(axis=1)
+        zp[bad] = f.z[bad]
+        fallback.append(int(bad.sum()))
+        sp = zp @ f.basis
+        ids_p, _ = nearest_scores(sp, k)
+        exact.append(overlap(idx, ids_p))
+        within.append(
+            np.array(
+                [np.isin(ids_p[i], wide_idx[i]).mean() for i in range(n)],
+            )
+        )
+        shift.append(np.linalg.norm(sp - f.scores, axis=1))
+    ex = np.mean(exact, axis=0)
+    wi = np.mean(within, axis=0)
+    bands = []
+    for lo, hi in POPULATION_BANDS:
+        m = (pop >= lo) & (pop < (hi if hi is not None else np.inf))
+        bands.append(
+            {
+                "population": f"{lo:,}+" if hi is None else f"{lo:,}-{hi - 1:,}",
+                "places": int(m.sum()),
+                "mean_overlap": round(float(ex[m].mean()), 3) if m.any() else None,
+                f"inside_original_top_{WIDE_K}": round(float(wi[m].mean()), 3) if m.any() else None,
+            }
+        )
+    out["count_noise"] = {
+        "runs": NOISE_RUNS,
+        "mean_overlap": round(float(ex.mean()), 3),
+        f"inside_original_top_{WIDE_K}": round(float(wi.mean()), 3),
+        "median_shift": round(float(np.median(np.mean(shift, axis=0))), 4),
+        "rows_kept_unperturbed": max(fallback),
+        "by_population": bands,
+    }
+    out["median_distance_1st"] = round(float(np.median(dist[:, 0])), 4)
+    out[f"median_distance_{k}th"] = round(float(np.median(dist[:, -1])), 4)
     return out
 
 
@@ -376,6 +500,7 @@ def build_level(
         contrasts=contrasts,
         sensitivity=_sensitivity(x, idx),
         check_max_error=err,
+        stability=stability(wide, x, f, idx, dist),
     )
 
 
@@ -469,7 +594,11 @@ def write_outputs(result: ProfileResult) -> None:
     pd.concat(excluded).to_csv(exc_path, index=False)
     sens_path = out / "sensitivity.json"
     sens_path.write_text(
-        json.dumps({lv: r.sensitivity for lv, r in result.levels.items()}, indent=2) + "\n",
+        json.dumps(
+            {lv: {**r.sensitivity, "stability": r.stability} for lv, r in result.levels.items()},
+            indent=2,
+        )
+        + "\n",
         encoding="utf-8",
     )
     result.files += [str(exc_path), str(sens_path)]
@@ -605,6 +734,68 @@ def render_qa(result: ProfileResult, geographies: pd.DataFrame) -> str:
             )
     lines += [""]
 
+    lines += [
+        "Removing a block changes what the space measures, so low overlap here shows how much "
+        "each block shapes the lists, not that the lists are noisy. Section 4b tests noise.",
+        "",
+        "## 4b. Stability of similar-places lists",
+        "",
+        "- **Refit:** the PCA is refitted on places resampled with replacement and every place "
+        "is projected again. This tests whether the axes depend on which places happen to be "
+        "included.",
+        "- **Axes:** one axis fewer and one more than the rule keeps.",
+        "- **Small counts:** every count is redrawn from a Poisson distribution with the "
+        "published count as its mean, then projected through the original standardisation. "
+        "The census is a full count; this models the ordinary random variation that makes "
+        "small-area rates unstable (the reason for D-026). It is a sensitivity test, not an "
+        "estimate of census error.",
+        "",
+        "| Level | Chance | Refit | Fewer axes | More axes | Small counts | "
+        f"Small counts, inside original top {WIDE_K} | Median shift | Median distance to 1st / "
+        f"{TOP_K}th |",
+        "|---|---|---|---|---|---|---|---|---|",
+    ]
+    for level, r in result.levels.items():
+        st = r.stability
+        if not st:
+            continue
+        ax = st["axis_count"]
+        axes_vals = list(ax.values()) if isinstance(ax, dict) else []
+        fewer = axes_vals[0] if axes_vals else ""
+        more = axes_vals[1] if len(axes_vals) > 1 else ""
+        bo = st["bootstrap"]
+        no = st["count_noise"]
+        assert isinstance(bo, dict) and isinstance(no, dict)
+        lines.append(
+            f"| {level} | {st['chance_overlap']} | {bo['mean_overlap']} (min {bo['min_overlap']}) "
+            f"| {fewer} | {more} | {no['mean_overlap']} | {no[f'inside_original_top_{WIDE_K}']} "
+            f"| {no['median_shift']} | {st['median_distance_1st']} / "
+            f"{st[f'median_distance_{TOP_K}th']} |"
+        )
+    lines += [
+        "",
+        "Overlap is the mean share of a place's top-"
+        f"{TOP_K} list that is unchanged. Chance is the overlap two random lists would have. "
+        "Median shift is how far a place moves in the space under small-count noise; compare it "
+        "with the distance to its neighbours.",
+        "",
+    ]
+    for level, r in result.levels.items():
+        no = r.stability.get("count_noise") if r.stability else None
+        if not isinstance(no, dict):
+            continue
+        lines += [
+            f"Small-count overlap by population, {level.upper()}:",
+            "",
+            f"| Population | Places | Overlap | Inside original top {WIDE_K} |",
+            "|---|---|---|---|",
+        ]
+        for b in no["by_population"]:
+            lines.append(
+                f"| {b['population']} | {b['places']:,} | {b['mean_overlap']} "
+                f"| {b[f'inside_original_top_{WIDE_K}']} |"
+            )
+        lines.append("")
     lines += ["## 5. Distance from the national centre (most unusual 10)", ""]
     for level, r in result.levels.items():
         top = r.unusual.sort_values("distance_from_centre", ascending=False).head(10)

@@ -28,6 +28,7 @@ def _wide(n: int = 300, seed: int = 1) -> pd.DataFrame:
             "population_age_60_64": total * old60,
             "population_age_65_plus": total * old65,
             "population_female": female,
+            "population_male": total - female,
             "sex_ratio": (total - female) / female * 100,
             "occupied_housing_units": units,
             "population_density": rng.lognormal(6, 1.5, n),
@@ -116,3 +117,38 @@ def test_space_version_mismatch_is_refused(tmp_path: Path):
     )
     with pytest.raises(ValueError, match="version"):
         profile.load_space(tmp_path)
+
+
+def test_project_reproduces_the_fitted_rows():
+    x, _ = profile.prepare(_wide(), list(_wide().index))
+    f = profile.fit(x)
+    assert np.allclose(profile.project(f, x), f.z, atol=1e-12)
+
+
+def test_count_noise_keeps_derived_values_consistent():
+    wide = _wide(100)
+    noisy = profile.perturb_counts(wide, np.random.default_rng(3))
+    ages = noisy[profile.AGE_COUNTS].sum(axis=1)
+    assert np.allclose(noisy["population_total"], ages)
+    assert np.allclose(
+        noisy["persons_per_occupied_housing_unit"],
+        noisy["population_total"] / noisy["occupied_housing_units"],
+    )
+    area = wide["population_total"] / wide["population_density"]
+    assert np.allclose(noisy["population_total"] / noisy["population_density"], area)
+    assert not noisy[profile.AGE_COUNTS].equals(wide[profile.AGE_COUNTS])
+
+
+def test_stability_report_has_every_check():
+    wide = _wide(200)
+    x, _ = profile.prepare(wide, list(wide.index))
+    f = profile.fit(x)
+    idx, dist = profile.nearest(f, k=10)
+    st = profile.stability(wide, x, f, idx, dist)
+    assert st["chance_overlap"] == pytest.approx(10 / 199, abs=1e-4)
+    boot = st["bootstrap"]
+    noise = st["count_noise"]
+    assert isinstance(boot, dict) and isinstance(noise, dict)
+    assert 0 <= boot["min_overlap"] <= boot["mean_overlap"] <= 1
+    assert 0 <= noise["mean_overlap"] <= 1
+    assert sum(b["places"] for b in noise["by_population"]) == len(f.ids)

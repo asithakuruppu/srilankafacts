@@ -57,15 +57,24 @@ with the smallest parts and "most different" the three with the largest.
 | `vectors/similar_{gn,ds}_2024.json` | Top 20 similar places per place with distance and the three most alike and most different inputs |
 | `vectors/unusual_{gn,ds}_2024.parquet` | Distance from the national centre, percentile and the inputs that contribute most |
 | `vectors/contrasts_{gn,ds}_2024.parquet` | Every bordering pair's distance; flagged above the 95th percentile of bordering pairs |
-| `sensitivity.json` | Neighbour-list overlap at K = 20 with one block removed |
+| `sensitivity.json` | Neighbour-list overlap at K = 20 with one block removed, plus the stability checks (refit, axis count, small-count noise by population band) |
 | `excluded_places.csv` | Spine units without a vector, with the reason |
 
 ## Known limits
 
-- **GN neighbour lists are not stable.** With either block removed, about 2% of a GN's top 20
-  stays the same (DS: 27–38%) ✅. With 13,934 GNs packed into three axes, many places are almost
-  equally close, so small changes reorder the list. Don't present GN similar places as robust
-  until a further check, for example overlap under resampling or a larger K, supports it.
+- **The axes are stable; GN similar-places lists are not** ✅ (QA §4b).
+  - Refitting the PCA on resampled places leaves 89% of a GN's top 20 unchanged (DS 93%), so
+    the axes don't depend on which places are included.
+  - Redrawing every count from a Poisson distribution, a model of ordinary small-number
+    variation rather than census error, leaves 13% of a GN's top 20 unchanged (DS 84%).
+  - Under that variation a typical GN moves 0.32 in the space. Its 20th-nearest neighbour is
+    only 0.16 away, so the order of its neighbours is mostly noise. Its wider neighbourhood
+    holds better: 47% of the redrawn list stays inside the original top 200.
+  - Stability rises with size: GNs with 5,000+ people keep 61% (346 GNs); GNs with
+    100–1,999 people keep 7–9%.
+  - Removing a block (QA §4) changes what the space measures, so its low overlap is not a
+    noise test.
+  - D-031 (proposed) sets what the website shows as a result.
 - **Size is counted twice.** Persons per housing unit is population ÷ housing units, so log
   housing units adds little beyond log population, and settlement size gets extra weight. D-029
   lists dropping housing units as a v0.3 option.
