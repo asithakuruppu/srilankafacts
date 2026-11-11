@@ -210,6 +210,60 @@ def build_geographies(units: gpd.GeoDataFrame) -> pd.DataFrame:
     )
 
 
+NAME_OVERRIDE_FIELDS = ("name_en", "name_si", "name_ta")
+SPINE_DATASET_ID = "cod-ab-lka"
+
+
+def apply_name_overrides(
+    geos: pd.DataFrame, overrides: pd.DataFrame
+) -> tuple[pd.DataFrame, pd.DataFrame, list[str]]:
+    """Apply person-made name corrections from overrides/ (AGENTS rule 3, D-028).
+
+    A row applies only if its target exists and the current value equals `old_value` (empty
+    means "no name"). Anything else is an error, so a stale override never silently wins.
+    Returns the corrected table, the applied rows (for the QA report) and errors.
+    """
+    geos = geos.copy()
+    errors: list[str] = []
+    applied: list[dict[str, object]] = []
+    rows = overrides[overrides["dataset_id"] == SPINE_DATASET_ID] if len(overrides) else overrides
+    index = {gid: i for i, gid in zip(geos.index, geos["geography_id"], strict=True)}
+    for o in rows.itertuples(index=False):
+        if o.field not in NAME_OVERRIDE_FIELDS:
+            errors.append(f"override {o.override_id}: field '{o.field}' is not a name field")
+            continue
+        if o.target not in index:
+            errors.append(f"override {o.override_id}: target {o.target} is not in the spine")
+            continue
+        i = index[o.target]
+        current = geos.at[i, o.field]
+        current = None if current is None or pd.isna(current) or current == "" else str(current)
+        old = (
+            None
+            if o.old_value is None or pd.isna(o.old_value) or o.old_value == ""
+            else str(o.old_value)
+        )
+        if current != old:
+            errors.append(
+                f"override {o.override_id}: {o.target}.{o.field} is {current!r}, expected {old!r}"
+            )
+            continue
+        geos.at[i, o.field] = o.new_value
+        applied.append(
+            {"override_id": o.override_id, "geography_id": o.target, "field": o.field,
+             "new_value": o.new_value, "evidence": o.evidence}
+        )  # fmt: skip
+    return geos, pd.DataFrame(applied), errors
+
+
+def load_overrides(overrides_root: Path) -> pd.DataFrame:
+    path = overrides_root / f"{SPINE_DATASET_ID}.csv"
+    if not path.is_file():
+        return pd.DataFrame(columns=["override_id", "dataset_id", "target", "field", "old_value",
+                                     "new_value", "evidence"])  # fmt: skip
+    return pd.read_csv(path, dtype=str, keep_default_na=False)
+
+
 def build_versions(units: gpd.GeoDataFrame, gdb_ref: SnapshotRef) -> gpd.GeoDataFrame:
     metric = units.geometry.to_crs(AREA_CRS)
     label = shapely.point_on_surface(units.geometry.values)  # guaranteed inside the polygon
@@ -520,6 +574,12 @@ def build_spine(
     insp = inspect(path)
     units = read_levels(path)
     geos = build_geographies(units)
+    override_errors: list[str] = []
+    name_overrides = pd.DataFrame()
+    if catalog_root is not None:
+        geos, name_overrides, override_errors = apply_name_overrides(
+            geos, load_overrides(catalog_root.parent / "overrides")
+        )
     versions = build_versions(units, gdb_ref)
     relations = build_relations(geos)
     prov_errors: list[str] = []
@@ -530,7 +590,7 @@ def build_spine(
         relations = pd.concat([relations, prov_rel], ignore_index=True)
     current = versions[versions["status"] == "current"]
 
-    errors = list(insp.problems) + check_hierarchy(geos) + prov_errors
+    errors = list(insp.problems) + check_hierarchy(geos) + prov_errors + override_errors
     ampara = geos.loc[geos["geography_id"] == "LK52", "parent_id"].tolist()
     if ampara != ["LK5"]:
         errors.append(f"regression: Ampara LK52 parent is {ampara}, expected ['LK5']")
@@ -607,8 +667,25 @@ def build_spine(
         adj=adj,
         isolated=isolated,
     )
+    report += _overrides_section(name_overrides)
     out("qa/geography-spine-v0.md").write_text(report, encoding="utf-8")
     return SpineResult(errors=errors, report_md=report, outputs=outputs)
+
+
+def _overrides_section(applied: pd.DataFrame) -> str:
+    lines = ["", "## Name overrides applied", ""]
+    if applied.empty:
+        return "\n".join([*lines, "None.", ""])
+    lines += [
+        f"{len(applied)} person-made name corrections from `overrides/{SPINE_DATASET_ID}.csv` "
+        "(AGENTS rule 3, D-028). COD-AB v03 had no name for these units.",
+        "",
+        "| override | unit | field | new value |",
+        "|---|---|---|---|",
+    ]
+    for r in applied.itertuples(index=False):
+        lines.append(f"| {r.override_id} | {r.geography_id} | {r.field} | {r.new_value} |")
+    return "\n".join([*lines, ""])
 
 
 def render_report(

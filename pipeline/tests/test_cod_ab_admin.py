@@ -210,3 +210,52 @@ def test_add_provisional_unions_members(
     assert row["status"] == "provisional"
     assert row["area_km2"] == pytest.approx(2 * 1.1 * 1.1, rel=0.05)  # two ~1.1 km squares
     assert cab.check_hierarchy(geos2) == []
+
+
+def test_name_overrides_apply_only_when_old_value_matches() -> None:
+    import pandas as pd
+
+    from slf.datasets.cod_ab_admin import apply_name_overrides
+
+    geos = pd.DataFrame(
+        {"geography_id": ["LK1", "LK2"], "name_en": [None, "Central"], "name_si": [None, None]}
+    )
+    overrides = pd.DataFrame(
+        [
+            {"override_id": "a", "dataset_id": "cod-ab-lka", "target": "LK1", "field": "name_en",
+             "old_value": "", "new_value": "Western", "evidence": "x"},
+            {"override_id": "b", "dataset_id": "cod-ab-lka", "target": "LK2", "field": "name_en",
+             "old_value": "", "new_value": "Other", "evidence": "x"},
+            {"override_id": "c", "dataset_id": "cod-ab-lka", "target": "LK9", "field": "name_en",
+             "old_value": "", "new_value": "Nowhere", "evidence": "x"},
+            {"override_id": "d", "dataset_id": "cod-ab-lka", "target": "LK1", "field": "level",
+             "old_value": "", "new_value": "9", "evidence": "x"},
+            {"override_id": "e", "dataset_id": "other", "target": "LK1", "field": "name_si",
+             "old_value": "", "new_value": "ignored", "evidence": "x"},
+        ]
+    )  # fmt: skip
+    out, applied, errors = apply_name_overrides(geos, overrides)
+    assert out.loc[0, "name_en"] == "Western"
+    assert out.loc[1, "name_en"] == "Central"  # stale override refused, not applied
+    assert pd.isna(out.loc[0, "name_si"])  # other dataset's override ignored
+    assert applied["override_id"].tolist() == ["a"]
+    assert len(errors) == 3
+    assert any("expected None" in e for e in errors)
+    assert any("not in the spine" in e for e in errors)
+    assert any("not a name field" in e for e in errors)
+
+
+def test_committed_name_overrides_cover_the_twelve_d028_names() -> None:
+    from pathlib import Path
+
+    import pandas as pd
+
+    path = Path(__file__).resolve().parents[2] / "overrides" / "cod-ab-lka.csv"
+    rows = pd.read_csv(path, dtype=str, keep_default_na=False)
+    fields = rows["field"].tolist()
+    assert fields.count("name_en") == 12
+    assert fields.count("name_si") == 8
+    en_rows = rows[rows["field"] == "name_en"]
+    en = dict(zip(en_rows["target"], en_rows["new_value"], strict=True))
+    assert en["LK2206125"] == "Kiralessa"  # after the Kandalama/Kiralessa correction
+    assert "LK2206300" not in en  # COD-AB already names it Kandalama
