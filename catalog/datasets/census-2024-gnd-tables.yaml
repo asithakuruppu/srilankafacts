@@ -46,6 +46,7 @@ notes: >
   (14,008 GN rows). Both carry DCS codes and no geometry, so the source CRS does not apply.
   DS and higher aggregates are sums of the GN rows; 63 DCS GN units are not yet matched to the
   spine (G02 review queue) and enter DS/district totals but not GN-level output. DCS 5224
-  Kalmunai is not joined to COD-AB LK5221 (D-022). Rights are unclear; the dataset is not
-  publishable until the lead records a decision or DCS replies. Dossier:
+  Kalmunai is not joined to COD-AB LK5221 (D-022). Rights are unclear. D-030 (2026-11-12): the lead allows
+  non-commercial publication with attribution and a notice before DCS replies; commercial use
+  stays forbidden, and the release builder still needs a change before a public release. Dossier:
   docs/research/sources/dcs.md. Method: docs/methods/census-2024.md.

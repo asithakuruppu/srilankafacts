@@ -170,8 +170,10 @@ components. A rate whose denominator is zero is `not_available`, never 0.
   and may be revised by DCS.
 - Rights are **unclear**. The DCS page, workbooks and final report carry no licence or reuse
   terms that the rights review could find. The dataset cannot enter a public release until the
-  lead records a decision or DCS replies. D-023 records the position: Stage 1A stays private
-  and the reuse-terms letter is approved for the lead to send. See
+  lead records a decision or DCS replies. D-023 kept Stage 1A private; the letter has since been
+  sent. D-030 (2026-11-12) allows non-commercial publication with attribution and a notice
+  before DCS replies; commercial use stays forbidden, and the release builder must be changed
+  before a public release. See
   `docs/research/rights/census-2024-gnd-tables.md`.
 
 ## 9. Reproduction

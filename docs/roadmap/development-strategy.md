@@ -68,7 +68,7 @@ Durations are estimates for a solo lead at a steady part-time to full-time pace 
 
 ### Stage 1: Census Atlas 2024 (re-estimated after Stage 0)
 
-Stage 0 showed that the engineering chain is fast but the **data scope and rights** are the constraints. Stage 1 is therefore split. Neither track may publish while DCS rights remain unclear.
+Stage 0 showed that the engineering chain is fast but the **data scope and rights** are the constraints. Stage 1 is therefore split. DCS rights remain unclear; D-030 allows non-commercial publication with attribution and a notice in the meantime, and commercial use stays forbidden.
 
 #### Stage 1A: private preview (3–4 weeks, can start now)
 
