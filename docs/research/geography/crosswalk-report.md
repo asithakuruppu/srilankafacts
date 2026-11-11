@@ -34,14 +34,14 @@ The transformation holds broadly, so codes are used, but **only unit by unit**: 
 | System | Level | Units in system | exact_code | name_and_parent | manual | Matched % | Review queue | Spine units with no counterpart |
 |---|---|---|---|---|---|---|---|---|
 | dcs_census2024 | DS | 340 | 326 | 12 | 1 | 99.71 | 1 | 1 |
-| dcs_census2024 | GN | 14,008 | 13782 | 163 | 0 | 99.55 | 63 | 98 |
+| dcs_census2024 | GN | 14,008 | 13782 | 163 | 22 | 99.71 | 41 | 76 |
 | nsdi | DS | 332 | 324 | 4 | 0 | 98.80 | 4 | 11 |
 | nsdi | GN | 14,051 | 13704 | 0 | 0 | 97.53 | 347 | 339 |
 | ldl | DS | 339 | 339 | 0 | 0 | 100.00 | 0 | 0 |
 | ldl | GN | 14,043 | 14043 | 0 | 0 | 100.00 | 0 | 0 |
-| nuuuwan | GN | 14,008 | 13782 | 163 | 0 | 99.55 | 63 | 98 |
+| nuuuwan | GN | 14,008 | 13782 | 163 | 22 | 99.71 | 41 | 76 |
 
-**Review queue: 478 items** (all systems) in `catalog/geographies/manual-review.csv`, each with a reason and up to three candidates. Nothing is dropped: every unit is matched, queued, or (for spine units) listed as having no counterpart.
+**Review queue: 434 items** (all systems) in `catalog/geographies/manual-review.csv`, each with a reason and up to three candidates. Nothing is dropped: every unit is matched, queued, or (for spine units) listed as having no counterpart.
 
 Method and confidence: `exact_code` 1.0 (names identical), 0.95 (names similar), 0.9 (GN number agrees under a remapped DS), 0.85 (code agrees and one name contains the other, e.g. "Laggala-Pallegama" / "Laggala"), 0.8 (code only; a name is missing). `name_and_parent` 0.9 (same normalised name, unique in the parent). Fuzzy name matches are **never** accepted without a code agreeing.
 
@@ -144,72 +144,23 @@ NSDI boundary dispute flags on GN polygons (from the `dispute` field; used in G0
 
 | system | code | name_in_system | geography_id | spine_name | match_method | confidence |
 |---|---|---|---|---|---|---|
-| ldl | LK6224010 | Kottukachchiya Colony 1 | LK6224010 | Kottukachchiya Colony 1 | exact_code | 1.0 |
-| nsdi | 6139050 | Kandattawa | LK6139050 | Kandattawa | exact_code | 1.0 |
-| ldl | LK9115080 | Muttettuwegama | LK9115080 | Muttettuwegama | exact_code | 1.0 |
-| nsdi | 6163290 | Haliyamulla | LK6163290 | Haliyamulla | exact_code | 1.0 |
-| nsdi | 1312180 | Bogahawatta | LK1312180 | Bogahawatta | exact_code | 1.0 |
-| nuuuwan | LK-8224140 | Gonagan Ara | LK8224140 | Gonagan Ara | exact_code | 1.0 |
-| nsdi | 1333165 | Rathmale East | LK1333165 | Rathmale East | exact_code | 1.0 |
-| nuuuwan | LK-2148065 | Karagaskada South | LK2148065 | Karagaskada South | exact_code | 1.0 |
-| dcs_census2024 | 9206050 | Uthuwankanda | LK9206050 | Uthuwankanda | exact_code | 1.0 |
-| nsdi | 7206010 | Jayathugama | LK7206010 | Jayathugama | exact_code | 1.0 |
-| dcs_census2024 | 1218005 | Pamunugama | LK1218005 | Pamunugama | exact_code | 1.0 |
-| ldl | LK1309070 | Godigamuwa West | LK1309070 | Godigamuwa West | exact_code | 1.0 |
-| dcs_census2024 | 4418040 | Ethawatunawewa | LK4418040 | Ethawetunawewa | exact_code | 0.95 |
-| nuuuwan | LK-9145045 | Udaranwala | LK9145045 | Udaranwala | exact_code | 1.0 |
-| ldl | LK3333195 | Wagegoda | LK3333195 | Wagegoda | exact_code | 1.0 |
-| nsdi | 6239225 | Maravila Town | LK6239225 | Maravila Town | exact_code | 1.0 |
-| dcs_census2024 | 3133150 | Udakerewa | LK3133150 | Udakerewa | exact_code | 1.0 |
-| dcs_census2024 | 3333015 | Thalunna | LK3333015 | Thalunna | exact_code | 1.0 |
-| dcs_census2024 | 1212675 | Udugama | LK1212675 | Udugama | exact_code | 1.0 |
-| nuuuwan | LK-9227105 | Polpitiya | LK9227105 | Polpitiya | exact_code | 1.0 |
-
-## 7. Why the 64 DCS items don't match: were they redrawn? (checked 2026-11-12)
-
-The lead asked whether most of the 64 DCS review items are units redrawn after the boundary
-data was made. Checked by comparing dates and the three sources at the same codes. The
-analysis was a one-off script over the snapshots in §1 and the COD-AB geodatabase; it is not
-part of `slf crosswalk build`.
-
-**Dates**
-
-| Source | Date | Where it comes from |
-|---|---|---|
-| NSDI GN layer | 2017 | `year_created = "2017"` and `data_source = "Satellite Images"` on all 14,051 GN rows ✅ (field values). Same value on every row, so it dates the layer, not individual GNs. |
-| COD-AB v03 | boundaries created by the source 2 Aug 2022; valid 16 Aug 2022 | HDX dataset notes 🟡; `valid_on = 2022-08-16` on all 14,043 GN rows ✅ |
-| DCS Census 2024 | reference date 19 Dec 2024 | DCS final report ✅ (`docs/methods/census-2024.md`) |
-
-**The test.** If a GN was redrawn between 2022 and 2024, the 2017 NSDI layer should agree with
-COD-AB (2022), not with DCS (2024). It is the other way round: in all 9 cases where COD-AB
-lacks a GN that DCS has (6 code gaps, 3 in Eravur), **NSDI 2017 has it, with DCS's code and
-name**. Of the 34 non-Kalmunai items, the DCS code exists in NSDI 2017 for 33. NSDI sides with
-COD-AB on *spelling* but with DCS on *which units exist*. So most items are **not** post-2022
-redrawing.
-
-**The 64 items by cause**
-
-| Cause | Items | Evidence | Redrawn? |
-|---|---|---|---|
-| Kalmunai: COD-AB merges DS 5221 and 5224 (D-022) | 30 (DS 5224 + its 29 GNs, including `5224080` Kalmunaikudi 01) | NSDI 2017 already lists the same 29 codes under 5224 with DCS names, so the split predates COD-AB | No: a COD-AB merge |
-| COD-AB uses a different code for the same slot | 6: Kiralessa `2206265`, Aluthwatta `2215150`, Kirigalpotta `2218120`, Aluthwela `2221090`, Horombuwa `8215105`, Pussellawa `8218090` | In each DS the GN count is identical in all three sources (for example Dambulla 59/59/59). DCS and NSDI have the code; COD-AB lacks it and has one extra code instead, unnamed in five cases (`LK2215285`, `LK2218265`, `LK2221150`, `LK8215135`, `LK8218210`) and "Kandalama" (`LK2206300`) in one | Probably not: likely the same GN with a COD-AB code and name gap (❓ unverified without GN geometry) |
-| Spelling, transliteration or translation, same code everywhere | 16: Kompagngnaweediya/Slave Island, Hebbekanda/Hambakanda, Kaluwagaha Janapadaya/Colony, Sirambiady/Chirampiyadi, Mailavaddavan/Mylavedduvan, Kithulwewa/Kithul, Thissaveerasingam Sathukam/Square, Gnasooriyam Sathukam/Gnanasooriyam Square, four Sammanthurai "Tamil Division"/"TD", Assedduma/Esseddama, Track/Yaya 12 Pedesa, Track/Yaya 05 Pedesa, Track 12/Yaya 12 | NSDI and COD-AB agree with each other; DCS uses another spelling or the Sinhala/Tamil word | No |
-| Different name at the same code | 8: Vannarpannai N.W., Vannarpannai N.E., Neeraviyady (Nallur `4133055–065`); Thulana Track 18 (`7142005`, COD-AB "Track 13,18"); Gallella (`7215170`, COD-AB "Gallalla East"); Kottagoda (`8124160`, COD-AB "Imbulgoda"); Pothupitiya North (`1321190`, COD-AB "Kuda Waskaduwa South"); Perimiyankulama (`7151120`, COD-AB "Paindikulama") | NSDI agrees with COD-AB; DCS differs. Counts per DS are equal | Possibly renamed after 2017, or a DCS label error; the last two duplicate another DCS name in the same DS |
-| Eravur boundary difference | 3: Ellainagar, Eravur 04, Eravur 05 (DCS DS 5115 Eravur Town) | DCS and NSDI agree: Eravur Town 15 GNs, Eravur Pattu 39. COD-AB has Eravur Town 13 and Eravur Pattu 47, with unnamed in-between codes (`LK5115006`, `014`, `016`, `LK5139007`) | COD-AB differs from both the older and the newer source; cause unknown |
-| In DCS only | 1: Kokuthoduvai South `4415095` (Maritimepattu) | Not in NSDI 2017 or COD-AB 2022; DS has 46 GNs in DCS vs 45 in both others | **Yes, the one likely new or split GN** |
-
-Total: 30 + 6 + 16 + 8 + 3 + 1 = 64.
-
-**What this means**
-- Only **1** item looks like a genuinely new unit. **22** (6 code gaps + 16 spellings) look like
-  the same place under another code or spelling and could be matched by a person with little
-  risk. **11** (8 name differences + 3 Eravur) need someone who knows the area or an official GN
-  list. The **30** Kalmunai items wait on D-022.
-- COD-AB and NSDI probably share Survey Department lineage 🟡, so their agreement on spelling is
-  not two independent confirmations.
-- The six code-gap units include five of the 65 COD-AB GNs with no name (D-028). If the lead
-  accepts the matches, DCS/NSDI names would fill them, subject to D-028's name-source rule.
-- **Kalmunai geometry does not help.** NSDI's DS 5224 polygon (20.3 km²) covers all of COD-AB
-  `LK5221`, both halves, so it cannot confirm which 29 unnamed COD-AB GNs form DCS 5224. All 29
-  unnamed GNs lie inside it, and 28 of the 29 named ones lie mostly inside it too.
-- NSDI has known label errors (geometry QA §4), so it is evidence, not authority.
+| nsdi | 4109135 | Illavalai | LK4109135 | Illavalai | exact_code | 1.0 |
+| dcs_census2024 | 1118115 | Weragala | LK1118115 | Weragala | exact_code | 1.0 |
+| dcs_census2024 | 3321070 | Galpottayaya North | LK3321070 | Galpottayaya North | exact_code | 1.0 |
+| dcs_census2024 | 8218050 | Maiyokka Watta | LK8218050 | Maiyokka Watta | exact_code | 1.0 |
+| ldl | LK1118210 | Mahingala | LK1118210 | Mahingala | exact_code | 1.0 |
+| dcs_census2024 | 6109110 | Kaduruwewa | LK6109110 | Kaduruwewa | exact_code | 1.0 |
+| nuuuwan | LK-2133420 | Warathenna | LK2133420 | Warathenna | exact_code | 1.0 |
+| ldl | LK2318575 | Gonapitiya | LK2318575 | Gonapitiya | exact_code | 1.0 |
+| nsdi | 5118100 | Iruthayapuram Central | LK5118100 | Iruthayapuram Central | exact_code | 1.0 |
+| nuuuwan | LK-1227595 | Bopagama | LK1227595 | Bopagama | exact_code | 1.0 |
+| nuuuwan | LK-3139240 | Dewathura | LK3139240 | Dewathura | exact_code | 1.0 |
+| nsdi | 3145020 | Ihalagoda East | LK3145020 | Ihalagoda East | exact_code | 1.0 |
+| nsdi | 2127375 | Aswalapitiya | LK2127375 | Aswalapitiya | exact_code | 1.0 |
+| dcs_census2024 | 6242115 | Paluwelgala South | LK6242115 | Paluwelgala South | exact_code | 1.0 |
+| nuuuwan | LK-1303275 | Nallooruwa | LK1303275 | Nallooruwa | exact_code | 1.0 |
+| dcs_census2024 | 2209195 | Alugolla | LK2209195 | Alugolla | exact_code | 1.0 |
+| nuuuwan | LK-7209140 | Weerapura | LK7209140 | Weerapura | exact_code | 1.0 |
+| nsdi | 2112090 | Pitiyegedara | LK2112090 | Pitiyegedara | exact_code | 1.0 |
+| dcs_census2024 | 7115095 | Katukeliyawa | LK7115095 | Katukeliyawa | exact_code | 1.0 |
+| nuuuwan | LK-1227155 | Pattigoda | LK1227155 | Pattigoda | exact_code | 1.0 |

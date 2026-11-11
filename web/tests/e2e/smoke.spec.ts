@@ -35,9 +35,12 @@ test("place page shows provenance and child areas", async ({ page }) => {
   await page.goto("/place/LK11");
   await expect(page.getByRole("heading", { level: 1 })).toContainText("Colombo");
   await expect(page.getByText("2,375,415").first()).toBeVisible();
+  // The count depends on the release: 13 in the full preview, 1 in the CI fixture
+  // (which keeps only the Colombo DS, LK1103). Check the heading's form and that child.
   await expect(
-    page.getByRole("heading", { name: /13 divisional secretariats/i }),
+    page.getByRole("heading", { name: /^\d+ divisional secretariats?$/i }),
   ).toBeVisible();
+  await expect(page.locator('a[href="/place/LK1103"]').first()).toBeVisible();
   await page.locator("details.provenance summary").first().click();
   await expect(page.getByText("Snapshot sha256").first()).toBeVisible();
   await expect(page.getByText(/machine extracted/i).first()).toBeVisible();

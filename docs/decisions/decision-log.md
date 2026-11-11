@@ -237,11 +237,12 @@ These were stated by you or are standing rules in [brainstorm-decisions.md](../b
   2. **Notice:** DCS has not published reuse terms; Sri Lanka Facts publishes these figures non-commercially for public information, has asked DCS for terms, and will correct or remove them on DCS's request.
   3. **Non-commercial only:** no paid product, paid API tier or client work uses these values until `commercial_reuse: yes` is recorded (data-model §2.4). Downloads carry the same notice.
   4. **No redistribution of the DCS source files**; link to the DCS page instead.
-  5. **Takedown:** if DCS objects or sets terms that forbid this, census values come down or change to match within 7 days (period proposed by the agent; the lead may change it), and the outreach log records it.
+  5. **Takedown:** if DCS objects or sets terms that forbid this, census values come down or change to match within 7 days (confirmed by the lead 2026-11-12), and the outreach log records it.
 - **What does not change:** the catalogue keeps `rights.status: unclear` and `commercial_reuse: unknown`, because no source text grants permission. This decision is a recorded risk position by the lead, not a licence. Values stay `machine_extracted` until checked (AGENTS rule 7).
 - **Alternatives:** wait for DCS (rejected by the lead: replies may never come, and the blocker would not move); get legal advice first (recommended in D-023, not taken: cost; the risk is accepted with the takedown commitment above).
 - **Consequences:** the rights blocker on Stage 1B is lifted for non-commercial publication. The release builder still refuses a public release when rights are `unclear`, so a code change must let a recorded lead decision (this entry) authorise a non-commercial public release that carries the notice. Until then, releases stay `publishable: false`. Public hosting is not set up yet (R2 and Vercel are deferred by the lead), so nothing is public today. The 1B exit requirements (D-027, D-028) still apply.
 - **Revisit when:** DCS replies; a lawyer reviews the position; or any commercial use is planned.
+- **Related (2026-11-12):** the lead also accepted 22 low-risk DCS crosswalk matches (`catalog/geographies/manual-matches.csv`; analysis in `docs/research/geography/dcs-review-items-dating.md`).
 
 ---
 

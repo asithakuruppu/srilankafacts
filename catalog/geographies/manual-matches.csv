@@ -1,3 +1,25 @@
 system,level,code,decision,geography_id,evidence,decided_by,date
 dcs_census2024,3,5221,match,LK-ADM3-P0001,"DCS CPH 2024 GN workbook lists DS 5221 'Kalmunai North Sub' with 29 GNs; provisional unit created for it (D-022)",lead,2026-11-08
 dcs_census2024,3,5224,review,,"COD-AB LK5221 'Kalmunai' covers DCS 5221 and 5224 together (58 GNs). DCS 5224 corresponds to LK5221 minus LK-ADM3-P0001; its 29 GNs likely match the 29 unnamed COD-AB GNs LK5221150-LK5221300 (same count; unverified). Not equivalent to LK5221.",agent (G02 follow-up),2026-11-08
+dcs_census2024,4,1103130,match,LK1103130,"same code in DCS, NSDI and COD-AB; 'Kompagngnaweediya' is the Sinhala name of Slave Island (docs/research/geography/dcs-review-items-dating.md)",lead,2026-11-12
+dcs_census2024,4,2315085,match,LK2315085,"same code in all three sources; Hebbekanda/Hambakanda spelling variant (docs/research/geography/dcs-review-items-dating.md)",lead,2026-11-12
+dcs_census2024,4,3134095,match,LK3134095,"same code in all three sources; 'Janapadaya' is Sinhala for colony (docs/research/geography/dcs-review-items-dating.md)",lead,2026-11-12
+dcs_census2024,4,4136095,match,LK4136095,"same code in all three sources; Sirambiady/Chirampiyadi transliteration (docs/research/geography/dcs-review-items-dating.md)",lead,2026-11-12
+dcs_census2024,4,5112080,match,LK5115080,"DCS DS 5112 = COD-AB LK5115 (DS code drift); same GN number; Mailavaddavan/Mylavedduvan transliteration (docs/research/geography/dcs-review-items-dating.md)",lead,2026-11-12
+dcs_census2024,4,5112175,match,LK5115175,"DCS DS 5112 = COD-AB LK5115 (DS code drift); same GN number; Kithulwewa/Kithul (docs/research/geography/dcs-review-items-dating.md)",lead,2026-11-12
+dcs_census2024,4,5118090,match,LK5118090,"same code in all three sources; 'Sathukam' is Tamil for square (docs/research/geography/dcs-review-items-dating.md)",lead,2026-11-12
+dcs_census2024,4,5118115,match,LK5118115,"same code in all three sources; 'Sathukam' is Tamil for square (docs/research/geography/dcs-review-items-dating.md)",lead,2026-11-12
+dcs_census2024,4,5218020,match,LK5218020,"same code in all three sources; 'Tamil Division' = 'TD' (docs/research/geography/dcs-review-items-dating.md)",lead,2026-11-12
+dcs_census2024,4,5218025,match,LK5218025,"same code in all three sources; 'Tamil Division' = 'TD' (docs/research/geography/dcs-review-items-dating.md)",lead,2026-11-12
+dcs_census2024,4,5218030,match,LK5218030,"same code in all three sources; 'Tamil Division' = 'TD' (docs/research/geography/dcs-review-items-dating.md)",lead,2026-11-12
+dcs_census2024,4,5218090,match,LK5218090,"same code in all three sources; 'Tamil Division' = 'TD' (docs/research/geography/dcs-review-items-dating.md)",lead,2026-11-12
+dcs_census2024,4,6172120,match,LK6172120,"same code in all three sources; Assedduma/Esseddama spelling variant (docs/research/geography/dcs-review-items-dating.md)",lead,2026-11-12
+dcs_census2024,4,7203225,match,LK7203225,"same code in all three sources; 'Track'/'Yaya' (tract) naming (docs/research/geography/dcs-review-items-dating.md)",lead,2026-11-12
+dcs_census2024,4,7203240,match,LK7203240,"same code in all three sources; 'Track'/'Yaya' (tract) naming (docs/research/geography/dcs-review-items-dating.md)",lead,2026-11-12
+dcs_census2024,4,7142020,match,LK7142020,"same code in all three sources; 'Track 12'/'Yaya 12' (docs/research/geography/dcs-review-items-dating.md)",lead,2026-11-12
+dcs_census2024,4,2206265,match,LK2206300,"GN count 59 in DCS, NSDI and COD-AB; DCS and NSDI 2017 have 2206265 Kiralessa, COD-AB lacks that code and has one extra code LK2206300 'Kandalama' instead; unverified without GN geometry (docs/research/geography/dcs-review-items-dating.md)",lead,2026-11-12
+dcs_census2024,4,2215150,match,LK2215285,"GN count 56 in all three; DCS and NSDI 2017 have 2215150 Aluthwatta, COD-AB has unnamed LK2215285 instead; unverified without GN geometry (docs/research/geography/dcs-review-items-dating.md)",lead,2026-11-12
+dcs_census2024,4,2218120,match,LK2218265,"GN count 52 in all three; DCS and NSDI 2017 have 2218120 Kirigalpotta, COD-AB has unnamed LK2218265 instead; unverified without GN geometry (docs/research/geography/dcs-review-items-dating.md)",lead,2026-11-12
+dcs_census2024,4,2221090,match,LK2221150,"GN count 20 in all three; DCS and NSDI 2017 have 2221090 Aluthwela, COD-AB has unnamed LK2221150 instead; unverified without GN geometry (docs/research/geography/dcs-review-items-dating.md)",lead,2026-11-12
+dcs_census2024,4,8215105,match,LK8215135,"GN count 26 in all three; DCS and NSDI 2017 have 8215105 Horombuwa, COD-AB has unnamed LK8215135 instead; unverified without GN geometry (docs/research/geography/dcs-review-items-dating.md)",lead,2026-11-12
+dcs_census2024,4,8218090,match,LK8218210,"GN count 41 in all three; DCS and NSDI 2017 have 8218090 Pussellawa, COD-AB has unnamed LK8218210 instead; unverified without GN geometry (docs/research/geography/dcs-review-items-dating.md)",lead,2026-11-12

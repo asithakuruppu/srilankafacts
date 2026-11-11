@@ -122,6 +122,8 @@ def test_known_cases_in_committed_crosswalk() -> None:
     assert dcs["2309"] == "LK2324"  # Walapane (code drift, audit §11)
     assert dcs["2310"] == "LK2309"  # Nildandahinna
     assert dcs["5221"] == "LK-ADM3-P0001"  # Kalmunai North Sub, provisional (D-022)
+    assert dcs["2215150"] == "LK2215285"  # Aluthwatta: COD-AB code gap, lead match 2026-11-12
+    assert dcs["5218020"] == "LK5218020"  # Sammanthurai "Tamil Division" = "TD"
     assert "5224" not in dcs  # Kalmunai: LK5221 covers 5221 + 5224, so not equivalent
     review = pd.read_csv(CATALOG / "manual-review.csv", dtype=str)
     k = review[(review["system"] == "dcs_census2024") & (review["code"] == "5224")]
@@ -145,3 +147,18 @@ def test_manual_decision_overrides_automatic_match() -> None:
     assert out.matches.empty
     assert "automatic match was LK2324" in out.review["reason"].item()
     assert "LK2324" in set(out.no_counterpart["geography_id"])
+
+
+def test_manual_match_removes_target_from_no_counterpart() -> None:
+    u = units([(3, "2309", "Unknown Place", "23")])
+    res = cw.match_system(u, spine(), code_equivalence=True)
+    assert "LK2221" in set(res.no_counterpart["geography_id"])
+    manual = pd.DataFrame(
+        [{"system": "toy", "level": "3", "code": "2309", "decision": "match",
+          "geography_id": "LK2221", "evidence": "same unit", "decided_by": "lead",
+          "date": "2026-11-12"}]
+    )  # fmt: skip
+    out = cw.apply_manual(res, "toy", manual, spine())
+    got = dict(zip(out.matches["code"], out.matches["geography_id"], strict=True))
+    assert got == {"2309": "LK2221"}
+    assert "LK2221" not in set(out.no_counterpart["geography_id"])
