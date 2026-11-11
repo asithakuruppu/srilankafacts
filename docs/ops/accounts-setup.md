@@ -19,7 +19,7 @@ Agents never create accounts, handle credentials or create cloud resources (AGEN
 ## Before the first public preview (Stage 1)
 
 - [ ] Hosting project (Vercel Pro, per D-007) linked to the repository; production deploys only from `main`.
-- [ ] Domain purchased and pointed at hosting (see the name and domain item in the legal checklist).
+- [ ] Domain purchased and pointed at hosting (see the name and domain item in the legal checklist). **Interim (lead, 2026-11-12):** `kuruppu.xyz`, for now; not yet pointed at hosting. R2 and Vercel are deferred by the lead.
 - [ ] Privacy-respecting analytics account (Cloudflare Web Analytics or Umami).
 
 ## Ongoing

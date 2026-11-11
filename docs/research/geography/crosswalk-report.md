@@ -34,14 +34,14 @@ The transformation holds broadly, so codes are used, but **only unit by unit**: 
 | System | Level | Units in system | exact_code | name_and_parent | manual | Matched % | Review queue | Spine units with no counterpart |
 |---|---|---|---|---|---|---|---|---|
 | dcs_census2024 | DS | 340 | 326 | 12 | 1 | 99.71 | 1 | 1 |
-| dcs_census2024 | GN | 14,008 | 13782 | 163 | 0 | 99.55 | 63 | 98 |
+| dcs_census2024 | GN | 14,008 | 13782 | 163 | 22 | 99.71 | 41 | 76 |
 | nsdi | DS | 332 | 324 | 4 | 0 | 98.80 | 4 | 11 |
 | nsdi | GN | 14,051 | 13704 | 0 | 0 | 97.53 | 347 | 339 |
 | ldl | DS | 339 | 339 | 0 | 0 | 100.00 | 0 | 0 |
 | ldl | GN | 14,043 | 14043 | 0 | 0 | 100.00 | 0 | 0 |
-| nuuuwan | GN | 14,008 | 13782 | 163 | 0 | 99.55 | 63 | 98 |
+| nuuuwan | GN | 14,008 | 13782 | 163 | 22 | 99.71 | 41 | 76 |
 
-**Review queue: 478 items** (all systems) in `catalog/geographies/manual-review.csv`, each with a reason and up to three candidates. Nothing is dropped: every unit is matched, queued, or (for spine units) listed as having no counterpart.
+**Review queue: 434 items** (all systems) in `catalog/geographies/manual-review.csv`, each with a reason and up to three candidates. Nothing is dropped: every unit is matched, queued, or (for spine units) listed as having no counterpart.
 
 Method and confidence: `exact_code` 1.0 (names identical), 0.95 (names similar), 0.9 (GN number agrees under a remapped DS), 0.85 (code agrees and one name contains the other, e.g. "Laggala-Pallegama" / "Laggala"), 0.8 (code only; a name is missing). `name_and_parent` 0.9 (same normalised name, unique in the parent). Fuzzy name matches are **never** accepted without a code agreeing.
 
@@ -144,23 +144,23 @@ NSDI boundary dispute flags on GN polygons (from the `dispute` field; used in G0
 
 | system | code | name_in_system | geography_id | spine_name | match_method | confidence |
 |---|---|---|---|---|---|---|
-| ldl | LK6224010 | Kottukachchiya Colony 1 | LK6224010 | Kottukachchiya Colony 1 | exact_code | 1.0 |
-| nsdi | 6139050 | Kandattawa | LK6139050 | Kandattawa | exact_code | 1.0 |
-| ldl | LK9115080 | Muttettuwegama | LK9115080 | Muttettuwegama | exact_code | 1.0 |
-| nsdi | 6163290 | Haliyamulla | LK6163290 | Haliyamulla | exact_code | 1.0 |
-| nsdi | 1312180 | Bogahawatta | LK1312180 | Bogahawatta | exact_code | 1.0 |
-| nuuuwan | LK-8224140 | Gonagan Ara | LK8224140 | Gonagan Ara | exact_code | 1.0 |
-| nsdi | 1333165 | Rathmale East | LK1333165 | Rathmale East | exact_code | 1.0 |
-| nuuuwan | LK-2148065 | Karagaskada South | LK2148065 | Karagaskada South | exact_code | 1.0 |
-| dcs_census2024 | 9206050 | Uthuwankanda | LK9206050 | Uthuwankanda | exact_code | 1.0 |
-| nsdi | 7206010 | Jayathugama | LK7206010 | Jayathugama | exact_code | 1.0 |
-| dcs_census2024 | 1218005 | Pamunugama | LK1218005 | Pamunugama | exact_code | 1.0 |
-| ldl | LK1309070 | Godigamuwa West | LK1309070 | Godigamuwa West | exact_code | 1.0 |
-| dcs_census2024 | 4418040 | Ethawatunawewa | LK4418040 | Ethawetunawewa | exact_code | 0.95 |
-| nuuuwan | LK-9145045 | Udaranwala | LK9145045 | Udaranwala | exact_code | 1.0 |
-| ldl | LK3333195 | Wagegoda | LK3333195 | Wagegoda | exact_code | 1.0 |
-| nsdi | 6239225 | Maravila Town | LK6239225 | Maravila Town | exact_code | 1.0 |
-| dcs_census2024 | 3133150 | Udakerewa | LK3133150 | Udakerewa | exact_code | 1.0 |
-| dcs_census2024 | 3333015 | Thalunna | LK3333015 | Thalunna | exact_code | 1.0 |
-| dcs_census2024 | 1212675 | Udugama | LK1212675 | Udugama | exact_code | 1.0 |
-| nuuuwan | LK-9227105 | Polpitiya | LK9227105 | Polpitiya | exact_code | 1.0 |
+| nsdi | 4109135 | Illavalai | LK4109135 | Illavalai | exact_code | 1.0 |
+| dcs_census2024 | 1118115 | Weragala | LK1118115 | Weragala | exact_code | 1.0 |
+| dcs_census2024 | 3321070 | Galpottayaya North | LK3321070 | Galpottayaya North | exact_code | 1.0 |
+| dcs_census2024 | 8218050 | Maiyokka Watta | LK8218050 | Maiyokka Watta | exact_code | 1.0 |
+| ldl | LK1118210 | Mahingala | LK1118210 | Mahingala | exact_code | 1.0 |
+| dcs_census2024 | 6109110 | Kaduruwewa | LK6109110 | Kaduruwewa | exact_code | 1.0 |
+| nuuuwan | LK-2133420 | Warathenna | LK2133420 | Warathenna | exact_code | 1.0 |
+| ldl | LK2318575 | Gonapitiya | LK2318575 | Gonapitiya | exact_code | 1.0 |
+| nsdi | 5118100 | Iruthayapuram Central | LK5118100 | Iruthayapuram Central | exact_code | 1.0 |
+| nuuuwan | LK-1227595 | Bopagama | LK1227595 | Bopagama | exact_code | 1.0 |
+| nuuuwan | LK-3139240 | Dewathura | LK3139240 | Dewathura | exact_code | 1.0 |
+| nsdi | 3145020 | Ihalagoda East | LK3145020 | Ihalagoda East | exact_code | 1.0 |
+| nsdi | 2127375 | Aswalapitiya | LK2127375 | Aswalapitiya | exact_code | 1.0 |
+| dcs_census2024 | 6242115 | Paluwelgala South | LK6242115 | Paluwelgala South | exact_code | 1.0 |
+| nuuuwan | LK-1303275 | Nallooruwa | LK1303275 | Nallooruwa | exact_code | 1.0 |
+| dcs_census2024 | 2209195 | Alugolla | LK2209195 | Alugolla | exact_code | 1.0 |
+| nuuuwan | LK-7209140 | Weerapura | LK7209140 | Weerapura | exact_code | 1.0 |
+| nsdi | 2112090 | Pitiyegedara | LK2112090 | Pitiyegedara | exact_code | 1.0 |
+| dcs_census2024 | 7115095 | Katukeliyawa | LK7115095 | Katukeliyawa | exact_code | 1.0 |
+| nuuuwan | LK-1227155 | Pattigoda | LK1227155 | Pattigoda | exact_code | 1.0 |

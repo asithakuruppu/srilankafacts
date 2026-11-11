@@ -39,3 +39,10 @@ public release until DCS replies or a new rights position is recorded. The agent
 send it (AGENTS rule 9). If DCS has not replied by the end of 1A, the default is to wait;
 publishing non-commercially with attribution and a notice would need a new decision and,
 preferably, legal advice.
+
+## Recorded decision (2026-11-12)
+The letter has been sent (lead, reported 2026-11-12). D-030: the lead decided to publish the
+tables **non-commercially**, with the attribution above and a notice, before DCS replies, and
+to correct or remove them on DCS's request. No legal advice was taken. Catalogue status stays
+`unclear` / `commercial_reuse: unknown`: this is a risk position, not evidence of permission.
+Commercial use stays forbidden.

@@ -629,6 +629,8 @@ def apply_manual(
     freed = spine[spine["level"].isin(res.matches["level"].unique()) & ~spine["geography_id"].isin(used)
                   & spine["geography_id"].isin(res.matches["geography_id"])][["geography_id", "level", "name_en", "parent_id"]]  # fmt: skip
     nc = pd.concat([nc, freed], ignore_index=True).drop_duplicates("geography_id")
+    # spine units claimed by a manual match are no longer "no counterpart"
+    nc = nc[~nc["geography_id"].isin(used)]
     return MatchResult(
         matches=m.sort_values(["level", "code"]).reset_index(drop=True),
         review=r.reset_index(drop=True),

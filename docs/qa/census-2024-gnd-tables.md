@@ -129,8 +129,9 @@ Independent comparison, used only as a check and never as a source:
    workbook, and no QGIS visual check of GN boundaries against DCS names has been done.
 7. **Rights are unclear.** No copyright notice, licence or reuse terms were found on the
    DCS page, homepage, workbook or final report. The release is `publishable: false` and
-   `robots.txt` disallows crawling. Stage 1A stays private and no public release is
-   authorised (D-023); the reuse-terms letter is approved for the lead to send. See
+   `robots.txt` disallows crawling. D-023 kept Stage 1A private; D-030 (2026-11-12) now
+   allows non-commercial publication with attribution and a notice, but this preview was built
+   before it and stays `publishable: false`. See
    `docs/research/rights/census-2024-gnd-tables.md`.
 8. **No basemap.** The preview draws COD-AB boundaries on a plain background; PMTiles
    tooling was unavailable. This is a recorded deviation, not a finished map.

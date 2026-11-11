@@ -26,6 +26,7 @@ LK1103110,cod-ab-v03,dcs-census2024,1103110,Kochchikade South,exact_code,1.0,
 LK1103115,cod-ab-v03,dcs-census2024,1103115,Pettah,exact_code,1.0,
 LK1103120,cod-ab-v03,dcs-census2024,1103120,Fort,exact_code,1.0,
 LK1103125,cod-ab-v03,dcs-census2024,1103125,Galle Face,exact_code,1.0,
+LK1103130,cod-ab-v03,dcs-census2024,1103130,Kompagngnaweediya,manual,0.9,"manual (lead, 2026-11-12): same code in DCS, NSDI and COD-AB; 'Kompagngnaweediya' is the Sinhala name of Slave Island (docs/research/geography/dcs-review-items-dating.md)"
 LK1103135,cod-ab-v03,dcs-census2024,1103135,Hunupitiya,exact_code,1.0,
 LK1103140,cod-ab-v03,dcs-census2024,1103140,Suduwella,exact_code,1.0,
 LK1103145,cod-ab-v03,dcs-census2024,1103145,Keselwatta,exact_code,1.0,
@@ -3860,6 +3861,7 @@ LK2206280,cod-ab-v03,dcs-census2024,2206280,Athabandiwewa,exact_code,0.95,
 LK2206285,cod-ab-v03,dcs-census2024,2206285,Lenadora North,exact_code,1.0,
 LK2206290,cod-ab-v03,dcs-census2024,2206290,Lenadora South,exact_code,1.0,
 LK2206295,cod-ab-v03,dcs-census2024,2206295,Nayakumbura,exact_code,1.0,
+LK2206300,cod-ab-v03,dcs-census2024,2206265,Kiralessa,manual,0.9,"manual (lead, 2026-11-12): GN count 59 in DCS, NSDI and COD-AB; DCS and NSDI 2017 have 2206265 Kiralessa, COD-AB lacks that code and has one extra code LK2206300 'Kandalama' instead; unverified without GN geometry (docs/research/geography/dcs-review-items-dating.md)"
 LK2209,cod-ab-v03,dcs-census2024,2209,Naula,exact_code,1.0,
 LK2209005,cod-ab-v03,dcs-census2024,2209005,Ussattawa,exact_code,1.0,
 LK2209010,cod-ab-v03,dcs-census2024,2209010,Nikula,exact_code,1.0,
@@ -4009,6 +4011,7 @@ LK2215265,cod-ab-v03,dcs-census2024,2215265,Thalgahagoda,exact_code,1.0,
 LK2215270,cod-ab-v03,dcs-census2024,2215270,Daluwela,exact_code,1.0,
 LK2215275,cod-ab-v03,dcs-census2024,2215275,Ethipola,exact_code,1.0,
 LK2215280,cod-ab-v03,dcs-census2024,2215280,Ethipola West,exact_code,1.0,
+LK2215285,cod-ab-v03,dcs-census2024,2215150,Aluthwatta,manual,0.9,"manual (lead, 2026-11-12): GN count 56 in all three; DCS and NSDI 2017 have 2215150 Aluthwatta, COD-AB has unnamed LK2215285 instead; unverified without GN geometry (docs/research/geography/dcs-review-items-dating.md)"
 LK2218,cod-ab-v03,dcs-census2024,2218,Matale,exact_code,1.0,
 LK2218005,cod-ab-v03,dcs-census2024,2218005,Narangamuwa,exact_code,1.0,
 LK2218010,cod-ab-v03,dcs-census2024,2218010,Madawala Ulpatha,exact_code,1.0,
@@ -4061,6 +4064,7 @@ LK2218245,cod-ab-v03,dcs-census2024,2218245,Pandivita Welagama,exact_code,1.0,
 LK2218250,cod-ab-v03,dcs-census2024,2218250,Kotuwegedara North,exact_code,1.0,
 LK2218255,cod-ab-v03,dcs-census2024,2218255,Koombiyangoda,exact_code,1.0,
 LK2218260,cod-ab-v03,dcs-census2024,2218260,Kotuwegedara South,exact_code,1.0,
+LK2218265,cod-ab-v03,dcs-census2024,2218120,Kirigalpotta,manual,0.9,"manual (lead, 2026-11-12): GN count 52 in all three; DCS and NSDI 2017 have 2218120 Kirigalpotta, COD-AB has unnamed LK2218265 instead; unverified without GN geometry (docs/research/geography/dcs-review-items-dating.md)"
 LK2221,cod-ab-v03,dcs-census2024,2221,Ambanganga Korale,exact_code,0.95,
 LK2221005,cod-ab-v03,dcs-census2024,2221005,Kumbaloluwa,exact_code,1.0,
 LK2221010,cod-ab-v03,dcs-census2024,2221010,Gammaduwa,exact_code,1.0,
@@ -4081,6 +4085,7 @@ LK2221080,cod-ab-v03,dcs-census2024,2221080,Hunukete,exact_code,1.0,
 LK2221085,cod-ab-v03,dcs-census2024,2221085,Metihakka,exact_code,1.0,
 LK2221095,cod-ab-v03,dcs-census2024,2221095,Cloda,exact_code,1.0,
 LK2221100,cod-ab-v03,dcs-census2024,2221100,Gurubebila,exact_code,1.0,
+LK2221150,cod-ab-v03,dcs-census2024,2221090,Aluthwela,manual,0.9,"manual (lead, 2026-11-12): GN count 20 in all three; DCS and NSDI 2017 have 2221090 Aluthwela, COD-AB has unnamed LK2221150 instead; unverified without GN geometry (docs/research/geography/dcs-review-items-dating.md)"
 LK2224,cod-ab-v03,dcs-census2024,2224,Laggala-Pallegama,exact_code,0.8,code agrees; one name contains the other ('Laggala')
 LK2224005,cod-ab-v03,dcs-census2024,2224005,Maoya,exact_code,1.0,
 LK2224010,cod-ab-v03,dcs-census2024,2224010,Kandepitawela,exact_code,0.95,
@@ -4528,6 +4533,7 @@ LK2315065,cod-ab-v03,dcs-census2024,2315065,Minuwandeniya,exact_code,1.0,
 LK2315070,cod-ab-v03,dcs-census2024,2315070,Hitigegama,exact_code,0.95,
 LK2315075,cod-ab-v03,dcs-census2024,2315075,Kehelwarawa,exact_code,1.0,
 LK2315080,cod-ab-v03,dcs-census2024,2315080,Homagama,exact_code,1.0,
+LK2315085,cod-ab-v03,dcs-census2024,2315085,Hebbekanda,manual,0.9,"manual (lead, 2026-11-12): same code in all three sources; Hebbekanda/Hambakanda spelling variant (docs/research/geography/dcs-review-items-dating.md)"
 LK2315090,cod-ab-v03,dcs-census2024,2315090,Samansirigama,exact_code,1.0,
 LK2315095,cod-ab-v03,dcs-census2024,2315095,Theeniyagala,exact_code,1.0,
 LK2315100,cod-ab-v03,dcs-census2024,2315100,Ginigathhena,exact_code,1.0,
@@ -5264,6 +5270,7 @@ LK3134075,cod-ab-v03,dcs-census2024,3134075,Arachchikanda,exact_code,1.0,
 LK3134080,cod-ab-v03,dcs-census2024,3134080,Gonapeenuwala East,exact_code,1.0,
 LK3134085,cod-ab-v03,dcs-census2024,3134085,Gonapeenuwala West,exact_code,1.0,
 LK3134090,cod-ab-v03,dcs-census2024,3134090,Dodankahavila,exact_code,0.95,
+LK3134095,cod-ab-v03,dcs-census2024,3134095,Kaluwagaha Janapadaya,manual,0.9,"manual (lead, 2026-11-12): same code in all three sources; 'Janapadaya' is Sinhala for colony (docs/research/geography/dcs-review-items-dating.md)"
 LK3136,cod-ab-v03,dcs-census2024,3136,Hikkaduwa,exact_code,1.0,
 LK3136195,cod-ab-v03,dcs-census2024,3136005,Wellawatta,name_and_parent,0.9,parent LK3136; code LK3136005 differs
 LK3136200,cod-ab-v03,dcs-census2024,3136025,Hikkaduwa Nagarikaya,name_and_parent,0.9,parent LK3136; code LK3136025 differs
@@ -7349,6 +7356,7 @@ LK4136075,cod-ab-v03,dcs-census2024,4136075,Chundikuli South,exact_code,1.0,
 LK4136080,cod-ab-v03,dcs-census2024,4136080,Chundikuli North,exact_code,1.0,
 LK4136085,cod-ab-v03,dcs-census2024,4136085,Maruthady,exact_code,1.0,
 LK4136090,cod-ab-v03,dcs-census2024,4136090,Attiaddy,exact_code,1.0,
+LK4136095,cod-ab-v03,dcs-census2024,4136095,Sirambiady,manual,0.9,"manual (lead, 2026-11-12): same code in all three sources; Sirambiady/Chirampiyadi transliteration (docs/research/geography/dcs-review-items-dating.md)"
 LK4136100,cod-ab-v03,dcs-census2024,4136100,Grand Bazaar,exact_code,1.0,
 LK4136105,cod-ab-v03,dcs-census2024,4136105,Fort,exact_code,1.0,
 LK4136110,cod-ab-v03,dcs-census2024,4136110,Vannarpannai,exact_code,1.0,
@@ -7984,6 +7992,7 @@ LK5115060,cod-ab-v03,dcs-census2024,5112060,Palachcholai,exact_code,0.9,GN numbe
 LK5115065,cod-ab-v03,dcs-census2024,5112065,Vantharumoolai East,exact_code,0.9,GN number agrees under remapped DS LK5115 (name similarity 1.00)
 LK5115070,cod-ab-v03,dcs-census2024,5112070,Vantharumoolai West,exact_code,0.9,GN number agrees under remapped DS LK5115 (name similarity 1.00)
 LK5115075,cod-ab-v03,dcs-census2024,5112075,Eralakkulam,exact_code,0.9,GN number agrees under remapped DS LK5115 (name similarity 1.00)
+LK5115080,cod-ab-v03,dcs-census2024,5112080,Mailavaddavan,manual,0.9,"manual (lead, 2026-11-12): DCS DS 5112 = COD-AB LK5115 (DS code drift); same GN number; Mailavaddavan/Mylavedduvan transliteration (docs/research/geography/dcs-review-items-dating.md)"
 LK5115085,cod-ab-v03,dcs-census2024,5112085,Koduwamadu,exact_code,0.9,GN number agrees under remapped DS LK5115 (name similarity 1.00)
 LK5115090,cod-ab-v03,dcs-census2024,5112090,Kommathurai West,exact_code,0.9,GN number agrees under remapped DS LK5115 (name similarity 1.00)
 LK5115095,cod-ab-v03,dcs-census2024,5112095,Kommathurai East,exact_code,0.9,GN number agrees under remapped DS LK5115 (name similarity 1.00)
@@ -8002,6 +8011,7 @@ LK5115155,cod-ab-v03,dcs-census2024,5112155,Pankudahvely,exact_code,0.9,GN numbe
 LK5115160,cod-ab-v03,dcs-census2024,5112160,Vepavedduwan,exact_code,0.9,GN number agrees under remapped DS LK5115 (name similarity 1.00)
 LK5115165,cod-ab-v03,dcs-census2024,5112165,Karadiyanaru,exact_code,0.9,GN number agrees under remapped DS LK5115 (name similarity 1.00)
 LK5115170,cod-ab-v03,dcs-census2024,5112170,Marappalam,exact_code,0.9,GN number agrees under remapped DS LK5115 (name similarity 1.00)
+LK5115175,cod-ab-v03,dcs-census2024,5112175,Kithulwewa,manual,0.9,"manual (lead, 2026-11-12): DCS DS 5112 = COD-AB LK5115 (DS code drift); same GN number; Kithulwewa/Kithul (docs/research/geography/dcs-review-items-dating.md)"
 LK5115180,cod-ab-v03,dcs-census2024,5112180,Rugam,exact_code,0.9,GN number agrees under remapped DS LK5115 (name similarity 1.00)
 LK5115185,cod-ab-v03,dcs-census2024,5112185,Koppavely,exact_code,0.9,GN number agrees under remapped DS LK5115 (name similarity 1.00)
 LK5115190,cod-ab-v03,dcs-census2024,5112190,Periyapullumalai,exact_code,0.9,GN number agrees under remapped DS LK5115 (name similarity 1.00)
@@ -8024,10 +8034,12 @@ LK5118070,cod-ab-v03,dcs-census2024,5118070,Koolavadi East,exact_code,1.0,
 LK5118075,cod-ab-v03,dcs-census2024,5118075,Thamaraikerny,exact_code,1.0,
 LK5118080,cod-ab-v03,dcs-census2024,5118080,Periya Uppodai,exact_code,1.0,
 LK5118085,cod-ab-v03,dcs-census2024,5118085,Dutch Bar,exact_code,1.0,
+LK5118090,cod-ab-v03,dcs-census2024,5118090,Thissaveerasingam Sathukam,manual,0.9,"manual (lead, 2026-11-12): same code in all three sources; 'Sathukam' is Tamil for square (docs/research/geography/dcs-review-items-dating.md)"
 LK5118095,cod-ab-v03,dcs-census2024,5118095,Iruthayapuram East,exact_code,1.0,
 LK5118100,cod-ab-v03,dcs-census2024,5118100,Iruthayapuram Central,exact_code,1.0,
 LK5118105,cod-ab-v03,dcs-census2024,5118105,Iruthayapuram West,exact_code,1.0,
 LK5118110,cod-ab-v03,dcs-census2024,5118110,Periya Oorani,exact_code,1.0,
+LK5118115,cod-ab-v03,dcs-census2024,5118115,Gnasooriyam Sathukam,manual,0.9,"manual (lead, 2026-11-12): same code in all three sources; 'Sathukam' is Tamil for square (docs/research/geography/dcs-review-items-dating.md)"
 LK5118120,cod-ab-v03,dcs-census2024,5118120,Vettukkadu,exact_code,1.0,
 LK5118125,cod-ab-v03,dcs-census2024,5118125,Barathipuram,exact_code,1.0,
 LK5118130,cod-ab-v03,dcs-census2024,5118130,Thandavanveli,exact_code,1.0,
@@ -8411,6 +8423,9 @@ LK5218,cod-ab-v03,dcs-census2024,5218,Samanthurai,exact_code,1.0,
 LK5218005,cod-ab-v03,dcs-census2024,5218005,Veeramunai 04,exact_code,1.0,
 LK5218010,cod-ab-v03,dcs-census2024,5218010,Sammanthurai 08,exact_code,1.0,
 LK5218015,cod-ab-v03,dcs-census2024,5218015,Sammanthurai 06,exact_code,1.0,
+LK5218020,cod-ab-v03,dcs-census2024,5218020,Sammanthurai Tamil Division 01,manual,0.9,"manual (lead, 2026-11-12): same code in all three sources; 'Tamil Division' = 'TD' (docs/research/geography/dcs-review-items-dating.md)"
+LK5218025,cod-ab-v03,dcs-census2024,5218025,Sammanthurai Tamil Division 04,manual,0.9,"manual (lead, 2026-11-12): same code in all three sources; 'Tamil Division' = 'TD' (docs/research/geography/dcs-review-items-dating.md)"
+LK5218030,cod-ab-v03,dcs-census2024,5218030,Sammanthurai Tamil Division 02,manual,0.9,"manual (lead, 2026-11-12): same code in all three sources; 'Tamil Division' = 'TD' (docs/research/geography/dcs-review-items-dating.md)"
 LK5218035,cod-ab-v03,dcs-census2024,5218035,Sammanthurai 01,exact_code,1.0,
 LK5218040,cod-ab-v03,dcs-census2024,5218040,Sammanthurai 02,exact_code,1.0,
 LK5218045,cod-ab-v03,dcs-census2024,5218045,Sammanthurai 05,exact_code,1.0,
@@ -8422,6 +8437,7 @@ LK5218070,cod-ab-v03,dcs-census2024,5218070,Sammanthurai 10,exact_code,1.0,
 LK5218075,cod-ab-v03,dcs-census2024,5218075,Sammanthurai 09,exact_code,1.0,
 LK5218080,cod-ab-v03,dcs-census2024,5218080,Sammanthurai 07,exact_code,1.0,
 LK5218085,cod-ab-v03,dcs-census2024,5218085,Sammanthurai 04,exact_code,1.0,
+LK5218090,cod-ab-v03,dcs-census2024,5218090,Sammanthurai Tamil Division 03,manual,0.9,"manual (lead, 2026-11-12): same code in all three sources; 'Tamil Division' = 'TD' (docs/research/geography/dcs-review-items-dating.md)"
 LK5218095,cod-ab-v03,dcs-census2024,5218095,Maddakalaputharavai 02,exact_code,1.0,
 LK5218100,cod-ab-v03,dcs-census2024,5218100,Maddakalaputharavai 01,exact_code,1.0,
 LK5218105,cod-ab-v03,dcs-census2024,5218105,Sammanthurai 03,exact_code,1.0,
@@ -10239,6 +10255,7 @@ LK6172100,cod-ab-v03,dcs-census2024,6172100,Kuliyapitiya Town,exact_code,1.0,
 LK6172105,cod-ab-v03,dcs-census2024,6172105,Embawa,exact_code,1.0,
 LK6172110,cod-ab-v03,dcs-census2024,6172110,Pahala Embawa,exact_code,1.0,
 LK6172115,cod-ab-v03,dcs-census2024,6172115,Pahala Piduma,exact_code,1.0,
+LK6172120,cod-ab-v03,dcs-census2024,6172120,Assedduma,manual,0.9,"manual (lead, 2026-11-12): same code in all three sources; Assedduma/Esseddama spelling variant (docs/research/geography/dcs-review-items-dating.md)"
 LK6172125,cod-ab-v03,dcs-census2024,6172125,Kongahagedara,exact_code,1.0,
 LK6172130,cod-ab-v03,dcs-census2024,6172130,Thummodara,exact_code,1.0,
 LK6172135,cod-ab-v03,dcs-census2024,6172135,Ihala Piduma,exact_code,1.0,
@@ -11603,6 +11620,7 @@ LK7139180,cod-ab-v03,dcs-census2024,7139180,Ottappuwa,exact_code,1.0,
 LK7142,cod-ab-v03,dcs-census2024,7142,Rajanganaya,exact_code,1.0,
 LK7142010,cod-ab-v03,dcs-census2024,7142010,"Track 16, 17",exact_code,1.0,
 LK7142015,cod-ab-v03,dcs-census2024,7142015,Veheragala,exact_code,1.0,
+LK7142020,cod-ab-v03,dcs-census2024,7142020,Track 12,manual,0.9,"manual (lead, 2026-11-12): same code in all three sources; 'Track 12'/'Yaya 12' (docs/research/geography/dcs-review-items-dating.md)"
 LK7142025,cod-ab-v03,dcs-census2024,7142025,Track 09 - 10,exact_code,1.0,
 LK7142030,cod-ab-v03,dcs-census2024,7142030,Track 11,exact_code,1.0,
 LK7142035,cod-ab-v03,dcs-census2024,7142035,Track 15,exact_code,1.0,
@@ -11944,8 +11962,10 @@ LK7203205,cod-ab-v03,dcs-census2024,7203205,Unagalavehera West,exact_code,1.0,
 LK7203210,cod-ab-v03,dcs-census2024,7203210,Unagalavehera East,exact_code,1.0,
 LK7203215,cod-ab-v03,dcs-census2024,7203215,Chandana Pokuna,exact_code,1.0,
 LK7203220,cod-ab-v03,dcs-census2024,7203220,Nagapokuna,exact_code,1.0,
+LK7203225,cod-ab-v03,dcs-census2024,7203225,Track 12 Pedesa,manual,0.9,"manual (lead, 2026-11-12): same code in all three sources; 'Track'/'Yaya' (tract) naming (docs/research/geography/dcs-review-items-dating.md)"
 LK7203230,cod-ab-v03,dcs-census2024,7203230,Chethiyagirigama,exact_code,1.0,
 LK7203235,cod-ab-v03,dcs-census2024,7203235,Weeragama,exact_code,1.0,
+LK7203240,cod-ab-v03,dcs-census2024,7203240,Track 05 Pedesa,manual,0.9,"manual (lead, 2026-11-12): same code in all three sources; 'Track'/'Yaya' (tract) naming (docs/research/geography/dcs-review-items-dating.md)"
 LK7203245,cod-ab-v03,dcs-census2024,7203245,Wijayaraja Wewa,exact_code,1.0,
 LK7203250,cod-ab-v03,dcs-census2024,7203250,Agbopura,exact_code,1.0,
 LK7203255,cod-ab-v03,dcs-census2024,7203255,Katukeliyawa,exact_code,1.0,
@@ -12970,6 +12990,7 @@ LK8215115,cod-ab-v03,dcs-census2024,8215115,Marawa,exact_code,1.0,
 LK8215120,cod-ab-v03,dcs-census2024,8215120,Veheragala,exact_code,1.0,
 LK8215125,cod-ab-v03,dcs-census2024,8215125,Thenagallanda,exact_code,1.0,
 LK8215130,cod-ab-v03,dcs-census2024,8215130,Kahambana,exact_code,1.0,
+LK8215135,cod-ab-v03,dcs-census2024,8215105,Horombuwa,manual,0.9,"manual (lead, 2026-11-12): GN count 26 in all three; DCS and NSDI 2017 have 8215105 Horombuwa, COD-AB has unnamed LK8215135 instead; unverified without GN geometry (docs/research/geography/dcs-review-items-dating.md)"
 LK8218,cod-ab-v03,dcs-census2024,8218,Badalkumbura,exact_code,1.0,
 LK8218005,cod-ab-v03,dcs-census2024,8218005,Gedavila,exact_code,1.0,
 LK8218010,cod-ab-v03,dcs-census2024,8218010,Karandagama,exact_code,1.0,
@@ -13011,6 +13032,7 @@ LK8218190,cod-ab-v03,dcs-census2024,8218190,Keliwessa,exact_code,1.0,
 LK8218195,cod-ab-v03,dcs-census2024,8218195,Moratuwagama,exact_code,1.0,
 LK8218200,cod-ab-v03,dcs-census2024,8218200,Lunugala Colony,exact_code,1.0,
 LK8218205,cod-ab-v03,dcs-census2024,8218205,Katugahagalge,exact_code,1.0,
+LK8218210,cod-ab-v03,dcs-census2024,8218090,Pussellawa,manual,0.9,"manual (lead, 2026-11-12): GN count 41 in all three; DCS and NSDI 2017 have 8218090 Pussellawa, COD-AB has unnamed LK8218210 instead; unverified without GN geometry (docs/research/geography/dcs-review-items-dating.md)"
 LK8221,cod-ab-v03,dcs-census2024,8221,Wellawaya,exact_code,1.0,
 LK8221005,cod-ab-v03,dcs-census2024,8221005,Kurugama,exact_code,1.0,
 LK8221010,cod-ab-v03,dcs-census2024,8221010,Randeniya,exact_code,1.0,
