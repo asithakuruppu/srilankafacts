@@ -82,3 +82,27 @@ test("static API carries the preview flag and provenance", async ({ request }) =
   expect(body.values.length).toBe(14);
   expect(body.values[0].snapshot_sha256).toMatch(/^[0-9a-f]{64}$/);
 });
+
+test.describe("without JavaScript (D-027)", () => {
+  test.use({ javaScriptEnabled: false });
+
+  test("explore shows a server-rendered table", async ({ page }) => {
+    await page.goto("/explore");
+    await expect(
+      page.getByRole("heading", { level: 1, name: /^Population density by district$/i }),
+    ).toBeVisible();
+    await expect(page.getByRole("link", { name: "Colombo" }).first()).toBeVisible();
+    await expect(page.getByText(/per km²/).first()).toBeVisible();
+    await expect(page.getByText("Loading explorer")).toHaveCount(0);
+  });
+
+  test("table pages link to each other and show values", async ({ page }) => {
+    await page.goto("/explore");
+    await page.getByRole("link", { name: "Total population" }).first().click();
+    await expect(page).toHaveURL(/\/explore\/table\/population_total\/district$/);
+    await expect(page.getByText("2,375,415").first()).toBeVisible();
+    await page.getByRole("link", { name: "Provinces" }).click();
+    await expect(page).toHaveURL(/\/explore\/table\/population_total\/province$/);
+    await expect(page.getByRole("link", { name: "Western" }).first()).toBeVisible();
+  });
+});

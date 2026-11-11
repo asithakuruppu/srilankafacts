@@ -220,6 +220,7 @@ These were stated by you or are standing rules in [brainstorm-decisions.md](../b
 - **Alternatives:** leave the table client-only (rejected: the main exploration page would fail without JavaScript); server-render it now (not required for the private preview, but may be done earlier).
 - **Consequences:** W02/W05 work before 1B; the accessibility check includes a JavaScript-disabled pass.
 - **Revisit when:** the explorer is replaced by a different interaction.
+- **Implemented (2026-11-12):** the prerendered `/explore` HTML now contains a server-rendered table for the default view (population density by district), not just "Loading explorer…". Every indicator and level pair also has a static table page, `/explore/table/<indicator>/<level>`, linked from that view and from the interactive explorer. The interactive explorer and these pages share one table component. Browser smoke tests with JavaScript disabled check the default table and the links between table pages. Remaining limit: without JavaScript, `/explore?indicator=…&level=…` still shows the default table, because the URL is read in the browser; the static table pages are the no-JavaScript path to other views.
 
 ## D-028: Null-name GN divisions keep p-code labels for 1A; names resolved by crosswalk review before 1B
 - **Status:** Accepted · 2026-11-08 (decided by the lead)

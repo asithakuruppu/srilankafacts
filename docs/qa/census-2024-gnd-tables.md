@@ -167,6 +167,7 @@ Independent comparison, used only as a check and never as a source:
   readable without JavaScript. `/explore` builds its table in the browser, so it needs
   JavaScript; the map is still optional there. D-027 requires a server-rendered initial
   table before 1B, so this is a known 1A limitation, not the public-beta design.
+  **Resolved 2026-11-12:** see the D-027 implementation note in the decision log.
 - The map uses the release worker copied to `/release/maplibre-gl-worker.mjs`; a local
   production smoke run showed no map error.
 - `web/fixtures/preview` is a 1.25 MB committed subset (71 geographies, 980 observations,

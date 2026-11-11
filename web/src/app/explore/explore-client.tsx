@@ -4,9 +4,16 @@ import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 
+import ExploreTable from "@/components/explore-table";
 import MapView from "@/components/map-view";
 import { type AreaDataset, fetchAreaDataset } from "@/lib/areas";
-import { formatNumber, formatValue, levelLabel } from "@/lib/format";
+import {
+  availableLevels,
+  defaultIndicatorId,
+  defaultLevelName,
+  staticTableHref,
+} from "@/lib/explore-levels";
+import { formatValue } from "@/lib/format";
 
 type IndicatorOption = {
   id: string;
@@ -16,16 +23,6 @@ type IndicatorOption = {
   measureType: string;
 };
 
-type LevelOption = { name: string; boundary: number; label: string };
-
-const LEVEL_DEFINITIONS: LevelOption[] = [
-  { name: "province", boundary: 1, label: "Provinces" },
-  { name: "district", boundary: 2, label: "Districts" },
-  { name: "ds", boundary: 3, label: "DS divisions" },
-  { name: "gn", boundary: 4, label: "GN divisions" },
-];
-
-const MAX_TABLE_ROWS = 500;
 
 export default function ExploreClient({
   indicators,
@@ -39,13 +36,9 @@ export default function ExploreClient({
   const router = useRouter();
   const pathname = usePathname();
   const params = useSearchParams();
-  const levels = LEVEL_DEFINITIONS.filter((level) => boundaryLevels.includes(level.boundary));
-  const defaultIndicator =
-    indicators.find((indicator) => indicator.id === "population_density")?.id ??
-    indicators[0]?.id ??
-    "population_total";
-  const defaultLevel =
-    levels.find((level) => level.name === "district")?.name ?? levels[0]?.name ?? "district";
+  const levels = availableLevels(boundaryLevels);
+  const defaultIndicator = defaultIndicatorId(indicators.map((indicator) => indicator.id));
+  const defaultLevel = defaultLevelName(levels);
 
   const [indicatorId, setIndicatorId] = useState(
     indicators.some((indicator) => indicator.id === params.get("indicator"))
@@ -240,55 +233,20 @@ export default function ExploreClient({
       </div>
 
       <section className="shell section section-tight">
-        <details className="table-details" open={levelName !== "gn"}>
-          <summary>
-            View as table ({formatNumber(rows.length)} areas
-            {rows.length > MAX_TABLE_ROWS ? `, showing the highest ${MAX_TABLE_ROWS}` : ""})
-          </summary>
-          <div className="table-scroll">
-            <table>
-              <caption className="visually-hidden">
-                {indicator?.name} by {level.label.toLowerCase()}, sorted from highest to
-                lowest
-              </caption>
-              <thead>
-                <tr>
-                  <th scope="col">Area</th>
-                  <th scope="col">Level</th>
-                  <th scope="col">Value</th>
-                  <th scope="col">National</th>
-                  <th scope="col">Source</th>
-                </tr>
-              </thead>
-              <tbody>
-                {rows.slice(0, MAX_TABLE_ROWS).map((row) => (
-                  <tr key={row.id}>
-                    <th scope="row">
-                      <Link href={`/place/${row.id}`}>{row.name}</Link>
-                    </th>
-                    <td>{levelLabel(row.levelName)}</td>
-                    <td className="numeric">
-                      {formatValue(row.value, row.unit || indicator?.unit || "")}
-                    </td>
-                    <td className="numeric">
-                      {formatValue(nationalValue, indicator?.unit ?? "")}
-                    </td>
-                    <td>
-                      <Link href={`/place/${row.id}#data`}>record</Link>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          {rows.length > MAX_TABLE_ROWS ? (
-            <p className="muted small">
-              The table is capped at {formatNumber(MAX_TABLE_ROWS)} rows to keep the page
-              usable. The complete file is at{" "}
-              <code>/api/v1/indicators/{indicatorId}/{levelName}.json</code>.
-            </p>
-          ) : null}
-        </details>
+        <ExploreTable
+          rows={rows}
+          indicatorId={indicatorId}
+          indicatorName={indicator?.name ?? indicatorId}
+          indicatorUnit={indicator?.unit ?? ""}
+          levelName={levelName}
+          levelLabelPlural={level.label}
+          nationalValue={nationalValue}
+          open={levelName !== "gn"}
+        />
+        <p className="muted small">
+          <Link href={staticTableHref(indicatorId, levelName)}>Open this table as a page</Link>{" "}
+          (works without JavaScript).
+        </p>
       </section>
     </div>
   );
