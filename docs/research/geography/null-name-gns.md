@@ -137,3 +137,24 @@ divisions ❓. We hold no source that can confirm this.
    later DCS or Survey Department follow-up (agents draft; the lead sends). Recommendation: yes.
    This does not block 1B, because D-028 is met once the resolvable names are resolved and the
    rest are recorded as unresolvable from current sources.
+
+## Decision and implementation (2026-11-12)
+
+The lead accepted all 12 names: categories A and B. They are recorded in
+`overrides/cod-ab-lka.csv`:
+
+- 12 English names: 8 confirmed by DCS 2024 and NSDI 2017 together, 4 from DCS alone.
+- 8 Sinhala names, from NSDI's gazetted field.
+- Each row states its reason, evidence and the fact that source rights are unclear.
+
+The spine build now applies these overrides. It refuses any row whose target is missing or whose
+current value isn't the expected old value, and it lists the applied rows in the spine QA report
+under "Name overrides applied". Null-name GNs: **65 → 53**.
+
+Side effect in the crosswalk: once named, five NSDI code-gap GNs (2215150, 2218120, 2221090,
+8215105, 8218090) matched by name. Those name matches come from the promoted names, so they are
+not independent evidence. They are recorded as manual NSDI matches saying exactly that. No
+existing match moved.
+
+Preview `v2026.11.7-preview.1` carries the names. Its CHANGELOG shows 0 new, 0 changed and 0
+removed values.

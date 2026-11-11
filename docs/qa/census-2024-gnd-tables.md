@@ -210,3 +210,8 @@ Corrects a swap in v2026.11.5: DCS Kandalama (2206125) now joins `LK2206300` and
 v2026.11.5: **0 new, 28 changed** (2 GNs × 14 indicators), **0 removed**. 0 errors, 3 warnings;
 national and district anchors unchanged (the swap is within DS 2206).
 
+## Addendum: `v2026.11.7-preview.1` (2026-11-12)
+
+Adds names for 12 GNs that COD-AB leaves unnamed (12 English, 8 Sinhala; `overrides/cod-ab-lka.csv`,
+D-028). `CHANGELOG.md` against v2026.11.6: **0 new, 0 changed, 0 removed** values. 53 GNs keep
+p-code labels.
