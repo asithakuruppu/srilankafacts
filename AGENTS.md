@@ -79,7 +79,7 @@ Storage: local `./data/` by default; `SLF_STORAGE=s3` with `SLF_S3_BUCKET`, `SLF
 | Build | `pnpm build` |
 | Browser smoke test | `pnpm exec playwright install chromium` once, then `pnpm test:e2e` |
 
-CI (`.github/workflows/ci.yml`) runs all of the above on every pull request.
+CI (`.github/workflows/ci.yml`) runs all of the above, but only when started manually (`workflow_dispatch`); it no longer runs on every pull request, to avoid Actions cost. Run these commands locally before finishing a task.
 
 ## How to finish a task
 
