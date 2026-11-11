@@ -38,6 +38,7 @@ export default function SiteFooter() {
               <code>{latest.release}</code>
             </li>
             <li>{latest.publishable ? "Public release" : "Private preview"}</li>
+            {latest.use === "non_commercial" ? <li>Non-commercial use only</li> : null}
             <li>{latest.observation_count.toLocaleString("en-LK")} observations</li>
             <li>{latest.geography_count.toLocaleString("en-LK")} geographies</li>
           </ul>
@@ -47,8 +48,13 @@ export default function SiteFooter() {
         <p>{latest.citation}</p>
         <p>
           Census data: Department of Census and Statistics, Census of Population and Housing
-          2024. Boundaries: OCHA COD-AB v03. The preview is not an official DCS publication.
+          2024. Boundaries: OCHA COD-AB v03. This is not an official DCS publication.
         </p>
+        {(latest.notices ?? []).map((n) => (
+          <p key={n.dataset_id}>
+            {n.attribution} {n.notice} ({n.decision}; not a licence from the source.)
+          </p>
+        ))}
       </div>
     </footer>
   );

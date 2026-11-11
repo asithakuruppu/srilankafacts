@@ -24,7 +24,14 @@ import geopandas as gpd
 import pandas as pd
 import pyogrio
 
-from slf.catalog import Catalog, CatalogReport, effective_rights, load_catalog
+from slf.catalog import (
+    Catalog,
+    CatalogReport,
+    decision_log_path,
+    effective_rights,
+    load_catalog,
+    load_decisions,
+)
 from slf.datasets import REGISTRY
 from slf.enrich import build_spatial_context
 from slf.storage import LocalStorage
@@ -143,10 +150,65 @@ def _level_of(level: int, status: str = "current") -> str:
     return LEVEL_NAMES[level]
 
 
+def public_release_refusals(
+    catalog: Catalog, dataset_ids: list[str], decisions: dict[str, str] | None
+) -> list[str]:
+    """Why a public release of these datasets must be refused (empty list: allowed).
+
+    Open or conditionally permitted rights allow publication. Unclear rights allow it only with a
+    `publication` decision that is Accepted in the decision log (D-030); restricted never does.
+    """
+    refusals: list[str] = []
+    for dataset_id in dataset_ids:
+        ds = catalog.datasets.get(dataset_id)
+        rights = effective_rights(catalog, ds) if ds else None
+        if ds is None or rights is None:
+            refusals.append(f"{dataset_id}: rights missing; refusing a public release")
+            continue
+        if rights.status in ("open", "permitted_with_conditions"):
+            continue
+        pub = ds.publication
+        if rights.status == "unclear" and pub is not None:
+            status = (decisions or {}).get(pub.decision)
+            if status == "Accepted":
+                continue
+            refusals.append(
+                f"{dataset_id}: rights unclear and publication decision {pub.decision} is "
+                f"{status or 'not in the decision log'}; refusing a public release"
+            )
+            continue
+        refusals.append(
+            f"{dataset_id}: rights {rights.status}; refusing a public release "
+            "(use --preview for a private, non-publishable build)"
+        )
+    return refusals
+
+
+def release_use(datasets: list[dict[str, Any]]) -> str:
+    """`non_commercial` if any dataset is published only for non-commercial use."""
+    return "non_commercial" if any(d["use"] == "non_commercial" for d in datasets) else "any"
+
+
+def release_notices(datasets: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    return [
+        {
+            "dataset_id": d["dataset_id"],
+            "use": d["use"],
+            "attribution": d["attribution"],
+            "notice": d["notice"],
+            "decision": d["publication_decision"],
+        }
+        for d in datasets
+        if d["notice"]
+    ]
+
+
 def _dataset_rights(catalog: Catalog, dataset_id: str) -> dict[str, Any]:
     ds = catalog.datasets[dataset_id]
     rights = effective_rights(catalog, ds)
     source = catalog.sources.get(ds.source)
+    pub = ds.publication
+    commercial = rights.commercial_reuse if rights else "unknown"
     return {
         "dataset_id": ds.id,
         "title": ds.title,
@@ -155,9 +217,33 @@ def _dataset_rights(catalog: Catalog, dataset_id: str) -> dict[str, Any]:
         "source_homepage": str(source.homepage) if source and source.homepage else None,
         "rights_status": rights.status if rights else "unclear",
         "licence": rights.licence if rights else None,
-        "attribution": rights.attribution if rights else None,
+        "commercial_reuse": commercial,
+        "use": pub.use if pub else ("any" if commercial == "yes" else "non_commercial"),
+        "attribution": (rights.attribution if rights else None)
+        or (pub.attribution if pub else None),
+        "notice": pub.notice if pub else None,
+        "publication_decision": pub.decision if pub else None,
+        "takedown_days": pub.takedown_days if pub else None,
         "rights_evidence": rights.evidence if rights else [],
     }
+
+
+def _notice_markdown(notices: list[dict[str, Any]]) -> str:
+    if not notices:
+        return ""
+    lines = ["# Notice", ""]
+    for n in notices:
+        lines += [
+            f"## {n['dataset_id']}",
+            "",
+            f"- Use: {n['use'].replace('_', '-')} only",
+            f"- Attribution: {n['attribution']}",
+            f"- Notice: {n['notice']}",
+            f"- Basis: Sri Lanka Facts decision {n['decision']}. This is not a licence from "
+            "the source.",
+            "",
+        ]
+    return "\n".join(lines)
 
 
 def _citation(version: str, preview: bool) -> str:
@@ -342,6 +428,8 @@ def _place_payload(
     return {
         "release": version,
         "publishable": not preview,
+        "use": release_use(datasets),
+        "notices": release_notices(datasets),
         "citation": citation,
         "geography": {
             "geography_id": geography["geography_id"],
@@ -408,7 +496,13 @@ def _write_api(
             {column: record[column] for column in value_columns}
         )
 
-    base = {"release": version, "publishable": not preview, "citation": citation}
+    base = {
+        "release": version,
+        "publishable": not preview,
+        "use": release_use(datasets),
+        "notices": release_notices(datasets),
+        "citation": citation,
+    }
 
     places_dir = out / "api" / "v1" / "places"
     for geography in _sorted_records(geographies, "geography_id"):
@@ -629,6 +723,8 @@ def _datapackage(
         "version": version,
         "publishable": not preview,
         "access": "private_preview" if preview else "public",
+        "use": release_use(datasets),
+        "notices": release_notices(datasets),
         "licenses": [{"name": licence} for licence in licences] or [{"name": "rights unclear"}],
         "sources": [
             {
@@ -667,14 +763,8 @@ def build_release(
         return result
 
     if not preview:
-        for dataset_id in dataset_ids:
-            ds = catalog.datasets.get(dataset_id)
-            rights = effective_rights(catalog, ds) if ds else None
-            if rights is None or rights.status in ("unclear", "restricted"):
-                result.errors.append(
-                    f"{dataset_id}: rights {rights.status if rights else 'missing'}; "
-                    "refusing a public release (use --preview for a private, non-publishable build)"
-                )
+        decisions = load_decisions(decision_log_path(catalog_root))
+        result.errors.extend(public_release_refusals(catalog, dataset_ids, decisions))
         if result.errors:
             return result
 
@@ -754,13 +844,19 @@ def build_release(
         "Neighbour, parent and national comparisons plus local Moran classes are in "
         "`qa/spatial-context.md`; per-indicator tables are in `stats/`.",
     ]
+    notices = release_notices(datasets)
     if preview:
         qa_lines += [
             "",
             "## Access",
             "",
-            "Private preview: not publishable. DCS rights are unclear until the lead records a "
-            "decision or DCS replies.",
+            "Private preview: not publishable. Built with --preview, so no public-release rights "
+            "check was applied.",
+        ]
+    if notices:
+        qa_lines += ["", "## Use and notices", ""] + [
+            f"- {n['dataset_id']}: {n['use']} use only ({n['decision']}). {n['notice']}"
+            for n in notices
         ]
     _write(out / "qa" / "summary.md", ("\n".join(qa_lines) + "\n").encode("utf-8"))
     for item in reports:
@@ -788,18 +884,23 @@ def build_release(
     changelog, changes = _changelog(observations, previous, version)
     _write(out / "CHANGELOG.md", changelog.encode("utf-8"))
     _write(out / "changes.json", _json_bytes(changes))
+    notice_md = _notice_markdown(notices)
     _write(
         out / "CITATION.md",
         (
             f"# Citation\n\n{citation}\n\n"
             "Cite individual values with the release version, dataset id, snapshot sha256 and "
             "source locator recorded in each observation.\n"
+            + ("\n" + notice_md if notice_md else "")
         ).encode(),
     )
+    if notice_md:
+        _write(out / "NOTICE.md", notice_md.encode("utf-8"))
     _write(
         out / "README.md",
         (
             (notes.rstrip() + "\n\n" if notes else "# Release\n\n")
+            + ("See NOTICE.md: some values are for non-commercial use only.\n\n" if notices else "")
             + "All files are reproducible from the same inputs. The GeoPackage layer metadata "
             "date is derived from the release version (first day of the release month); it is "
             "not a build timestamp.\n"
@@ -821,6 +922,7 @@ def build_release(
             "changes.json",
             "CITATION.md",
             "README.md",
+            *(["NOTICE.md"] if notice_md else []),
         ]
     )
     package = _datapackage(out, version, preview, datasets, files)

@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import csv
 import json
+import re
 from collections import Counter
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -159,7 +160,29 @@ def effective_rights(cat: Catalog, ds: Dataset) -> Rights | None:
     return src.rights if src else None
 
 
-def check_links(cat: Catalog, report: CatalogReport) -> None:
+DECISION_RE = re.compile(r"^## (D-\d{3}):.*?\n- \*\*Status:\*\* (\w+)", re.MULTILINE | re.DOTALL)
+
+
+def load_decisions(path: Path) -> dict[str, str] | None:
+    """Map decision id to its status word (Accepted, Proposed, ...) from the decision log."""
+    if not path.is_file():
+        return None
+    text = path.read_text(encoding="utf-8")
+    out: dict[str, str] = {}
+    for block in re.split(r"(?m)^(?=## D-\d{3}:)", text):
+        m = DECISION_RE.match(block)
+        if m:
+            out[m.group(1)] = m.group(2)
+    return out
+
+
+def decision_log_path(catalog_root: Path) -> Path:
+    return catalog_root.parent / "docs" / "decisions" / "decision-log.md"
+
+
+def check_links(
+    cat: Catalog, report: CatalogReport, decisions: dict[str, str] | None = None
+) -> None:
     scheme_ids = {s.id for s in cat.schemes.schemes} if cat.schemes else set()
     levels = {s.id: {lv.id for lv in s.levels} for s in cat.schemes.schemes} if cat.schemes else {}
     if cat.schemes:
@@ -187,7 +210,20 @@ def check_links(cat: Catalog, report: CatalogReport) -> None:
             )
 
         rights = effective_rights(cat, ds)
-        if rights is None or rights.status == "unclear":
+        pub = ds.publication
+        if pub is not None and (rights is None or rights.status != "unclear"):
+            report.errors.append(
+                f"{where}: publication decision {pub.decision} applies only while rights are "
+                f"unclear (rights are {rights.status if rights else 'missing'})"
+            )
+        elif pub is not None and decisions is not None:
+            status = decisions.get(pub.decision)
+            if status != "Accepted":
+                report.errors.append(
+                    f"{where}: publication decision {pub.decision} is "
+                    f"{status or 'not in the decision log'}, not Accepted"
+                )
+        if rights is None or (rights.status == "unclear" and pub is None):
             report.not_publishable.append(f"{ds.id}: rights unclear")
         elif rights.status == "restricted":
             report.not_publishable.append(f"{ds.id}: rights restricted")
@@ -239,7 +275,7 @@ def validate_catalog(root: Path, overrides_root: Path | None = None) -> CatalogR
         report.errors.append(f"catalogue folder not found: {root}")
         return report
     cat = load_catalog(root, overrides_root, report)
-    check_links(cat, report)
+    check_links(cat, report, load_decisions(decision_log_path(root)))
     report.counts = {
         "sources": len(cat.sources),
         "datasets": len(cat.datasets),

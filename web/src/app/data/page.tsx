@@ -89,12 +89,20 @@ export default function DataPage() {
         </p>
       </header>
 
-      <div className="notice notice-warn">
-        <strong>This preview is not downloadable publicly.</strong> DCS rights are unclear and
-        the release is marked <code>publishable: false</code>. The files exist only in the
-        private build directory for review. Do not mirror or redistribute them until the lead
-        records a rights decision or DCS replies.
-      </div>
+      {latest.publishable ? (
+        <div className="notice notice-warn">
+          <strong>Non-commercial use only.</strong> DCS has published no reuse terms. The
+          census values are published non-commercially by decision D-030; every file and API
+          response carries the attribution and notice (see <code>NOTICE.md</code>). The DCS
+          source workbooks are not redistributed.
+        </div>
+      ) : (
+        <div className="notice notice-warn">
+          <strong>This preview is not downloadable publicly.</strong> The release is marked{" "}
+          <code>publishable: false</code>. The files exist only in the private build directory
+          for review. Do not mirror or redistribute them.
+        </div>
+      )}
 
       <section className="section" aria-labelledby="release-heading">
         <div className="section-head">

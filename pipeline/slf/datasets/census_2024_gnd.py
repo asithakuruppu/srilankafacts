@@ -430,6 +430,7 @@ class Census2024Gnd(Dataset):
 
         observations: list[Row] = []
         aggregates: dict[tuple[str, str], _Aggregate] = {}
+        self.unmatched_gn: list[str] = []
         for rec in rows:
             counts: dict[str, float] = {k: float(rec[k]) for k in COUNT_INDICATORS}
             district = str(rec["district_code"])
@@ -447,7 +448,9 @@ class Census2024Gnd(Dataset):
 
             geo = gn_map.get(str(rec["dcs_gn"]))
             if not geo:
-                continue  # listed in QA; its values still enter DS/district totals above
+                # listed in QA; its values still enter DS/district totals above
+                self.unmatched_gn.append(str(rec["dcs_gn"]))
+                continue
             derived = _derived(counts, areas.get(geo))
             for indicator in COUNT_INDICATORS:
                 col, label, filename = COLUMNS[indicator]
@@ -483,7 +486,7 @@ class Census2024Gnd(Dataset):
                 )
 
         # Aggregates: DS -> district -> province -> country. DS 5224 has no spine unit (D-022),
-        # so it contributes to Ampara district but has no DS-level output. The 63 unmatched GNs
+        # so it contributes to Ampara district but has no DS-level output. Unmatched GNs
         # contribute to their DS and above.
         for (level, code), aggregate in sorted(aggregates.items()):
             geo = aggregate.geography_id
@@ -557,10 +560,17 @@ class Census2024Gnd(Dataset):
                 report.errors.append(
                     f"district {geo}: housing {got}, expected {expected} (Final Report Table 11.2)"
                 )
-        report.warnings.append(
-            "63 DCS GN units are unmatched in the G02 crosswalk; they enter DS/district totals "
-            "but have no GN-level rows."
-        )
+        unmatched = getattr(self, "unmatched_gn", None)
+        if unmatched is None:
+            report.warnings.append(
+                "Unmatched DCS GN units were not counted (validate ran without harmonise)."
+            )
+        elif unmatched:
+            report.warnings.append(
+                f"{len(unmatched)} DCS GN units are unmatched in the G02 crosswalk; they enter "
+                "DS/district totals but have no GN-level rows. Codes: "
+                + ", ".join(sorted(unmatched))
+            )
         report.warnings.append(
             "DCS 5224 Kalmunai has no spine equivalent (D-022); its population enters Ampara "
             "district but no DS-level row is published."
