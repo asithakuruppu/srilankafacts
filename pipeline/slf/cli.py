@@ -323,3 +323,39 @@ def geometry_build(
     report = report_dir / "geometry-qa-cod-ab-v03.md"
     report.write_text(geometry_qa.render(qa, names, img), encoding="utf-8")
     typer.echo(f"wrote {gpkg}\nwrote {report}")
+
+
+profile_app = typer.Typer(help="Profile vector space commands (A03).", no_args_is_help=True)
+app.add_typer(profile_app, name="profile")
+
+
+@profile_app.command("build")
+def profile_build(
+    observations: Annotated[Path, typer.Option(help="Census observations parquet.")] = Path(
+        "./data/build/census-2024-gnd-tables/observations.parquet"
+    ),
+    spine_dir: Annotated[Path, typer.Option(help="Spine build folder.")] = Path(
+        "./data/build/geography-spine"
+    ),
+    catalog: Annotated[Path, typer.Option(help="Catalogue folder.")] = Path("../catalog"),
+    out_dir: Annotated[Path, typer.Option(help="Output folder.")] = Path("./data/build/profile"),
+) -> None:
+    """Build profile vectors, similar places, unusualness, contrasts and sensitivity."""
+    import pandas as pd
+
+    from slf import profile
+
+    geos = pd.read_parquet(spine_dir / "geographies.parquet")
+    result = profile.build_profile(pd.read_parquet(observations), geos, spine_dir, catalog, out_dir)
+    qa = out_dir / "qa.md"
+    qa.write_text(profile.render_qa(result, geos), encoding="utf-8")
+    for level, r in result.levels.items():
+        typer.echo(
+            f"{level}: {len(r.fit.ids):,} places, {len(r.excluded)} excluded, "
+            f"{len(r.fit.retained)} axes, decomposition error {r.check_max_error:.1e}"
+        )
+    for w in result.warnings:
+        typer.echo(f"warning: {w}", err=True)
+    typer.echo(f"QA report: {qa}")
+    if result.warnings:
+        raise typer.Exit(1)
