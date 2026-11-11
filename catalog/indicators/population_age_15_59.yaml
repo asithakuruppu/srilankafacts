@@ -1,0 +1,17 @@
+id: population_age_15_59
+name: Population aged 15–59
+short_name: Aged 15–59
+topic: [population, age]
+measure_type: count
+unit: persons
+universe: persons
+numerator: null
+denominator: null
+aggregation: sum
+higher_is: neutral
+decimals: 0
+sensitivity: public
+definition: >
+  Number of persons aged 15 to 59 years enumerated by the Census of Population and Housing.
+source_definition_ref: "CPH 2024, GN population by sex and age group, column '15 - 59'"
+methodology_notes: docs/methods/census-2024.md

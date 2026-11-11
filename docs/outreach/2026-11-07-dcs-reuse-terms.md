@@ -1,6 +1,9 @@
 # Draft: reuse terms for Census 2024 tables (Department of Census and Statistics)
 
-Status: **draft** · Channel: email or letter to DCS (Census division or Director General's office; address to be chosen by the lead) · Prompt: R04 · Language: English
+Status: **approved for sending 2026-11-08 (D-023); the lead sends it** · Channel: email or letter to DCS (Census division or Director General's office; address to be chosen by the lead) · Prompt: R04 · Language: English
+
+Before sending, fill the contact placeholders at the end and choose the recipient. The agent
+must not send it (AGENTS rule 9).
 
 ---
 

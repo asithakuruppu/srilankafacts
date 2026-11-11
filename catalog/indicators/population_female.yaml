@@ -13,5 +13,5 @@ decimals: 0
 sensitivity: public
 definition: >
   Number of persons enumerated as female by the Census of Population and Housing in the area.
-source_definition_ref: null
-methodology_notes: null
+source_definition_ref: "CPH 2024, GN population by sex and age group, column 'Female'"
+methodology_notes: docs/methods/census-2024.md

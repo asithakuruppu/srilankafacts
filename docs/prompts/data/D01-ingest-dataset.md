@@ -2,10 +2,18 @@
 
 | Stage | Workstream | Version | Last revised | Status |
 |---|---|---|---|---|
-| 1+ | Data engineering | 1 | 2026-11-07 | active |
+| 1+ | Data engineering | 2 | 2026-11-08 | active |
 
 ## When to use
-To bring an Excel or CSV dataset into the pipeline. The default first use is the **DCS Census 2024 GN-level topic tables** (12 topics: sex, ethnicity, religion, age group, household structure, wall, floor, roof, drinking water, cooking fuel, lighting, toilet facilities 🟡). For PDF tables, use D02 for extraction, then this prompt for the rest.
+To bring an Excel or CSV dataset into the pipeline. The default first use is the **DCS Census 2024 GN-level tables**. For PDF tables, use D02 for extraction, then this prompt for the rest.
+
+**Actual scope held (checked 2026-11-08):** only **two** workbooks exist in `raw/`:
+GN population by sex and age group, and occupied housing units by GN. The other ten
+topic tables named in earlier drafts (ethnicity, religion, household structure, wall,
+floor, roof, drinking water, cooking fuel, lighting, toilet facilities) were never
+downloaded and must not be assumed to exist. Build only what is held; add a topic when
+its snapshot and catalogue entry exist. Ethnicity and religion stay out of default
+profiles under D-015 even when those tables arrive.
 
 ## Read first
 - `AGENTS.md`

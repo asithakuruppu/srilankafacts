@@ -74,7 +74,7 @@ Each space has an id, a version, a recipe (inputs, transformations, weights), a 
 | Space | Entities | Dimensions | Metric | Stage |
 |---|---|---|---|---|
 | `geo` | Places, points | Position on the globe (3D unit vector from lat/lon) plus, optionally, a graph embedding of the border network | Great-circle distance; graph hops | 1 |
-| `profile` | Places **and indicators**, jointly (§5) | 10–30 latent axes from census indicators | Euclidean on standardised axes | 1 |
+| `profile` | Places **and indicators**, jointly (§5) | 10–30 latent axes from the full census indicator set; Stage 1A `profile` v0.1 has 9 inputs and at most 6 retained axes because only two blocks are held (D-025) | Euclidean on standardised axes | 1 |
 | `landscape` | Places, hexes | AlphaEarth 64-dim annual embeddings, averaged | Cosine | 3 (experiment, licence check) |
 | `access` | Places, hexes | Travel time to facility types | Euclidean on log minutes | 3 |
 | `trajectory` | Place-periods (place × census year) | `profile` axes, fixed across years | Euclidean; displacement vectors | 2 |

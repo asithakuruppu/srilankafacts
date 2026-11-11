@@ -1,0 +1,19 @@
+id: occupied_housing_units
+name: Occupied housing units
+short_name: Occupied housing units
+topic: [housing]
+measure_type: count
+unit: housing_units
+universe: housing_units_occupied
+numerator: null
+denominator: null
+aggregation: sum
+higher_is: neutral
+decimals: 0
+sensitivity: public
+definition: >
+  Number of occupied housing units enumerated by the Census of Population and Housing. A
+  housing unit is a separate unit with independent walls; one housing unit may contain more
+  than one household. This is not the same as the number of households.
+source_definition_ref: "CPH 2024, Occupied Housing Units by Grama Niladhari Division"
+methodology_notes: docs/methods/census-2024.md

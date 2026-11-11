@@ -5,9 +5,10 @@ export default defineConfig({
   use: { baseURL: "http://localhost:3100" },
   projects: [{ name: "chromium", use: { ...devices["Desktop Chrome"] } }],
   webServer: {
-    command: "pnpm build && pnpm start --port 3100",
+    command:
+      "npx -y pnpm@12.18.0 build && npx -y pnpm@12.18.0 start --port 3100",
     url: "http://localhost:3100",
     reuseExistingServer: !process.env.CI,
-    timeout: 180_000,
+    timeout: 240_000,
   },
 });

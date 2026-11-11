@@ -1,0 +1,17 @@
+id: population_age_0_14
+name: Population aged 0–14
+short_name: Aged 0–14
+topic: [population, age]
+measure_type: count
+unit: persons
+universe: persons
+numerator: null
+denominator: null
+aggregation: sum
+higher_is: neutral
+decimals: 0
+sensitivity: public
+definition: >
+  Number of persons aged 0 to 14 years enumerated by the Census of Population and Housing.
+source_definition_ref: "CPH 2024, GN population by sex and age group, column '0 - 14'"
+methodology_notes: docs/methods/census-2024.md

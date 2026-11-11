@@ -2,10 +2,26 @@
 
 | Stage | Workstream | Version | Last revised | Status |
 |---|---|---|---|---|
-| 1 | Frontend / Maps | 1 | 2026-11-07 | active |
+| 1 | Frontend / Maps | 2 | 2026-11-08 | active |
 
 ## When to use
 To build the map experience that stays mounted across place pages and powers `/explore`.
+
+**Implemented 2026-11-08 (Stage 1A), with deviations:**
+- The preview has a per-page `MapView` (home, `/explore`, place pages), not yet one
+  layout-level MapLibre instance that persists across navigation. Persistence remains
+  required for Stage 1B; do not describe the current map as persistent.
+- Boundaries come from the release's GeoJSON (`admin0`–`admin4`), with **no basemap**.
+  `tippecanoe`, `pmtiles` and `ogr2ogr` were unavailable, so G04's PMTiles path was not
+  built. GeoJSON is a recorded fallback, not the target architecture.
+- The browser gets the full release from `SLF_RELEASE_DIR`, else the newest
+  `pipeline/data/build/releases-preview/v*`, else the committed `web/fixtures/preview`
+  subset so CI builds without the 459 MB release.
+- MapLibre's worker is copied by `scripts/prepare-release.mjs` and loaded from
+  `/release/maplibre-gl-worker.mjs`; the default relative worker URL fails in Next.js.
+- Every page is complete without the map, and the table is the primary accessible view.
+  Place, indicator, data and methods pages render server-side; `/explore` builds its table
+  in the browser and therefore needs JavaScript, though not the map.
 
 ## Read first
 - `AGENTS.md`

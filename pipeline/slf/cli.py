@@ -82,10 +82,56 @@ def validate(dataset_id: Annotated[str | None, typer.Argument()] = None) -> None
 
 
 @app.command()
-def release() -> None:
-    """Build a versioned release (not implemented yet; arrives with prompt D04)."""
-    typer.echo("slf release is not implemented yet (prompt D04).", err=True)
-    raise typer.Exit(code=2)
+def release(
+    version: Annotated[str, typer.Option(help="Release version, for example v2026.11.1.")],
+    dataset_ids: Annotated[
+        list[str] | None,
+        typer.Option("--dataset", help="Dataset id to include; repeat for several. Default: all."),
+    ] = None,
+    notes: Annotated[str, typer.Option(help="Release notes (short text).")] = "",
+    preview: Annotated[
+        bool,
+        typer.Option(
+            help="Build a private preview even when rights are unclear. Never publishable."
+        ),
+    ] = False,
+    previous: Annotated[
+        Path | None, typer.Option(help="Previous observations.parquet for a diff changelog.")
+    ] = None,
+    catalog: Annotated[Path, typer.Option(help="Catalogue folder.")] = Path("../catalog"),
+    spine_dir: Annotated[Path, typer.Option(help="Geography spine build folder.")] = Path(
+        "./data/build/geography-spine"
+    ),
+    out_dir: Annotated[Path, typer.Option(help="Release output folder.")] = Path(
+        "./data/build/releases"
+    ),
+) -> None:
+    """Build a versioned, immutable release from validated datasets."""
+    from slf.release import build_release
+
+    data_dir = Path(os.environ.get("SLF_DATA_DIR", "data"))
+    result = build_release(
+        version=version,
+        dataset_ids=dataset_ids or sorted(REGISTRY),
+        catalog_root=catalog,
+        data_dir=data_dir,
+        spine_dir=spine_dir,
+        out_dir=out_dir,
+        notes=notes,
+        preview=preview,
+        previous=previous,
+    )
+    for warning in result.warnings:
+        typer.echo(f"WARNING {warning}", err=True)
+    for error in result.errors:
+        typer.echo(f"ERROR {error}", err=True)
+    if result.errors:
+        raise typer.Exit(code=1)
+    state = "private preview (not publishable)" if result.preview else "public release"
+    typer.echo(f"{state}: {result.path} ({len(result.files)} files)")
+    for rel in result.files:
+        if rel.endswith(("CHECKSUMS.sha256", "datapackage.json", "CHANGELOG.md")):
+            typer.echo(f"  {rel}")
 
 
 @catalog_app.command("validate")

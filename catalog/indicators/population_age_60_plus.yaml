@@ -1,0 +1,18 @@
+id: population_age_60_plus
+name: Population aged 60 and over
+short_name: Aged 60+
+topic: [population, age]
+measure_type: count
+unit: persons
+universe: persons
+numerator: null
+denominator: null
+aggregation: sum
+higher_is: neutral
+decimals: 0
+sensitivity: public
+definition: >
+  Number of persons aged 60 years and over, computed as the sum of the 60–64 and 65-and-over
+  age groups in the Census of Population and Housing 2024 GN workbook.
+source_definition_ref: "CPH 2024, GN population by sex and age group, columns '60 - 64' and '65 and above'"
+methodology_notes: docs/methods/census-2024.md
