@@ -1,10 +1,10 @@
 # The `profile` space: places and indicators in one coordinate system
 # (vector-space-model.md §5, D-015, D-016, prompt A03).
 #
-# APPROVED RECIPE, WITH A PROPOSED RETENTION AMENDMENT. No profile vectors existed
+# APPROVED RECIPE (D-025, retention rule amended by D-029). No profile vectors existed
 # before this build. The lead approved v0.1 on 2026-11-08 (D-025); the approved
 # eigenvalue rule retained zero axes on the real data, so v0.2 uses the
-# Kaiser-equivalent rule in D-029 (proposed, awaiting confirmation). `slf profile build`
+# Kaiser-equivalent rule in D-029 (accepted 2026-11-12). `slf profile build`
 # builds `vectors/profile_v0.2.parquet` (A03 steps 2-6).
 #
 # Scope is limited to the two DCS 2024 tables actually held: GN population by sex and
@@ -44,8 +44,8 @@ status: active
 method_notes: >
   v0.1 was approved by the lead on 2026-11-08 (D-025). The approved eigenvalue rule
   retained zero axes on the real data because equal block weighting fixes total variance
-  at 2, so v0.2 uses the Kaiser-equivalent rule in D-029 (proposed, awaiting
-  confirmation) and is the first build. The joint space puts places and indicators in one
+  at 2, so v0.2 uses the Kaiser-equivalent rule in D-029 (accepted by the lead on
+  2026-11-12) and is the first build. The joint space puts places and indicators in one
   coordinate system. Place coordinates
   come from the PCA scores; indicator coordinates come from the same loadings, so a
   place-to-place distance, an indicator-to-indicator distance and a place-to-indicator

@@ -1,7 +1,7 @@
 # Method: the `profile` space (v0.2)
 
 Status: **built locally, not published.** Recipe: [`catalog/spaces/profile.yaml`](../../catalog/spaces/profile.yaml)
-v0.2 (D-025; the axis-retention rule is the proposed D-029). QA:
+v0.2 (D-025; axis-retention rule D-029, accepted 2026-11-12). QA:
 [`docs/qa/profile-space-v0.2.md`](../qa/profile-space-v0.2.md). Code: `pipeline/slf/profile.py`,
 run with `uv run slf profile build` in `pipeline/`.
 

@@ -13,7 +13,7 @@ amenity and education/work blocks named below are deferred until those tables ar
 A03 steps 2–7 are authorised; the recipe itself is no longer open for proposal.
 
 **Update (2026-11-12):** v0.1's eigenvalue > 1 rule keeps zero axes on the real data, so v0.2
-uses the variance-share rule in D-029 (proposed). Steps 2–6 are implemented as `slf profile
+uses the variance-share rule in D-029 (accepted 2026-11-12). Steps 2–6 are implemented as `slf profile
 build` (`docs/methods/profile-space.md`).
 
 ## Read first
