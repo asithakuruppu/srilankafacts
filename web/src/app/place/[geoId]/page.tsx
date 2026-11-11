@@ -463,9 +463,11 @@ function PlaceContent({ geoId }: { geoId: string }) {
             <code>{geography.geography_id}</code>.
           </p>
           <p className="muted small">
-            This is a private preview and is not an official DCS publication. Cite the
-            underlying census table for any figure, and state the access date you used. The
-            release is marked <code>publishable: false</code> while DCS rights are unclear.
+            This is not an official DCS publication. Cite the underlying census table for any
+            figure, and state the access date you used.{" "}
+            {latest.publishable
+              ? "Non-commercial use only (decision D-030): DCS has published no reuse terms."
+              : "This private preview is marked publishable: false."}
           </p>
           <p>
             <Link href="/data">Downloads and static API</Link> ·{" "}

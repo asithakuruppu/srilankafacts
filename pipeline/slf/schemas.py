@@ -164,6 +164,21 @@ class CrossCheck(Strict):
     note: str | None = None
 
 
+class PublicationDecision(Strict):
+    """A lead decision that allows publication while source rights are unclear (D-030).
+
+    It is a recorded risk position, not a licence: `rights.status` stays `unclear`. Every release
+    payload that carries the dataset's values then carries `use`, `attribution` and `notice`.
+    """
+
+    decision: Annotated[str, StringConstraints(pattern=r"^D-\d{3}$")]
+    use: Literal["non_commercial"]
+    attribution: str
+    notice: str
+    takedown_days: int = Field(gt=0)
+    decided: dt.date
+
+
 class Dataset(Strict):
     id: Slug
     source: Slug
@@ -175,6 +190,7 @@ class Dataset(Strict):
     geography_vintage: str | None = None
     reference_period: str | None = None
     rights: Literal["inherit"] | Rights = "inherit"
+    publication: PublicationDecision | None = None
     spatial: Spatial
     indicators: list[Slug] = Field(default_factory=list)
     cross_checks: list[CrossCheck] = Field(default_factory=list)

@@ -159,11 +159,16 @@ export default function MethodsPage() {
               No human has spot-checked GN cells against the workbook. Every value remains{" "}
               <code>machine_extracted</code>.
             </li>
-            <li>No QGIS visual check of GN boundaries against DCS names.</li>
-            <li>The 63 unmatched GNs and DS 5224 are unresolved.</li>
+            <li>
+              The lead looked at the boundaries in QGIS on 2026-11-12 and reported nothing to
+              correct; which checks were covered is not recorded.
+            </li>
+            <li>
+              Unmatched DCS GNs (listed in the release QA report) and DS 5224 are unresolved.
+            </li>
             <li>
               DCS rights are unclear. The release is{" "}
-              <code>{latest.publishable ? "public" : "publishable: false"}</code>.
+              <code>{latest.publishable ? "public, non-commercial (D-030)" : "publishable: false"}</code>.
             </li>
             <li>
               No basemap is shown: the preview has no PMTiles build, so boundaries are drawn on

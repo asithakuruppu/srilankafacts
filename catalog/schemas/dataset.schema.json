@@ -26,6 +26,50 @@
       "title": "CrossCheck",
       "type": "object"
     },
+    "PublicationDecision": {
+      "additionalProperties": false,
+      "description": "A lead decision that allows publication while source rights are unclear (D-030).\n\nIt is a recorded risk position, not a licence: `rights.status` stays `unclear`. Every release\npayload that carries the dataset's values then carries `use`, `attribution` and `notice`.",
+      "properties": {
+        "decision": {
+          "pattern": "^D-\\d{3}$",
+          "title": "Decision",
+          "type": "string"
+        },
+        "use": {
+          "const": "non_commercial",
+          "title": "Use",
+          "type": "string"
+        },
+        "attribution": {
+          "title": "Attribution",
+          "type": "string"
+        },
+        "notice": {
+          "title": "Notice",
+          "type": "string"
+        },
+        "takedown_days": {
+          "exclusiveMinimum": 0,
+          "title": "Takedown Days",
+          "type": "integer"
+        },
+        "decided": {
+          "format": "date",
+          "title": "Decided",
+          "type": "string"
+        }
+      },
+      "required": [
+        "decision",
+        "use",
+        "attribution",
+        "notice",
+        "takedown_days",
+        "decided"
+      ],
+      "title": "PublicationDecision",
+      "type": "object"
+    },
     "Rights": {
       "additionalProperties": false,
       "properties": {
@@ -362,6 +406,17 @@
       ],
       "default": "inherit",
       "title": "Rights"
+    },
+    "publication": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/PublicationDecision"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
     },
     "spatial": {
       "$ref": "#/$defs/Spatial"

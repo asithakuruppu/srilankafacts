@@ -184,3 +184,21 @@ Key files: `observations/census-2024-gnd-tables.parquet` (1.7 MB),
 
 QA summary: `qa/summary.md` (0 errors, 3 warnings). Spatial QA:
 `qa/spatial-context.md` and `docs/methods/spatial-context.md`.
+
+## Addendum: `v2026.11.5-preview.1` (2026-11-12)
+
+Rebuilt after the lead accepted 22 DCS crosswalk matches
+(`docs/research/geography/dcs-review-items-dating.md`). Same snapshots and code; only
+`catalog/geographies/codes/dcs-census2024.csv` changed.
+
+- Result: 0 errors, 3 warnings (as before). National and all 25 district anchors still pass.
+- `CHANGELOG.md` against preview.1: **308 new claims** (22 GNs × 14 indicators), **0 changed
+  values**, **0 removed**. 200,774 observations.
+- GN rows: **13,967** (was 13,945). Unmatched DCS GNs: **41** (was 63), listed by code in the
+  build warning. They hold population 71,687 and occupied housing 18,649 (21,781,800 −
+  21,710,113 and 6,030,541 − 6,011,892), including DS 5224's 29 GNs. They still enter
+  their DS and higher totals.
+- The release carries `use: non_commercial` and the D-030 attribution and notice
+  (`NOTICE.md`, every API response). It is still `publishable: false` because it was built
+  with `--preview`; no public build exists for hosting.
+

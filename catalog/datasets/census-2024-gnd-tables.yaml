@@ -8,6 +8,14 @@ geography_scheme: admin
 geography_vintage: "2024"
 reference_period: "2024"
 rights: inherit
+# D-030: the lead's non-commercial publication position. Not a licence; rights stay unclear.
+publication:
+  decision: D-030
+  use: non_commercial
+  attribution: "Source: Department of Census and Statistics, Sri Lanka, Census of Population and Housing 2024 (provisional GN-level tables)."
+  notice: "DCS has not published reuse terms; Sri Lanka Facts publishes these figures non-commercially for public information, has asked DCS for terms, and will correct or remove them on DCS's request."
+  takedown_days: 7
+  decided: 2026-11-12
 spatial:
   support: area
   scheme: admin
@@ -48,5 +56,6 @@ notes: >
   spine (G02 review queue; 63 when preview.1 was built, before the lead accepted 22 matches on 2026-11-12) and enter DS/district totals but not GN-level output. DCS 5224
   Kalmunai is not joined to COD-AB LK5221 (D-022). Rights are unclear. D-030 (2026-11-12): the lead allows
   non-commercial publication with attribution and a notice before DCS replies; commercial use
-  stays forbidden, and the release builder still needs a change before a public release. Dossier:
+  stays forbidden. The `publication` block records it; the release builder then allows a
+  public release marked non-commercial, with the attribution and notice in every payload. Dossier:
   docs/research/sources/dcs.md. Method: docs/methods/census-2024.md.

@@ -10,6 +10,19 @@ export type DatasetRights = {
   licence: string | null;
   attribution: string | null;
   rights_evidence: string[];
+  /** Added in v2026.11.5 releases; absent in older ones. */
+  use?: string;
+  notice?: string | null;
+  publication_decision?: string | null;
+};
+
+/** A lead decision (for example D-030) under which a dataset is published. Not a licence. */
+export type ReleaseNotice = {
+  dataset_id: string;
+  use: string;
+  attribution: string | null;
+  notice: string | null;
+  decision: string | null;
 };
 
 export type LatestRelease = {
@@ -17,6 +30,9 @@ export type LatestRelease = {
   version: string;
   status: ReleaseStatus;
   publishable: boolean;
+  /** "non_commercial" when any dataset may only be used non-commercially. */
+  use?: string;
+  notices?: ReleaseNotice[];
   citation: string;
   geography_count: number;
   observation_count: number;

@@ -1,6 +1,6 @@
 # Census 2024: GN population and occupied housing units
 
-Status: **private preview** · Dataset `census-2024-gnd-tables` · Period `2024` · Last revised 2026-11-08.
+Status: **private preview** · Dataset `census-2024-gnd-tables` · Period `2024` · Last revised 2026-11-12.
 
 This document explains how the first Census Atlas dataset is built, what it covers, how it is
 joined to the geography spine, and what has not been checked. It is the public methodology page
@@ -80,10 +80,11 @@ The joins go **through the G02 crosswalk**, never by name:
 
 - `catalog/geographies/codes/dcs-census2024.csv` maps DCS 7-digit GN codes to spine IDs and
   4-digit DS codes to DS IDs.
-- Of 14,008 DCS GN rows, **13,945** match a current COD-AB v03 GN. The remaining **63** are
-  listed in the QA report and the crosswalk review queue. Their values **do** enter their DS,
+- Of 14,008 DCS GN rows, **13,967** match a current COD-AB v03 GN (13,945 in preview.1; the lead
+  accepted 22 more matches on 2026-11-12). The remaining **41** are listed by code in the QA
+  report and in the crosswalk review queue. Their values **do** enter their DS,
   district, province and country totals, but no GN-level row is published for them.
-- **98** spine GNs have no DCS row in these workbooks. They have no GN-level values and appear
+- **76** spine GNs (98 in preview.1) have no DCS row in these workbooks. They have no GN-level values and appear
   as `no_data` in the spatial-context tables.
 - DCS DS **5221 Kalmunai North Sub** maps to the provisional spine unit
   `LK-ADM3-P0001` (29 GNs, 31,556 people, 8,675 occupied housing units, 12.699301 km²). The
@@ -129,7 +130,7 @@ unit, not household size.
 
 ## 6. Aggregation and validation
 
-DS, district, province and country values are built by summing the GN rows, including the 63
+DS, district, province and country values are built by summing the GN rows, including the 41
 unmatched GNs. Rates are recomputed from the summed components, never averaged from GN rates.
 
 Checks that passed in the build:
@@ -161,9 +162,11 @@ components. A rate whose denominator is zero is `not_available`, never 0.
 
 - Every value is `verification: machine_extracted` and `revision_status: provisional`. No human
   has yet spot-checked a sample of GN cells against the workbook.
-- No QGIS visual check of the GN boundaries against DCS names has been done.
-- The 63 unmatched GNs are unresolved; see the crosswalk QA and D-022. Until they are matched,
-  GN-level coverage is 13,945 of 14,043 spine GNs.
+- The lead looked at the spine boundaries in QGIS on 2026-11-12 and reported nothing to correct;
+  which checks were covered is not recorded (`docs/ops/qgis-spot-check.md`).
+- The 41 unmatched GNs are unresolved; see the crosswalk QA, D-022 and
+  `docs/research/geography/dcs-review-items-dating.md`. Until they are matched, GN-level
+  coverage is 13,967 of 14,043 spine GNs.
 - DS 5224 Kalmunai is absent at DS level by decision D-022; its population is only in higher
   totals.
 - The DCS final report is used for anchors and the census date. The GN workbooks are provisional
@@ -172,8 +175,9 @@ components. A rate whose denominator is zero is `not_available`, never 0.
   terms that the rights review could find. The dataset cannot enter a public release until the
   lead records a decision or DCS replies. D-023 kept Stage 1A private; the letter has since been
   sent. D-030 (2026-11-12) allows non-commercial publication with attribution and a notice
-  before DCS replies; commercial use stays forbidden, and the release builder must be changed
-  before a public release. See
+  before DCS replies; commercial use stays forbidden. The catalogue's `publication` block
+  records it, and a public build carries `use: non_commercial`, the attribution and the notice.
+  See
   `docs/research/rights/census-2024-gnd-tables.md`.
 
 ## 9. Reproduction
@@ -188,7 +192,9 @@ uv run slf release --version vYYYY.MM.N-preview.1 \
   --out-dir ./data/build/releases-preview
 ```
 
-The release builder refuses a public release while rights are unclear. It writes the
+Without `--preview`, the release builder refuses a dataset whose rights are unclear unless its
+catalogue entry has a `publication` block naming a decision Accepted in the decision log
+(D-030). Such a build is marked non-commercial and adds `NOTICE.md`. It writes the
 observations, boundaries, GeoPackage, static API, data package, checksums, spatial-context
 tables and QA reports.
 

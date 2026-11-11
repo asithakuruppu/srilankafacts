@@ -5,6 +5,7 @@ import { getLatest } from "@/lib/release";
 
 export default function SiteHeader() {
   const latest = getLatest();
+  const notices = latest.notices ?? [];
   return (
     <>
       <a className="skip-link" href="#main">
@@ -34,6 +35,18 @@ export default function SiteHeader() {
             <strong>Private preview, not for publication.</strong> The Department of Census
             and Statistics’ reuse terms are unclear, so these figures are shown for review
             only. Release <code>{latest.release}</code>.
+          </div>
+        </div>
+      ) : notices.length > 0 ? (
+        <div className="preview-banner" role="note">
+          <div className="shell">
+            <strong>Non-commercial use only.</strong>{" "}
+            {notices.map((n) => (
+              <span key={n.dataset_id}>
+                {n.attribution} {n.notice}{" "}
+              </span>
+            ))}
+            Release <code>{latest.release}</code>.
           </div>
         </div>
       ) : null}

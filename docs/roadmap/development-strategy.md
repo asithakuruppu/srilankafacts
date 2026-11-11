@@ -91,7 +91,7 @@ Stage 0 showed that the engineering chain is fast but the **data scope and right
 
 1. Snapshot and ingest the remaining census topic tables (ethnicity, religion, housing amenities, household structure, etc.); use D02 for PDF-only tables.
 2. Human-verify the key national, district and sample GN values (Q01); record the verification sheet and compute verified values per hour.
-3. Resolve or explicitly defer the 63 unmatched DCS GN units and DCS 5224 Kalmunai.
+3. Resolve or explicitly defer the 41 unmatched DCS GN units (63 before the lead accepted 22 on 2026-11-12) and DCS 5224 Kalmunai.
 4. Legal/rights decision recorded in the decision log; attribution and licence text finalised.
 5. Soft launch to 20–30 hand-picked users (journalists, researchers, NGO analysts); collect feedback; then public beta.
 6. Customer discovery: 8–10 conversations with potential paying users (R05).

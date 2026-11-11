@@ -218,17 +218,28 @@ export default function HomePage() {
           <div className="limit">
             <h3>Not yet human-verified</h3>
             <p>
-              All values are tagged <code>machine_extracted</code>. No sample has been
-              spot-checked in QGIS or against the workbook by a person.
+              All values are tagged <code>machine_extracted</code>. No sample of GN values
+              has been checked against the workbook by a person.
             </p>
           </div>
-          <div className="limit">
-            <h3>Not publishable</h3>
-            <p>
-              DCS rights are unclear. The release is marked <code>publishable: false</code>{" "}
-              and every API response repeats that.
-            </p>
-          </div>
+          {latest.publishable ? (
+            <div className="limit">
+              <h3>Non-commercial use only</h3>
+              <p>
+                DCS has published no reuse terms. These figures are published
+                non-commercially by decision D-030, with attribution and a notice in every
+                download and API response. That is not a licence from DCS.
+              </p>
+            </div>
+          ) : (
+            <div className="limit">
+              <h3>Not publishable</h3>
+              <p>
+                This build is a private preview. The release is marked{" "}
+                <code>publishable: false</code> and every API response repeats that.
+              </p>
+            </div>
+          )}
           <div className="limit">
             <h3>Not a ranking of people</h3>
             <p>
