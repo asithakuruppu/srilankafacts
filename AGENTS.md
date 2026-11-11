@@ -61,6 +61,7 @@ Prerequisites: `uv` (Python 3.12 is fetched by uv), Node.js 20+ and pnpm 12 (`np
 | Build the geography spine (downloads COD-AB once, ~60 MB) | `uv run slf spine build --relations-csv ../catalog/geographies/relations/admin_cod-ab-v03.csv` |
 | Code crosswalk (needs the spine build and snapshots; `snapshot-nsdi` fetches NSDI attributes politely) | `uv run slf crosswalk snapshot-nsdi` · `uv run slf crosswalk build` |
 | Geometry QA and NSDI shape comparison (`snapshot-nsdi` takes ~5 minutes, paced) | `uv run slf geometry-qa snapshot-nsdi` · `uv run slf geometry-qa build` |
+| Profile vectors, similar places and QA (needs the spine and census builds) | `uv run slf profile build` |
 | Run a dataset end to end (local) | `uv run slf build <dataset> --out-dir ./data/build` |
 | Snapshot only / validate only | `uv run slf snapshot <dataset>` · `uv run slf validate <dataset>` |
 | Release | `uv run slf release` (stub until D04) |
