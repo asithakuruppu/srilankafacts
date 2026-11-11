@@ -9,5 +9,6 @@ Agents draft; the lead sends (AGENTS.md rule 9). Update the status when sent and
 | 2026-11-07 | Lanka Data Layer (GitHub issue) | Ampara LK52 parent bug | [draft](2026-11-07-lanka-data-layer-ampara-issue.md) | posted by the lead (reported 2026-11-12; exact date not recorded); awaiting reply | 2 weeks after posting |
 | 2026-11-07 | nuuuwan | Introduction; reuse as cross-check; geometry provenance | [draft](2026-11-07-nuuuwan-intro.md) | sent by the lead (reported 2026-11-12; exact send date not recorded); awaiting reply | 2 weeks after sending |
 | 2026-11-07 | Lanka Data Foundation | Introduction; linking; RTI coordination | [draft](2026-11-07-ldf-intro.md) | sent by the lead (reported 2026-11-12; exact send date not recorded); awaiting reply | 2 weeks after sending |
+| 2026-11-12 | Survey Department (copy DCS) | Follow-up: official GN list for the 53 unnamed divisions (D-028) | [draft](2026-11-12-gn-list-followup.md) | draft; send only if no reply by the follow-up date of the 2026-11-07 letters | n/a |
 
 The lead reported on 2026-11-12 that the letters are sent and replies are awaited. If the actual send dates differ, correct the rows; follow-ups count from the send date.
