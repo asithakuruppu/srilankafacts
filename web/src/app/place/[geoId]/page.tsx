@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
 import MapView from "@/components/map-view";
+import ProfilePanel from "@/components/profile-panel";
 import Provenance from "@/components/provenance";
 import StatTile from "@/components/stat-tile";
 import { formatDelta, formatNumber, formatValue, levelLabel } from "@/lib/format";
@@ -361,6 +362,18 @@ function PlaceContent({ geoId }: { geoId: string }) {
             </p>
           </section>
         )}
+
+        {place.profile ? (
+          <ProfilePanel
+            profile={place.profile}
+            indicatorNames={
+              new Map(
+                indicators.map((indicator) => [indicator.id, indicator.short_name ?? indicator.id]),
+              )
+            }
+            parentLabel={parent ? geographyLabel(parent.geography) : null}
+          />
+        ) : null}
 
         <section className="section" id="data" aria-labelledby="data-heading">
           <div className="section-head">

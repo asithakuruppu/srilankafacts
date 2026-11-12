@@ -24,6 +24,7 @@ import geopandas as gpd
 import pandas as pd
 import pyogrio
 
+from slf import profile_release
 from slf.catalog import (
     Catalog,
     CatalogReport,
@@ -421,6 +422,7 @@ def _place_payload(
     preview: bool,
     datasets: list[dict[str, Any]],
     citation: str,
+    profile: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     level = int(geography["level"])
     status = str(geography["status"])
@@ -442,6 +444,7 @@ def _place_payload(
             "status": status,
         },
         "values": values,
+        **({"profile": profile} if profile is not None else {}),
         "datasets": datasets,
     }
 
@@ -456,6 +459,7 @@ def _write_api(
     catalog: Catalog,
     datasets: list[dict[str, Any]],
     citation: str,
+    profiles: dict[str, dict[str, Any]] | None = None,
 ) -> list[str]:
     written: list[str] = []
     meta = geographies.set_index("geography_id")
@@ -514,6 +518,7 @@ def _write_api(
             preview=preview,
             datasets=datasets,
             citation=citation,
+            profile=(profiles or {}).get(str(geo_id)),
         )
         rel = f"api/v1/places/{geo_id}.json"
         _write(places_dir / f"{geo_id}.json", _json_bytes(payload))
@@ -749,6 +754,7 @@ def build_release(
     notes: str,
     preview: bool = False,
     previous: Path | None = None,
+    profile_dir: Path | None = None,
 ) -> ReleaseResult:
     out = out_dir / version
     result = ReleaseResult(version=version, path=out, preview=preview, publishable=not preview)
@@ -824,6 +830,15 @@ def build_release(
     if spatial.errors:
         return result
 
+    profiles = None
+    if profile_dir is not None:
+        packaged = profile_release.build(profile_dir, catalog_root, out, geographies)
+        result.warnings.extend(packaged.warnings)
+        result.errors.extend(packaged.errors)
+        if packaged.errors:
+            return result
+        profiles = packaged
+
     qa_lines = [
         f"# Release QA: {version}",
         "",
@@ -844,6 +859,8 @@ def build_release(
         "Neighbour, parent and national comparisons plus local Moran classes are in "
         "`qa/spatial-context.md`; per-indicator tables are in `stats/`.",
     ]
+    if profiles is not None:
+        qa_lines += profile_release.qa_lines(profiles)
     notices = release_notices(datasets)
     if preview:
         qa_lines += [
@@ -879,6 +896,7 @@ def build_release(
         catalog=catalog,
         datasets=datasets,
         citation=citation,
+        profiles=profiles.payloads if profiles is not None else None,
     )
 
     changelog, changes = _changelog(observations, previous, version)
@@ -911,6 +929,7 @@ def build_release(
         observation_files
         + boundary_files
         + spatial.files
+        + (profiles.files if profiles is not None else [])
         + [
             geopackage_file,
             "geographies.parquet",

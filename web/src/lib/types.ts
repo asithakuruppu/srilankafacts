@@ -120,6 +120,7 @@ export type Place = {
   geography: Geography;
   datasets: DatasetRights[];
   values: Observation[];
+  profile?: PlaceProfile;
 };
 
 export type DataPackageResource = {
@@ -138,4 +139,36 @@ export type DataPackage = {
   licenses: { name: string }[];
   sources: { dataset: string; title: string; path: string }[];
   resources: DataPackageResource[];
+};
+
+export type ProfileAxis = {
+  axis: number;
+  draft_label: string;
+  label_status: string;
+  score: number;
+  variance_explained: number;
+};
+
+export type SimilarPlace = {
+  geography_id: string;
+  name_en: string | null;
+  distance: number;
+  alike: string[];
+  different: string[];
+};
+
+/** Profile-space block (D-031). DS places carry `similar`; GN places point to their DS. */
+export type PlaceProfile = {
+  space_id: string;
+  space_version: string;
+  period: string;
+  level: "ds" | "gn";
+  note: string;
+  axes: ProfileAxis[];
+  distance_from_centre: number;
+  percentile: number;
+  unusual_indicators: string[];
+  similar: SimilarPlace[] | null;
+  similar_note?: string;
+  similar_via?: string | null;
 };
