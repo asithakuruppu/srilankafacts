@@ -105,6 +105,10 @@ def release(
     out_dir: Annotated[Path, typer.Option(help="Release output folder.")] = Path(
         "./data/build/releases"
     ),
+    profile_dir: Annotated[
+        Path | None,
+        typer.Option(help="Profile build folder (`slf profile build`) to package under D-031."),
+    ] = None,
 ) -> None:
     """Build a versioned, immutable release from validated datasets."""
     from slf.release import build_release
@@ -120,6 +124,7 @@ def release(
         notes=notes,
         preview=preview,
         previous=previous,
+        profile_dir=profile_dir,
     )
     for warning in result.warnings:
         typer.echo(f"WARNING {warning}", err=True)

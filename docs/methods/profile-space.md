@@ -80,4 +80,4 @@ with the smallest parts and "most different" the three with the largest.
   lists dropping housing units as a v0.3 option.
 - **Axis labels are machine drafts.** They are built from the strongest loadings and need the
   lead's wording before any display.
-- **Not wired into a release or the website.** That waits for the lead's decision on D-029.
+- **In the release from `v2026.11.8-preview.1` (D-031).** `slf release --profile-dir data/build/profile` copies the vectors, axes, DS similar places and unusualness tables to `vectors/` and adds a `profile` block to each place's API file. DS pages list the 10 closest DS divisions with reasons. GN pages show axis positions and distance from the centre, and link to their DS division's list. GN similar-place lists are not published.
