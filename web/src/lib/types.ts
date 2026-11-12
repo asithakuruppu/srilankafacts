@@ -121,6 +121,7 @@ export type Place = {
   datasets: DatasetRights[];
   values: Observation[];
   profile?: PlaceProfile;
+  source_comparisons?: SourceComparison[];
 };
 
 export type DataPackageResource = {
@@ -191,3 +192,26 @@ export type Correction = {
 };
 
 export type CorrectionsLog = { release: string; entries: Correction[] };
+
+export type SourceClaim = {
+  source_id: string;
+  label: string;
+  reference_date: string;
+  value: number | null;
+  locator: string;
+  preferred: boolean;
+};
+
+/** One indicator compared across publishable sources for a place (D-019). */
+export type SourceComparison = {
+  geography_id: string;
+  indicator_id: string;
+  label: string;
+  claims: SourceClaim[];
+  n_sources: number;
+  spread: number | null;
+  relative_spread: number | null;
+  agree: boolean;
+  preferred_reason: string;
+  note: string;
+};

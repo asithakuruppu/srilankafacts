@@ -24,7 +24,7 @@ import geopandas as gpd
 import pandas as pd
 import pyogrio
 
-from slf import corrections, profile_release
+from slf import corrections, profile_release, sources
 from slf.catalog import (
     Catalog,
     CatalogReport,
@@ -423,6 +423,7 @@ def _place_payload(
     datasets: list[dict[str, Any]],
     citation: str,
     profile: dict[str, Any] | None = None,
+    comparisons: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
     level = int(geography["level"])
     status = str(geography["status"])
@@ -445,6 +446,7 @@ def _place_payload(
         },
         "values": values,
         **({"profile": profile} if profile is not None else {}),
+        **({"source_comparisons": comparisons} if comparisons else {}),
         "datasets": datasets,
     }
 
@@ -460,6 +462,7 @@ def _write_api(
     datasets: list[dict[str, Any]],
     citation: str,
     profiles: dict[str, dict[str, Any]] | None = None,
+    comparisons: dict[str, list[dict[str, Any]]] | None = None,
 ) -> list[str]:
     written: list[str] = []
     meta = geographies.set_index("geography_id")
@@ -519,6 +522,7 @@ def _write_api(
             datasets=datasets,
             citation=citation,
             profile=(profiles or {}).get(str(geo_id)),
+            comparisons=(comparisons or {}).get(str(geo_id)),
         )
         rel = f"api/v1/places/{geo_id}.json"
         _write(places_dir / f"{geo_id}.json", _json_bytes(payload))
@@ -743,6 +747,49 @@ def _datapackage(
     }
 
 
+@dataclass
+class _Compared:
+    table: pd.DataFrame
+    by_place: dict[str, list[dict[str, Any]]]
+    files: list[str]
+    warnings: list[str]
+
+
+def _source_comparisons(
+    observations: pd.DataFrame,
+    geographies: pd.DataFrame,
+    catalog_root: Path,
+    data_dir: Path,
+    out: Path,
+) -> _Compared:
+    """D-019 comparisons; skipped with a warning when an input is missing."""
+    report_csv = catalog_root / "references" / "dcs-cph2024-final-report-tables.csv"
+    census = observations.loc[observations["dataset_id"] == "census-2024-gnd-tables"]
+    cell = census["source_locator"].astype(str).str.startswith("GN_population.xlsx, sheet")
+    pop_sha = census.loc[cell, "snapshot_sha256"]
+    if census.empty or pop_sha.empty or not report_csv.exists():
+        return _Compared(pd.DataFrame(), {}, [], ["source comparisons skipped: inputs missing"])
+    raw = data_dir / "raw" / "dcs" / "census-2024-gnd-tables"
+    pop_xlsx = next(
+        (p for p in sorted(raw.rglob("GN_population.xlsx")) if _file_sha256(p) == pop_sha.iloc[0]),
+        None,
+    )
+    if pop_xlsx is None:
+        return _Compared(
+            pd.DataFrame(), {}, [], ["source comparisons skipped: GN workbook snapshot not found"]
+        )
+    compared = sources.compare(observations, geographies, pop_xlsx, report_csv)
+    (out / "stats").mkdir(parents=True, exist_ok=True)
+    compared.table.to_parquet(out / "stats" / "source_comparisons.parquet", index=False)
+    _write(out / "qa" / "source-comparisons.md", sources.qa_markdown(compared).encode("utf-8"))
+    return _Compared(
+        compared.table,
+        compared.by_place,
+        ["stats/source_comparisons.parquet", "qa/source-comparisons.md"],
+        compared.warnings,
+    )
+
+
 def build_release(
     *,
     version: str,
@@ -851,6 +898,8 @@ def build_release(
         if packaged.errors:
             return result
         profiles = packaged
+    compared = _source_comparisons(observations, geographies, catalog_root, data_dir, out)
+    result.warnings.extend(compared.warnings)
 
     qa_lines = [
         f"# Release QA: {version}",
@@ -874,6 +923,16 @@ def build_release(
     ]
     if profiles is not None:
         qa_lines += profile_release.qa_lines(profiles)
+    if not compared.table.empty:
+        pairs = compared.table.drop_duplicates(["geography_id", "indicator_id"])
+        differ = pairs["agree"].tolist().count(False)
+        qa_lines += [
+            "",
+            "## Source comparisons (D-019)",
+            "",
+            f"{differ} of {len(pairs)} place-indicator pairs differ between publishable sources; "
+            "see `qa/source-comparisons.md`.",
+        ]
     notices = release_notices(datasets)
     if preview:
         qa_lines += [
@@ -910,6 +969,7 @@ def build_release(
         datasets=datasets,
         citation=citation,
         profiles=profiles.payloads if profiles is not None else None,
+        comparisons=compared.by_place,
     )
 
     if corrections_log is not None:
@@ -950,6 +1010,7 @@ def build_release(
         + boundary_files
         + spatial.files
         + (profiles.files if profiles is not None else [])
+        + compared.files
         + [
             geopackage_file,
             "geographies.parquet",
