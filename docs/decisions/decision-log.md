@@ -256,6 +256,21 @@ These were stated by you or are standing rules in [brainstorm-decisions.md](../b
 - **Implemented (2026-11-12):** the dataset's catalogue entry has a `publication` block (decision D-030, non-commercial, attribution, notice, 7-day takedown). The release builder allows a public build of an `unclear`-rights dataset only when that block names a decision marked Accepted in this log. Such a build has `use: non_commercial` and the attribution and notice in every API response, in `datapackage.json`, `CITATION.md` and `NOTICE.md`, and in the website header and footer. `rights.status` stays `unclear`. No public release has been built for hosting.
 - **Related (2026-11-12):** the lead also accepted 22 low-risk DCS crosswalk matches (`catalog/geographies/manual-matches.csv`; analysis in `docs/research/geography/dcs-review-items-dating.md`).
 
+
+## D-031: Publish similar places for DS divisions, not for GN divisions, until GN lists are stable
+- **Status:** Accepted · 2026-11-12 (decided by the lead)
+- **Context:** The profile space v0.2 (D-029) gives every GN and DS a top-20 list of similar places. The stability checks (`docs/qa/profile-space-v0.2.md` §4b) show:
+  - The axes are stable ✅: refitting on resampled places leaves 89% of GN lists and 93% of DS lists unchanged.
+  - DS lists are robust to ordinary small-number variation ✅: 84% unchanged when every count is redrawn from a Poisson distribution with the published count as its mean.
+  - GN lists are not ✅: 13% unchanged. A typical GN moves 0.32 in the space under that variation, while its 20th-nearest neighbour is 0.16 away. GNs with 5,000+ people keep 61% (346 GNs); GNs under 2,000 people keep 7–9%.
+- **Decision:** For 1B, the website and API show:
+  - similar places, with reasons, for DS divisions;
+  - for GN divisions: the GN's position on the profile axes and its distance from the national centre, plus a link to its DS division's similar places. No GN similar-places list.
+  - The GN vectors stay in the build for analysis. They are not shown as a list.
+- **Alternatives:** (a) show GN lists with a "low stability" label (rejected: most of each list would change under ordinary variation, and a label rarely survives a screenshot); (b) show GN lists only for GNs with 5,000+ people (possible, but covers only 346 of 13,934 GNs); (c) build GN lists from smoothed values, such as the empirical Bayes rates the census build already computes, then re-test (worth trying; a separate change); (d) group GNs into broad types (A03 step 7, Stage 2) and show "GNs of the same type" rather than a ranked list.
+- **Consequences:** GN pages carry the stable parts of the profile and point to DS comparisons. GN lists can return when a version passes the same stability test, for example option (c) or (d).
+- **Revisit when:** a smoothed or typology-based GN comparison is tested, or user testing shows people need GN-to-GN comparisons.
+
 ---
 
 ## Template

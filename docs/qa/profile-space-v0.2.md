@@ -95,6 +95,39 @@ Overlap is the share of each place's top-20 list that is unchanged.
 | ds | without demography | 1 | 0.269 | 0.25 | 0.109 |
 | ds | without housing | 2 | 0.376 | 0.35 | 0.263 |
 
+Removing a block changes what the space measures, so low overlap here shows how much each block shapes the lists, not that the lists are noisy. Section 4b tests noise.
+
+## 4b. Stability of similar-places lists
+
+- **Refit:** the PCA is refitted on places resampled with replacement and every place is projected again. This tests whether the axes depend on which places happen to be included.
+- **Axes:** one axis fewer and one more than the rule keeps.
+- **Small counts:** every count is redrawn from a Poisson distribution with the published count as its mean, then projected through the original standardisation. The census is a full count; this models the ordinary random variation that makes small-area rates unstable (the reason for D-026). It is a sensitivity test, not an estimate of census error.
+
+| Level | Chance | Refit | Fewer axes | More axes | Small counts | Small counts, inside original top 200 | Median shift | Median distance to 1st / 20th |
+|---|---|---|---|---|---|---|---|---|
+| gn | 0.0014 | 0.891 (min 0.83) | 0.204 | 0.367 | 0.13 | 0.471 | 0.3211 | 0.0525 / 0.1593 |
+| ds | 0.0592 | 0.934 (min 0.836) | 0.589 | 0.802 | 0.84 | 1.0 | 0.091 | 0.1939 / 0.5998 |
+
+Overlap is the mean share of a place's top-20 list that is unchanged. Chance is the overlap two random lists would have. Median shift is how far a place moves in the space under small-count noise; compare it with the distance to its neighbours.
+
+Small-count overlap by population, GN:
+
+| Population | Places | Overlap | Inside original top 200 |
+|---|---|---|---|
+| 100-999 | 5,169 | 0.074 | 0.361 |
+| 1,000-1,999 | 5,781 | 0.09 | 0.408 |
+| 2,000-4,999 | 2,638 | 0.262 | 0.756 |
+| 5,000+ | 346 | 0.612 | 0.988 |
+
+Small-count overlap by population, DS:
+
+| Population | Places | Overlap | Inside original top 200 |
+|---|---|---|---|
+| 100-999 | 0 | None | None |
+| 1,000-1,999 | 0 | None | None |
+| 2,000-4,999 | 1 | 0.89 | 1.0 |
+| 5,000+ | 338 | 0.84 | 1.0 |
+
 ## 5. Distance from the national centre (most unusual 10)
 
 ### GN
