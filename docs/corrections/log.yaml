@@ -1,0 +1,38 @@
+# Public corrections log (data-model.md: CORRECTION; architecture-overview.md: releases are
+# immutable, so a fix is a new release plus an entry here).
+#
+# One entry per error found in released values, newest first. Agents draft entries; the lead
+# approves them (`approved_by`); a public release refuses unapproved entries. The release builder copies this file into
+# `api/v1/corrections.json`, and the website shows it at /corrections.
+#
+# Fields: id (C-NNN) · found / fixed (dates) · scope (private_preview | public) ·
+# affected_releases · fixed_in · geographies · indicators · values_changed · what_was_wrong ·
+# what_changed · cause (extraction | harmonisation | geography_match | unit_or_scale | rounding |
+# display | source_ambiguity | source_error) · evidence (repo paths or URLs) · approved_by.
+entries:
+  - id: C-001
+    found: "2026-11-12"
+    fixed: "2026-11-12"
+    scope: private_preview
+    affected_releases: [v2026.11.1-preview.1, v2026.11.2-preview.1, v2026.11.3-preview.1, v2026.11.4-preview.1, v2026.11.5-preview.1]
+    fixed_in: v2026.11.6-preview.1
+    geographies: [LK2206125, LK2206300]
+    indicators: all 14 census indicators
+    values_changed: 28
+    what_was_wrong: >-
+      Census values for two GN divisions in Dambulla DS were attached to the wrong COD-AB unit.
+      DCS GN 2206125 Kandalama (2,239 people) was joined by code alone to LK2206125, a 2.7 km²
+      unit that COD-AB leaves unnamed. In v2026.11.1 to v2026.11.4, LK2206300 (COD-AB name
+      Kandalama, 20.7 km²) had no values. In v2026.11.5, a manual match then joined DCS GN 2206265
+      Kiralessa (685 people) to LK2206300, so the two units showed each other's values.
+    what_changed: >-
+      The two matches were swapped in catalog/geographies/manual-matches.csv. LK2206300
+      (Kandalama) now shows 2,239 people and LK2206125 (Kiralessa) 685. The DS, district,
+      province and country totals did not change, because both GNs are in the same DS.
+    cause: geography_match
+    evidence:
+      - docs/research/geography/null-name-gns.md
+      - catalog/geographies/manual-matches.csv
+    # The lead accepted the fix itself on 2026-11-12 (null-name GN review). This entry's wording
+    # is an agent draft until the lead approves it.
+    approved_by: null

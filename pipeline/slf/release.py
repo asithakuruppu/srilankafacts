@@ -24,7 +24,7 @@ import geopandas as gpd
 import pandas as pd
 import pyogrio
 
-from slf import profile_release
+from slf import corrections, profile_release
 from slf.catalog import (
     Catalog,
     CatalogReport,
@@ -755,6 +755,7 @@ def build_release(
     preview: bool = False,
     previous: Path | None = None,
     profile_dir: Path | None = None,
+    corrections_path: Path | None = None,
 ) -> ReleaseResult:
     out = out_dir / version
     result = ReleaseResult(version=version, path=out, preview=preview, publishable=not preview)
@@ -790,6 +791,18 @@ def build_release(
     if unknown:
         result.errors.append(f"observations reference unknown geographies: {unknown[:10]}")
         return result
+
+    corrections_log = None
+    if corrections_path is not None:
+        try:
+            corrections_log = corrections.load(corrections_path)
+        except (OSError, ValueError) as exc:
+            result.errors.append(f"corrections log {corrections_path}: {exc}")
+            return result
+        drafts = corrections.unapproved(corrections_log)
+        if drafts and not preview:
+            result.errors.append(f"corrections log has entries the lead has not approved: {drafts}")
+            return result
 
     datasets = [_dataset_rights(catalog, dataset_id) for dataset_id in dataset_ids]
     citation = _citation(version, preview)
@@ -898,6 +911,13 @@ def build_release(
         citation=citation,
         profiles=profiles.payloads if profiles is not None else None,
     )
+
+    if corrections_log is not None:
+        _write(
+            out / "api" / "v1" / "corrections.json",
+            _json_bytes(corrections.payload(corrections_log, version)),
+        )
+        api_files = [*api_files, "api/v1/corrections.json"]
 
     changelog, changes = _changelog(observations, previous, version)
     _write(out / "CHANGELOG.md", changelog.encode("utf-8"))

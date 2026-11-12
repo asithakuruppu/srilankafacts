@@ -2,6 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 
 import type {
+  CorrectionsLog,
   DataPackage,
   Geography,
   GeographyList,
@@ -86,6 +87,11 @@ export function releaseName(): string {
 
 export function getLatest(): LatestRelease {
   return readJson<LatestRelease>("api/v1/releases/latest.json");
+}
+
+/** Corrections log published with the release; null for releases built before it existed. */
+export function getCorrections(): CorrectionsLog | null {
+  return readOptionalJson<CorrectionsLog>("api/v1/corrections.json");
 }
 
 export function getIndicators(): IndicatorMeta[] {

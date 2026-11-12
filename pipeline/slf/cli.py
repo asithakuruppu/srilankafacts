@@ -109,6 +109,9 @@ def release(
         Path | None,
         typer.Option(help="Profile build folder (`slf profile build`) to package under D-031."),
     ] = None,
+    corrections_log: Annotated[
+        Path | None, typer.Option(help="Corrections log to publish as api/v1/corrections.json.")
+    ] = Path("../docs/corrections/log.yaml"),
 ) -> None:
     """Build a versioned, immutable release from validated datasets."""
     from slf.release import build_release
@@ -125,6 +128,7 @@ def release(
         preview=preview,
         previous=previous,
         profile_dir=profile_dir,
+        corrections_path=corrections_log,
     )
     for warning in result.warnings:
         typer.echo(f"WARNING {warning}", err=True)
