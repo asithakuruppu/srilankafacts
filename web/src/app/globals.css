@@ -9,7 +9,7 @@
   --accent: #0f6b5f;
   --accent-strong: #0a4f46;
   --accent-soft: #e2efe9;
-  --warm: #a5641c;
+  --warm: #8f5413; /* 4.99:1 on --warm-soft (Q03) */
   --warm-soft: #f3e7d4;
   --danger: #8a3b2a;
   --shadow: 0 1px 2px rgb(23 33 30 / 6%), 0 8px 24px rgb(23 33 30 / 5%);
@@ -374,7 +374,7 @@ pre code {
   justify-content: center;
   gap: 0.4rem;
   background: var(--accent);
-  color: #fffdf8;
+  color: var(--paper);
   padding: 0.62rem 1.05rem;
   border: 1px solid var(--accent);
   border-radius: 999px;
@@ -429,7 +429,7 @@ pre code {
 
 .hero-panel {
   background: var(--accent-strong);
-  color: #f7f4ec;
+  color: var(--paper);
   border-radius: 18px;
   padding: 1.4rem 1.5rem 1.1rem;
   box-shadow: var(--shadow);
@@ -437,7 +437,7 @@ pre code {
 
 .hero-panel .muted,
 .hero-panel .panel-kicker {
-  color: #cfe5dd;
+  color: var(--accent-soft);
 }
 
 .panel-kicker {
@@ -472,7 +472,7 @@ pre code {
 }
 
 .hero-facts dt {
-  color: #cfe5dd;
+  color: var(--accent-soft);
 }
 
 .hero-facts dd {
@@ -1053,6 +1053,9 @@ tbody tr:last-child td {
 .rank-name {
   color: var(--ink);
   text-decoration: none;
+  display: block;
+  min-height: 24px; /* WCAG 2.2 target size (Q03) */
+  line-height: 24px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -1661,4 +1664,13 @@ blockquote {
 .tag-quiet {
   background: var(--accent-soft);
   color: var(--accent-strong);
+}
+
+/* Reserve the viewport while a place page streams in, so the footer does not jump (Q02 CLS). */
+.place-skeleton {
+  min-height: 100vh;
+}
+
+main:focus {
+  outline: none;
 }

@@ -30,7 +30,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html lang="en">
       <body data-release={latest.release}>
         <SiteHeader />
-        <main id="main">{children}</main>
+        <main id="main" tabIndex={-1}>{children}</main>
         <SiteFooter />
       </body>
     </html>

@@ -80,7 +80,7 @@ export default function PlacePage({ params }: PageProps<"/place/[geoId]">) {
 
 function PlaceSkeleton() {
   return (
-    <div className="shell section" aria-busy="true">
+    <div className="shell section place-skeleton" aria-busy="true">
       <p className="muted">Loading place…</p>
     </div>
   );
@@ -166,10 +166,10 @@ function PlaceContent({ geoId }: { geoId: string }) {
           <h1>
             {geographyLabel(geography)}
             {geography.name_si ? (
-              <span className="script-si">{geography.name_si}</span>
+              <span className="script-si" lang="si">{geography.name_si}</span>
             ) : null}
             {geography.name_ta ? (
-              <span className="script-ta">{geography.name_ta}</span>
+              <span className="script-ta" lang="ta">{geography.name_ta}</span>
             ) : null}
           </h1>
           <p className="lede">

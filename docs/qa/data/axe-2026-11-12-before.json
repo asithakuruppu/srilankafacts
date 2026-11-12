@@ -1,0 +1,705 @@
+{
+ "axe": {
+  "light /": [
+   {
+    "id": "aria-hidden-focus",
+    "impact": "serious",
+    "help": "ARIA hidden element must not be focusable or contain focusable elements",
+    "nodes": 1,
+    "sample": [
+     ".map-canvas ::   Focusable content should have tabindex=\"-1\" or be removed from the DOM"
+    ]
+   },
+   {
+    "id": "color-contrast",
+    "impact": "serious",
+    "help": "Elements must meet minimum color contrast ratio thresholds",
+    "nodes": 1,
+    "sample": [
+     ".shell > strong ::   Element has insufficient color contrast of 3.87 (foreground color: #a5641c, background color: #f3e7d4, font size: 9.8pt (13.12px), font weight: bold). Expected contrast ratio of 4.5:1"
+    ]
+   }
+  ],
+  "light /explore": [
+   {
+    "id": "aria-hidden-focus",
+    "impact": "serious",
+    "help": "ARIA hidden element must not be focusable or contain focusable elements",
+    "nodes": 1,
+    "sample": [
+     ".map-canvas ::   Focusable content should have tabindex=\"-1\" or be removed from the DOM"
+    ]
+   },
+   {
+    "id": "color-contrast",
+    "impact": "serious",
+    "help": "Elements must meet minimum color contrast ratio thresholds",
+    "nodes": 1,
+    "sample": [
+     ".shell > strong ::   Element has insufficient color contrast of 3.87 (foreground color: #a5641c, background color: #f3e7d4, font size: 9.8pt (13.12px), font weight: bold). Expected contrast ratio of 4.5:1"
+    ]
+   }
+  ],
+  "light /place/LK": [
+   {
+    "id": "aria-hidden-focus",
+    "impact": "serious",
+    "help": "ARIA hidden element must not be focusable or contain focusable elements",
+    "nodes": 1,
+    "sample": [
+     ".map-canvas ::   Focusable content should have tabindex=\"-1\" or be removed from the DOM"
+    ]
+   },
+   {
+    "id": "color-contrast",
+    "impact": "serious",
+    "help": "Elements must meet minimum color contrast ratio thresholds",
+    "nodes": 1,
+    "sample": [
+     ".shell > strong ::   Element has insufficient color contrast of 3.87 (foreground color: #a5641c, background color: #f3e7d4, font size: 9.8pt (13.12px), font weight: bold). Expected contrast ratio of 4.5:1"
+    ]
+   }
+  ],
+  "light /place/LK11": [
+   {
+    "id": "aria-hidden-focus",
+    "impact": "serious",
+    "help": "ARIA hidden element must not be focusable or contain focusable elements",
+    "nodes": 1,
+    "sample": [
+     ".map-canvas ::   Focusable content should have tabindex=\"-1\" or be removed from the DOM"
+    ]
+   },
+   {
+    "id": "color-contrast",
+    "impact": "serious",
+    "help": "Elements must meet minimum color contrast ratio thresholds",
+    "nodes": 1,
+    "sample": [
+     ".shell > strong ::   Element has insufficient color contrast of 3.87 (foreground color: #a5641c, background color: #f3e7d4, font size: 9.8pt (13.12px), font weight: bold). Expected contrast ratio of 4.5:1"
+    ]
+   }
+  ],
+  "light /place/LK1103": [
+   {
+    "id": "aria-hidden-focus",
+    "impact": "serious",
+    "help": "ARIA hidden element must not be focusable or contain focusable elements",
+    "nodes": 1,
+    "sample": [
+     ".map-canvas ::   Focusable content should have tabindex=\"-1\" or be removed from the DOM"
+    ]
+   },
+   {
+    "id": "color-contrast",
+    "impact": "serious",
+    "help": "Elements must meet minimum color contrast ratio thresholds",
+    "nodes": 1,
+    "sample": [
+     ".shell > strong ::   Element has insufficient color contrast of 3.87 (foreground color: #a5641c, background color: #f3e7d4, font size: 9.8pt (13.12px), font weight: bold). Expected contrast ratio of 4.5:1"
+    ]
+   }
+  ],
+  "light /place/LK1103005": [
+   {
+    "id": "color-contrast",
+    "impact": "serious",
+    "help": "Elements must meet minimum color contrast ratio thresholds",
+    "nodes": 1,
+    "sample": [
+     "strong ::   Element has insufficient color contrast of 3.87 (foreground color: #a5641c, background color: #f3e7d4, font size: 9.8pt (13.12px), font weight: bold). Expected contrast ratio of 4.5:1"
+    ]
+   }
+  ],
+  "light /indicator/population_total": [
+   {
+    "id": "aria-hidden-focus",
+    "impact": "serious",
+    "help": "ARIA hidden element must not be focusable or contain focusable elements",
+    "nodes": 1,
+    "sample": [
+     ".map-canvas ::   Focusable content should have tabindex=\"-1\" or be removed from the DOM"
+    ]
+   },
+   {
+    "id": "color-contrast",
+    "impact": "serious",
+    "help": "Elements must meet minimum color contrast ratio thresholds",
+    "nodes": 1,
+    "sample": [
+     ".shell > strong ::   Element has insufficient color contrast of 3.87 (foreground color: #a5641c, background color: #f3e7d4, font size: 9.8pt (13.12px), font weight: bold). Expected contrast ratio of 4.5:1"
+    ]
+   }
+  ],
+  "light /indicators": [
+   {
+    "id": "color-contrast",
+    "impact": "serious",
+    "help": "Elements must meet minimum color contrast ratio thresholds",
+    "nodes": 1,
+    "sample": [
+     ".shell > strong ::   Element has insufficient color contrast of 3.87 (foreground color: #a5641c, background color: #f3e7d4, font size: 9.8pt (13.12px), font weight: bold). Expected contrast ratio of 4.5:1"
+    ]
+   }
+  ],
+  "light /data": [
+   {
+    "id": "color-contrast",
+    "impact": "serious",
+    "help": "Elements must meet minimum color contrast ratio thresholds",
+    "nodes": 1,
+    "sample": [
+     ".shell > strong ::   Element has insufficient color contrast of 3.87 (foreground color: #a5641c, background color: #f3e7d4, font size: 9.8pt (13.12px), font weight: bold). Expected contrast ratio of 4.5:1"
+    ]
+   }
+  ],
+  "light /methods": [
+   {
+    "id": "color-contrast",
+    "impact": "serious",
+    "help": "Elements must meet minimum color contrast ratio thresholds",
+    "nodes": 1,
+    "sample": [
+     ".shell > strong ::   Element has insufficient color contrast of 3.87 (foreground color: #a5641c, background color: #f3e7d4, font size: 9.8pt (13.12px), font weight: bold). Expected contrast ratio of 4.5:1"
+    ]
+   }
+  ],
+  "dark /": [
+   {
+    "id": "aria-hidden-focus",
+    "impact": "serious",
+    "help": "ARIA hidden element must not be focusable or contain focusable elements",
+    "nodes": 1,
+    "sample": [
+     ".map-canvas ::   Focusable content should have tabindex=\"-1\" or be removed from the DOM"
+    ]
+   },
+   {
+    "id": "color-contrast",
+    "impact": "serious",
+    "help": "Elements must meet minimum color contrast ratio thresholds",
+    "nodes": 10,
+    "sample": [
+     ".button[href$=\"explore\"] ::   Element has insufficient color contrast of 1.89 (foreground color: #fffdf8, background color: #6fcbb4, font size: 10.8pt (14.4px), font weight: normal). Expected contrast ratio of 4.5:1",
+     ".panel-kicker ::   Element has insufficient color contrast of 1.13 (foreground color: #cfe5dd, background color: #9fe0cf, font size: 8.6pt (11.52px), font weight: bold). Expected contrast ratio of 4.5:1",
+     ".hero-number ::   Element has insufficient color contrast of 1.36 (foreground color: #f7f4ec, background color: #9fe0cf, font size: 42.2pt (56.32px), font weight: normal). Expected contrast ratio of 3:1"
+    ]
+   }
+  ],
+  "dark /explore": [
+   {
+    "id": "aria-hidden-focus",
+    "impact": "serious",
+    "help": "ARIA hidden element must not be focusable or contain focusable elements",
+    "nodes": 1,
+    "sample": [
+     ".map-canvas ::   Focusable content should have tabindex=\"-1\" or be removed from the DOM"
+    ]
+   }
+  ],
+  "dark /place/LK": [
+   {
+    "id": "aria-hidden-focus",
+    "impact": "serious",
+    "help": "ARIA hidden element must not be focusable or contain focusable elements",
+    "nodes": 1,
+    "sample": [
+     ".map-canvas ::   Focusable content should have tabindex=\"-1\" or be removed from the DOM"
+    ]
+   }
+  ],
+  "dark /place/LK11": [
+   {
+    "id": "aria-hidden-focus",
+    "impact": "serious",
+    "help": "ARIA hidden element must not be focusable or contain focusable elements",
+    "nodes": 1,
+    "sample": [
+     ".map-canvas ::   Focusable content should have tabindex=\"-1\" or be removed from the DOM"
+    ]
+   }
+  ],
+  "dark /place/LK1103": [
+   {
+    "id": "aria-hidden-focus",
+    "impact": "serious",
+    "help": "ARIA hidden element must not be focusable or contain focusable elements",
+    "nodes": 1,
+    "sample": [
+     ".map-canvas ::   Focusable content should have tabindex=\"-1\" or be removed from the DOM"
+    ]
+   }
+  ],
+  "dark /place/LK1103005": [],
+  "dark /indicator/population_total": [
+   {
+    "id": "aria-hidden-focus",
+    "impact": "serious",
+    "help": "ARIA hidden element must not be focusable or contain focusable elements",
+    "nodes": 1,
+    "sample": [
+     ".map-canvas ::   Focusable content should have tabindex=\"-1\" or be removed from the DOM"
+    ]
+   }
+  ],
+  "dark /indicators": [],
+  "dark /data": [],
+  "dark /methods": []
+ },
+ "keyboard": {
+  "/": [
+   {
+    "tag": "a",
+    "text": "Skip to content",
+    "href": "#main",
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   },
+   {
+    "tag": "a",
+    "text": "Sri Lanka Facts\nEvery place, every numbe",
+    "href": "/",
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   },
+   {
+    "tag": "a",
+    "text": "Explore",
+    "href": "/explore",
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   },
+   {
+    "tag": "a",
+    "text": "Indicators",
+    "href": "/indicators",
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   },
+   {
+    "tag": "a",
+    "text": "Data",
+    "href": "/data",
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   },
+   {
+    "tag": "a",
+    "text": "Methods",
+    "href": "/methods",
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   },
+   {
+    "tag": "input",
+    "text": "Search a place…",
+    "href": null,
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   },
+   {
+    "tag": "a",
+    "text": "Explore the map",
+    "href": "/explore",
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   },
+   {
+    "tag": "a",
+    "text": "Data and API",
+    "href": "/data",
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   },
+   {
+    "tag": "canvas",
+    "text": "Map",
+    "href": null,
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   },
+   {
+    "tag": "a",
+    "text": "Central\n2,714,045",
+    "href": "/place/LK2",
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   },
+   {
+    "tag": "a",
+    "text": "Eastern\n1,783,214",
+    "href": "/place/LK5",
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   },
+   {
+    "tag": "a",
+    "text": "North Central\n1,407,610",
+    "href": "/place/LK7",
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   },
+   {
+    "tag": "a",
+    "text": "North Western\n2,586,972",
+    "href": "/place/LK6",
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   },
+   {
+    "tag": "a",
+    "text": "Northern\n1,150,148",
+    "href": "/place/LK4",
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   },
+   {
+    "tag": "a",
+    "text": "Sabaragamuwa\n2,015,899",
+    "href": "/place/LK9",
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   },
+   {
+    "tag": "a",
+    "text": "Southern\n2,606,679",
+    "href": "/place/LK3",
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   },
+   {
+    "tag": "a",
+    "text": "Uva\n1,399,892",
+    "href": "/place/LK8",
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   },
+   {
+    "tag": "a",
+    "text": "Western\n6,117,341",
+    "href": "/place/LK1",
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   },
+   {
+    "tag": "a",
+    "text": "Female population\npersons · count",
+    "href": "/indicator/population_female",
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   },
+   {
+    "tag": "a",
+    "text": "Male population\npersons · count",
+    "href": "/indicator/population_male",
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   },
+   {
+    "tag": "a",
+    "text": "Occupied housing units\nhousing_units · c",
+    "href": "/indicator/occupied_housing_units",
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   },
+   {
+    "tag": "a",
+    "text": "Persons per occupied housing unit\nperson",
+    "href": "/indicator/persons_per_occupied_housing_unit",
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   },
+   {
+    "tag": "a",
+    "text": "Population aged 0–14\npersons · count",
+    "href": "/indicator/population_age_0_14",
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   },
+   {
+    "tag": "a",
+    "text": "Population aged 15–59\npersons · count",
+    "href": "/indicator/population_age_15_59",
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   }
+  ],
+  "/place/LK1103": [
+   {
+    "tag": "a",
+    "text": "Skip to content",
+    "href": "#main",
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   },
+   {
+    "tag": "a",
+    "text": "Sri Lanka Facts\nEvery place, every numbe",
+    "href": "/",
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   },
+   {
+    "tag": "a",
+    "text": "Explore",
+    "href": "/explore",
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   },
+   {
+    "tag": "a",
+    "text": "Indicators",
+    "href": "/indicators",
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   },
+   {
+    "tag": "a",
+    "text": "Data",
+    "href": "/data",
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   },
+   {
+    "tag": "a",
+    "text": "Methods",
+    "href": "/methods",
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   },
+   {
+    "tag": "input",
+    "text": "Search a place…",
+    "href": null,
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   },
+   {
+    "tag": "a",
+    "text": "Sri Lanka",
+    "href": "/place/LK",
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   },
+   {
+    "tag": "a",
+    "text": "Western",
+    "href": "/place/LK1",
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   },
+   {
+    "tag": "a",
+    "text": "Colombo",
+    "href": "/place/LK11",
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   },
+   {
+    "tag": "a",
+    "text": "POPULATION\n292,089\nRank 1 of 13 in paren",
+    "href": "#data",
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   },
+   {
+    "tag": "a",
+    "text": "POPULATION DENSITY\n11,903.1 per km²\npeop",
+    "href": "#data",
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   },
+   {
+    "tag": "a",
+    "text": "AGED 60 AND OVER\n15.5%\n45,368",
+    "href": "#data",
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   },
+   {
+    "tag": "a",
+    "text": "OCCUPIED HOUSING UNITS\n71,142 units\ncens",
+    "href": "#data",
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   },
+   {
+    "tag": "a",
+    "text": "PERSONS PER OCCUPIED UNIT\n4.11 per occup",
+    "href": "#data",
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   },
+   {
+    "tag": "a",
+    "text": "SEX RATIO\n99.1 males per 100 females\n100",
+    "href": "#data",
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   },
+   {
+    "tag": "a",
+    "text": "methods and limits",
+    "href": "/methods",
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   },
+   {
+    "tag": "canvas",
+    "text": "Map",
+    "href": null,
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   },
+   {
+    "tag": "a",
+    "text": "Total population",
+    "href": "/indicator/population_total",
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   },
+   {
+    "tag": "summary",
+    "text": "Source",
+    "href": null,
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   },
+   {
+    "tag": "a",
+    "text": "Male population",
+    "href": "/indicator/population_male",
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   },
+   {
+    "tag": "summary",
+    "text": "Source",
+    "href": null,
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   },
+   {
+    "tag": "a",
+    "text": "Female population",
+    "href": "/indicator/population_female",
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   },
+   {
+    "tag": "summary",
+    "text": "Source",
+    "href": null,
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   },
+   {
+    "tag": "a",
+    "text": "Sex ratio",
+    "href": "/indicator/sex_ratio",
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   }
+  ]
+ },
+ "mapAlternatives": {
+  "/": {
+   "maps": 2,
+   "tables": 0
+  },
+  "/explore": {
+   "maps": 2,
+   "tables": 1
+  },
+  "/place/LK": {
+   "maps": 2,
+   "tables": 2
+  },
+  "/place/LK11": {
+   "maps": 2,
+   "tables": 2
+  },
+  "/place/LK1103": {
+   "maps": 2,
+   "tables": 2
+  },
+  "/place/LK1103005": {
+   "maps": 0,
+   "tables": 2
+  },
+  "/indicator/population_total": {
+   "maps": 2,
+   "tables": 1
+  },
+  "/indicators": {
+   "maps": 0,
+   "tables": 0
+  },
+  "/data": {
+   "maps": 0,
+   "tables": 2
+  },
+  "/methods": {
+   "maps": 0,
+   "tables": 0
+  }
+ },
+ "version": "4.10.3",
+ "skipLink": {
+  "hash": "#main",
+  "active": "BODY"
+ },
+ "searchJourney": {
+  "url": "http://localhost:3420/place/LK5306095"
+ }
+}
