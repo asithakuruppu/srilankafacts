@@ -1,0 +1,853 @@
+{
+ "/": [
+  {
+   "perf": 45,
+   "a11y": 92,
+   "fcp": 3082.9506499999998,
+   "lcp": 4964.950650000001,
+   "tbt": 4789.5,
+   "cls": 0,
+   "si": 3453.481796794359,
+   "total": 559076,
+   "js": 439675,
+   "fetch": 80639,
+   "doc": 7592,
+   "a11yFails": [
+    "aria-hidden-focus",
+    "color-contrast"
+   ],
+   "device": "mobile",
+   "throttling": {
+    "rttMs": 150,
+    "throughputKbps": 1638.4,
+    "requestLatencyMs": 562.5,
+    "downloadThroughputKbps": 1474.5600000000002,
+    "uploadThroughputKbps": 675,
+    "cpuSlowdownMultiplier": 4
+   },
+   "lighthouse": "12.8.2",
+   "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/158.0.0.0 Safari/537.36"
+  },
+  {
+   "perf": 93,
+   "a11y": 92,
+   "fcp": 907.2358999999999,
+   "lcp": 2128.2358999999997,
+   "tbt": 280.5,
+   "cls": 0,
+   "si": 1285.063785527901,
+   "total": 559076,
+   "js": 439675,
+   "fetch": 80639,
+   "doc": 7592,
+   "a11yFails": [
+    "aria-hidden-focus",
+    "color-contrast"
+   ],
+   "device": "mobile",
+   "throttling": {
+    "rttMs": 150,
+    "throughputKbps": 1638.4,
+    "requestLatencyMs": 562.5,
+    "downloadThroughputKbps": 1474.5600000000002,
+    "uploadThroughputKbps": 675,
+    "cpuSlowdownMultiplier": 4
+   },
+   "lighthouse": "12.8.2",
+   "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/158.0.0.0 Safari/537.36"
+  },
+  {
+   "perf": 95,
+   "a11y": 92,
+   "fcp": 906.8605,
+   "lcp": 2102.8605000000002,
+   "tbt": 219.99999999999955,
+   "cls": 0,
+   "si": 1283.1294124144692,
+   "total": 559076,
+   "js": 439675,
+   "fetch": 80639,
+   "doc": 7592,
+   "a11yFails": [
+    "aria-hidden-focus",
+    "color-contrast"
+   ],
+   "device": "mobile",
+   "throttling": {
+    "rttMs": 150,
+    "throughputKbps": 1638.4,
+    "requestLatencyMs": 562.5,
+    "downloadThroughputKbps": 1474.5600000000002,
+    "uploadThroughputKbps": 675,
+    "cpuSlowdownMultiplier": 4
+   },
+   "lighthouse": "12.8.2",
+   "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/158.0.0.0 Safari/537.36"
+  }
+ ],
+ "/explore": [
+  {
+   "perf": 78,
+   "a11y": 93,
+   "fcp": 905.4317000000001,
+   "lcp": 2128.4317,
+   "tbt": 916,
+   "cls": 0,
+   "si": 1624.8833020354434,
+   "total": 559729,
+   "js": 439675,
+   "fetch": 81109,
+   "doc": 7775,
+   "a11yFails": [
+    "aria-hidden-focus",
+    "color-contrast"
+   ],
+   "device": "mobile",
+   "throttling": {
+    "rttMs": 150,
+    "throughputKbps": 1638.4,
+    "requestLatencyMs": 562.5,
+    "downloadThroughputKbps": 1474.5600000000002,
+    "uploadThroughputKbps": 675,
+    "cpuSlowdownMultiplier": 4
+   },
+   "lighthouse": "12.8.2",
+   "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/158.0.0.0 Safari/537.36"
+  },
+  {
+   "perf": 98,
+   "a11y": 93,
+   "fcp": 907.4059,
+   "lcp": 1657.4059000000002,
+   "tbt": 170.5,
+   "cls": 0,
+   "si": 1383.8207043261982,
+   "total": 559729,
+   "js": 439675,
+   "fetch": 81109,
+   "doc": 7775,
+   "a11yFails": [
+    "aria-hidden-focus",
+    "color-contrast"
+   ],
+   "device": "mobile",
+   "throttling": {
+    "rttMs": 150,
+    "throughputKbps": 1638.4,
+    "requestLatencyMs": 562.5,
+    "downloadThroughputKbps": 1474.5600000000002,
+    "uploadThroughputKbps": 675,
+    "cpuSlowdownMultiplier": 4
+   },
+   "lighthouse": "12.8.2",
+   "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/158.0.0.0 Safari/537.36"
+  },
+  {
+   "perf": 94,
+   "a11y": 93,
+   "fcp": 906.0043000000001,
+   "lcp": 2118.0043,
+   "tbt": 255.5,
+   "cls": 0,
+   "si": 1337.875400332431,
+   "total": 559729,
+   "js": 439675,
+   "fetch": 81109,
+   "doc": 7775,
+   "a11yFails": [
+    "aria-hidden-focus",
+    "color-contrast"
+   ],
+   "device": "mobile",
+   "throttling": {
+    "rttMs": 150,
+    "throughputKbps": 1638.4,
+    "requestLatencyMs": 562.5,
+    "downloadThroughputKbps": 1474.5600000000002,
+    "uploadThroughputKbps": 675,
+    "cpuSlowdownMultiplier": 4
+   },
+   "lighthouse": "12.8.2",
+   "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/158.0.0.0 Safari/537.36"
+  }
+ ],
+ "/place/LK": [
+  {
+   "perf": 95,
+   "a11y": 92,
+   "fcp": 907.5793000000001,
+   "lcp": 2104.5793000000003,
+   "tbt": 242,
+   "cls": 0,
+   "si": 985.5937092063084,
+   "total": 568743,
+   "js": 439675,
+   "fetch": 86303,
+   "doc": 11595,
+   "a11yFails": [
+    "aria-hidden-focus",
+    "color-contrast"
+   ],
+   "device": "mobile",
+   "throttling": {
+    "rttMs": 150,
+    "throughputKbps": 1638.4,
+    "requestLatencyMs": 562.5,
+    "downloadThroughputKbps": 1474.5600000000002,
+    "uploadThroughputKbps": 675,
+    "cpuSlowdownMultiplier": 4
+   },
+   "lighthouse": "12.8.2",
+   "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/158.0.0.0 Safari/537.36"
+  },
+  {
+   "perf": 95,
+   "a11y": 92,
+   "fcp": 907.2104999999999,
+   "lcp": 2102.2105,
+   "tbt": 221,
+   "cls": 0,
+   "si": 969.6966839186902,
+   "total": 568743,
+   "js": 439675,
+   "fetch": 86303,
+   "doc": 11595,
+   "a11yFails": [
+    "aria-hidden-focus",
+    "color-contrast"
+   ],
+   "device": "mobile",
+   "throttling": {
+    "rttMs": 150,
+    "throughputKbps": 1638.4,
+    "requestLatencyMs": 562.5,
+    "downloadThroughputKbps": 1474.5600000000002,
+    "uploadThroughputKbps": 675,
+    "cpuSlowdownMultiplier": 4
+   },
+   "lighthouse": "12.8.2",
+   "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/158.0.0.0 Safari/537.36"
+  },
+  {
+   "perf": 70,
+   "a11y": 92,
+   "fcp": 906.7317,
+   "lcp": 2416.82925,
+   "tbt": 239,
+   "cls": 0.6962332928311057,
+   "si": 1297.5573034011445,
+   "total": 568743,
+   "js": 439675,
+   "fetch": 86303,
+   "doc": 11595,
+   "a11yFails": [
+    "aria-hidden-focus",
+    "color-contrast"
+   ],
+   "device": "mobile",
+   "throttling": {
+    "rttMs": 150,
+    "throughputKbps": 1638.4,
+    "requestLatencyMs": 562.5,
+    "downloadThroughputKbps": 1474.5600000000002,
+    "uploadThroughputKbps": 675,
+    "cpuSlowdownMultiplier": 4
+   },
+   "lighthouse": "12.8.2",
+   "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/158.0.0.0 Safari/537.36"
+  }
+ ],
+ "/place/LK11": [
+  {
+   "perf": 71,
+   "a11y": 92,
+   "fcp": 906.7353,
+   "lcp": 2416.83825,
+   "tbt": 218.44852500000025,
+   "cls": 0.6962332928311057,
+   "si": 1297.3446636136903,
+   "total": 577446,
+   "js": 439675,
+   "fetch": 94306,
+   "doc": 12295,
+   "a11yFails": [
+    "aria-hidden-focus",
+    "color-contrast"
+   ],
+   "device": "mobile",
+   "throttling": {
+    "rttMs": 150,
+    "throughputKbps": 1638.4,
+    "requestLatencyMs": 562.5,
+    "downloadThroughputKbps": 1474.5600000000002,
+    "uploadThroughputKbps": 675,
+    "cpuSlowdownMultiplier": 4
+   },
+   "lighthouse": "12.8.2",
+   "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/158.0.0.0 Safari/537.36"
+  },
+  {
+   "perf": 71,
+   "a11y": 92,
+   "fcp": 907.3078,
+   "lcp": 2418.2695,
+   "tbt": 226.01914999999963,
+   "cls": 0.6962332928311057,
+   "si": 1354.622852727585,
+   "total": 577446,
+   "js": 439675,
+   "fetch": 94306,
+   "doc": 12295,
+   "a11yFails": [
+    "aria-hidden-focus",
+    "color-contrast"
+   ],
+   "device": "mobile",
+   "throttling": {
+    "rttMs": 150,
+    "throughputKbps": 1638.4,
+    "requestLatencyMs": 562.5,
+    "downloadThroughputKbps": 1474.5600000000002,
+    "uploadThroughputKbps": 675,
+    "cpuSlowdownMultiplier": 4
+   },
+   "lighthouse": "12.8.2",
+   "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/158.0.0.0 Safari/537.36"
+  },
+  {
+   "perf": 72,
+   "a11y": 92,
+   "fcp": 906.7091,
+   "lcp": 2416.77275,
+   "tbt": 196.96817499999997,
+   "cls": 0.6962332928311057,
+   "si": 1304.039233974291,
+   "total": 577446,
+   "js": 439675,
+   "fetch": 94306,
+   "doc": 12295,
+   "a11yFails": [
+    "aria-hidden-focus",
+    "color-contrast"
+   ],
+   "device": "mobile",
+   "throttling": {
+    "rttMs": 150,
+    "throughputKbps": 1638.4,
+    "requestLatencyMs": 562.5,
+    "downloadThroughputKbps": 1474.5600000000002,
+    "uploadThroughputKbps": 675,
+    "cpuSlowdownMultiplier": 4
+   },
+   "lighthouse": "12.8.2",
+   "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/158.0.0.0 Safari/537.36"
+  }
+ ],
+ "/place/LK1103": [
+  {
+   "perf": 68,
+   "a11y": 92,
+   "fcp": 908.0613000000001,
+   "lcp": 2420.1532500000003,
+   "tbt": 305.43870000000015,
+   "cls": 0.6962332928311057,
+   "si": 1446.6787771880772,
+   "total": 811977,
+   "js": 439675,
+   "fetch": 327780,
+   "doc": 13352,
+   "a11yFails": [
+    "aria-hidden-focus",
+    "color-contrast"
+   ],
+   "device": "mobile",
+   "throttling": {
+    "rttMs": 150,
+    "throughputKbps": 1638.4,
+    "requestLatencyMs": 562.5,
+    "downloadThroughputKbps": 1474.5600000000002,
+    "uploadThroughputKbps": 675,
+    "cpuSlowdownMultiplier": 4
+   },
+   "lighthouse": "12.8.2",
+   "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/158.0.0.0 Safari/537.36"
+  },
+  {
+   "perf": 94,
+   "a11y": 92,
+   "fcp": 906.0358000000001,
+   "lcp": 2115.0358,
+   "tbt": 250,
+   "cls": 0,
+   "si": 1140.0877299057101,
+   "total": 811977,
+   "js": 439675,
+   "fetch": 327780,
+   "doc": 13352,
+   "a11yFails": [
+    "aria-hidden-focus",
+    "color-contrast"
+   ],
+   "device": "mobile",
+   "throttling": {
+    "rttMs": 150,
+    "throughputKbps": 1638.4,
+    "requestLatencyMs": 562.5,
+    "downloadThroughputKbps": 1474.5600000000002,
+    "uploadThroughputKbps": 675,
+    "cpuSlowdownMultiplier": 4
+   },
+   "lighthouse": "12.8.2",
+   "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/158.0.0.0 Safari/537.36"
+  },
+  {
+   "perf": 69,
+   "a11y": 92,
+   "fcp": 906.6880000000001,
+   "lcp": 2416.7200000000003,
+   "tbt": 286.8119999999999,
+   "cls": 0.6962332928311057,
+   "si": 1444.5057861319312,
+   "total": 811977,
+   "js": 439675,
+   "fetch": 327780,
+   "doc": 13352,
+   "a11yFails": [
+    "aria-hidden-focus",
+    "color-contrast"
+   ],
+   "device": "mobile",
+   "throttling": {
+    "rttMs": 150,
+    "throughputKbps": 1638.4,
+    "requestLatencyMs": 562.5,
+    "downloadThroughputKbps": 1474.5600000000002,
+    "uploadThroughputKbps": 675,
+    "cpuSlowdownMultiplier": 4
+   },
+   "lighthouse": "12.8.2",
+   "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/158.0.0.0 Safari/537.36"
+  }
+ ],
+ "/place/LK1103005": [
+  {
+   "perf": 93,
+   "a11y": 96,
+   "fcp": 1062.387,
+   "lcp": 2585.580499999999,
+   "tbt": 233.9999999999991,
+   "cls": 0,
+   "si": 1392.717122741344,
+   "total": 230974,
+   "js": 151890,
+   "fetch": 28196,
+   "doc": 19718,
+   "a11yFails": [
+    "color-contrast"
+   ],
+   "device": "mobile",
+   "throttling": {
+    "rttMs": 150,
+    "throughputKbps": 1638.4,
+    "requestLatencyMs": 562.5,
+    "downloadThroughputKbps": 1474.5600000000002,
+    "uploadThroughputKbps": 675,
+    "cpuSlowdownMultiplier": 4
+   },
+   "lighthouse": "12.8.2",
+   "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/158.0.0.0 Safari/537.36"
+  },
+  {
+   "perf": 74,
+   "a11y": 96,
+   "fcp": 905.5065,
+   "lcp": 2416.5194999999994,
+   "tbt": 122.99999999999955,
+   "cls": 0.6962332928311057,
+   "si": 916.3206182485045,
+   "total": 229217,
+   "js": 151890,
+   "fetch": 34921,
+   "doc": 11236,
+   "a11yFails": [
+    "color-contrast"
+   ],
+   "device": "mobile",
+   "throttling": {
+    "rttMs": 150,
+    "throughputKbps": 1638.4,
+    "requestLatencyMs": 562.5,
+    "downloadThroughputKbps": 1474.5600000000002,
+    "uploadThroughputKbps": 675,
+    "cpuSlowdownMultiplier": 4
+   },
+   "lighthouse": "12.8.2",
+   "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/158.0.0.0 Safari/537.36"
+  },
+  {
+   "perf": 74,
+   "a11y": 96,
+   "fcp": 905.8411000000001,
+   "lcp": 2414.60275,
+   "tbt": 108,
+   "cls": 0.6962332928311057,
+   "si": 905.8411000000001,
+   "total": 229217,
+   "js": 151890,
+   "fetch": 34921,
+   "doc": 11236,
+   "a11yFails": [
+    "color-contrast"
+   ],
+   "device": "mobile",
+   "throttling": {
+    "rttMs": 150,
+    "throughputKbps": 1638.4,
+    "requestLatencyMs": 562.5,
+    "downloadThroughputKbps": 1474.5600000000002,
+    "uploadThroughputKbps": 675,
+    "cpuSlowdownMultiplier": 4
+   },
+   "lighthouse": "12.8.2",
+   "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/158.0.0.0 Safari/537.36"
+  }
+ ],
+ "/indicator/population_total": [
+  {
+   "perf": 95,
+   "a11y": 87,
+   "fcp": 906.6678999999999,
+   "lcp": 2107.6679,
+   "tbt": 226,
+   "cls": 0,
+   "si": 1269.1627200414234,
+   "total": 567333,
+   "js": 439675,
+   "fetch": 85664,
+   "doc": 10824,
+   "a11yFails": [
+    "aria-hidden-focus",
+    "color-contrast",
+    "target-size"
+   ],
+   "device": "mobile",
+   "throttling": {
+    "rttMs": 150,
+    "throughputKbps": 1638.4,
+    "requestLatencyMs": 562.5,
+    "downloadThroughputKbps": 1474.5600000000002,
+    "uploadThroughputKbps": 675,
+    "cpuSlowdownMultiplier": 4
+   },
+   "lighthouse": "12.8.2",
+   "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/158.0.0.0 Safari/537.36"
+  },
+  {
+   "perf": 96,
+   "a11y": 87,
+   "fcp": 906.4553000000001,
+   "lcp": 1656.4553,
+   "tbt": 224,
+   "cls": 0,
+   "si": 1294.0986893724457,
+   "total": 567333,
+   "js": 439675,
+   "fetch": 85664,
+   "doc": 10824,
+   "a11yFails": [
+    "aria-hidden-focus",
+    "color-contrast",
+    "target-size"
+   ],
+   "device": "mobile",
+   "throttling": {
+    "rttMs": 150,
+    "throughputKbps": 1638.4,
+    "requestLatencyMs": 562.5,
+    "downloadThroughputKbps": 1474.5600000000002,
+    "uploadThroughputKbps": 675,
+    "cpuSlowdownMultiplier": 4
+   },
+   "lighthouse": "12.8.2",
+   "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/158.0.0.0 Safari/537.36"
+  },
+  {
+   "perf": 95,
+   "a11y": 87,
+   "fcp": 905.8717999999999,
+   "lcp": 2107.8718,
+   "tbt": 231,
+   "cls": 0,
+   "si": 1281.7315573171231,
+   "total": 567333,
+   "js": 439675,
+   "fetch": 85664,
+   "doc": 10824,
+   "a11yFails": [
+    "aria-hidden-focus",
+    "color-contrast",
+    "target-size"
+   ],
+   "device": "mobile",
+   "throttling": {
+    "rttMs": 150,
+    "throughputKbps": 1638.4,
+    "requestLatencyMs": 562.5,
+    "downloadThroughputKbps": 1474.5600000000002,
+    "uploadThroughputKbps": 675,
+    "cpuSlowdownMultiplier": 4
+   },
+   "lighthouse": "12.8.2",
+   "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/158.0.0.0 Safari/537.36"
+  }
+ ],
+ "/indicators": [
+  {
+   "perf": 98,
+   "a11y": 96,
+   "fcp": 755.1379,
+   "lcp": 2104.1379,
+   "tbt": 99.00000000000023,
+   "cls": 0,
+   "si": 755.1379,
+   "total": 222284,
+   "js": 151890,
+   "fetch": 33289,
+   "doc": 5935,
+   "a11yFails": [
+    "color-contrast"
+   ],
+   "device": "mobile",
+   "throttling": {
+    "rttMs": 150,
+    "throughputKbps": 1638.4,
+    "requestLatencyMs": 562.5,
+    "downloadThroughputKbps": 1474.5600000000002,
+    "uploadThroughputKbps": 675,
+    "cpuSlowdownMultiplier": 4
+   },
+   "lighthouse": "12.8.2",
+   "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/158.0.0.0 Safari/537.36"
+  },
+  {
+   "perf": 98,
+   "a11y": 96,
+   "fcp": 755.1021000000001,
+   "lcp": 2100.1021,
+   "tbt": 95,
+   "cls": 0,
+   "si": 755.1021000000001,
+   "total": 222284,
+   "js": 151890,
+   "fetch": 33289,
+   "doc": 5935,
+   "a11yFails": [
+    "color-contrast"
+   ],
+   "device": "mobile",
+   "throttling": {
+    "rttMs": 150,
+    "throughputKbps": 1638.4,
+    "requestLatencyMs": 562.5,
+    "downloadThroughputKbps": 1474.5600000000002,
+    "uploadThroughputKbps": 675,
+    "cpuSlowdownMultiplier": 4
+   },
+   "lighthouse": "12.8.2",
+   "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/158.0.0.0 Safari/537.36"
+  },
+  {
+   "perf": 98,
+   "a11y": 96,
+   "fcp": 759.5364999999999,
+   "lcp": 2107.5365,
+   "tbt": 98.00000000000023,
+   "cls": 0,
+   "si": 759.5364999999999,
+   "total": 222284,
+   "js": 151890,
+   "fetch": 33289,
+   "doc": 5935,
+   "a11yFails": [
+    "color-contrast"
+   ],
+   "device": "mobile",
+   "throttling": {
+    "rttMs": 150,
+    "throughputKbps": 1638.4,
+    "requestLatencyMs": 562.5,
+    "downloadThroughputKbps": 1474.5600000000002,
+    "uploadThroughputKbps": 675,
+    "cpuSlowdownMultiplier": 4
+   },
+   "lighthouse": "12.8.2",
+   "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/158.0.0.0 Safari/537.36"
+  }
+ ],
+ "/data": [
+  {
+   "perf": 98,
+   "a11y": 96,
+   "fcp": 755.4123999999999,
+   "lcp": 2104.4124,
+   "tbt": 99.00000000000023,
+   "cls": 0,
+   "si": 755.4123999999999,
+   "total": 213692,
+   "js": 151890,
+   "fetch": 22704,
+   "doc": 7928,
+   "a11yFails": [
+    "color-contrast"
+   ],
+   "device": "mobile",
+   "throttling": {
+    "rttMs": 150,
+    "throughputKbps": 1638.4,
+    "requestLatencyMs": 562.5,
+    "downloadThroughputKbps": 1474.5600000000002,
+    "uploadThroughputKbps": 675,
+    "cpuSlowdownMultiplier": 4
+   },
+   "lighthouse": "12.8.2",
+   "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/158.0.0.0 Safari/537.36"
+  },
+  {
+   "perf": 98,
+   "a11y": 96,
+   "fcp": 755.1842999999999,
+   "lcp": 2097.1843,
+   "tbt": 92,
+   "cls": 0,
+   "si": 755.1842999999999,
+   "total": 213692,
+   "js": 151890,
+   "fetch": 22704,
+   "doc": 7928,
+   "a11yFails": [
+    "color-contrast"
+   ],
+   "device": "mobile",
+   "throttling": {
+    "rttMs": 150,
+    "throughputKbps": 1638.4,
+    "requestLatencyMs": 562.5,
+    "downloadThroughputKbps": 1474.5600000000002,
+    "uploadThroughputKbps": 675,
+    "cpuSlowdownMultiplier": 4
+   },
+   "lighthouse": "12.8.2",
+   "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/158.0.0.0 Safari/537.36"
+  },
+  {
+   "perf": 98,
+   "a11y": 96,
+   "fcp": 755.8989999999999,
+   "lcp": 2104.899,
+   "tbt": 99,
+   "cls": 0,
+   "si": 755.8989999999999,
+   "total": 213692,
+   "js": 151890,
+   "fetch": 22704,
+   "doc": 7928,
+   "a11yFails": [
+    "color-contrast"
+   ],
+   "device": "mobile",
+   "throttling": {
+    "rttMs": 150,
+    "throughputKbps": 1638.4,
+    "requestLatencyMs": 562.5,
+    "downloadThroughputKbps": 1474.5600000000002,
+    "uploadThroughputKbps": 675,
+    "cpuSlowdownMultiplier": 4
+   },
+   "lighthouse": "12.8.2",
+   "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/158.0.0.0 Safari/537.36"
+  }
+ ],
+ "/methods": [
+  {
+   "perf": 99,
+   "a11y": 96,
+   "fcp": 754.664,
+   "lcp": 2094.664,
+   "tbt": 90,
+   "cls": 0,
+   "si": 754.664,
+   "total": 213176,
+   "js": 151890,
+   "fetch": 22580,
+   "doc": 7536,
+   "a11yFails": [
+    "color-contrast"
+   ],
+   "device": "mobile",
+   "throttling": {
+    "rttMs": 150,
+    "throughputKbps": 1638.4,
+    "requestLatencyMs": 562.5,
+    "downloadThroughputKbps": 1474.5600000000002,
+    "uploadThroughputKbps": 675,
+    "cpuSlowdownMultiplier": 4
+   },
+   "lighthouse": "12.8.2",
+   "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/158.0.0.0 Safari/537.36"
+  },
+  {
+   "perf": 98,
+   "a11y": 96,
+   "fcp": 755.5643,
+   "lcp": 2103.5643,
+   "tbt": 98,
+   "cls": 0,
+   "si": 755.5643,
+   "total": 213176,
+   "js": 151890,
+   "fetch": 22580,
+   "doc": 7536,
+   "a11yFails": [
+    "color-contrast"
+   ],
+   "device": "mobile",
+   "throttling": {
+    "rttMs": 150,
+    "throughputKbps": 1638.4,
+    "requestLatencyMs": 562.5,
+    "downloadThroughputKbps": 1474.5600000000002,
+    "uploadThroughputKbps": 675,
+    "cpuSlowdownMultiplier": 4
+   },
+   "lighthouse": "12.8.2",
+   "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/158.0.0.0 Safari/537.36"
+  },
+  {
+   "perf": 99,
+   "a11y": 96,
+   "fcp": 755.0106000000001,
+   "lcp": 2095.0106,
+   "tbt": 90,
+   "cls": 0,
+   "si": 755.0106000000001,
+   "total": 213176,
+   "js": 151890,
+   "fetch": 22580,
+   "doc": 7536,
+   "a11yFails": [
+    "color-contrast"
+   ],
+   "device": "mobile",
+   "throttling": {
+    "rttMs": 150,
+    "throughputKbps": 1638.4,
+    "requestLatencyMs": 562.5,
+    "downloadThroughputKbps": 1474.5600000000002,
+    "uploadThroughputKbps": 675,
+    "cpuSlowdownMultiplier": 4
+   },
+   "lighthouse": "12.8.2",
+   "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/158.0.0.0 Safari/537.36"
+  }
+ ]
+}

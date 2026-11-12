@@ -1,0 +1,480 @@
+{
+ "axe": {
+  "light /": [],
+  "light /explore": [],
+  "light /place/LK": [],
+  "light /place/LK11": [],
+  "light /place/LK1103": [],
+  "light /place/LK1103005": [],
+  "light /indicator/population_total": [],
+  "light /indicators": [],
+  "light /data": [],
+  "light /methods": [],
+  "dark /": [],
+  "dark /explore": [],
+  "dark /place/LK": [],
+  "dark /place/LK11": [],
+  "dark /place/LK1103": [],
+  "dark /place/LK1103005": [],
+  "dark /indicator/population_total": [],
+  "dark /indicators": [],
+  "dark /data": [],
+  "dark /methods": []
+ },
+ "keyboard": {
+  "/": [
+   {
+    "tag": "a",
+    "text": "Skip to content",
+    "href": "#main",
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   },
+   {
+    "tag": "a",
+    "text": "Sri Lanka Facts\nEvery place, every numbe",
+    "href": "/",
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   },
+   {
+    "tag": "a",
+    "text": "Explore",
+    "href": "/explore",
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   },
+   {
+    "tag": "a",
+    "text": "Indicators",
+    "href": "/indicators",
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   },
+   {
+    "tag": "a",
+    "text": "Data",
+    "href": "/data",
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   },
+   {
+    "tag": "a",
+    "text": "Methods",
+    "href": "/methods",
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   },
+   {
+    "tag": "input",
+    "text": "Search a place…",
+    "href": null,
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   },
+   {
+    "tag": "a",
+    "text": "Explore the map",
+    "href": "/explore",
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   },
+   {
+    "tag": "a",
+    "text": "Data and API",
+    "href": "/data",
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   },
+   {
+    "tag": "a",
+    "text": "Central\n2,714,045",
+    "href": "/place/LK2",
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   },
+   {
+    "tag": "a",
+    "text": "Eastern\n1,783,214",
+    "href": "/place/LK5",
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   },
+   {
+    "tag": "a",
+    "text": "North Central\n1,407,610",
+    "href": "/place/LK7",
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   },
+   {
+    "tag": "a",
+    "text": "North Western\n2,586,972",
+    "href": "/place/LK6",
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   },
+   {
+    "tag": "a",
+    "text": "Northern\n1,150,148",
+    "href": "/place/LK4",
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   },
+   {
+    "tag": "a",
+    "text": "Sabaragamuwa\n2,015,899",
+    "href": "/place/LK9",
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   },
+   {
+    "tag": "a",
+    "text": "Southern\n2,606,679",
+    "href": "/place/LK3",
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   },
+   {
+    "tag": "a",
+    "text": "Uva\n1,399,892",
+    "href": "/place/LK8",
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   },
+   {
+    "tag": "a",
+    "text": "Western\n6,117,341",
+    "href": "/place/LK1",
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   },
+   {
+    "tag": "a",
+    "text": "Female population\npersons · count",
+    "href": "/indicator/population_female",
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   },
+   {
+    "tag": "a",
+    "text": "Male population\npersons · count",
+    "href": "/indicator/population_male",
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   },
+   {
+    "tag": "a",
+    "text": "Occupied housing units\nhousing_units · c",
+    "href": "/indicator/occupied_housing_units",
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   },
+   {
+    "tag": "a",
+    "text": "Persons per occupied housing unit\nperson",
+    "href": "/indicator/persons_per_occupied_housing_unit",
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   },
+   {
+    "tag": "a",
+    "text": "Population aged 0–14\npersons · count",
+    "href": "/indicator/population_age_0_14",
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   },
+   {
+    "tag": "a",
+    "text": "Population aged 15–59\npersons · count",
+    "href": "/indicator/population_age_15_59",
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   },
+   {
+    "tag": "a",
+    "text": "Population aged 60 and over\npersons · co",
+    "href": "/indicator/population_age_60_plus",
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   }
+  ],
+  "/place/LK1103": [
+   {
+    "tag": "a",
+    "text": "Skip to content",
+    "href": "#main",
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   },
+   {
+    "tag": "a",
+    "text": "Sri Lanka Facts\nEvery place, every numbe",
+    "href": "/",
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   },
+   {
+    "tag": "a",
+    "text": "Explore",
+    "href": "/explore",
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   },
+   {
+    "tag": "a",
+    "text": "Indicators",
+    "href": "/indicators",
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   },
+   {
+    "tag": "a",
+    "text": "Data",
+    "href": "/data",
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   },
+   {
+    "tag": "a",
+    "text": "Methods",
+    "href": "/methods",
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   },
+   {
+    "tag": "input",
+    "text": "Search a place…",
+    "href": null,
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   },
+   {
+    "tag": "a",
+    "text": "Sri Lanka",
+    "href": "/place/LK",
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   },
+   {
+    "tag": "a",
+    "text": "Western",
+    "href": "/place/LK1",
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   },
+   {
+    "tag": "a",
+    "text": "Colombo",
+    "href": "/place/LK11",
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   },
+   {
+    "tag": "a",
+    "text": "POPULATION\n292,089\nRank 1 of 13 in paren",
+    "href": "#data",
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   },
+   {
+    "tag": "a",
+    "text": "POPULATION DENSITY\n11,903.1 per km²\npeop",
+    "href": "#data",
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   },
+   {
+    "tag": "a",
+    "text": "AGED 60 AND OVER\n15.5%\n45,368",
+    "href": "#data",
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   },
+   {
+    "tag": "a",
+    "text": "OCCUPIED HOUSING UNITS\n71,142 units\ncens",
+    "href": "#data",
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   },
+   {
+    "tag": "a",
+    "text": "PERSONS PER OCCUPIED UNIT\n4.11 per occup",
+    "href": "#data",
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   },
+   {
+    "tag": "a",
+    "text": "SEX RATIO\n99.1 males per 100 females\n100",
+    "href": "#data",
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   },
+   {
+    "tag": "a",
+    "text": "methods and limits",
+    "href": "/methods",
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   },
+   {
+    "tag": "a",
+    "text": "Total population",
+    "href": "/indicator/population_total",
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   },
+   {
+    "tag": "summary",
+    "text": "Source",
+    "href": null,
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   },
+   {
+    "tag": "a",
+    "text": "Male population",
+    "href": "/indicator/population_male",
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   },
+   {
+    "tag": "summary",
+    "text": "Source",
+    "href": null,
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   },
+   {
+    "tag": "a",
+    "text": "Female population",
+    "href": "/indicator/population_female",
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   },
+   {
+    "tag": "summary",
+    "text": "Source",
+    "href": null,
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   },
+   {
+    "tag": "a",
+    "text": "Sex ratio",
+    "href": "/indicator/sex_ratio",
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   },
+   {
+    "tag": "summary",
+    "text": "Source",
+    "href": null,
+    "outline": true,
+    "boxShadow": false,
+    "onScreen": true
+   }
+  ]
+ },
+ "mapAlternatives": {
+  "/": {
+   "maps": 2,
+   "tables": 0
+  },
+  "/explore": {
+   "maps": 2,
+   "tables": 1
+  },
+  "/place/LK": {
+   "maps": 2,
+   "tables": 2
+  },
+  "/place/LK11": {
+   "maps": 2,
+   "tables": 2
+  },
+  "/place/LK1103": {
+   "maps": 2,
+   "tables": 2
+  },
+  "/place/LK1103005": {
+   "maps": 0,
+   "tables": 2
+  },
+  "/indicator/population_total": {
+   "maps": 2,
+   "tables": 1
+  },
+  "/indicators": {
+   "maps": 0,
+   "tables": 0
+  },
+  "/data": {
+   "maps": 0,
+   "tables": 2
+  },
+  "/methods": {
+   "maps": 0,
+   "tables": 0
+  }
+ },
+ "version": "4.10.3",
+ "skipLink": {
+  "hash": "#main",
+  "active": "main"
+ },
+ "searchJourney": {
+  "url": "http://localhost:3420/place/LK5306095"
+ }
+}

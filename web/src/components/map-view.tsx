@@ -161,6 +161,9 @@ export default function MapView({
           attributionControl: false,
           dragRotate: false,
         });
+        // The map is aria-hidden (the table carries the same values), so keep its canvas out of
+        // the tab order (Q03: aria-hidden-focus).
+        map.getCanvas().tabIndex = -1;
         mapRef.current = map;
         map.on("load", () => {
           if (!cancelled) {
