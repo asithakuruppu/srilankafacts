@@ -414,3 +414,26 @@ def audit_q01(
     typer.echo(f"report: {out_dir / (stem + '.md')}")
     if res.warnings:
         raise typer.Exit(1)
+
+
+@profile_app.command("smoothing-experiment")
+def profile_smoothing_experiment(
+    observations: Annotated[Path, typer.Option(help="Census observations parquet.")] = Path(
+        "./data/build/census-2024-gnd-tables/observations.parquet"
+    ),
+    out: Annotated[Path, typer.Option(help="Results JSON.")] = Path(
+        "../docs/research/profile/gn-smoothing-experiment.json"
+    ),
+) -> None:
+    """D-031 option (c): do smoothed values make GN similar-place lists stable? (research only)"""
+    import json
+
+    import pandas as pd
+
+    from slf import profile_smoothing
+
+    results = profile_smoothing.run(pd.read_parquet(observations))
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(json.dumps(results, indent=1) + "\n", encoding="utf-8")
+    typer.echo(profile_smoothing.render(results))
+    typer.echo(f"wrote {out}")

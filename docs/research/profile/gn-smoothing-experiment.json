@@ -1,0 +1,212 @@
+[
+ {
+  "variant": "raw",
+  "places": 13934,
+  "excluded": 33,
+  "axes": 3,
+  "variance_explained": 0.739,
+  "mean_overlap": 0.129,
+  "passes_bar": false,
+  "chance_overlap": 0.0014,
+  "median_shift": 0.3222,
+  "median_distance_20th": 0.1593,
+  "by_population": [
+   {
+    "population": "100-999",
+    "places": 5169,
+    "mean_overlap": 0.075
+   },
+   {
+    "population": "1,000-1,999",
+    "places": 5781,
+    "mean_overlap": 0.089
+   },
+   {
+    "population": "2,000-4,999",
+    "places": 2638,
+    "mean_overlap": 0.263
+   },
+   {
+    "population": "5,000+",
+    "places": 346,
+    "mean_overlap": 0.609
+   }
+  ],
+  "overlap_with_raw_lists": 1.0
+ },
+ {
+  "variant": "eb_national",
+  "places": 13934,
+  "excluded": 33,
+  "axes": 3,
+  "variance_explained": 0.741,
+  "mean_overlap": 0.124,
+  "passes_bar": false,
+  "chance_overlap": 0.0014,
+  "median_shift": 0.3416,
+  "median_distance_20th": 0.1593,
+  "by_population": [
+   {
+    "population": "100-999",
+    "places": 5169,
+    "mean_overlap": 0.078
+   },
+   {
+    "population": "1,000-1,999",
+    "places": 5781,
+    "mean_overlap": 0.083
+   },
+   {
+    "population": "2,000-4,999",
+    "places": 2638,
+    "mean_overlap": 0.243
+   },
+   {
+    "population": "5,000+",
+    "places": 346,
+    "mean_overlap": 0.58
+   }
+  ],
+  "overlap_with_raw_lists": 0.799
+ },
+ {
+  "variant": "eb_ds",
+  "places": 13934,
+  "excluded": 33,
+  "axes": 3,
+  "variance_explained": 0.766,
+  "mean_overlap": 0.131,
+  "passes_bar": false,
+  "chance_overlap": 0.0014,
+  "median_shift": 0.326,
+  "median_distance_20th": 0.1574,
+  "by_population": [
+   {
+    "population": "100-999",
+    "places": 5169,
+    "mean_overlap": 0.085
+   },
+   {
+    "population": "1,000-1,999",
+    "places": 5781,
+    "mean_overlap": 0.09
+   },
+   {
+    "population": "2,000-4,999",
+    "places": 2638,
+    "mean_overlap": 0.254
+   },
+   {
+    "population": "5,000+",
+    "places": 346,
+    "mean_overlap": 0.587
+   }
+  ],
+  "overlap_with_raw_lists": 0.351
+ },
+ {
+  "variant": "eb_ds_within_district",
+  "places": 13934,
+  "excluded": 33,
+  "axes": 3,
+  "variance_explained": 0.766,
+  "mean_overlap": 0.376,
+  "passes_bar": false,
+  "chance_overlap": 0.036,
+  "median_shift": 0.326,
+  "median_distance_20th": 0.1574,
+  "by_population": [
+   {
+    "population": "100-999",
+    "places": 5169,
+    "mean_overlap": 0.319
+   },
+   {
+    "population": "1,000-1,999",
+    "places": 5781,
+    "mean_overlap": 0.333
+   },
+   {
+    "population": "2,000-4,999",
+    "places": 2638,
+    "mean_overlap": 0.536
+   },
+   {
+    "population": "5,000+",
+    "places": 346,
+    "mean_overlap": 0.718
+   }
+  ],
+  "overlap_with_raw_lists": 0.119
+ },
+ {
+  "variant": "raw without persons per unit (exploratory)",
+  "places": 13934,
+  "excluded": 33,
+  "axes": 2,
+  "variance_explained": 0.685,
+  "mean_overlap": 0.156,
+  "passes_bar": false,
+  "chance_overlap": 0.0014,
+  "median_shift": 0.1325,
+  "median_distance_20th": 0.0593,
+  "by_population": [
+   {
+    "population": "100-999",
+    "places": 5169,
+    "mean_overlap": 0.102
+   },
+   {
+    "population": "1,000-1,999",
+    "places": 5781,
+    "mean_overlap": 0.103
+   },
+   {
+    "population": "2,000-4,999",
+    "places": 2638,
+    "mean_overlap": 0.308
+   },
+   {
+    "population": "5,000+",
+    "places": 346,
+    "mean_overlap": 0.705
+   }
+  ],
+  "overlap_with_raw_lists": 0.132
+ },
+ {
+  "variant": "eb_ds_within_district without persons per unit (exploratory)",
+  "places": 13934,
+  "excluded": 33,
+  "axes": 2,
+  "variance_explained": 0.705,
+  "mean_overlap": 0.507,
+  "passes_bar": false,
+  "chance_overlap": 0.036,
+  "median_shift": 0.138,
+  "median_distance_20th": 0.0591,
+  "by_population": [
+   {
+    "population": "100-999",
+    "places": 5169,
+    "mean_overlap": 0.46
+   },
+   {
+    "population": "1,000-1,999",
+    "places": 5781,
+    "mean_overlap": 0.46
+   },
+   {
+    "population": "2,000-4,999",
+    "places": 2638,
+    "mean_overlap": 0.666
+   },
+   {
+    "population": "5,000+",
+    "places": 346,
+    "mean_overlap": 0.799
+   }
+  ],
+  "overlap_with_raw_lists": 0.078
+ }
+]
