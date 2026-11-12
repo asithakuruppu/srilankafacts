@@ -12,3 +12,8 @@ updates:
     directory: /web
     schedule:
       interval: monthly
+    ignore:
+      # The site supports Node >=20 (web/package.json engines); keep the types on Node 20
+      # until the minimum Node version is raised on purpose.
+      - dependency-name: "@types/node"
+        update-types: ["version-update:semver-major"]
