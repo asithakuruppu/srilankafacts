@@ -108,7 +108,11 @@ Within each table, the shortfalls add up exactly to the "Other" surplus (50,329 
   were not opened.
 - Rights: same as the rest of CPH 2024. DCS publishes no reuse terms ❌.
 
-## Decisions needed from the lead
+## Decisions (accepted by the lead, 2026-11-12)
+
+All three recommendations below were accepted: recorded as D-032 (items 1 and 3) and D-033 (item 2)
+in the decision log.
+
 
 1. **Does D-030 (non-commercial publication) cover these tables too?** D-030 speaks of "Census 2024
    GN tables"; the A-series tables are DS and district tables. Recommendation: yes, the same

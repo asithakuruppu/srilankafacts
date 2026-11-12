@@ -8,8 +8,15 @@ geography_scheme: admin
 geography_vintage: "2024"
 reference_period: "2024"
 rights: inherit
-# No `publication` block: D-030 was decided for census-2024-gnd-tables. Whether it extends to
-# these tables, and how ethnicity and religion are shown, are lead decisions (see the dossier).
+# D-032 extends D-030 to these tables: the lead's non-commercial publication position. Not a
+# licence; rights stay unclear. D-033 limits ethnicity and religion to DS and district level.
+publication:
+  decision: D-032
+  use: non_commercial
+  attribution: "Source: Department of Census and Statistics, Sri Lanka, Census of Population and Housing 2024 (GN, DS and district tables)."
+  notice: "DCS has not published reuse terms; Sri Lanka Facts publishes these figures non-commercially for public information, has asked DCS for terms, and will correct or remove them on DCS's request."
+  takedown_days: 7
+  decided: 2026-11-12
 spatial:
   support: area
   scheme: admin
@@ -36,4 +43,7 @@ notes: >
   people in a GN into "Other", so GN sums of small groups are lower than the district tables.
   DS and district level only: housing unit structure, wall, roof and floor materials, and
   migration by reason. OHU_DS and HH_DS are legacy .xls files served under an Excel link; the
-  snapshots keep the served bytes. Dossier: docs/research/sources/dcs-census-2024-topic-tables.md.
+  snapshots keep the served bytes. Ingest order (D-032): households and amenities, then age,
+  sector and local authority type, then DS materials, then ethnicity and religion at DS and
+  district level only, from the A-series tables (D-033). Dossier:
+  docs/research/sources/dcs-census-2024-topic-tables.md.
