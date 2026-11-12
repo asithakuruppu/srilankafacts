@@ -359,3 +359,49 @@ def profile_build(
     typer.echo(f"QA report: {qa}")
     if result.warnings:
         raise typer.Exit(1)
+
+
+audit_app = typer.Typer(help="Quality audits (Q01).", no_args_is_help=True)
+app.add_typer(audit_app, name="audit")
+
+
+@audit_app.command("q01")
+def audit_q01(
+    release_dir: Annotated[Path, typer.Option(help="Release folder to audit.")] = Path(
+        "./data/build/releases-preview/v2026.11.7-preview.1"
+    ),
+    raw_dir: Annotated[Path, typer.Option(help="Raw snapshots folder.")] = Path("./data/raw"),
+    catalog: Annotated[Path, typer.Option(help="Catalogue folder.")] = Path("../catalog"),
+    pdf_pages: Annotated[
+        Path, typer.Option(help="Page text/PNG from scripts/pdf_pages.swift (pages 68, 202).")
+    ] = Path("./data/build/audit/pdf-pages"),
+    out_dir: Annotated[Path, typer.Option(help="Report folder.")] = Path("../docs/qa"),
+    seed: Annotated[int, typer.Option(help="Random seed for the sample.")] = 20261112,
+) -> None:
+    """Draw the Q01 sample, re-trace each value to its raw source and write the lead's sheet."""
+    import shutil
+
+    from slf import audit
+
+    res = audit.run(release_dir, raw_dir, catalog, pdf_pages, seed)
+    sheet = audit.lead_sheet(res, seed)
+    out_dir.mkdir(parents=True, exist_ok=True)
+    stem = f"accuracy-audit-{res.release}"
+    res.sample.to_csv(out_dir / f"{stem}-sample.csv", index=False)
+    sheet.to_csv(out_dir / f"q01-lead-sheet-{res.release}.csv", index=False)
+    (out_dir / f"{stem}.md").write_text(audit.render(res, sheet), encoding="utf-8")
+    shots = out_dir / "screenshots" / "q01"
+    shots.mkdir(parents=True, exist_ok=True)
+    for png in sorted(pdf_pages.glob("page-*.png")):
+        shutil.copy(png, shots / png.name)
+    bad = audit.count_true(~(res.sample["source_match"] & res.sample["api_match"]))
+    typer.echo(
+        f"{len(res.sample)} values sampled (seed {seed}); {bad} failed re-trace or API check"
+    )
+    if res.pdf is not None:
+        typer.echo(f"Final Report: {audit.count_true(res.pdf['match'])}/{len(res.pdf)} match")
+    for w in res.warnings:
+        typer.echo(f"warning: {w}", err=True)
+    typer.echo(f"report: {out_dir / (stem + '.md')}")
+    if res.warnings:
+        raise typer.Exit(1)
