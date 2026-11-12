@@ -1,0 +1,39 @@
+id: census-2024-topic-tables
+source: dcs
+title: "Census of Population and Housing 2024: GN and DS topic tables (households, amenities, ethnicity, religion, age, sector, local authority)"
+landing_page: https://www.statistics.gov.lk/Population/StaticalInformation/CPH2024
+pipeline_module: null
+schedule: manual
+geography_scheme: admin
+geography_vintage: "2024"
+reference_period: "2024"
+rights: inherit
+# No `publication` block: D-030 was decided for census-2024-gnd-tables. Whether it extends to
+# these tables, and how ethnicity and religion are shown, are lead decisions (see the dossier).
+spatial:
+  support: area
+  scheme: admin
+  level: gn
+  vintage: "2024"
+  coverage: LK
+  measured_in: null
+  positional_accuracy: null
+  crs_source: not_applicable
+  resolution: null
+  information_unit: gn-2024
+  information_count: 14008
+  derived_by: null
+indicators: []
+cross_checks:
+  - upstream: nuuuwan/lk_census_2024
+    note: comparison only, never as authority
+status: proposed
+notes: >
+  Snapshotted 2026-11-12 (31 workbooks plus the landing page), not yet ingested. GN level:
+  households with drinking water, cooking fuel, lighting and toilet (14,008 GN rows); population
+  by ethnic group, religion, five-year age group, sector and local authority type (14,003 GN
+  rows; the 5 GNs left out have population 0). DCS folds any ethnic or religious group under 10
+  people in a GN into "Other", so GN sums of small groups are lower than the district tables.
+  DS and district level only: housing unit structure, wall, roof and floor materials, and
+  migration by reason. OHU_DS and HH_DS are legacy .xls files served under an Excel link; the
+  snapshots keep the served bytes. Dossier: docs/research/sources/dcs-census-2024-topic-tables.md.
