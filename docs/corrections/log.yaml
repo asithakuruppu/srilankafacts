@@ -33,6 +33,6 @@ entries:
     evidence:
       - docs/research/geography/null-name-gns.md
       - catalog/geographies/manual-matches.csv
-    # The lead accepted the fix itself on 2026-11-12 (null-name GN review). This entry's wording
-    # is an agent draft until the lead approves it.
-    approved_by: null
+    # The lead accepted the fix itself on 2026-11-12 (null-name GN review). The lead approved
+    # this entry's wording on 2026-11-12 (see docs/decisions/lead-approvals-log.md, LA-001).
+    approved_by: "Shamil Asitha Kuruppu (lead), 2026-11-12"
