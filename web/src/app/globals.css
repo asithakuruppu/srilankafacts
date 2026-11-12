@@ -1634,3 +1634,31 @@ blockquote {
 .corrections-meta dd {
   margin: 0;
 }
+
+/* Source comparisons (D-019) */
+
+#sources {
+  scroll-margin-top: 5rem;
+}
+
+.sources-list {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+@media (min-width: 860px) {
+  .sources-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.sources-list h3 {
+  margin: 0 0 0.6rem;
+  font-size: 1rem;
+}
+
+.tag-quiet {
+  background: var(--accent-soft);
+  color: var(--accent-strong);
+}

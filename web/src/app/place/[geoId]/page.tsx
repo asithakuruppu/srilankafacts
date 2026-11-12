@@ -6,6 +6,7 @@ import { Suspense } from "react";
 import MapView from "@/components/map-view";
 import ProfilePanel from "@/components/profile-panel";
 import Provenance from "@/components/provenance";
+import SourcesPanel from "@/components/sources-panel";
 import StatTile from "@/components/stat-tile";
 import { formatDelta, formatNumber, formatValue, levelLabel } from "@/lib/format";
 import {
@@ -177,6 +178,20 @@ function PlaceContent({ geoId }: { geoId: string }) {
               : "No population count is available for this place in the held workbooks."}{" "}
             Every number below opens to its workbook row, snapshot and claim.
           </p>
+          {place.source_comparisons?.some((item) => !item.agree) ? (
+            <p>
+              <a className="tag" href="#sources">
+                Sources disagree
+              </a>{" "}
+              <span className="muted small">
+                on:{" "}
+                {place.source_comparisons
+                  .filter((item) => !item.agree)
+                  .map((item) => item.label)
+                  .join(", ")}
+              </span>
+            </p>
+          ) : null}
         </header>
 
         <section className="stat-grid" aria-label="Key numbers">
@@ -373,6 +388,10 @@ function PlaceContent({ geoId }: { geoId: string }) {
             }
             parentLabel={parent ? geographyLabel(parent.geography) : null}
           />
+        ) : null}
+
+        {place.source_comparisons && place.source_comparisons.length > 0 ? (
+          <SourcesPanel comparisons={place.source_comparisons} />
         ) : null}
 
         <section className="section" id="data" aria-labelledby="data-heading">
