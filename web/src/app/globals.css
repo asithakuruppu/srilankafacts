@@ -1598,3 +1598,39 @@ blockquote {
   border-radius: 3px;
   background: var(--accent);
 }
+
+/* Corrections log */
+
+.corrections-list {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: 1rem;
+}
+
+.corrections-list h2 {
+  font-size: 1.2rem;
+}
+
+.corrections-list h3 {
+  font-size: 0.95rem;
+  margin: 1rem 0 0.3rem;
+}
+
+.corrections-meta {
+  display: grid;
+  gap: 0.4rem 1.2rem;
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  font-size: 0.85rem;
+}
+
+.corrections-meta dt {
+  color: var(--muted);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.corrections-meta dd {
+  margin: 0;
+}

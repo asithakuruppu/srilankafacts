@@ -172,3 +172,22 @@ export type PlaceProfile = {
   similar_note?: string;
   similar_via?: string | null;
 };
+
+export type Correction = {
+  id: string;
+  found: string;
+  fixed: string | null;
+  scope: "private_preview" | "public";
+  affected_releases: string[];
+  fixed_in: string | null;
+  geographies: string[];
+  indicators: string | string[];
+  values_changed: number;
+  what_was_wrong: string;
+  what_changed: string;
+  cause: string;
+  evidence: string[];
+  approved_by: string | null;
+};
+
+export type CorrectionsLog = { release: string; entries: Correction[] };

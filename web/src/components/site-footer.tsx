@@ -29,6 +29,9 @@ export default function SiteFooter() {
             <li>
               <Link href="/methods">Methods and limits</Link>
             </li>
+            <li>
+              <Link href="/corrections">Corrections</Link>
+            </li>
           </ul>
         </div>
         <div>

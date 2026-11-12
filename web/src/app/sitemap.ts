@@ -24,6 +24,7 @@ export default async function sitemap(props: {
       { url: `${BASE_URL}/indicators`, changeFrequency: "yearly", priority: 0.8 },
       { url: `${BASE_URL}/data`, changeFrequency: "yearly", priority: 0.6 },
       { url: `${BASE_URL}/methods`, changeFrequency: "yearly", priority: 0.6 },
+      { url: `${BASE_URL}/corrections`, changeFrequency: "monthly", priority: 0.5 },
       ...indicators,
     ];
   }
