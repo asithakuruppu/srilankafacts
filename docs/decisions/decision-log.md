@@ -241,7 +241,7 @@ These were stated by you or are standing rules in [brainstorm-decisions.md](../b
 - **Revisit when:** the amenity or education/work tables arrive; or user testing shows the axes are unreadable.
 
 ## D-030: Census 2024 tables may be published non-commercially, with attribution and a notice, while DCS has not replied
-- **Status:** Accepted · 2026-11-12 (decided by the lead) · Amends D-023 (the "stays private" part)
+- **Status:** Accepted · 2026-11-12 (decided by the lead) · Amends D-023 (the "stays private" part) · Amended by D-032 (scope)
 - **Context:** DCS publishes no licence or reuse terms for the CPH 2024 tables (rights memo E1–E5). The reuse-terms letter and the other outreach drafts have been sent, as the lead reported on 2026-11-12; no reply yet. D-023 kept Stage 1A private and said non-commercial publication would need a new decision. Sri Lankan copyright law on government statistical tables has not been checked (memo E6).
 - **Decision:** The lead's position: Census 2024 GN tables and values derived from them may be shown and redistributed **non-commercially**, with attribution and a notice, before DCS replies. Conditions:
   1. **Attribution** on every page, download and API response that carries census values: "Source: Department of Census and Statistics, Sri Lanka, Census of Population and Housing 2024 (provisional GN-level tables)."
@@ -270,6 +270,28 @@ These were stated by you or are standing rules in [brainstorm-decisions.md](../b
 - **Alternatives:** (a) show GN lists with a "low stability" label (rejected: most of each list would change under ordinary variation, and a label rarely survives a screenshot); (b) show GN lists only for GNs with 5,000+ people (possible, but covers only 346 of 13,934 GNs); (c) build GN lists from smoothed values, such as the empirical Bayes rates the census build already computes, then re-test (worth trying; a separate change); (d) group GNs into broad types (A03 step 7, Stage 2) and show "GNs of the same type" rather than a ranked list.
 - **Consequences:** GN pages carry the stable parts of the profile and point to DS comparisons. GN lists can return when a version passes the same stability test, for example option (c) or (d).
 - **Revisit when:** a smoothed or typology-based GN comparison is tested, or user testing shows people need GN-to-GN comparisons.
+
+## D-032: D-030 also covers the Census 2024 topic tables; households and amenities are ingested first
+- **Status:** Accepted · 2026-11-12 (decided by the lead) · Amends D-030 (scope only)
+- **Context:** D-030 lets the Census 2024 "GN tables" be published non-commercially with attribution, a notice and a 7-day takedown. The other CPH 2024 tables on the same DCS page are now snapshotted and checked ✅ (`docs/research/sources/dcs-census-2024-topic-tables.md`): GN tables for households and amenities, ethnicity, religion, five-year age, sector and local authority type, and DS and district tables (A-series, OHU_DS, HH_DS). They come from the same source, under the same missing terms ❌.
+- **Decision:**
+  1. D-030's position and all five of its conditions apply to dataset `census-2024-topic-tables`, at GN, DS and district level. The notice text is unchanged. The attribution names the tables used, not only "GN-level tables".
+  2. Ingest order: (a) households and the four amenity groups (drinking water, cooking fuel, lighting, toilet) at GN level; (b) five-year age, sector and local authority type at GN level; (c) DS and district housing unit structure and wall, roof and floor materials; (d) ethnicity and religion, under D-033. Each step is its own branch and PR, with a QA report.
+- **Alternatives:** a separate decision with its own terms (rejected: same source, same risk); keep these tables private until DCS replies (rejected for the same reasons as in D-030).
+- **Consequences:** the catalogue entry gets a `publication` block naming D-030 and this entry. `rights.status` stays `unclear` and `commercial_reuse` stays `unknown`. Nothing is published until hosting exists and each topic is ingested, checked and in a release.
+- **Revisit when:** DCS replies, or with D-030.
+
+## D-033: Ethnicity and religion are shown at DS and district level only, from DCS's own tables, neutrally
+- **Status:** Accepted · 2026-11-12 (decided by the lead)
+- **Context:** DCS's GN files for ethnicity and religion move any group with fewer than 10 people in a GN into "Other" and show `-` in its cell ✅ (101,464 such cells for ethnicity, 39,241 for religion). Summing GNs therefore under-counts small groups: Burgher is 25,159 from GN sums against 31,721 in DCS's district table A2 ✅. D-015 keeps ethnicity and religion out of the profile space but says nothing about showing them as indicators. They are sensitive (AGENTS rule 12).
+- **Decision:** For 1B:
+  - Ethnicity and religion are shown for DS divisions, districts, provinces and the country, using DCS's own DS and district tables (A2, A3, A6, A7), never sums of GN values.
+  - Labels follow DCS's category names. Values are counts and shares, with the source table named.
+  - No rankings, "most/least" lists, maps coloured by a single group's share, or similarity or profile use.
+  - GN-level ethnicity and religion are not shown. They may be ingested for QA, but stay out of releases until the lead agrees how to show `-` ("fewer than 10, counted in Other").
+- **Alternatives:** (a) show GN values with `-` labelled (rejected for now: the folding hides small communities in exactly the places where they are few, and a label rarely survives a screenshot); (b) leave ethnicity and religion out of 1B entirely (possible, but DS and district values are standard, published DCS figures); (c) derive DS values by summing GNs (rejected: wrong, as shown above).
+- **Consequences:** the ethnicity and religion ingest (D-032 step d) reads the A-series tables, which are DS and district level only. The website needs a neutral presentation for these two topics, separate from the ranked indicator views. No thematic map for these two topics in 1B.
+- **Revisit when:** there is a proposed way to show folded GN cells; DCS publishes unfolded GN tables; or user testing asks for it.
 
 ---
 

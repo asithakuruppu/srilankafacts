@@ -44,3 +44,4 @@ The authoritative population and housing figures for every GN division (Stage 1 
 1. Reuse terms for the published tables (asked in the DCS letter draft).
 2. Will the provisional GN figures be revised to match the final report? If so, when?
 3. Is `/ref/GNbyDistrict` the official current GN list? It may help resolve 14,008 (census) vs 14,043 (COD-AB).
+4. Topic tables (2026-11-12): households, amenities, ethnicity, religion, five-year age, sector and local authority type are published at GN level and are now snapshotted. Structure and materials are DS level only. See [dcs-census-2024-topic-tables.md](dcs-census-2024-topic-tables.md).
