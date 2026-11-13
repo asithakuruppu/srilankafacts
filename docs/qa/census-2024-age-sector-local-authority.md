@@ -62,6 +62,22 @@ Population 21,781,800.
 | age | 90–94 | 39,235 | |
 | age | 95 and over | 8,792 | |
 
+## Size in a trial release ✅
+
+A trial preview release with both census datasets (built in a scratch folder, then deleted):
+
+| | v2026.11.9-preview.1 | After households (LA-004) | Plus this step |
+|---|---|---|---|
+| Release size | 449 MB | 1.4 GB | 2.1 GB |
+| API folder | 193 MB | 581 MB | 842 MB |
+| Place files | 170 MB | 506 MB | 730 MB |
+| Observations download | not measured | 667 MB | 1.0 GB |
+| One DS place file (`LK1103.json`) | 14 KB | 38 KB | 54 KB (78 values) |
+| Files | 14,595 | 15,123 | 15,483 |
+
+Place files are now about 4× today's. As before, most of each value's size is provenance text,
+not the number.
+
 ## Not checked
 
 - Final Report PDF tables ❌. Human spot check (Q01) ❌.
