@@ -1,0 +1,18 @@
+id: households_cooking_sawdust_paddy_husk
+name: "Households by main source of energy or fuel used for cooking: Sawdust or paddy husk"
+short_name: "Cooking fuel: Sawdust or paddy husk"
+topic: [housing, energy]
+measure_type: count
+unit: households
+universe: households
+numerator: null
+denominator: null
+aggregation: sum
+higher_is: neutral
+decimals: 0
+sensitivity: public
+definition: >
+  Number of households whose main source of energy or fuel used for cooking is "Sawdust or paddy husk", as recorded by the Census
+  of Population and Housing 2024. Each household is counted in exactly one category of this group.
+source_definition_ref: "CPH 2024, Household Information by Grama Niladhari Division (Provisional), Main Source of Energy/Fuel Used for Cooking: 'Saw dust/Paddy husk'"
+methodology_notes: docs/methods/census-2024-households.md

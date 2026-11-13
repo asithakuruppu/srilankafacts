@@ -2,7 +2,7 @@ id: census-2024-topic-tables
 source: dcs
 title: "Census of Population and Housing 2024: GN and DS topic tables (households, amenities, ethnicity, religion, age, sector, local authority)"
 landing_page: https://www.statistics.gov.lk/Population/StaticalInformation/CPH2024
-pipeline_module: null
+pipeline_module: slf.datasets.census_2024_topics
 schedule: manual
 geography_scheme: admin
 geography_vintage: "2024"
@@ -30,13 +30,91 @@ spatial:
   information_unit: gn-2024
   information_count: 14008
   derived_by: null
-indicators: []
+indicators:
+  - households_total
+  - households_water_protected_well
+  - households_water_semi_protected_well
+  - households_water_unprotected_well
+  - households_water_tube_well
+  - households_water_spring
+  - households_water_pipe_nwsdb
+  - households_water_pipe_local_authority
+  - households_water_pipe_community
+  - households_water_pipe_private
+  - households_water_tank_river_stream
+  - households_water_rain_water
+  - households_water_bottled_water
+  - households_water_filter_ro_plant
+  - households_water_bowser
+  - households_water_other
+  - households_cooking_firewood
+  - households_cooking_kerosene
+  - households_cooking_gas
+  - households_cooking_electricity
+  - households_cooking_sawdust_paddy_husk
+  - households_cooking_biogas
+  - households_cooking_other
+  - households_cooking_not_relevant
+  - households_lighting_electricity_grid
+  - households_lighting_kerosene_lamp
+  - households_lighting_solar_grid_connected
+  - households_lighting_solar_stand_alone
+  - households_lighting_biogas
+  - households_lighting_generator
+  - households_lighting_other
+  - households_toilet_within_unit_exclusive
+  - households_toilet_within_unit_shared
+  - households_toilet_within_premises_exclusive
+  - households_toilet_within_premises_shared
+  - households_toilet_shared_other_unit
+  - households_toilet_common_public
+  - households_toilet_not_using
+  - households_water_protected_well_share
+  - households_water_semi_protected_well_share
+  - households_water_unprotected_well_share
+  - households_water_tube_well_share
+  - households_water_spring_share
+  - households_water_pipe_nwsdb_share
+  - households_water_pipe_local_authority_share
+  - households_water_pipe_community_share
+  - households_water_pipe_private_share
+  - households_water_tank_river_stream_share
+  - households_water_rain_water_share
+  - households_water_bottled_water_share
+  - households_water_filter_ro_plant_share
+  - households_water_bowser_share
+  - households_water_other_share
+  - households_cooking_firewood_share
+  - households_cooking_kerosene_share
+  - households_cooking_gas_share
+  - households_cooking_electricity_share
+  - households_cooking_sawdust_paddy_husk_share
+  - households_cooking_biogas_share
+  - households_cooking_other_share
+  - households_cooking_not_relevant_share
+  - households_lighting_electricity_grid_share
+  - households_lighting_kerosene_lamp_share
+  - households_lighting_solar_grid_connected_share
+  - households_lighting_solar_stand_alone_share
+  - households_lighting_biogas_share
+  - households_lighting_generator_share
+  - households_lighting_other_share
+  - households_toilet_within_unit_exclusive_share
+  - households_toilet_within_unit_shared_share
+  - households_toilet_within_premises_exclusive_share
+  - households_toilet_within_premises_shared_share
+  - households_toilet_shared_other_unit_share
+  - households_toilet_common_public_share
+  - households_toilet_not_using_share
 cross_checks:
   - upstream: nuuuwan/lk_census_2024
     note: comparison only, never as authority
-status: proposed
+status: active
 notes: >
-  Snapshotted 2026-11-12 (31 workbooks plus the landing page), not yet ingested. GN level:
+  Snapshotted 2026-11-12 (31 workbooks plus the landing page). Ingested so far (D-032 step a):
+  households and the four amenity groups from HH_GND_excel.xlsx, 37 category counts and 37
+  shares, summed to DS, district, province and country and checked against district tables
+  A5-A8 (method: docs/methods/census-2024-households.md). Not yet in any release. GN level:
   households with drinking water, cooking fuel, lighting and toilet (14,008 GN rows); population
   by ethnic group, religion, five-year age group, sector and local authority type (14,003 GN
   rows; the 5 GNs left out have population 0). DCS folds any ethnic or religious group under 10

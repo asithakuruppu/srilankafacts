@@ -1,0 +1,18 @@
+id: households_cooking_not_relevant
+name: "Households by main source of energy or fuel used for cooking: Not relevant"
+short_name: "Cooking fuel: Not relevant"
+topic: [housing, energy]
+measure_type: count
+unit: households
+universe: households
+numerator: null
+denominator: null
+aggregation: sum
+higher_is: neutral
+decimals: 0
+sensitivity: public
+definition: >
+  Number of households whose main source of energy or fuel used for cooking is "Not relevant", as recorded by the Census
+  of Population and Housing 2024. Each household is counted in exactly one category of this group.
+source_definition_ref: "CPH 2024, Household Information by Grama Niladhari Division (Provisional), Main Source of Energy/Fuel Used for Cooking: 'Not relavent'"
+methodology_notes: docs/methods/census-2024-households.md

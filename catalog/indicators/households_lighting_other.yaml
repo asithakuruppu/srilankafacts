@@ -1,0 +1,18 @@
+id: households_lighting_other
+name: "Households by main source of lighting: Other source of lighting"
+short_name: "Lighting: Other source of lighting"
+topic: [housing, energy]
+measure_type: count
+unit: households
+universe: households
+numerator: null
+denominator: null
+aggregation: sum
+higher_is: neutral
+decimals: 0
+sensitivity: public
+definition: >
+  Number of households whose main source of lighting is "Other source of lighting", as recorded by the Census
+  of Population and Housing 2024. Each household is counted in exactly one category of this group.
+source_definition_ref: "CPH 2024, Household Information by Grama Niladhari Division (Provisional), Main source of Lighting: 'Other (Specify bellow )'"
+methodology_notes: docs/methods/census-2024-households.md

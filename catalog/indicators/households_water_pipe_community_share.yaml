@@ -1,0 +1,18 @@
+id: households_water_pipe_community_share
+name: "Share of households by main source of drinking water: Pipe-borne water from a community-based organisation"
+short_name: "Drinking water: Pipe-borne water from a community-based organisation (%)"
+topic: [housing, water]
+measure_type: share
+unit: percent
+universe: households
+numerator: households_water_pipe_community
+denominator: households_total
+aggregation: recompute_from_components
+higher_is: neutral
+decimals: 1
+sensitivity: public
+definition: >
+  Share of households whose main source of drinking water is "Pipe-borne water from a community-based organisation": households_water_pipe_community divided by
+  households_total, times 100. Computed from the published counts.
+source_definition_ref: "CPH 2024, Household Information by Grama Niladhari Division (Provisional), Main Source/way of drinking water: 'Pipe borne water - Community base organiziation'"
+methodology_notes: docs/methods/census-2024-households.md

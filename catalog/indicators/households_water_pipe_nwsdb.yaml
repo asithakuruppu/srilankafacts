@@ -1,0 +1,18 @@
+id: households_water_pipe_nwsdb
+name: "Households by main source of drinking water: Pipe-borne water from the National Water Supply and Drainage Board"
+short_name: "Drinking water: Pipe-borne water from the National Water Supply and Drainage Board"
+topic: [housing, water]
+measure_type: count
+unit: households
+universe: households
+numerator: null
+denominator: null
+aggregation: sum
+higher_is: neutral
+decimals: 0
+sensitivity: public
+definition: >
+  Number of households whose main source of drinking water is "Pipe-borne water from the National Water Supply and Drainage Board", as recorded by the Census
+  of Population and Housing 2024. Each household is counted in exactly one category of this group.
+source_definition_ref: "CPH 2024, Household Information by Grama Niladhari Division (Provisional), Main Source/way of drinking water: 'Pipe borne water - National water supply & drainage board'"
+methodology_notes: docs/methods/census-2024-households.md

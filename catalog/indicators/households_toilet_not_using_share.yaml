@@ -1,0 +1,18 @@
+id: households_toilet_not_using_share
+name: "Share of households by toilet facility: Not using a toilet"
+short_name: "Toilet: Not using a toilet (%)"
+topic: [housing, sanitation]
+measure_type: share
+unit: percent
+universe: households
+numerator: households_toilet_not_using
+denominator: households_total
+aggregation: recompute_from_components
+higher_is: neutral
+decimals: 1
+sensitivity: public
+definition: >
+  Share of households whose toilet facility is "Not using a toilet": households_toilet_not_using divided by
+  households_total, times 100. Computed from the published counts.
+source_definition_ref: "CPH 2024, Household Information by Grama Niladhari Division (Provisional), Toilet facilities: 'Not using a toilet (use jungle, beach and open ground)'"
+methodology_notes: docs/methods/census-2024-households.md

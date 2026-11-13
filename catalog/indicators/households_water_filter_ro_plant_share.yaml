@@ -1,0 +1,18 @@
+id: households_water_filter_ro_plant_share
+name: "Share of households by main source of drinking water: Filtered water (R.O. plant)"
+short_name: "Drinking water: Filtered water (R.O. plant) (%)"
+topic: [housing, water]
+measure_type: share
+unit: percent
+universe: households
+numerator: households_water_filter_ro_plant
+denominator: households_total
+aggregation: recompute_from_components
+higher_is: neutral
+decimals: 1
+sensitivity: public
+definition: >
+  Share of households whose main source of drinking water is "Filtered water (R.O. plant)": households_water_filter_ro_plant divided by
+  households_total, times 100. Computed from the published counts.
+source_definition_ref: "CPH 2024, Household Information by Grama Niladhari Division (Provisional), Main Source/way of drinking water: 'Filter water (R.O. Plant)'"
+methodology_notes: docs/methods/census-2024-households.md

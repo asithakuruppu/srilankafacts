@@ -1,0 +1,18 @@
+id: households_cooking_kerosene_share
+name: "Share of households by main source of energy or fuel used for cooking: Kerosene"
+short_name: "Cooking fuel: Kerosene (%)"
+topic: [housing, energy]
+measure_type: share
+unit: percent
+universe: households
+numerator: households_cooking_kerosene
+denominator: households_total
+aggregation: recompute_from_components
+higher_is: neutral
+decimals: 1
+sensitivity: public
+definition: >
+  Share of households whose main source of energy or fuel used for cooking is "Kerosene": households_cooking_kerosene divided by
+  households_total, times 100. Computed from the published counts.
+source_definition_ref: "CPH 2024, Household Information by Grama Niladhari Division (Provisional), Main Source of Energy/Fuel Used for Cooking: 'Kerosene'"
+methodology_notes: docs/methods/census-2024-households.md

@@ -1,0 +1,18 @@
+id: households_toilet_shared_other_unit_share
+name: "Share of households by toilet facility: No toilet of its own; shares with another housing unit or units"
+short_name: "Toilet: No toilet of its own; shares with another housing unit or units (%)"
+topic: [housing, sanitation]
+measure_type: share
+unit: percent
+universe: households
+numerator: households_toilet_shared_other_unit
+denominator: households_total
+aggregation: recompute_from_components
+higher_is: neutral
+decimals: 1
+sensitivity: public
+definition: >
+  Share of households whose toilet facility is "No toilet of its own; shares with another housing unit or units": households_toilet_shared_other_unit divided by
+  households_total, times 100. Computed from the published counts.
+source_definition_ref: "CPH 2024, Household Information by Grama Niladhari Division (Provisional), Toilet facilities: 'No toilet but sharing with another housing unit/units'"
+methodology_notes: docs/methods/census-2024-households.md

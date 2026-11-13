@@ -1,0 +1,18 @@
+id: households_toilet_within_unit_shared_share
+name: "Share of households by toilet facility: Toilet within the housing unit, shared with another household"
+short_name: "Toilet: Toilet within the housing unit, shared with another household (%)"
+topic: [housing, sanitation]
+measure_type: share
+unit: percent
+universe: households
+numerator: households_toilet_within_unit_shared
+denominator: households_total
+aggregation: recompute_from_components
+higher_is: neutral
+decimals: 1
+sensitivity: public
+definition: >
+  Share of households whose toilet facility is "Toilet within the housing unit, shared with another household": households_toilet_within_unit_shared divided by
+  households_total, times 100. Computed from the published counts.
+source_definition_ref: "CPH 2024, Household Information by Grama Niladhari Division (Provisional), Toilet facilities: 'Within the housing unit - Sharing with another household'"
+methodology_notes: docs/methods/census-2024-households.md

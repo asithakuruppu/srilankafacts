@@ -12,6 +12,8 @@ higher_is: neutral
 decimals: 0
 sensitivity: public
 definition: >
-  Number of households enumerated by the Census of Population and Housing in the area.
-source_definition_ref: null
-methodology_notes: null
+  Number of households enumerated by the Census of Population and Housing in the area. One
+  housing unit may contain more than one household, so this is not the same as the number of
+  occupied housing units.
+source_definition_ref: "CPH 2024, Household Information by Grama Niladhari Division (Provisional), 'Number of Households'"
+methodology_notes: docs/methods/census-2024-households.md

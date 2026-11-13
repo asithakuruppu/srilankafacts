@@ -1,6 +1,6 @@
 id: households_cooking_firewood_share
-name: Households using firewood as main cooking fuel
-short_name: Cooking with firewood
+name: "Share of households by main source of energy or fuel used for cooking: Firewood"
+short_name: "Cooking fuel: Firewood (%)"
 topic: [housing, energy]
 measure_type: share
 unit: percent
@@ -12,7 +12,7 @@ higher_is: neutral
 decimals: 1
 sensitivity: public
 definition: >
-  Share of occupied housing units whose principal cooking fuel is firewood,
-  as recorded by the Census of Population and Housing.
-source_definition_ref: "CPH 2024, House-CookingFuel table"
-methodology_notes: docs/methods/census-2024.md
+  Share of households whose main source of energy or fuel used for cooking is "Firewood": households_cooking_firewood divided by
+  households_total, times 100. Computed from the published counts.
+source_definition_ref: "CPH 2024, Household Information by Grama Niladhari Division (Provisional), Main Source of Energy/Fuel Used for Cooking: 'Fire wood'"
+methodology_notes: docs/methods/census-2024-households.md

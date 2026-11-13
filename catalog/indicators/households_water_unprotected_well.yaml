@@ -1,0 +1,18 @@
+id: households_water_unprotected_well
+name: "Households by main source of drinking water: Unprotected well"
+short_name: "Drinking water: Unprotected well"
+topic: [housing, water]
+measure_type: count
+unit: households
+universe: households
+numerator: null
+denominator: null
+aggregation: sum
+higher_is: neutral
+decimals: 0
+sensitivity: public
+definition: >
+  Number of households whose main source of drinking water is "Unprotected well", as recorded by the Census
+  of Population and Housing 2024. Each household is counted in exactly one category of this group.
+source_definition_ref: "CPH 2024, Household Information by Grama Niladhari Division (Provisional), Main Source/way of drinking water: 'Unprotected well'"
+methodology_notes: docs/methods/census-2024-households.md
