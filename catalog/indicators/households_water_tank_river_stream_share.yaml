@@ -1,0 +1,18 @@
+id: households_water_tank_river_stream_share
+name: "Share of households by main source of drinking water: Tank, river or stream"
+short_name: "Drinking water: Tank, river or stream (%)"
+topic: [housing, water]
+measure_type: share
+unit: percent
+universe: households
+numerator: households_water_tank_river_stream
+denominator: households_total
+aggregation: recompute_from_components
+higher_is: neutral
+decimals: 1
+sensitivity: public
+definition: >
+  Share of households whose main source of drinking water is "Tank, river or stream": households_water_tank_river_stream divided by
+  households_total, times 100. Computed from the published counts.
+source_definition_ref: "CPH 2024, Household Information by Grama Niladhari Division (Provisional), Main Source/way of drinking water: 'Tank/ River/Streams'"
+methodology_notes: docs/methods/census-2024-households.md

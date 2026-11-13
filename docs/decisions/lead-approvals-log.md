@@ -42,3 +42,15 @@ Every approval the lead gives on a corrections entry, a QA sheet or a data judge
 - **Lead's words:** "profile spaces looks correct."
 - **Not covered by this entry:** the other two items in the next-actions list. The 5 named places used to judge the lists, and the written axis labels, are still open. Record them as separate LA entries when the lead provides them.
 - **How to reverse:** add an LA entry that withdraws this judgement. The profile preview can be rebuilt without the change.
+
+---
+
+## LA-004: Household indicators on place pages: total plus 37 shares; counts in downloads only
+
+- **Date:** 2026-11-13
+- **Approved by:** Shamil Asitha Kuruppu (lead)
+- **What:** Of the 75 household and amenity indicators (D-032 step a), place files, per-level API files and the website carry `households_total` and the 37 shares. The 37 category counts are marked `distribution: downloads_only` in `catalog/indicators/`: they stay in `observations.parquet` and `.csv` and are listed in `api/v1/indicators.json`, but are not in place files or per-level files.
+- **Scope:** How releases distribute these indicators. No values change.
+- **Evidence:** [docs/methods/census-2024-households.md](../methods/census-2024-households.md) §5 (trial release sizes); the agent's recommendation in PR 28.
+- **Lead's words:** "Total plus 37 shares."
+- **How to reverse:** remove `distribution: downloads_only` from the 37 count files (the default is `api`) and rebuild the release.

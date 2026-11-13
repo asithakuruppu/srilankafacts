@@ -47,6 +47,9 @@ Support = Literal["area", "point", "line", "grid", "national"]
 MeasureType = Literal["count", "share", "rate", "ratio", "currency", "index", "mean", "median"]
 Aggregation = Literal["sum", "recompute_from_components", "none"]
 HigherIs = Literal["better", "worse", "neutral"]
+# Where a release carries an indicator's values: "api" puts them in place files and per-level API
+# files as well as the downloads; "downloads_only" keeps them in observations.parquet/.csv only.
+Distribution = Literal["api", "downloads_only"]
 SupportType = Literal[
     "area_total", "area_mean", "location_uncertain", "object_extent", "field_sample"
 ]
@@ -220,6 +223,7 @@ class Indicator(Strict):
     denominator: Slug | None = None
     aggregation: Aggregation
     higher_is: HigherIs = "neutral"
+    distribution: Distribution = "api"
     decimals: int = Field(default=0, ge=0, le=6)
     sensitivity: Sensitivity = "public"
     definition: str

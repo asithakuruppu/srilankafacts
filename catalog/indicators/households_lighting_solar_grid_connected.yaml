@@ -1,0 +1,19 @@
+id: households_lighting_solar_grid_connected
+name: "Households by main source of lighting: Solar power (grid connected)"
+short_name: "Lighting: Solar power (grid connected)"
+topic: [housing, energy]
+measure_type: count
+unit: households
+universe: households
+numerator: null
+denominator: null
+aggregation: sum
+higher_is: neutral
+distribution: downloads_only
+decimals: 0
+sensitivity: public
+definition: >
+  Number of households whose main source of lighting is "Solar power (grid connected)", as recorded by the Census
+  of Population and Housing 2024. Each household is counted in exactly one category of this group.
+source_definition_ref: "CPH 2024, Household Information by Grama Niladhari Division (Provisional), Main source of Lighting: 'Solar power (grid connected)'"
+methodology_notes: docs/methods/census-2024-households.md

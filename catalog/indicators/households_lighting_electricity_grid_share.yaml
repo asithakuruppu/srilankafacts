@@ -1,0 +1,18 @@
+id: households_lighting_electricity_grid_share
+name: "Share of households by main source of lighting: Electricity from the national grid or a rural hydro power project"
+short_name: "Lighting: Electricity from the national grid or a rural hydro power project (%)"
+topic: [housing, energy]
+measure_type: share
+unit: percent
+universe: households
+numerator: households_lighting_electricity_grid
+denominator: households_total
+aggregation: recompute_from_components
+higher_is: neutral
+decimals: 1
+sensitivity: public
+definition: >
+  Share of households whose main source of lighting is "Electricity from the national grid or a rural hydro power project": households_lighting_electricity_grid divided by
+  households_total, times 100. Computed from the published counts.
+source_definition_ref: "CPH 2024, Household Information by Grama Niladhari Division (Provisional), Main source of Lighting: 'Electricity - from National grid/rural hydro power project'"
+methodology_notes: docs/methods/census-2024-households.md

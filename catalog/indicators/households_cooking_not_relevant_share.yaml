@@ -1,0 +1,18 @@
+id: households_cooking_not_relevant_share
+name: "Share of households by main source of energy or fuel used for cooking: Not relevant"
+short_name: "Cooking fuel: Not relevant (%)"
+topic: [housing, energy]
+measure_type: share
+unit: percent
+universe: households
+numerator: households_cooking_not_relevant
+denominator: households_total
+aggregation: recompute_from_components
+higher_is: neutral
+decimals: 1
+sensitivity: public
+definition: >
+  Share of households whose main source of energy or fuel used for cooking is "Not relevant": households_cooking_not_relevant divided by
+  households_total, times 100. Computed from the published counts.
+source_definition_ref: "CPH 2024, Household Information by Grama Niladhari Division (Provisional), Main Source of Energy/Fuel Used for Cooking: 'Not relavent'"
+methodology_notes: docs/methods/census-2024-households.md

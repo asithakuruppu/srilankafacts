@@ -1,0 +1,19 @@
+id: households_lighting_solar_stand_alone
+name: "Households by main source of lighting: Solar power (stand-alone)"
+short_name: "Lighting: Solar power (stand-alone)"
+topic: [housing, energy]
+measure_type: count
+unit: households
+universe: households
+numerator: null
+denominator: null
+aggregation: sum
+higher_is: neutral
+distribution: downloads_only
+decimals: 0
+sensitivity: public
+definition: >
+  Number of households whose main source of lighting is "Solar power (stand-alone)", as recorded by the Census
+  of Population and Housing 2024. Each household is counted in exactly one category of this group.
+source_definition_ref: "CPH 2024, Household Information by Grama Niladhari Division (Provisional), Main source of Lighting: 'Solar power (stand alone)'"
+methodology_notes: docs/methods/census-2024-households.md

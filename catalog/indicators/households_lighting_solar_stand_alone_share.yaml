@@ -1,0 +1,18 @@
+id: households_lighting_solar_stand_alone_share
+name: "Share of households by main source of lighting: Solar power (stand-alone)"
+short_name: "Lighting: Solar power (stand-alone) (%)"
+topic: [housing, energy]
+measure_type: share
+unit: percent
+universe: households
+numerator: households_lighting_solar_stand_alone
+denominator: households_total
+aggregation: recompute_from_components
+higher_is: neutral
+decimals: 1
+sensitivity: public
+definition: >
+  Share of households whose main source of lighting is "Solar power (stand-alone)": households_lighting_solar_stand_alone divided by
+  households_total, times 100. Computed from the published counts.
+source_definition_ref: "CPH 2024, Household Information by Grama Niladhari Division (Provisional), Main source of Lighting: 'Solar power (stand alone)'"
+methodology_notes: docs/methods/census-2024-households.md

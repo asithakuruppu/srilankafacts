@@ -1,0 +1,19 @@
+id: households_cooking_kerosene
+name: "Households by main source of energy or fuel used for cooking: Kerosene"
+short_name: "Cooking fuel: Kerosene"
+topic: [housing, energy]
+measure_type: count
+unit: households
+universe: households
+numerator: null
+denominator: null
+aggregation: sum
+higher_is: neutral
+distribution: downloads_only
+decimals: 0
+sensitivity: public
+definition: >
+  Number of households whose main source of energy or fuel used for cooking is "Kerosene", as recorded by the Census
+  of Population and Housing 2024. Each household is counted in exactly one category of this group.
+source_definition_ref: "CPH 2024, Household Information by Grama Niladhari Division (Provisional), Main Source of Energy/Fuel Used for Cooking: 'Kerosene'"
+methodology_notes: docs/methods/census-2024-households.md

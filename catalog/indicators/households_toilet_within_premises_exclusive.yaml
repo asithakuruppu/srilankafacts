@@ -1,0 +1,19 @@
+id: households_toilet_within_premises_exclusive
+name: "Households by toilet facility: Toilet within the premises, for the household only"
+short_name: "Toilet: Toilet within the premises, for the household only"
+topic: [housing, sanitation]
+measure_type: count
+unit: households
+universe: households
+numerator: null
+denominator: null
+aggregation: sum
+higher_is: neutral
+distribution: downloads_only
+decimals: 0
+sensitivity: public
+definition: >
+  Number of households whose toilet facility is "Toilet within the premises, for the household only", as recorded by the Census
+  of Population and Housing 2024. Each household is counted in exactly one category of this group.
+source_definition_ref: "CPH 2024, Household Information by Grama Niladhari Division (Provisional), Toilet facilities: 'Within Premises - Exclusively for the household'"
+methodology_notes: docs/methods/census-2024-households.md

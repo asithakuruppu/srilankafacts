@@ -89,10 +89,13 @@ Within each table, the shortfalls add up exactly to the "Other" surplus (50,329 
 3. Small groups (Burgher, Malay, Chetty, Bharatha, Veddah) lose a large share at GN level
    (Burgher: 25,159 of 31,721). A GN map of these groups would understate them.
 
-## What ingesting would take (not started)
+## Ingest progress and what remains
 
-- New indicators in `catalog/indicators/` for households and the four amenity groups (counts and
-  shares), five-year age groups, sector and local authority type. Ethnicity and religion need
+- **Step (a) done, 2026-11-13:** households and the four amenity groups at GN level, 75
+  indicators, checked against district tables A5–A8 with 0 differences. Not in a release.
+  Method: [census-2024-households.md](../../methods/census-2024-households.md); QA:
+  [census-2024-households.md](../../qa/census-2024-households.md).
+- New indicators in `catalog/indicators/` for five-year age groups, sector and local authority type. Ethnicity and religion need
   `sensitivity` set and the folding rule recorded.
 - DS-level values for structure and materials, with an information floor that says "DS level;
   no GN breakdown is published".

@@ -1,0 +1,19 @@
+id: households_toilet_common_public
+name: "Households by toilet facility: Common or public toilet"
+short_name: "Toilet: Common or public toilet"
+topic: [housing, sanitation]
+measure_type: count
+unit: households
+universe: households
+numerator: null
+denominator: null
+aggregation: sum
+higher_is: neutral
+distribution: downloads_only
+decimals: 0
+sensitivity: public
+definition: >
+  Number of households whose toilet facility is "Common or public toilet", as recorded by the Census
+  of Population and Housing 2024. Each household is counted in exactly one category of this group.
+source_definition_ref: "CPH 2024, Household Information by Grama Niladhari Division (Provisional), Toilet facilities: 'Common/ Public toilet'"
+methodology_notes: docs/methods/census-2024-households.md

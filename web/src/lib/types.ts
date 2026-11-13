@@ -47,6 +47,8 @@ export type IndicatorMeta = {
   measure_type: string;
   unit: string;
   higher_is: string;
+  /** "downloads_only": values are in the observation downloads, not in place or level files. */
+  distribution?: "api" | "downloads_only";
   decimals: number;
   levels: string[];
   period: string[];
