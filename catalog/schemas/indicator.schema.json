@@ -104,6 +104,15 @@
       "title": "Higher Is",
       "type": "string"
     },
+    "distribution": {
+      "default": "api",
+      "enum": [
+        "api",
+        "downloads_only"
+      ],
+      "title": "Distribution",
+      "type": "string"
+    },
     "decimals": {
       "default": 0,
       "maximum": 6,

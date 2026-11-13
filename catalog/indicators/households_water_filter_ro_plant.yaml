@@ -9,6 +9,7 @@ numerator: null
 denominator: null
 aggregation: sum
 higher_is: neutral
+distribution: downloads_only
 decimals: 0
 sensitivity: public
 definition: >

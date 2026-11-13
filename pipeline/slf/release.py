@@ -497,8 +497,18 @@ def _write_api(
         "support_type",
         "information_footprint_ref",
     ]
+    # Indicators marked `distribution: downloads_only` stay in observations.parquet/.csv but are
+    # left out of place files and per-level API files (LA-004).
+    downloads_only = {
+        indicator_id
+        for indicator_id, indicator in catalog.indicators.items()
+        if indicator.distribution == "downloads_only"
+    }
     values_by_geo: dict[str, list[dict[str, Any]]] = {}
-    for record in _clean_records(_records(observations)):
+    api_observations = pd.DataFrame(
+        observations[~observations["indicator_id"].isin(sorted(downloads_only))]
+    )
+    for record in _clean_records(_records(api_observations)):
         values_by_geo.setdefault(str(record["geography_id"]), []).append(
             {column: record[column] for column in value_columns}
         )
@@ -542,6 +552,7 @@ def _write_api(
             "definition": indicator.definition,
             "decimals": indicator.decimals,
             "higher_is": indicator.higher_is,
+            "distribution": indicator.distribution,
             "levels": levels,
             "period": periods,
             "value_count": sum(1 for value in rows["value"].tolist() if not pd.isna(value)),
@@ -550,6 +561,8 @@ def _write_api(
         payload = {**base, "indicator": entry}
         _write(out / "api" / "v1" / "indicators" / f"{indicator_id}.json", _json_bytes(payload))
         written.append(f"api/v1/indicators/{indicator_id}.json")
+        if indicator_id in downloads_only:
+            continue
         for level_name in levels:
             level_rows = pd.DataFrame(rows[rows["level_name"] == level_name])
             values = [

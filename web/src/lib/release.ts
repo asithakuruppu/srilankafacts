@@ -97,7 +97,7 @@ export function getCorrections(): CorrectionsLog | null {
 export function getIndicators(): IndicatorMeta[] {
   const list = readJson<IndicatorList>("api/v1/indicators.json");
   return list.indicators
-    .filter((indicator) => indicator.levels.length > 0)
+    .filter((indicator) => indicator.levels.length > 0 && indicator.distribution !== "downloads_only")
     .sort((a, b) => a.name.localeCompare(b.name));
 }
 

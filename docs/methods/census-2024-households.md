@@ -74,17 +74,23 @@ number of GN rows and the row range summed. Values stay `machine_extracted` (AGE
   with few households are unstable; the release builder's small-denominator flag (D-026) is
   generic, but has not been checked on these indicators ❓.
 
-## 5. Not in a release yet
+## 5. What a release carries (LA-004), and size
 
-A trial preview release with both census datasets built ✅, but it is not kept:
+The lead chose (LA-004, 2026-11-13): place files, per-level API files and the website carry
+`households_total` and the 37 shares. The 37 counts are `distribution: downloads_only`: they are
+in `observations.parquet` and `.csv` and listed in `api/v1/indicators.json`, with no place or
+per-level files.
 
-| | v2026.11.9-preview.1 | Trial with households |
-|---|---|---|
-| Release size | 449 MB | 1.7 GB |
-| API folder | 193 MB | 913 MB |
-| One DS place file (`LK1103.json`) | 14 KB | 60 KB |
-| Files | 14,595 | 15,345 |
+Trial preview releases with both census datasets (built in a scratch folder, not kept) ✅:
 
-Putting all 75 indicators on every place page would make each page's data about four times
-larger. Which of these indicators the website and place files carry, and which stay in downloads
-only, is a decision for the lead before they go into a release (see the performance budget, Q02).
+| | v2026.11.9-preview.1 | All 75 in the API | LA-004 (total + 37 shares) |
+|---|---|---|---|
+| Release size | 449 MB | 1.7 GB | 1.4 GB |
+| API folder | 193 MB | 913 MB | 581 MB |
+| Place files | 170 MB | not measured | 506 MB |
+| One DS place file (`LK1103.json`) | 14 KB | 60 KB | 38 KB |
+| Files | 14,595 | 15,345 | 15,123 |
+
+Place files are still about three times larger than today. Most of each value's size is its
+provenance (about 600 bytes per value, mostly the source locator), not the number. The release
+itself is not built yet with these indicators; that is a separate step.

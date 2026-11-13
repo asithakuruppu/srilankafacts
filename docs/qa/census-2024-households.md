@@ -70,6 +70,5 @@ Dataset `census-2024-topic-tables`, step (a) of D-032. Built 2026-11-13 with
 
 - Final Report PDF tables ❌; human source check (Q01) ❌.
 - Small-denominator behaviour of the 37 shares in the release builder ❓.
-- Release size: a trial preview with these indicators was 1.7 GB (current preview 449 MB); see
-  the method §5. Inclusion in a release waits for the lead's choice of which indicators go on
-  place pages.
+- Not yet in a release. Under LA-004 a trial preview was 1.4 GB (current preview 449 MB) and one
+  DS place file 38 KB (now 14 KB); see the method §5.
