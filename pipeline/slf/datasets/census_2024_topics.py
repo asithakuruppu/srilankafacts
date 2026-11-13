@@ -11,8 +11,11 @@ province and country values are sums of GN rows (unmatched GNs included). Distri
 sums are checked against DCS's own district tables A5 (water), A6 (cooking), A7 (lighting) and A8
 (toilets), category by category.
 
-Other topics in the dataset (age, sector, local authority, DS materials, ethnicity and religion)
-are later steps under D-032 and D-033; they are not read here.
+Step (b) adds three GN population files: five-year age group, sector, and local authority type
+(``GN_Level_Population_by_*``). Each row's categories must sum to its total. Our GN sums are
+checked against DCS's own DS, district and Sri Lanka subtotal rows in the same files.
+
+DS materials, ethnicity and religion are later steps under D-032 and D-033; they are not read here.
 """
 
 from __future__ import annotations
@@ -202,6 +205,100 @@ ALL_INDICATORS: tuple[str, ...] = COUNT_INDICATORS + SHARE_INDICATORS
 LAST_COLUMN = max(c.column for c in CATEGORIES)
 
 
+@dataclass(frozen=True)
+class PopCategory:
+    column: int  # 0-based column in the GN population file
+    slug: str
+    name: str
+    source_label: str  # heading exactly as DCS prints it (typos kept)
+
+
+@dataclass(frozen=True)
+class PopTopic:
+    """One GN population file: a total column and categories that sum to it."""
+
+    key: str  # age | sector | local_authority
+    filename: str
+    url: str
+    sheet: str
+    title: str  # the file's second line
+    label_line: int  # 1-based line holding the category headings
+    categories: tuple[PopCategory, ...]
+    # count indicators already published by another dataset (claim ids must stay unique)
+    counts_elsewhere: frozenset[str] = frozenset()
+
+    def count_id(self, category: PopCategory) -> str:
+        return f"population_{self.key}_{category.slug}"
+
+    def share_id(self, category: PopCategory) -> str:
+        return f"{self.count_id(category)}_share"
+
+    @property
+    def count_ids(self) -> tuple[str, ...]:
+        return tuple(
+            self.count_id(c)
+            for c in self.categories
+            if self.count_id(c) not in self.counts_elsewhere
+        )
+
+    @property
+    def share_ids(self) -> tuple[str, ...]:
+        return tuple(self.share_id(c) for c in self.categories)
+
+
+POP_TOTAL_COLUMN = 6
+_AGE_BANDS = [(lo, lo + 4) for lo in range(0, 95, 5)]
+_AGE_LABELS = ["0 - 4", "5 - 9", *(f"{lo}-{hi}" for lo, hi in _AGE_BANDS[2:])]
+POP_TOPICS: tuple[PopTopic, ...] = (
+    PopTopic(
+        key="age",
+        filename="GN_Level_Population_by_Five_Year_Age_Group.xlsx",
+        url=f"{BASE_URL}/GN_Level_Population_by_Five_Year_Age_Group",
+        sheet="By Age group(Orignal)",
+        title="Population by 5 year Age groups and GN Division",
+        label_line=4,
+        categories=(
+            *(
+                PopCategory(7 + i, f"{lo}_{hi}", f"Aged {lo} to {hi}", label)
+                for i, ((lo, hi), label) in enumerate(zip(_AGE_BANDS, _AGE_LABELS, strict=True))
+            ),
+            PopCategory(26, "95_plus", "Aged 95 and over", "95 and above"),
+        ),
+        # The population workbook (census-2024-gnd-tables) already publishes this count.
+        counts_elsewhere=frozenset({"population_age_60_64"}),
+    ),
+    PopTopic(
+        key="sector",
+        filename="GN_Level_Population_by_Sector.xlsx",
+        url=f"{BASE_URL}/GN_Level_Population_by_Sector",
+        sheet="By Sector",
+        title="Population by Sector and GN Division",
+        label_line=7,
+        categories=(
+            PopCategory(7, "urban", "Urban (including estate urban)", "Urban*"),
+            PopCategory(8, "rural", "Rural", "Rural"),
+            PopCategory(9, "estate_rural", "Estate rural", "Estate Rural**"),
+        ),
+    ),
+    PopTopic(
+        key="local_authority",
+        filename="GN_Level_Population_by_Local_Government_Area.xlsx",
+        url=f"{BASE_URL}/GN_Level_Population_by_Local_Government_Area",
+        sheet="By LGA",
+        title="Population by Local Government Authority and GN Division",
+        label_line=4,
+        categories=(
+            PopCategory(7, "municipal_council", "Municipal council", "Municiple Council"),
+            PopCategory(8, "urban_council", "Urban council", "Urban Council"),
+            PopCategory(9, "pradeshiya_sabha", "Pradeshiya sabha", "Pradeshiya Sabha"),
+        ),
+    ),
+)
+POP_COUNT_INDICATORS: tuple[str, ...] = tuple(i for t in POP_TOPICS for i in t.count_ids)
+POP_SHARE_INDICATORS: tuple[str, ...] = tuple(i for t in POP_TOPICS for i in t.share_ids)
+POP_INDICATORS: tuple[str, ...] = POP_COUNT_INDICATORS + POP_SHARE_INDICATORS
+
+
 def _latest(storage: Storage, filename: str) -> SnapshotRef:
     keys = sorted(k for k in storage.list(f"raw/dcs/{DATASET_ID}") if k.endswith("/" + filename))
     if not keys:
@@ -278,6 +375,110 @@ def parse_households(rows: list[tuple[object, ...]]) -> pd.DataFrame:
     return frame
 
 
+def check_pop_header(topic: PopTopic, rows: list[tuple[object, ...]]) -> None:
+    """Fail unless the title, total and category headings are where this module expects them."""
+    if _heading(rows[1][0]) != topic.title:
+        raise ValueError(f"{topic.filename}: unexpected title {rows[1][0]!r}")
+    labels = rows[topic.label_line - 1]
+    if _heading(labels[POP_TOTAL_COLUMN]) != "Total":
+        raise ValueError(f"{topic.filename}: unexpected total heading {labels[POP_TOTAL_COLUMN]!r}")
+    for category in topic.categories:
+        if _heading(labels[category.column]) != _heading(category.source_label):
+            raise ValueError(
+                f"{topic.filename} column {category.column}: heading "
+                f"{labels[category.column]!r}, expected {category.source_label!r}"
+            )
+
+
+def parse_population_topic(
+    topic: PopTopic, rows: list[tuple[object, ...]]
+) -> tuple[pd.DataFrame, dict[tuple[str, str], list[int]]]:
+    """GN records, plus DCS's own subtotal rows keyed by (level, DCS code).
+
+    Line types: "Sri Lanka" in column A (national); a district code with no DS code (district
+    subtotal); a DS code with no district code (DS subtotal, under the district above it); all
+    codes present (GN). Every line's categories must sum to its total.
+    """
+    check_pop_header(topic, rows)
+    last = max(c.column for c in topic.categories)
+    records: list[dict[str, object]] = []
+    subtotals: dict[tuple[str, str], list[int]] = {}
+    district: int | None = None
+    for line, r in enumerate(rows[topic.label_line :], start=topic.label_line + 1):
+        if len(r) <= last or r[POP_TOTAL_COLUMN] is None:
+            continue
+        total = _int_cell(r[POP_TOTAL_COLUMN], line=line, field=f"{topic.key} total")
+        counts = [
+            _int_cell(r[c.column], line=line, field=topic.count_id(c)) for c in topic.categories
+        ]
+        if sum(counts) != total:
+            raise ValueError(
+                f"{topic.filename} line {line}: categories sum to {sum(counts)}, total is {total}"
+            )
+        if _heading(r[0]) == "Sri Lanka":
+            key = ("country", "LK")
+        elif r[4] is not None:
+            district = _int_cell(r[0], line=line, field="district code")
+            ds = _int_cell(r[2], line=line, field="DS code")
+            gn = _int_cell(r[4], line=line, field="GN code")
+            record: dict[str, object] = {
+                "line": line,
+                "district_code": district,
+                "dcs_ds": f"{district:02d}{ds:02d}",
+                "dcs_gn": f"{district:02d}{ds:02d}{gn:03d}",
+                "population_total": total,
+            }
+            for category, count in zip(topic.categories, counts, strict=True):
+                record[topic.count_id(category)] = count
+            records.append(record)
+            continue
+        elif r[2] is None:
+            district = _int_cell(r[0], line=line, field="district code")
+            key = ("district", f"{district:02d}")
+        else:
+            if district is None:
+                raise ValueError(f"{topic.filename} line {line}: DS subtotal before any district")
+            ds = _int_cell(r[2], line=line, field="DS code")
+            key = ("ds", f"{district:02d}{ds:02d}")
+        if key in subtotals:
+            raise ValueError(f"{topic.filename}: subtotal {key} appears twice")
+        subtotals[key] = [total, *counts]
+    frame = pd.DataFrame(records)
+    if frame.empty or frame["dcs_gn"].duplicated().any():
+        raise ValueError(f"{topic.filename}: no GN rows or duplicate GN codes")
+    return frame, subtotals
+
+
+def compare_with_subtotals(
+    topic: PopTopic, frame: pd.DataFrame, subtotals: dict[tuple[str, str], list[int]]
+) -> list[str]:
+    """Our GN sums by DCS DS, district and country must equal DCS's subtotal rows."""
+    columns = ["population_total", *(topic.count_id(c) for c in topic.categories)]
+    ours: dict[tuple[str, str], list[int]] = {}
+    groupings = (
+        ("ds", frame["dcs_ds"]),
+        ("district", frame["district_code"].map(lambda d: f"{int(d):02d}")),
+        ("country", pd.Series("LK", index=frame.index)),
+    )
+    for level, keys in groupings:
+        for code, part in frame[columns].groupby(keys):
+            ours[(level, str(code))] = [int(v) for v in part.sum()]
+    errors: list[str] = []
+    missing = sorted(set(ours) - set(subtotals))
+    extra = sorted(set(subtotals) - set(ours))
+    if missing or extra:
+        errors.append(
+            f"{topic.filename}: subtotal rows not matched; missing {missing}, extra {extra}"
+        )
+    for key in sorted(set(ours) & set(subtotals)):
+        for column, got, expected in zip(columns, ours[key], subtotals[key], strict=True):
+            if got != expected:
+                errors.append(
+                    f"{topic.filename} {key[0]} {key[1]} {column}: GN sum {got}, DCS {expected}"
+                )
+    return errors
+
+
 def _district_key(value: object) -> str:
     """The English district name at the end of a trilingual A-series label, normalised."""
     words = re.findall(r"[A-Za-z]+", str(value))
@@ -320,7 +521,8 @@ def _row(
     snapshot_sha256: str,
     note_ids: list[str] | None = None,
 ) -> Row:
-    is_count = indicator in COUNT_INDICATORS
+    is_count = indicator in COUNT_INDICATORS or indicator in POP_COUNT_INDICATORS
+    universe = "households" if indicator.startswith("households") else "persons"
     return {
         "claim_id": f"dcs-census2024:{geography_id}:{indicator}:{PERIOD}",
         "indicator_id": indicator,
@@ -333,20 +535,20 @@ def _row(
         "support_type": "area_total",
         "footprint_ref": geography_id,
         "information_footprint_ref": "gn-2024",
-        "universe": "households",
+        "universe": universe,
         "collection_method": "enumeration",
         "sensitivity": "public",
         "revision_status": "provisional",
         "preferred": True,
         "preferred_reason": (
-            "Only claim in this preview: DCS Census 2024 household information by GN."
+            f"Only claim in this preview: DCS Census 2024 {universe} by GN."
             if is_count
-            else "Derived from DCS Census 2024 household counts; see the indicator definition."
+            else f"Derived from DCS Census 2024 {universe} counts; see the indicator definition."
         ),
         "breakdown": None,
         "value": value,
         "value_status": "normal" if value is not None else "not_available",
-        "unit": "households" if is_count else "percent",
+        "unit": universe if is_count else "percent",
         "data_nature": "census_count",
         "verification": "machine_extracted",
         "dataset_id": DATASET_ID,
@@ -366,14 +568,15 @@ class _Aggregate:
     geography_id: str
     level: str
     code: str
-    counts: dict[str, float] = field(default_factory=lambda: dict.fromkeys(COUNT_INDICATORS, 0.0))
+    indicators: tuple[str, ...] = COUNT_INDICATORS
+    counts: dict[str, float] = field(default_factory=dict)
     first_line: int = 0
     last_line: int = 0
     units: int = 0
 
     def add(self, record: Row) -> None:
-        for indicator in COUNT_INDICATORS:
-            self.counts[indicator] += float(record[indicator])
+        for indicator in self.indicators:
+            self.counts[indicator] = self.counts.get(indicator, 0.0) + float(record[indicator])
         line = int(record["line"])
         self.first_line = line if not self.units else min(self.first_line, line)
         self.last_line = line if not self.units else max(self.last_line, line)
@@ -385,7 +588,11 @@ class Census2024TopicTables(Dataset):
     source_id = "dcs"
 
     def snapshot(self, storage: Storage) -> SnapshotRef:
-        wanted = [(HH_FILE, HH_URL), *CHECK_TABLES.values()]
+        wanted = [
+            (HH_FILE, HH_URL),
+            *CHECK_TABLES.values(),
+            *((t.filename, t.url) for t in POP_TOPICS),
+        ]
         refs: list[SnapshotRef] = []
         for filename, url in wanted:
             try:
@@ -417,6 +624,22 @@ class Census2024TopicTables(Dataset):
             int(code): str(name)
             for code, name in frame[["district_code", "district_name"]].drop_duplicates().values
         }
+        province_of = {
+            int(d): int(p)
+            for d, p in frame[["district_code", "province_code"]].drop_duplicates().values
+        }
+        self.pop_frames: dict[str, pd.DataFrame] = {}
+        self.pop_sha256: dict[str, str] = {}
+        self.subtotal_errors: list[str] = []
+        self.pop_missing_gn: dict[str, list[str]] = {}
+        for topic in POP_TOPICS:
+            pop_ref = _latest(storage, topic.filename)
+            pop, subtotals = parse_population_topic(topic, _rows(storage, pop_ref))
+            pop["province_code"] = pop["district_code"].map(lambda d: province_of[int(d)])
+            self.pop_frames[topic.key] = pop
+            self.pop_sha256[topic.key] = pop_ref.sha256
+            self.subtotal_errors.extend(compare_with_subtotals(topic, pop, subtotals))
+            self.pop_missing_gn[topic.key] = sorted(set(frame["dcs_gn"]) - set(pop["dcs_gn"]))
         return frame.to_dict("records")
 
     def harmonise(self, rows: list[Row], ref: SnapshotRef) -> list[Row]:
@@ -512,6 +735,12 @@ class Census2024TopicTables(Dataset):
                         note_ids=["aggregate"],
                     )
                 )
+        for topic in POP_TOPICS:
+            frame = getattr(self, "pop_frames", {}).get(topic.key)
+            if frame is not None:
+                observations.extend(
+                    _population_rows(topic, frame, self.pop_sha256[topic.key], gn_map, ds_map)
+                )
         return observations
 
     def validate(self, observations: list[Row]) -> QAReport:
@@ -526,13 +755,25 @@ class Census2024TopicTables(Dataset):
             value = row["value"]
             if value is not None and value < 0:
                 report.errors.append(f"{row['claim_id']}: negative value {value}")
-            if indicator in SHARE_INDICATORS and value is not None and value > 100:
+            is_share = indicator in SHARE_INDICATORS or indicator in POP_SHARE_INDICATORS
+            if is_share and value is not None and value > 100:
                 report.errors.append(f"{row['claim_id']}: share above 100: {value}")
+        without_topic: dict[str, list[str]] = {t.key: [] for t in POP_TOPICS}
         for geo, seen in sorted(indicators_by_geo.items()):
-            if len(seen) != len(ALL_INDICATORS):
+            if not set(ALL_INDICATORS) <= seen:
                 report.errors.append(
-                    f"{geo}: {len(seen)} indicators, expected {len(ALL_INDICATORS)}"
+                    f"{geo}: {len(set(ALL_INDICATORS) & seen)} household indicators, expected "
+                    f"{len(ALL_INDICATORS)}"
                 )
+            for topic in POP_TOPICS:
+                wanted = set(topic.count_ids + topic.share_ids)
+                present = len(wanted & seen)
+                if present == 0:
+                    without_topic[topic.key].append(geo)
+                elif present != len(wanted):
+                    report.errors.append(
+                        f"{geo}: {present} {topic.key} indicators, expected {len(wanted)}"
+                    )
 
         tables = getattr(self, "check_tables", None)
         names = getattr(self, "district_names", None)
@@ -540,6 +781,21 @@ class Census2024TopicTables(Dataset):
             report.warnings.append("District tables A5-A8 were not compared (validate ran alone).")
         else:
             report.errors.extend(compare_with_district_tables(values, tables, names))
+
+        report.errors.extend(getattr(self, "subtotal_errors", []))
+        for topic in POP_TOPICS:
+            missing = getattr(self, "pop_missing_gn", {}).get(topic.key)
+            if missing:
+                report.warnings.append(
+                    f"{topic.filename}: {len(missing)} GNs in the households file have no row "
+                    f"(population 0 in the population workbook), so no {topic.key} values: "
+                    + ", ".join(missing)
+                )
+            if without_topic[topic.key]:
+                report.warnings.append(
+                    f"{len(without_topic[topic.key])} places have no {topic.key} values: "
+                    + ", ".join(without_topic[topic.key])
+                )
 
         unmatched = getattr(self, "unmatched_gn", None)
         if unmatched:
@@ -571,6 +827,87 @@ class Census2024TopicTables(Dataset):
         frame.to_csv(csv, index=False)
         qa.write_text(report.to_markdown(), encoding="utf-8")
         return [str(parquet), str(csv), str(qa)]
+
+
+def _population_rows(
+    topic: PopTopic,
+    frame: pd.DataFrame,
+    sha: str,
+    gn_map: Mapping[str, str],
+    ds_map: Mapping[str, str],
+) -> list[Row]:
+    """GN rows from one population file, plus DS/district/province/country sums of GN rows."""
+    all_counts = tuple(topic.count_id(c) for c in topic.categories)
+    sheet = f"{topic.filename}, sheet '{topic.sheet}'"
+    total_letter = _column_letter(POP_TOTAL_COLUMN)
+    observations: list[Row] = []
+    aggregates: dict[tuple[str, str], _Aggregate] = {}
+
+    def emit(geo: str, counts: Mapping[str, float], cell: Mapping[str, str], notes: list[str]):
+        total = float(counts["population_total"])
+        for category in topic.categories:
+            count_id = topic.count_id(category)
+            count = float(counts[count_id])
+            if count_id not in topic.counts_elsewhere:
+                observations.append(
+                    _row(
+                        indicator=count_id,
+                        geography_id=geo,
+                        value=count,
+                        source_locator=cell[count_id],
+                        snapshot_sha256=sha,
+                        note_ids=notes,
+                    )
+                )
+            observations.append(
+                _row(
+                    indicator=topic.share_id(category),
+                    geography_id=geo,
+                    value=_share(count, total),
+                    source_locator=cell[count_id + "/share"],
+                    snapshot_sha256=sha,
+                    note_ids=notes,
+                )
+            )
+
+    for rec in frame.to_dict("records"):
+        ds = str(rec["dcs_ds"])
+        district = int(rec["district_code"])
+        for level, key, geo in (
+            ("ds", ds, ds_map.get(ds)),
+            ("district", f"{district:02d}", f"LK{district:02d}"),
+            ("province", str(rec["province_code"]), f"LK{rec['province_code']}"),
+            ("country", "LK", "LK"),
+        ):
+            if geo:
+                aggregates.setdefault(
+                    (level, key), _Aggregate(geo, level, key, ("population_total", *all_counts))
+                ).add(rec)
+        geo = gn_map.get(str(rec["dcs_gn"]))
+        if not geo:
+            continue  # listed in QA with the households file's unmatched GNs (same codes)
+        line = rec["line"]
+        cells: dict[str, str] = {}
+        for category in topic.categories:
+            count_id = topic.count_id(category)
+            letter = _column_letter(category.column)
+            label = _heading(category.source_label)
+            cells[count_id] = f"{sheet}, row {line}, column {letter} ('{label}')"
+            cells[count_id + "/share"] = (
+                f"{sheet}, row {line}, column {letter} ÷ column {total_letter}; derived share"
+            )
+        emit(geo, rec, cells, [])
+
+    for (_level, _code), agg in sorted(aggregates.items()):
+        locator = (
+            f"{sheet}, {agg.units} GN rows summed to {agg.level} {agg.code}; "
+            f"row range {agg.first_line}-{agg.last_line}"
+        )
+        cells = {i: locator for i in all_counts} | {
+            i + "/share": locator + "; derived share" for i in all_counts
+        }
+        emit(agg.geography_id, agg.counts, cells, ["aggregate"])
+    return observations
 
 
 def compare_with_district_tables(

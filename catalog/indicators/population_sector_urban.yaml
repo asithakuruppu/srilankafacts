@@ -1,0 +1,19 @@
+id: population_sector_urban
+name: "Population by sector: Urban (including estate urban)"
+short_name: "Sector: Urban"
+topic: [population, sector]
+measure_type: count
+unit: persons
+universe: persons
+numerator: null
+denominator: null
+aggregation: sum
+higher_is: neutral
+distribution: downloads_only
+decimals: 0
+sensitivity: public
+definition: >
+  Number of persons living in the urban (including estate urban) sector, as recorded by the Census of Population and Housing 2024. Each person is counted in
+  exactly one sector. DCS combines its "Urban" and "Estate Urban" sectors and presents them as "Urban".
+source_definition_ref: "CPH 2024, Population by Sector and GN Division, column 'Urban*'"
+methodology_notes: docs/methods/census-2024-age-sector-local-authority.md

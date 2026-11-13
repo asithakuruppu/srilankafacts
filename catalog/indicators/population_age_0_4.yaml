@@ -1,0 +1,19 @@
+id: population_age_0_4
+name: "Population aged 0–4"
+short_name: "Aged 0–4"
+topic: [population, age]
+measure_type: count
+unit: persons
+universe: persons
+numerator: null
+denominator: null
+aggregation: sum
+higher_is: neutral
+distribution: downloads_only
+decimals: 0
+sensitivity: public
+definition: >
+  Number of persons aged 0 to 4 years, as recorded by the Census of Population and Housing 2024. Each person is counted in
+  exactly one five-year age group.
+source_definition_ref: "CPH 2024, Population by five-year age group and GN Division, column '0 - 4'"
+methodology_notes: docs/methods/census-2024-age-sector-local-authority.md

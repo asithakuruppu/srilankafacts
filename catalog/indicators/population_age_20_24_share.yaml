@@ -1,0 +1,18 @@
+id: population_age_20_24_share
+name: "Share of population aged 20–24"
+short_name: "Aged 20–24 (%)"
+topic: [population, age]
+measure_type: share
+unit: percent
+universe: persons
+numerator: population_age_20_24
+denominator: population_total
+aggregation: recompute_from_components
+higher_is: neutral
+decimals: 1
+sensitivity: public
+definition: >
+  population_age_20_24 divided by the total population in the same file, times 100. Computed from the
+  published counts.
+source_definition_ref: "CPH 2024, Population by five-year age group and GN Division, column '20-24'"
+methodology_notes: docs/methods/census-2024-age-sector-local-authority.md

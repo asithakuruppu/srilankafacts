@@ -106,6 +106,57 @@ indicators:
   - households_toilet_shared_other_unit_share
   - households_toilet_common_public_share
   - households_toilet_not_using_share
+  - population_age_0_4
+  - population_age_5_9
+  - population_age_10_14
+  - population_age_15_19
+  - population_age_20_24
+  - population_age_25_29
+  - population_age_30_34
+  - population_age_35_39
+  - population_age_40_44
+  - population_age_45_49
+  - population_age_50_54
+  - population_age_55_59
+  - population_age_65_69
+  - population_age_70_74
+  - population_age_75_79
+  - population_age_80_84
+  - population_age_85_89
+  - population_age_90_94
+  - population_age_95_plus
+  - population_sector_urban
+  - population_sector_rural
+  - population_sector_estate_rural
+  - population_local_authority_municipal_council
+  - population_local_authority_urban_council
+  - population_local_authority_pradeshiya_sabha
+  - population_age_0_4_share
+  - population_age_5_9_share
+  - population_age_10_14_share
+  - population_age_15_19_share
+  - population_age_20_24_share
+  - population_age_25_29_share
+  - population_age_30_34_share
+  - population_age_35_39_share
+  - population_age_40_44_share
+  - population_age_45_49_share
+  - population_age_50_54_share
+  - population_age_55_59_share
+  - population_age_60_64_share
+  - population_age_65_69_share
+  - population_age_70_74_share
+  - population_age_75_79_share
+  - population_age_80_84_share
+  - population_age_85_89_share
+  - population_age_90_94_share
+  - population_age_95_plus_share
+  - population_sector_urban_share
+  - population_sector_rural_share
+  - population_sector_estate_rural_share
+  - population_local_authority_municipal_council_share
+  - population_local_authority_urban_council_share
+  - population_local_authority_pradeshiya_sabha_share
 cross_checks:
   - upstream: nuuuwan/lk_census_2024
     note: comparison only, never as authority
@@ -114,7 +165,10 @@ notes: >
   Snapshotted 2026-11-12 (31 workbooks plus the landing page). Ingested so far (D-032 step a):
   households and the four amenity groups from HH_GND_excel.xlsx, 37 category counts and 37
   shares, summed to DS, district, province and country and checked against district tables
-  A5-A8 (method: docs/methods/census-2024-households.md). Not yet in any release. GN level:
+  A5-A8 (method: docs/methods/census-2024-households.md). Step b: five-year age group, sector
+  and local authority type from the three GN population files, 25 counts and 26 shares, checked
+  against DCS's subtotal lines (method: docs/methods/census-2024-age-sector-local-authority.md).
+  Not yet in any release. GN level:
   households with drinking water, cooking fuel, lighting and toilet (14,008 GN rows); population
   by ethnic group, religion, five-year age group, sector and local authority type (14,003 GN
   rows; the 5 GNs left out have population 0). DCS folds any ethnic or religious group under 10

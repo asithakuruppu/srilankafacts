@@ -1,0 +1,18 @@
+id: population_sector_rural_share
+name: "Share of population by sector: Rural"
+short_name: "Sector: Rural (%)"
+topic: [population, sector]
+measure_type: share
+unit: percent
+universe: persons
+numerator: population_sector_rural
+denominator: population_total
+aggregation: recompute_from_components
+higher_is: neutral
+decimals: 1
+sensitivity: public
+definition: >
+  population_sector_rural divided by the total population in the same file, times 100. Computed from the
+  published counts.
+source_definition_ref: "CPH 2024, Population by Sector and GN Division, column 'Rural'"
+methodology_notes: docs/methods/census-2024-age-sector-local-authority.md

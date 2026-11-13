@@ -1,0 +1,19 @@
+id: population_local_authority_urban_council
+name: "Population by local authority type: Urban council"
+short_name: "Local authority: Urban council"
+topic: [population, local-government]
+measure_type: count
+unit: persons
+universe: persons
+numerator: null
+denominator: null
+aggregation: sum
+higher_is: neutral
+distribution: downloads_only
+decimals: 0
+sensitivity: public
+definition: >
+  Number of persons living in a GN area governed by a urban council, as recorded by the Census of Population and Housing 2024. Each person is counted in
+  exactly one local authority type.
+source_definition_ref: "CPH 2024, Population by Local Government Authority and GN Division, column 'Urban Council'"
+methodology_notes: docs/methods/census-2024-age-sector-local-authority.md
