@@ -32,7 +32,8 @@ That gives 74 indicators: 37 counts and 37 shares (count ÷ occupied housing uni
   DCS's English heading. The lead should confirm the reading.
 - **"Not relevant" (as printed: "Not Relavent").** In every one of the 374 places, the wall,
   roof and floor "Not relevant" counts each equal the structure "Other" count ✅. It looks like
-  DCS records no materials for "Other" housing units, but the tables do not say so ❓. Labelled
+  DCS records no materials for "Other" housing units, but the tables do not say so ❓. DCS's
+  Final Report (Table 11.6) has no "Not relevant" line and folds it into "Other" ✅. Labelled
   as DCS's category, with no interpretation.
 - As with the households and the age, sector and local authority topics (LA-004, LA-005), the 37
   counts are `distribution: downloads_only` and the 37 shares go to place pages and the API.

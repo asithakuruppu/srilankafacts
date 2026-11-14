@@ -84,9 +84,30 @@ join through the reviewed Housing A-series match file and the G02 crosswalk.
 
 DCS 5224 Kalmunai is skipped (no spine unit, D-022). Every A13–A16 DS label is in the match file.
 
+## Final Report comparison (added 2026-11-14)
+
+Final Report housing chapter against the release ([script](data/census-2024-final-report-housing.py); `v2026.11.10-preview.2`):
+
+| Table | What | Values | Differ |
+|---|---|---|---|
+| 11.9 (PDF p. 208) | Households by main source of drinking water, Sri Lanka, counts | 15 | 0 ✅ |
+| 11.13 (p. 212) | Households by main source of lighting, Sri Lanka, counts ("Other" = biogas + generator + other) | 5 | 0 ✅ |
+| 11.12 (p. 211) | Share of households cooking with firewood / gas, Sri Lanka and 25 districts, one decimal | 52 | **14** ❓ |
+
+The 14 differences in Table 11.12 are all 0.1 percentage point, in both directions (for example
+Sri Lanka firewood: Final Report 55.4, release 55.3 from 3,381,781 of 6,111,315 households).
+No grouping of cooking categories, and neither denominator (all households, or excluding "Not
+relevant"), reproduces all 52 values; the best fits reproduce 18 of 26 firewood and 21 of 26 gas
+values. DCS's own district table A13 matches the release on every line (above), so the Final
+Report's percentages appear to come from a slightly different base ❓. The release is unchanged.
+
+Footnote 11.13 lists "Biogas, Generator and Other" under Other, which supports the release's
+"generator" category (DCS table A15 heads that column "Rural water supply project").
+
 ## Not checked
 
-- Final Report PDF tables ❌; human source check (Q01) ❌.
+- Final Report tables for toilets (11.16 uses a different classification: water-sealed or not)
+  ❌; human source check (Q01) ❌.
 - Small-denominator behaviour of the 37 shares in the release builder ❓.
 - Not yet in a release. Under LA-004 a trial preview was 1.4 GB (current preview 449 MB) and one
   DS place file 38 KB (now 14 KB); see the method §5.
