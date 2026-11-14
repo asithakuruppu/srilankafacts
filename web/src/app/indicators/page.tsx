@@ -19,7 +19,7 @@ export default function IndicatorsPage() {
         <p className="eyebrow">Census Atlas 2024</p>
         <h1>Indicators</h1>
         <p className="lede">
-          {indicators.length} measures built from the two DCS workbooks held. Each page states
+          {indicators.length} measures built from the DCS Census 2024 workbooks and tables held. Each page states
           the definition, the national value, the district distribution and the limits of the
           measure.
         </p>

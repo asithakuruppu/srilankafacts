@@ -21,9 +21,10 @@ export default function MethodsPage() {
         <p className="eyebrow">Methods</p>
         <h1>How this atlas is built — and what it does not claim</h1>
         <p className="lede">
-          This page explains the first Census Atlas dataset in plain language. The full
-          methodology is in <code>docs/methods/census-2024.md</code>; the spatial-context note
-          is in <code>docs/methods/spatial-context.md</code>.
+          This page explains the Census Atlas datasets in plain language. The full methodology
+          is in <code>docs/methods/census-2024.md</code> and, for the topic tables, the{" "}
+          <code>docs/methods/census-2024-*.md</code> notes; the spatial-context note is in{" "}
+          <code>docs/methods/spatial-context.md</code>.
         </p>
       </header>
 
@@ -31,15 +32,26 @@ export default function MethodsPage() {
         <section>
           <h2>1. Source and scope</h2>
           <p>
-            The only census values in this release come from two workbooks published by the
-            Department of Census and Statistics (DCS) for the Census of Population and Housing
-            2024: GN population by sex and age group, and occupied housing units. Both are
-            held as immutable raw snapshots.
+            Every census value in this release comes from files published by the Department of
+            Census and Statistics (DCS) for the Census of Population and Housing 2024, held as
+            immutable raw snapshots:
           </p>
+          <ul>
+            <li>GN workbooks: population by sex and age group, and occupied housing units;</li>
+            <li>
+              GN topic tables: households and their drinking water, cooking fuel, lighting and
+              toilet facilities; population by five-year age group, sector and local authority
+              type;
+            </li>
+            <li>
+              DS and district tables: housing unit structure and wall, roof and floor materials;
+              population by ethnic group and by religion.
+            </li>
+          </ul>
           <p>
-            The release does <strong>not</strong> contain the other census topics — education,
-            employment, housing amenities, water, sanitation, cooking fuel and so on. They are
-            not shown as empty charts, and no placeholder values exist.
+            The release does <strong>not</strong> contain education, employment, migration or
+            other census topics. They are not shown as empty charts, and no placeholder values
+            exist.
           </p>
           <p className="muted small">
             Source page:{" "}
@@ -64,7 +76,8 @@ export default function MethodsPage() {
               row.
             </li>
             <li>
-              98 spine GNs have no DCS row in the two workbooks and are marked{" "}
+              98 spine GNs have no DCS row in the GN population and housing workbooks and are
+              marked{" "}
               <code>no_data</code>;
             </li>
             <li>
@@ -103,9 +116,41 @@ export default function MethodsPage() {
         </section>
 
         <section>
-          <h2>4. Spatial context</h2>
+          <h2>4. Census topic tables</h2>
+          <ul>
+            <li>
+              <strong>Households and amenities, age, sector and local authority type</strong>{" "}
+              come by GN. DS, district, province and country values are sums of GN rows, checked
+              against DCS&apos;s own district tables or subtotal lines: 0 differences.
+            </li>
+            <li>
+              <strong>Housing structure and materials</strong> are published by DCS for DS
+              divisions and districts only. They carry no GN values, and each value is labelled
+              with the DS division as the finest unit its information comes from.
+            </li>
+            <li>
+              The DS tables have names but no codes, so each DS line joins to its DCS code
+              through a reviewed match file, never by name at build time. Every match is checked
+              by numbers: the DS total must equal the sum of its GN rows (340 of 340 equal).
+            </li>
+            <li>
+              For these topics, place pages show shares; the counts are in the downloads.
+            </li>
+          </ul>
           <p>
-            For every indicator and level the release computes neighbour median, minimum,
+            <strong>Ethnic group and religion</strong> (decision D-033) come from DCS&apos;s DS
+            and district tables, never from sums of GN values: DCS&apos;s GN files fold any
+            group of fewer than 10 people into &ldquo;Other&rdquo;, which under-counts small
+            communities. They are shown for DS divisions and larger areas only, in their own
+            section of the place page, in DCS&apos;s categories and order, with counts and
+            shares. They are never ranked, mapped or used to compare places.
+          </p>
+        </section>
+
+        <section>
+          <h2>5. Spatial context</h2>
+          <p>
+            For every indicator and level (except ethnic group and religion) the release computes neighbour median, minimum,
             maximum and mean, a spatial lag, parent and national values, a rank, and a local
             Moran’s I class. Local Moran uses the spine contiguity graph, 999 conditional
             permutations, a fixed seed (20241108) and Benjamini–Hochberg false-discovery-rate
@@ -122,7 +167,7 @@ export default function MethodsPage() {
         </section>
 
         <section>
-          <h2>5. Two traps: MAUP and the ecological fallacy</h2>
+          <h2>6. Two traps: MAUP and the ecological fallacy</h2>
           <p>
             <strong>The modifiable areal unit problem (MAUP).</strong> A pattern can change when
             the same people are grouped into different boundaries. A GN division is not a
@@ -138,7 +183,7 @@ export default function MethodsPage() {
         </section>
 
         <section>
-          <h2>6. What was checked</h2>
+          <h2>7. What was checked</h2>
           <ul>
             <li>National anchors for population, sex, age groups and housing units.</li>
             <li>All 25 district population and housing anchors against DCS final-report tables.</li>
@@ -149,15 +194,26 @@ export default function MethodsPage() {
               authority and supplies no published value.
             </li>
             <li>Two release builds produced identical checksums.</li>
+            <li>
+              A machine re-trace of a sample from <code>v2026.11.10-preview.1</code>: each value
+              re-read from its raw snapshot without the ingest code. 0 of 207 GN-workbook values
+              and 0 of 1,471 topic-table values failed.
+            </li>
           </ul>
         </section>
 
         <section>
-          <h2>7. What was not checked</h2>
+          <h2>8. What was not checked</h2>
           <ul>
             <li>
               No human has spot-checked GN cells against the workbook. Every value remains{" "}
               <code>machine_extracted</code>.
+            </li>
+            <li>
+              The topic tables have not been compared with the DCS final report. Two housing
+              labels are read, not confirmed: whether &ldquo;attached house&rdquo; floors count
+              the floors of the building, and what DCS means by &ldquo;Not relevant&rdquo; for
+              materials.
             </li>
             <li>
               The lead looked at the boundaries in QGIS on 2026-11-12 and reported nothing to

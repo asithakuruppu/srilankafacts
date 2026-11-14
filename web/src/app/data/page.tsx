@@ -10,9 +10,8 @@ export const metadata: Metadata = {
   alternates: { canonical: "/data" },
 };
 
-const RELEASE_FILES = [
-  "observations/census-2024-gnd-tables.parquet",
-  "observations/census-2024-gnd-tables.csv",
+// Observation files are listed from the release's datapackage.json (one pair per dataset).
+const OTHER_FILES = [
   "boundaries/admin0.geojson",
   "boundaries/admin1.geojson",
   "boundaries/admin2.geojson",
@@ -36,7 +35,7 @@ const ENDPOINTS = [
   },
   {
     path: "/api/v1/places/{geoId}.json",
-    description: "One place with all 14 values, each with its locator and snapshot hash.",
+    description: "One place with all its values, each with its locator and snapshot hash.",
     example: "curl -s https://data.example/api/v1/places/LK11.json",
   },
   {
@@ -69,7 +68,16 @@ export default function DataPage() {
   const resources = new Map(
     (datapackage?.resources ?? []).map((resource) => [resource.path, resource]),
   );
-  const listed = RELEASE_FILES.map((file) => ({
+  const observationFiles = [...resources.keys()]
+    .filter((path) => path.startsWith("observations/"))
+    .sort();
+  const releaseFiles = [
+    ...(observationFiles.length > 0
+      ? observationFiles
+      : ["observations/census-2024-gnd-tables.parquet", "observations/census-2024-gnd-tables.csv"]),
+    ...OTHER_FILES,
+  ];
+  const listed = releaseFiles.map((file) => ({
     path: file,
     size: resources.get(file)?.bytes ?? null,
     hash: resources.get(file)?.hash ?? null,
@@ -221,8 +229,10 @@ export default function DataPage() {
           </tbody>
         </table>
         <p>
-          Read the rights review in <code>docs/research/rights/census-2024-gnd-tables.md</code>{" "}
-          and the methods in <Link href="/methods">Methods and known gaps</Link>.
+          Read the rights review in <code>docs/research/rights/census-2024-gnd-tables.md</code>,
+          the topic-table source dossier in{" "}
+          <code>docs/research/sources/dcs-census-2024-topic-tables.md</code> (decision D-032), and
+          the methods in <Link href="/methods">Methods and known gaps</Link>.
         </p>
       </section>
 

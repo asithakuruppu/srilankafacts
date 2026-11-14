@@ -207,7 +207,7 @@ export default function HomePage() {
         </div>
         <p className="muted small">
           {index.size.toLocaleString("en-LK")} geographies in the spine. {formatNumber(13945)}{" "}
-          GN divisions have census values; 98 spine GNs have no row in the two held workbooks.
+          GN divisions have census values; 98 spine GNs have no row in the GN population and housing workbooks.
         </p>
       </section>
 
