@@ -1006,7 +1006,7 @@ class Census2024TopicTables(Dataset):
         gn_level = sorted(
             geo
             for geo, seen in indicators_by_geo.items()
-            if re.fullmatch(r"LK\d{9}", geo) and set(er.ID_INDICATORS) & seen
+            if re.fullmatch(r"LK\d{7}", geo) and set(er.ID_INDICATORS) & seen
         )
         if gn_level:
             report.errors.append(

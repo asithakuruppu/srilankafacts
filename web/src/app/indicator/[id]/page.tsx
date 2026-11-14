@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import MapView from "@/components/map-view";
+import { UNMATCHED_DCS_GN } from "@/lib/coverage";
 import { formatNumber, formatValue, levelLabel } from "@/lib/format";
 import { groupIndicators } from "@/lib/indicator-groups";
 import {
@@ -210,7 +211,7 @@ export default async function IndicatorPage({ params }: PageProps<"/indicator/[i
             <li>
               <strong>Aggregation.</strong>{" "}
               {indicator.measure_type === "count"
-                ? "Counts are summed from GN rows, including 63 unmatched DCS GNs that have no GN-level row."
+                ? `Counts are summed from GN rows, including ${UNMATCHED_DCS_GN} unmatched DCS GNs that have no GN-level row.`
                 : "Rates and shares are recomputed from summed counts, never averaged from GN rates."}
             </li>
             <li>

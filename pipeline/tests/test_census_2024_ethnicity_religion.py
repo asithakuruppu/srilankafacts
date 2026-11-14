@@ -162,3 +162,22 @@ def test_population_match_file_covers_340_ds_once():
     matches = mat.load_matches(str(CATALOG.joinpath(*er.MATCH_FILE)))
     assert len(matches) == 340
     assert all(code.startswith(district) for (district, _), code in matches.items())
+
+
+def test_validate_refuses_ethnicity_or_religion_at_gn_level():
+    def row(geo: str) -> dict[str, object]:
+        return topics._row(
+            indicator="population_religion_hindu_share",
+            geography_id=geo,
+            value=5.0,
+            source_locator="test",
+            snapshot_sha256="abc",
+            information_floor="ds-2024",
+        )
+
+    dataset = topics.Census2024TopicTables()
+    gn_errors = dataset.validate([row("LK1103005")]).errors
+    assert any("GN level (D-033)" in e and "LK1103005" in e for e in gn_errors)
+    # a DS and the provisional DS unit are allowed
+    for geo in ("LK1103", "LK-ADM3-P0001"):
+        assert not any("GN level (D-033)" in e for e in dataset.validate([row(geo)]).errors)
