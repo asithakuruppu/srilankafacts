@@ -235,6 +235,7 @@ class TopicsResult:
     sample: pd.DataFrame
     snapshots: dict[str, str]  # file -> sha256
     sensitive_gn: int
+    names: dict[str, str] = field(default_factory=dict)  # geography id -> English name
     warnings: list[str] = field(default_factory=list)
 
 
@@ -312,7 +313,56 @@ def run(release_dir: Path, raw_dir: Path, seed: int = SEED) -> TopicsResult | No
         warnings.append(f"{len(bad)} sampled topic-table values failed the re-trace or API check")
     if sensitive_gn:
         warnings.append(f"{sensitive_gn} ethnicity or religion values at GN level (D-033)")
-    return TopicsResult(release, len(obs), result, snapshots, sensitive_gn, warnings)
+    admin = release_dir / "api" / "v1" / "geographies" / "admin.json"
+    names: dict[str, str] = {}
+    if admin.exists():
+        for g in json.loads(admin.read_text("utf-8"))["geographies"]:
+            names[str(g["geography_id"])] = str(g["name_en"])
+    return TopicsResult(release, len(obs), result, snapshots, sensitive_gn, names, warnings)
+
+
+STEP_FILES = (  # one confirmation value per D-032 step: (step, file prefix, level)
+    ("a", "HH_GND_excel", "gn"),
+    ("b", "GN_Level_Population_by_", "gn"),
+    ("c", "HousingA_", "ds"),
+    ("d", "PopulationA_", "ds"),
+)
+
+
+def lead_rows(res: TopicsResult, first_check: int, seed: int = SEED) -> pd.DataFrame:
+    """One count per D-032 step for the lead to read in the raw workbook (Q01 sheet rows).
+
+    Only sampled count cells that passed the re-trace are offered, so the lead checks the
+    published value, not a value already known to be wrong.
+    """
+    rng = np.random.default_rng(seed + 2)
+    s = res.sample
+    ok = s["trace_method"].str.startswith("cell ") & s["source_match"] & s["api_match"]
+    cells = pd.DataFrame(s[ok & (s["published"].fillna(0) > 0)])
+    rows: list[dict[str, object]] = []
+    for step, prefix, level in STEP_FILES:
+        pool = pd.DataFrame(
+            cells[cells["source_locator"].str.startswith(prefix) & (cells["level"] == level)]
+        )
+        if pool.empty:
+            continue
+        r = pool.iloc[int(rng.integers(len(pool)))]
+        m = CELL_RE.match(str(r["source_locator"]))
+        assert m
+        rows.append(
+            {
+                "check": first_check + len(rows),
+                "geography_id": r["geography_id"],
+                "place": res.names.get(str(r["geography_id"]), ""),
+                "indicator_id": r["indicator_id"],
+                "published_value": r["published"],
+                "where_to_look": f"{m['file']}, sheet '{m['sheet']}', cell {m['col']}{m['row']}",
+                "how": f"D-032 step ({step}); locator: {r['source_locator']}",
+                "lead_reads": "",
+                "matches": "",
+            }
+        )
+    return pd.DataFrame(rows)
 
 
 def _fmt(v: object) -> str:
@@ -343,7 +393,8 @@ def render(res: TopicsResult) -> str:
         "`api/v1/places/{id}.json`; all others present with the published value.",
         f"- Ethnicity or religion values at GN level (D-033): **{res.sensitive_gn}** in the whole "
         "release.",
-        "- The lead confirmation sheet is unchanged; these values are not in it.",
+        "- The lead confirmation sheet gains one count per D-032 step (cells in the raw "
+        "workbooks), after the GN dataset's 20 values.",
         "",
         "| Level | Sampled | Re-trace errors | Place-file errors |",
         "|---|---|---|---|",

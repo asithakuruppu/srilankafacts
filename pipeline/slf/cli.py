@@ -390,11 +390,17 @@ def audit_q01(
     """Draw the Q01 sample, re-trace each value to its raw source and write the lead's sheet."""
     import shutil
 
+    import pandas as pd
+
     from slf import audit, audit_topics
 
     res = audit.run(release_dir, raw_dir, catalog, pdf_pages, seed)
     sheet = audit.lead_sheet(res, seed)
     topics = audit_topics.run(release_dir, raw_dir, seed)
+    if topics is not None:
+        extra = audit_topics.lead_rows(topics, first_check=len(sheet) + 1, seed=seed)
+        sheet = pd.concat([sheet, extra], ignore_index=True)
+        res.warnings.extend(topics.warnings)
     out_dir.mkdir(parents=True, exist_ok=True)
     stem = f"accuracy-audit-{res.release}"
     res.sample.to_csv(out_dir / f"{stem}-sample.csv", index=False)
@@ -403,7 +409,6 @@ def audit_q01(
     if topics is not None:
         topics.sample.to_csv(out_dir / f"{stem}-topics-sample.csv", index=False)
         report += audit_topics.render(topics)
-        res.warnings.extend(topics.warnings)
     (out_dir / f"{stem}.md").write_text(report, encoding="utf-8")
     shots = out_dir / "screenshots" / "q01"
     shots.mkdir(parents=True, exist_ok=True)

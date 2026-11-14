@@ -163,3 +163,14 @@ def test_run_checks_downloads_only_is_absent_from_place_files(tmp_path: Path):
     assert res is not None
     counts = res.sample[res.sample["indicator_id"] == "households_water_pipe"]
     assert not bool(counts["api_match"].any())  # present in place files, but should not be
+
+
+def test_lead_rows_offer_a_passing_nonzero_cell_per_step(tmp_path: Path):
+    raw, sha = _workbook(tmp_path)
+    rows = _rows(sha)
+    res = at.run(_release(tmp_path, sha, rows, {(i, g) for i, g, _, _ in rows}), raw)
+    assert res is not None
+    sheet = at.lead_rows(res, first_check=21)
+    assert sheet["check"].tolist() == [21]  # only step (a) exists in this release
+    assert sheet["where_to_look"].tolist() == ["HH_GND_excel.xlsx, sheet 'Households', cell K5"]
+    assert sheet["published_value"].tolist() == [40.0]
