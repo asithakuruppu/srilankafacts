@@ -169,6 +169,10 @@ components. A rate whose denominator is zero is `not_available`, never 0.
   coverage is 13,967 of 14,043 spine GNs.
 - DS 5224 Kalmunai is absent at DS level by decision D-022; its population is only in higher
   totals.
+- DCS's DS and district table A5 (sex and four age bands) agrees with our GN sums on total, male
+  and female in all 365 lines. Age bands differ by at most 4 people in 8 DS divisions and their 5
+  districts, always between neighbouring bands and netting to zero; DCS's two GN files agree with
+  each other, so the GN sums stand ([cross-check](../qa/census-2024-a5-crosscheck.md)).
 - The DCS final report is used for anchors and the census date. The GN workbooks are provisional
   and may be revised by DCS.
 - Rights are **unclear**. The DCS page, workbooks and final report carry no licence or reuse

@@ -206,6 +206,12 @@ export default function MethodsPage() {
               re-read from its raw snapshot without the ingest code. 0 of 207 GN-workbook values
               and 0 of 1,471 topic-table values failed.
             </li>
+            <li>
+              DCS&apos;s own DS and district table A5 against our GN sums: total, male and female
+              agree on all 365 lines. Age bands differ by at most 4 people in 8 DS divisions and
+              their 5 districts, always between neighbouring bands; DCS&apos;s two GN files agree
+              with each other, so the release keeps the GN sums.
+            </li>
           </ul>
         </section>
 
