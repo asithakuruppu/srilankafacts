@@ -1,0 +1,20 @@
+id: housing_structure_single_2_floors
+name: "Occupied housing units by structure: Single house, 2 floors"
+short_name: "Structure: Single house, 2 floors"
+topic: [housing, structure]
+measure_type: count
+unit: housing_units
+universe: housing_units_occupied
+numerator: null
+denominator: null
+aggregation: sum
+higher_is: neutral
+distribution: downloads_only
+decimals: 0
+sensitivity: public
+definition: >
+  Number of occupied housing units whose structure is "Single house, 2 floors", as recorded by the Census of Population
+  and Housing 2024. Each housing unit is counted in exactly one category. Published by DCS for
+  DS divisions and districts only; there is no GN breakdown.
+source_definition_ref: "CPH 2024, Housing table A9 (district and DS) and A1 (district), column 'Single house - two storeyed'"
+methodology_notes: docs/methods/census-2024-housing-materials.md

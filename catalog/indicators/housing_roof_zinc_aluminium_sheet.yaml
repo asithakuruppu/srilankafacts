@@ -1,0 +1,20 @@
+id: housing_roof_zinc_aluminium_sheet
+name: "Occupied housing units by main roof material: Zinc aluminium sheet"
+short_name: "Main roof material: Zinc aluminium sheet"
+topic: [housing, roof]
+measure_type: count
+unit: housing_units
+universe: housing_units_occupied
+numerator: null
+denominator: null
+aggregation: sum
+higher_is: neutral
+distribution: downloads_only
+decimals: 0
+sensitivity: public
+definition: >
+  Number of occupied housing units whose main roof material is "Zinc aluminium sheet", as recorded by the Census of Population
+  and Housing 2024. Each housing unit is counted in exactly one category. Published by DCS for
+  DS divisions and districts only; there is no GN breakdown.
+source_definition_ref: "CPH 2024, Housing table A11 (district and DS) and A3 (district), column 'Zink Aluminium Sheet'"
+methodology_notes: docs/methods/census-2024-housing-materials.md

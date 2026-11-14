@@ -1,0 +1,20 @@
+id: housing_structure_attached_1_floor
+name: "Occupied housing units by structure: Attached house, 1 floor"
+short_name: "Structure: Attached house, 1 floor"
+topic: [housing, structure]
+measure_type: count
+unit: housing_units
+universe: housing_units_occupied
+numerator: null
+denominator: null
+aggregation: sum
+higher_is: neutral
+distribution: downloads_only
+decimals: 0
+sensitivity: public
+definition: >
+  Number of occupied housing units whose structure is "Attached house, 1 floor", as recorded by the Census of Population
+  and Housing 2024. Each housing unit is counted in exactly one category. Published by DCS for
+  DS divisions and districts only; there is no GN breakdown. DCS's English heading reads "Attached House - 1st Floor"; the Sinhala and Tamil headings give the number of floors of the building, which is how this name reads it (not confirmed by DCS).
+source_definition_ref: "CPH 2024, Housing table A9 (district and DS) and A1 (district), column 'Attached House - 1st Floor'"
+methodology_notes: docs/methods/census-2024-housing-materials.md

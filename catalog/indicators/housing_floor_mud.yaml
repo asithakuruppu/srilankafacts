@@ -1,0 +1,20 @@
+id: housing_floor_mud
+name: "Occupied housing units by main floor material: Mud"
+short_name: "Main floor material: Mud"
+topic: [housing, floor]
+measure_type: count
+unit: housing_units
+universe: housing_units_occupied
+numerator: null
+denominator: null
+aggregation: sum
+higher_is: neutral
+distribution: downloads_only
+decimals: 0
+sensitivity: public
+definition: >
+  Number of occupied housing units whose main floor material is "Mud", as recorded by the Census of Population
+  and Housing 2024. Each housing unit is counted in exactly one category. Published by DCS for
+  DS divisions and districts only; there is no GN breakdown.
+source_definition_ref: "CPH 2024, Housing table A12 (district and DS) and A4 (district), column 'Mud'"
+methodology_notes: docs/methods/census-2024-housing-materials.md

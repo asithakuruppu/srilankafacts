@@ -1,3 +1,5 @@
+from pathlib import Path
+
 import numpy as np
 import pandas as pd
 
@@ -82,3 +84,44 @@ def test_local_moran_constant_field_is_not_called_significant():
     constant = pd.Series({key: 5.0 for key in values})
     result = local_moran(constant, neighbours, permutations=99, seed=20241108)
     assert set(result["class"]) == {"not_significant"}
+
+
+def test_build_spatial_context_skips_levels_without_values(tmp_path):
+    from slf.catalog import Catalog, CatalogReport, load_catalog
+    from slf.enrich import build_spatial_context
+
+    full = load_catalog(Path(__file__).resolve().parents[2] / "catalog", None, CatalogReport())
+    gn_ids = ["LK1103005", "LK1103010", "LK1103015"]
+    ds_ids = ["LK1103", "LK1106"]
+    (tmp_path / "spatial").mkdir()
+    for level_name, ids in (("gn", gn_ids), ("ds", ds_ids)):
+        pd.DataFrame({"geography_id": ids[:-1], "neighbour_id": ids[1:]}).to_parquet(
+            tmp_path / "spatial" / f"adjacency_{level_name}_test.parquet"
+        )
+    geographies = pd.DataFrame(
+        {
+            "geography_id": gn_ids + ds_ids,
+            "level": [4] * len(gn_ids) + [3] * len(ds_ids),
+            "parent_id": ["LK1103"] * len(gn_ids) + ["LK11"] * len(ds_ids),
+            "name_en": gn_ids + ds_ids,
+        }
+    )
+    rows = [("occupied_housing_units", g, 10.0 + i) for i, g in enumerate(gn_ids + ds_ids)]
+    rows += [("housing_roof_tile", g, 5.0 + i) for i, g in enumerate(ds_ids)]
+    observations = pd.DataFrame(rows, columns=["indicator_id", "geography_id", "value"])
+    observations["value_status"] = "normal"
+    catalog = Catalog(
+        indicators={k: full.indicators[k] for k in ("occupied_housing_units", "housing_roof_tile")}
+    )
+    result = build_spatial_context(
+        observations=observations,
+        geographies=geographies,
+        catalog=catalog,
+        spine_dir=tmp_path,
+        out=tmp_path / "out",
+        permutations=9,
+    )
+    assert "stats/local_occupied_housing_units_gn.parquet" in result.files
+    assert "stats/local_housing_roof_tile_ds.parquet" in result.files
+    assert "stats/local_housing_roof_tile_gn.parquet" not in result.files
+    assert not (tmp_path / "out" / "stats" / "local_housing_roof_tile_gn.parquet").exists()
