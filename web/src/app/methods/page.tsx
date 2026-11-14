@@ -212,6 +212,10 @@ export default function MethodsPage() {
               their 5 districts, always between neighbouring bands; DCS&apos;s two GN files agree
               with each other, so the release keeps the GN sums.
             </li>
+            <li>
+              Household amenities against DCS&apos;s DS tables A13–A16: 14,965 values for Sri
+              Lanka, 25 districts and 339 DS divisions, 0 differences.
+            </li>
           </ul>
         </section>
 
