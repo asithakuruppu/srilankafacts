@@ -1,0 +1,20 @@
+id: housing_wall_pressed_soil_brick
+name: "Occupied housing units by main wall material: Pressed soil bricks"
+short_name: "Main wall material: Pressed soil bricks"
+topic: [housing, wall]
+measure_type: count
+unit: housing_units
+universe: housing_units_occupied
+numerator: null
+denominator: null
+aggregation: sum
+higher_is: neutral
+distribution: downloads_only
+decimals: 0
+sensitivity: public
+definition: >
+  Number of occupied housing units whose main wall material is "Pressed soil bricks", as recorded by the Census of Population
+  and Housing 2024. Each housing unit is counted in exactly one category. Published by DCS for
+  DS divisions and districts only; there is no GN breakdown.
+source_definition_ref: "CPH 2024, Housing table A10 (district and DS) and A2 (district), column 'Pressed soil bricks'"
+methodology_notes: docs/methods/census-2024-housing-materials.md

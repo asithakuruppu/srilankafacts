@@ -100,9 +100,13 @@ Within each table, the shortfalls add up exactly to the "Other" surplus (50,329 
   differences, and against the population workbook. Not in a release. Method:
   [census-2024-age-sector-local-authority.md](../../methods/census-2024-age-sector-local-authority.md);
   QA: [census-2024-age-sector-local-authority.md](../../qa/census-2024-age-sector-local-authority.md).
+- **Step (c) done, 2026-11-14:** housing unit structure and wall, roof and floor materials for
+  DS divisions, districts and Sri Lanka from Housing A9–A12, 74 indicators, information floor
+  `ds-2024`. DS names join to DCS DS codes through a reviewed match file, each match checked
+  against GN occupied housing units (340 of 340 equal); A1–A4 agree with A9–A12. Not in a
+  release. Method: [census-2024-housing-materials.md](../../methods/census-2024-housing-materials.md);
+  QA: [census-2024-housing-materials.md](../../qa/census-2024-housing-materials.md).
 - Ethnicity and religion need `sensitivity` set and the folding rule recorded.
-- DS-level values for structure and materials, with an information floor that says "DS level;
-  no GN breakdown is published".
 - A reader for the two .xls files (the `xlrd` dependency, or convert during extract). Either way,
   that is a new dependency or a decision, under AGENTS rule 8.
 - Q01 sampling extends to the new tables before any public release.

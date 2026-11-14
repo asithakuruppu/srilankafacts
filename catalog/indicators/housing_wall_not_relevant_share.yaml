@@ -1,0 +1,18 @@
+id: housing_wall_not_relevant_share
+name: "Share of occupied housing units by main wall material: Not relevant"
+short_name: "Main wall material: Not relevant (%)"
+topic: [housing, wall]
+measure_type: share
+unit: percent
+universe: housing_units_occupied
+numerator: housing_wall_not_relevant
+denominator: occupied_housing_units
+aggregation: recompute_from_components
+higher_is: neutral
+decimals: 1
+sensitivity: public
+definition: >
+  housing_wall_not_relevant divided by the number of occupied housing units in the same table, times 100.
+  Computed from the published counts. DS divisions and larger areas only. DCS's category "Not Relavent" (spelling as printed). In every place it equals the number of housing units of structure "Other"; the table does not explain it.
+source_definition_ref: "CPH 2024, Housing table A10 (district and DS) and A2 (district), column 'Not Relavent'"
+methodology_notes: docs/methods/census-2024-housing-materials.md

@@ -1,0 +1,20 @@
+id: housing_roof_cadjan_palmyrah_straw
+name: "Occupied housing units by main roof material: Cadjan, palmyrah or straw"
+short_name: "Main roof material: Cadjan, palmyrah or straw"
+topic: [housing, roof]
+measure_type: count
+unit: housing_units
+universe: housing_units_occupied
+numerator: null
+denominator: null
+aggregation: sum
+higher_is: neutral
+distribution: downloads_only
+decimals: 0
+sensitivity: public
+definition: >
+  Number of occupied housing units whose main roof material is "Cadjan, palmyrah or straw", as recorded by the Census of Population
+  and Housing 2024. Each housing unit is counted in exactly one category. Published by DCS for
+  DS divisions and districts only; there is no GN breakdown.
+source_definition_ref: "CPH 2024, Housing table A11 (district and DS) and A3 (district), column 'cadjan/ Palmyrah/Straw'"
+methodology_notes: docs/methods/census-2024-housing-materials.md

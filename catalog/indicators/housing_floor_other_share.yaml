@@ -1,0 +1,18 @@
+id: housing_floor_other_share
+name: "Share of occupied housing units by main floor material: Other"
+short_name: "Main floor material: Other (%)"
+topic: [housing, floor]
+measure_type: share
+unit: percent
+universe: housing_units_occupied
+numerator: housing_floor_other
+denominator: occupied_housing_units
+aggregation: recompute_from_components
+higher_is: neutral
+decimals: 1
+sensitivity: public
+definition: >
+  housing_floor_other divided by the number of occupied housing units in the same table, times 100.
+  Computed from the published counts. DS divisions and larger areas only.
+source_definition_ref: "CPH 2024, Housing table A12 (district and DS) and A4 (district), column 'Other'"
+methodology_notes: docs/methods/census-2024-housing-materials.md

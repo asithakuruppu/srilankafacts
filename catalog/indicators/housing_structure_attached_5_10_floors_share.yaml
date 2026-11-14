@@ -1,0 +1,18 @@
+id: housing_structure_attached_5_10_floors_share
+name: "Share of occupied housing units by structure: Attached house, 5 to 10 floors"
+short_name: "Structure: Attached house, 5 to 10 floors (%)"
+topic: [housing, structure]
+measure_type: share
+unit: percent
+universe: housing_units_occupied
+numerator: housing_structure_attached_5_10_floors
+denominator: occupied_housing_units
+aggregation: recompute_from_components
+higher_is: neutral
+decimals: 1
+sensitivity: public
+definition: >
+  housing_structure_attached_5_10_floors divided by the number of occupied housing units in the same table, times 100.
+  Computed from the published counts. DS divisions and larger areas only. DCS's English heading reads "Attached House - 5th to 10th Floors"; the Sinhala and Tamil headings give the number of floors of the building, which is how this name reads it (not confirmed by DCS).
+source_definition_ref: "CPH 2024, Housing table A9 (district and DS) and A1 (district), column 'Attached House - 5th to 10th Floors'"
+methodology_notes: docs/methods/census-2024-housing-materials.md
