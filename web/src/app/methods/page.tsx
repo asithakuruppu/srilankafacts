@@ -200,7 +200,8 @@ export default function MethodsPage() {
               places (Table 3.6): 78 values, 0 differences. National drinking-water and lighting
               counts and housing-material percentages (Tables 11.9, 11.13, 11.6): 0 differences.
               Firewood and gas shares by district (Table 11.12) differ by 0.1 point in 14 of 52
-              values, while DCS&apos;s own district table matches the release.
+              values, while DCS&apos;s own district table matches the release. National
+              five-year age groups (Table 6.1.3): 23 values, 0 differences.
             </li>
             <li>Total = male + female and age components = total for all 14,008 GN rows.</li>
             <li>
@@ -235,8 +236,8 @@ export default function MethodsPage() {
               <code>machine_extracted</code>.
             </li>
             <li>
-              Age, local authority type, toilets and housing structure have not been compared
-              with the DCS final report. Two housing
+              Local authority type, toilets and housing structure have not been compared with
+              the DCS final report. Two housing
               labels are read, not confirmed: whether &ldquo;attached house&rdquo; floors count
               the floors of the building, and what DCS means by &ldquo;Not relevant&rdquo; for
               materials.
