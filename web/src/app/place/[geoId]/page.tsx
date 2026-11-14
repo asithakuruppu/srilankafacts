@@ -9,6 +9,7 @@ import Provenance from "@/components/provenance";
 import SourcesPanel from "@/components/sources-panel";
 import StatTile from "@/components/stat-tile";
 import { formatDelta, formatNumber, formatValue, levelLabel } from "@/lib/format";
+import { groupIndicators } from "@/lib/indicator-groups";
 import {
   getBreadcrumb,
   getChildren,
@@ -98,6 +99,16 @@ function PlaceContent({ geoId }: { geoId: string }) {
     const right = HEADLINE_ORDER.indexOf(b.indicator_id);
     return (left === -1 ? 99 : left) - (right === -1 ? 99 : right);
   });
+  // The same topic groups as the home page; within a group, headline order first.
+  const groupOf = new Map<string, number>();
+  const groups = groupIndicators(indicators);
+  groups.forEach((group, i) => group.indicators.forEach((ind) => groupOf.set(ind.id, i)));
+  const valueGroups = [...groups.map((g) => g.label), "Other"]
+    .map((label, i) => ({
+      label,
+      values: values.filter((v) => (groupOf.get(v.indicator_id) ?? groups.length) === i),
+    }))
+    .filter((group) => group.values.length > 0);
   const ageGroups = [
     { id: "population_age_0_14", label: "0–14" },
     { id: "population_age_15_59", label: "15–59" },
@@ -412,8 +423,14 @@ function PlaceContent({ geoId }: { geoId: string }) {
                   <th scope="col">Source</th>
                 </tr>
               </thead>
-              <tbody>
-                {values.map((observation) => {
+              {valueGroups.map((group) => (
+              <tbody key={group.label}>
+                <tr className="group-row">
+                  <th scope="rowgroup" colSpan={5}>
+                    {group.label}
+                  </th>
+                </tr>
+                {group.values.map((observation) => {
                   const indicator = indicatorById.get(observation.indicator_id);
                   return (
                     <tr key={observation.indicator_id}>
@@ -447,6 +464,7 @@ function PlaceContent({ geoId }: { geoId: string }) {
                   );
                 })}
               </tbody>
+              ))}
             </table>
           </div>
         </section>

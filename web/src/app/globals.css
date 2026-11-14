@@ -979,6 +979,15 @@ tbody tr:last-child td {
   font-size: 0.88rem;
 }
 
+.data-table .group-row th {
+  padding-top: 1rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-align: left;
+}
+
 /* WCAG 2.2 target size: at least 24px tall */
 .indicator-group li a {
   display: inline-flex;
