@@ -18,7 +18,8 @@ from slf.crosschecks.common import ROOT, Result, district_ids, values
 from slf.datasets import census_2024_materials as mat
 from slf.datasets.census_2024_gnd import _crosswalk, _int_cell
 
-RAW = "data/raw/dcs/census-2024-topic-tables"
+TOPIC_RAW = ("dcs", "census-2024-topic-tables")
+A5_CHECK = "DCS table A5: sex and age, Sri Lanka, districts and DS"
 A5_COLUMNS = {
     2: "population_total",
     3: "population_male",
@@ -45,11 +46,14 @@ AMENITY_TABLES = {
 }
 
 
-def _rows(name: str) -> list[tuple[object, ...]]:
-    path = glob.glob(f"{RAW}/*/{name}")
-    if len(path) != 1:
-        raise FileNotFoundError(f"expected one snapshot of {name}, found {path}")
-    wb = openpyxl.load_workbook(path[0], read_only=True, data_only=True)
+def _rows(raw_dir: Path, name: str, notes: list[str]) -> list[tuple[object, ...]]:
+    """Rows of the newest snapshot of a check-only file (these files are not in the release, so
+    there is no recorded sha256 to look up). The file used is added to ``notes``."""
+    paths = sorted(glob.glob(str(raw_dir.joinpath(*TOPIC_RAW) / "*" / name)))
+    if not paths:
+        raise FileNotFoundError(f"no snapshot of {name} under {raw_dir.joinpath(*TOPIC_RAW)}")
+    notes.append(f"{name}: snapshot {Path(paths[-1]).parent.name}")
+    wb = openpyxl.load_workbook(paths[-1], read_only=True, data_only=True)
     rows: list[tuple[object, ...]] = []
     for r in wb.worksheets[0].iter_rows(values_only=True):
         rows.append(tuple(r))
@@ -76,8 +80,9 @@ def _place(
     return "ds", ds_map.get(dcs), district
 
 
-def a5(release: Path) -> Result:
-    rows = _rows("PopulationA_A5.xlsx")
+def a5(release: Path, raw_dir: Path) -> Result:
+    result = Result(A5_CHECK)
+    rows = _rows(raw_dir, "PopulationA_A5.xlsx", result.notes)
     title = " ".join(str(rows[2][1]).split())
     if not title.startswith("A5 : Population by sex, age"):
         raise ValueError(f"A5: unexpected title {title!r}")
@@ -90,7 +95,6 @@ def a5(release: Path) -> Result:
     _, ds_map = _crosswalk(ROOT / "catalog")
     ours = values(release, "census-2024-gnd-tables")
     places = district_ids(release)
-    result = Result("DCS table A5: sex and age, Sri Lanka, districts and DS")
     district = ""
     for line, r in enumerate(rows, start=1):
         if line < 7 or r[1] is None:
@@ -111,7 +115,7 @@ def a5(release: Path) -> Result:
     return result
 
 
-def a13_a16(release: Path) -> list[Result]:
+def a13_a16(release: Path, raw_dir: Path) -> list[Result]:
     matches = mat.load_matches(
         str(ROOT / "catalog/geographies/name-matches/dcs-census2024-a-series-ds.csv")
     )
@@ -124,7 +128,8 @@ def a13_a16(release: Path) -> list[Result]:
     places = district_ids(release)
     results = []
     for table, prefix in AMENITY_TABLES.items():
-        rows = _rows(f"HousingA_{table}.xlsx")
+        result = Result(f"DCS table {table}: households by {prefix[11:-1]}, districts and DS")
+        rows = _rows(raw_dir, f"HousingA_{table}.xlsx", result.notes)
         start = next(
             i for i, r in enumerate(rows) if r and r[0] and mat.english(r[0]).endswith("Sri Lanka")
         )
@@ -144,7 +149,6 @@ def a13_a16(release: Path) -> list[Result]:
             columns[col] = hits[0]
         if len(set(columns.values())) != len(columns):
             raise ValueError(f"{table}: two columns map to one indicator")
-        result = Result(f"DCS table {table}: households by {prefix[11:-1]}, districts and DS")
         district = ""
         for line, r in data:
             label = mat.english(r[0])

@@ -11,6 +11,8 @@ from pathlib import Path
 
 from slf.crosschecks import dcs_tables, final_report
 from slf.crosschecks.common import Result
+from slf.crosschecks.dcs_tables import A5_CHECK
+from slf.crosschecks.final_report import FR_1112_CHECK
 
 # Differences already investigated and explained; key -> where.
 _A5 = "docs/qa/census-2024-a5-crosscheck.md (DCS A5 moves people between neighbouring age bands)"
@@ -19,58 +21,58 @@ _FR1112 = (
     "DCS table A13 matches the release)"
 )
 # Filled from the 2026-11-14 run on v2026.11.10-preview.2.
-KNOWN: dict[str, str] = {
-    "LK11 population_age_0_14": _A5,
-    "LK11 population_age_15_59": _A5,
-    "LK11 population_age_60_64": _A5,
-    "LK11 population_age_65_plus": _A5,
-    "LK1103 population_age_0_14": _A5,
-    "LK1103 population_age_15_59": _A5,
-    "LK1103 population_age_60_64": _A5,
-    "LK1103 population_age_65_plus": _A5,
-    "LK1109 population_age_0_14": _A5,
-    "LK1109 population_age_15_59": _A5,
-    "LK1121 population_age_60_64": _A5,
-    "LK1121 population_age_65_plus": _A5,
-    "LK12 population_age_0_14": _A5,
-    "LK12 population_age_15_59": _A5,
-    "LK1212 population_age_0_14": _A5,
-    "LK1212 population_age_15_59": _A5,
-    "LK21 population_age_0_14": _A5,
-    "LK21 population_age_15_59": _A5,
-    "LK2121 population_age_0_14": _A5,
-    "LK2121 population_age_15_59": _A5,
-    "LK2133 population_age_0_14": _A5,
-    "LK2133 population_age_15_59": _A5,
-    "LK33 population_age_0_14": _A5,
-    "LK33 population_age_15_59": _A5,
-    "LK3312 population_age_0_14": _A5,
-    "LK3312 population_age_15_59": _A5,
-    "LK81 population_age_60_64": _A5,
-    "LK81 population_age_65_plus": _A5,
-    "LK8103 population_age_60_64": _A5,
-    "LK8103 population_age_65_plus": _A5,
-    "LK households_cooking_firewood_share": _FR1112,
-    "LK13 households_cooking_firewood_share": _FR1112,
-    "LK22 households_cooking_firewood_share": _FR1112,
-    "LK31 households_cooking_gas_share": _FR1112,
-    "LK32 households_cooking_firewood_share": _FR1112,
-    "LK33 households_cooking_firewood_share": _FR1112,
-    "LK41 households_cooking_firewood_share": _FR1112,
-    "LK42 households_cooking_firewood_share": _FR1112,
-    "LK43 households_cooking_gas_share": _FR1112,
-    "LK44 households_cooking_firewood_share": _FR1112,
-    "LK52 households_cooking_gas_share": _FR1112,
-    "LK53 households_cooking_gas_share": _FR1112,
-    "LK62 households_cooking_firewood_share": _FR1112,
-    "LK71 households_cooking_gas_share": _FR1112,
+KNOWN: dict[tuple[str, str], str] = {
+    (A5_CHECK, "LK11 population_age_0_14"): _A5,
+    (A5_CHECK, "LK11 population_age_15_59"): _A5,
+    (A5_CHECK, "LK11 population_age_60_64"): _A5,
+    (A5_CHECK, "LK11 population_age_65_plus"): _A5,
+    (A5_CHECK, "LK1103 population_age_0_14"): _A5,
+    (A5_CHECK, "LK1103 population_age_15_59"): _A5,
+    (A5_CHECK, "LK1103 population_age_60_64"): _A5,
+    (A5_CHECK, "LK1103 population_age_65_plus"): _A5,
+    (A5_CHECK, "LK1109 population_age_0_14"): _A5,
+    (A5_CHECK, "LK1109 population_age_15_59"): _A5,
+    (A5_CHECK, "LK1121 population_age_60_64"): _A5,
+    (A5_CHECK, "LK1121 population_age_65_plus"): _A5,
+    (A5_CHECK, "LK12 population_age_0_14"): _A5,
+    (A5_CHECK, "LK12 population_age_15_59"): _A5,
+    (A5_CHECK, "LK1212 population_age_0_14"): _A5,
+    (A5_CHECK, "LK1212 population_age_15_59"): _A5,
+    (A5_CHECK, "LK21 population_age_0_14"): _A5,
+    (A5_CHECK, "LK21 population_age_15_59"): _A5,
+    (A5_CHECK, "LK2121 population_age_0_14"): _A5,
+    (A5_CHECK, "LK2121 population_age_15_59"): _A5,
+    (A5_CHECK, "LK2133 population_age_0_14"): _A5,
+    (A5_CHECK, "LK2133 population_age_15_59"): _A5,
+    (A5_CHECK, "LK33 population_age_0_14"): _A5,
+    (A5_CHECK, "LK33 population_age_15_59"): _A5,
+    (A5_CHECK, "LK3312 population_age_0_14"): _A5,
+    (A5_CHECK, "LK3312 population_age_15_59"): _A5,
+    (A5_CHECK, "LK81 population_age_60_64"): _A5,
+    (A5_CHECK, "LK81 population_age_65_plus"): _A5,
+    (A5_CHECK, "LK8103 population_age_60_64"): _A5,
+    (A5_CHECK, "LK8103 population_age_65_plus"): _A5,
+    (FR_1112_CHECK, "LK households_cooking_firewood_share"): _FR1112,
+    (FR_1112_CHECK, "LK13 households_cooking_firewood_share"): _FR1112,
+    (FR_1112_CHECK, "LK22 households_cooking_firewood_share"): _FR1112,
+    (FR_1112_CHECK, "LK31 households_cooking_gas_share"): _FR1112,
+    (FR_1112_CHECK, "LK32 households_cooking_firewood_share"): _FR1112,
+    (FR_1112_CHECK, "LK33 households_cooking_firewood_share"): _FR1112,
+    (FR_1112_CHECK, "LK41 households_cooking_firewood_share"): _FR1112,
+    (FR_1112_CHECK, "LK42 households_cooking_firewood_share"): _FR1112,
+    (FR_1112_CHECK, "LK43 households_cooking_gas_share"): _FR1112,
+    (FR_1112_CHECK, "LK44 households_cooking_firewood_share"): _FR1112,
+    (FR_1112_CHECK, "LK52 households_cooking_gas_share"): _FR1112,
+    (FR_1112_CHECK, "LK53 households_cooking_gas_share"): _FR1112,
+    (FR_1112_CHECK, "LK62 households_cooking_firewood_share"): _FR1112,
+    (FR_1112_CHECK, "LK71 households_cooking_gas_share"): _FR1112,
 }
 
 
-def run_all(release: Path, pages_dir: Path) -> list[Result]:
+def run_all(release: Path, pages_dir: Path, raw_dir: Path) -> list[Result]:
     return [
-        dcs_tables.a5(release),
-        *dcs_tables.a13_a16(release),
+        dcs_tables.a5(release, raw_dir),
+        *dcs_tables.a13_a16(release, raw_dir),
         *final_report.ethnicity_religion(release, pages_dir),
         final_report.sector(release, pages_dir),
         final_report.age(release, pages_dir),
@@ -79,12 +81,16 @@ def run_all(release: Path, pages_dir: Path) -> list[Result]:
 
 
 def unexplained(results: list[Result]) -> tuple[list[str], list[str]]:
-    """(new differences not in KNOWN, KNOWN entries that no longer differ)."""
-    seen = {k for r in results for k in r.differences}
+    """(new differences not in KNOWN, KNOWN entries that no longer differ). Keys are scoped to
+    the check that produced them."""
+    seen = {(r.check, k) for r in results for k in r.differences}
     new = [
-        f"{r.check}: {msg}" for r in results for k, msg in r.differences.items() if k not in KNOWN
+        f"{r.check}: {msg}"
+        for r in results
+        for k, msg in r.differences.items()
+        if (r.check, k) not in KNOWN
     ]
-    gone = sorted(set(KNOWN) - seen)
+    gone = [f"{check}: {key}" for check, key in sorted(set(KNOWN) - seen)]
     return new, gone
 
 
@@ -98,13 +104,13 @@ def render(results: list[Result], release: str) -> str:
         "|---|---|---|---|",
     ]
     for r in results:
-        known = sum(1 for k in r.differences if k in KNOWN)
+        known = sum(1 for k in r.differences if (r.check, k) in KNOWN)
         lines.append(f"| {r.check} | {r.compared:,} | {len(r.differences)} | {known} |")
     new, gone = unexplained(results)
     lines += ["", "## New differences", ""]
     lines += [f"- {m}" for m in new] or ["None."]
     lines += ["", "## Known differences that no longer differ", ""]
-    lines += [f"- `{k}` ({KNOWN[k]})" for k in gone] or ["None."]
+    lines += [f"- `{k}`" for k in gone] or ["None."]
     notes = [n for r in results for n in r.notes]
     lines += ["", "## Notes", ""]
     lines += [f"- {n}" for n in sorted(set(notes))] or ["None."]

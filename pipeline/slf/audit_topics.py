@@ -86,6 +86,13 @@ class Workbooks:
     raw_dir: Path
     paths: dict[str, Path] = field(default_factory=dict)
     sheets: dict[tuple[str, str], list[tuple[object, ...]]] = field(default_factory=dict)
+    gn: dict[tuple[str, str], pd.DataFrame] = field(default_factory=dict)
+
+    def gn_rows(self, sha: str, sheet: str) -> pd.DataFrame:
+        key = (sha, sheet)
+        if key not in self.gn:
+            self.gn[key] = gn_rows(self.rows(sha, sheet))
+        return self.gn[key]
 
     def rows(self, sha: str, sheet: str) -> list[tuple[object, ...]]:
         key = (sha, sheet)
@@ -157,10 +164,14 @@ class Columns:
         return out
 
 
+FAILED = "TRACE FAILED: "
+
+
 def trace(
     row: pd.Series, books: Workbooks, columns: Columns, province_of: dict[int, int]
 ) -> tuple[float | None, str]:
-    """Value recomputed from the raw snapshot, and how."""
+    """Value recomputed from the raw snapshot, and how. A failed trace's message starts with
+    FAILED; a zero denominator returns None without it (a genuine not_available)."""
     loc, ind, sha = (
         str(row["source_locator"]),
         str(row["indicator_id"]),
@@ -174,8 +185,7 @@ def trace(
         value = 100.0 * num / den if den else None
         return value, f"cells {m['col']}{m['row']} ÷ {m['den']}{m['row']} x 100"
     if m := GN_SUM_RE.match(loc):
-        rows = books.rows(sha, m["sheet"])
-        gn = gn_rows(rows)
+        gn = books.gn_rows(sha, m["sheet"])
         level, code = m["level"], m["code"]
         if level == "country":
             pick = gn
@@ -188,11 +198,14 @@ def trace(
         else:
             pick = gn[gn[level] == int(code)]
         if len(pick) != int(m["n"]):
-            return None, f"{len(pick)} raw GN rows for {level} {code}, locator says {m['n']}"
+            return (
+                None,
+                f"{FAILED}{len(pick)} raw GN rows for {level} {code}, locator says {m['n']}",
+            )
         key = (m["file"], ind)
         num_col = columns.numerator.get(key)
         if num_col is None:
-            return None, f"no cell locator for {ind} in {m['file']}"
+            return None, f"{FAILED}no cell locator for {ind} in {m['file']}"
         num = sum(books.cell(sha, m["sheet"], int(r), num_col) for r in pick["excel_row"])
         how = f"sum of {len(pick)} raw GN rows ({level} {code}), column {num_col}"
         if not m["share"]:
@@ -205,7 +218,7 @@ def trace(
         key = (m["file"], ind)
         num_col = columns.numerator.get(key)
         if num_col is None:
-            return None, f"no cell locator for {ind} in {m['file']}"
+            return None, f"{FAILED}no cell locator for {ind} in {m['file']}"
         num = sum(books.cell(sha, m["sheet"], r, num_col) for r in lines)
         how = f"sum of district rows {m['rows']}, column {num_col}"
         if not m["share"]:
@@ -213,7 +226,7 @@ def trace(
         den_col = columns.denominator[key]
         den = sum(books.cell(sha, m["sheet"], r, den_col) for r in lines)
         return (100.0 * num / den if den else None), f"{how} ÷ column {den_col}"
-    return None, f"locator not understood: {loc}"
+    return None, f"{FAILED}locator not understood: {loc}"
 
 
 def draw_sample(obs: pd.DataFrame, seed: int = SEED) -> pd.DataFrame:
@@ -252,9 +265,12 @@ def run(release_dir: Path, raw_dir: Path, seed: int = SEED) -> TopicsResult | No
     columns = Columns.learn(obs)
     books = Workbooks(raw_dir)
 
-    hh_sha = str(obs.loc[obs["file"] == "HH_GND_excel.xlsx", "snapshot_sha256"].tolist()[0])
-    hh_rows = gn_rows(books.rows(hh_sha, "Households"))
-    province_of = dict(zip(hh_rows["district"], hh_rows["province"], strict=False))
+    # district -> province from the households file (GN population topic files lack provinces)
+    hh = obs.loc[obs["file"] == "HH_GND_excel.xlsx", "snapshot_sha256"].tolist()
+    province_of: dict[int, int] = {}
+    if hh:
+        hh_rows = books.gn_rows(str(hh[0]), "Households")
+        province_of = dict(zip(hh_rows["district"], hh_rows["province"], strict=False))
 
     index = json.loads((release_dir / "api" / "v1" / "indicators.json").read_text("utf-8"))
     distribution = {i["id"]: i.get("distribution", "api") for i in index["indicators"]}
@@ -267,7 +283,7 @@ def run(release_dir: Path, raw_dir: Path, seed: int = SEED) -> TopicsResult | No
         published = _nan_to_none(row["value"])
         ind = str(row["indicator_id"])
         if published is None or expected is None:
-            source_ok = published is None and expected is None and "understood" not in how
+            source_ok = published is None and expected is None and not how.startswith(FAILED)
         elif "derived share" in str(row["source_locator"]):
             source_ok = abs(published - round(expected, 4)) <= SHARE_TOL
         else:

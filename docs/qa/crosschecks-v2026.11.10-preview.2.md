@@ -28,6 +28,11 @@ None.
 
 ## Notes
 
+- HousingA_A13.xlsx: snapshot 20261112T173407Z
+- HousingA_A14.xlsx: snapshot 20261112T173413Z
+- HousingA_A15.xlsx: snapshot 20261112T173419Z
+- HousingA_A16.xlsx: snapshot 20261112T173424Z
+- PopulationA_A5.xlsx: snapshot 20261112T173245Z
 - row 226: Kalmunai has no spine unit (D-022); skipped
 - row 228: Kalmunai has no spine unit (D-022); skipped
 - row 244: Kalmunai has no spine unit (D-022); skipped
