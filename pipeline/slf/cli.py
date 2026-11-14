@@ -152,6 +152,7 @@ def upload(
     dry_run: Annotated[
         bool, typer.Option(help="List what would be uploaded; send nothing.")
     ] = False,
+    workers: Annotated[int, typer.Option(help="Files sent in parallel (1-64).")] = 1,
 ) -> None:
     """Upload a publishable release to the S3/R2 bucket named by SLF_S3_BUCKET."""
     from slf.upload import NotPublishableError, upload_release
@@ -171,10 +172,24 @@ def upload(
         "s3",
         endpoint_url=os.environ.get("SLF_S3_ENDPOINT"),
         region_name="auto",
-        config=Config(retries={"max_attempts": 10, "mode": "adaptive"}, connect_timeout=20),
+        config=Config(
+            retries={"max_attempts": 10, "mode": "adaptive"},
+            connect_timeout=20,
+            max_pool_connections=max(10, workers),
+        ),
     )  # R2 accepts only "auto" (not AWS regions from the machine config)
     try:
-        res = upload_release(release_dir, client, bucket, prefix, dry_run)
+        res = upload_release(
+            release_dir,
+            client,
+            bucket,
+            prefix,
+            dry_run,
+            workers=min(max(workers, 1), 64),
+            progress=lambda d, t: (
+                typer.echo(f"  {d}/{t} files", err=True) if d % 500 == 0 else None
+            ),
+        )
     except NotPublishableError as exc:
         typer.echo(f"ERROR {exc}", err=True)
         raise typer.Exit(code=1) from None

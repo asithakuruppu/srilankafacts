@@ -64,3 +64,27 @@ def test_uses_one_listing_not_per_file_checks(tmp_path):
     res = upload_release(_release(tmp_path), c, "b")
     assert res.skipped_existing == ["releases/v1/a.csv"]
     assert len(c.calls) == 2
+
+
+def test_parallel_workers_upload_everything_once(tmp_path):
+    import json
+    import threading
+
+    rel = tmp_path / "r"
+    (rel / "api/v1/releases").mkdir(parents=True)
+    (rel / "datapackage.json").write_text(json.dumps({"publishable": True, "access": "public"}))
+    (rel / "api/v1/releases/latest.json").write_text(json.dumps({"release": "v1"}))
+    for i in range(40):
+        (rel / f"f{i}.json").write_text("{}")
+    calls, lock, seen = [], threading.Lock(), []
+
+    class C:
+        def upload_file(self, path, bucket, key, ExtraArgs=None):
+            with lock:
+                calls.append(key)
+
+    res = upload_release(
+        rel, C(), "b", exists=lambda k: False, workers=8, progress=lambda d, t: seen.append((d, t))
+    )
+    assert sorted(calls) == sorted(res.uploaded) and len(calls) == 42
+    assert seen[-1] == (42, 42)

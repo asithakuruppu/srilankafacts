@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import json
 import mimetypes
+from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
@@ -65,11 +66,14 @@ def upload_release(
     prefix: str | None = None,
     dry_run: bool = False,
     exists=None,
+    workers: int = 1,
+    progress=None,
 ) -> UploadResult:
     """Upload every file under ``release_dir`` to ``<prefix>/<relative path>``.
 
     Existing keys are skipped and reported, never overwritten, so an interrupted upload can be
-    resumed. ``exists`` is injectable for tests.
+    resumed. ``exists`` is injectable for tests. ``workers`` > 1 sends files in parallel;
+    ``progress(done, total)`` is called after each file when given.
     """
     version = check_publishable(release_dir)
     prefix = (prefix or f"releases/{version}").strip("/")
@@ -79,14 +83,25 @@ def upload_release(
     else:
         check = exists
     result = UploadResult()
+    todo: list[tuple[Path, str]] = []
     for path in sorted(p for p in release_dir.rglob("*") if p.is_file()):
         key = f"{prefix}/{path.relative_to(release_dir).as_posix()}"
         if check(key):
             result.skipped_existing.append(key)
-            continue
+        else:
+            todo.append((path, key))
+
+    def send(item: tuple[Path, str]) -> tuple[str, int]:
+        path, key = item
         if not dry_run:
             ctype = mimetypes.guess_type(path.name)[0] or "application/octet-stream"
             client.upload_file(str(path), bucket, key, ExtraArgs={"ContentType": ctype})
-        result.uploaded.append(key)
-        result.bytes_uploaded += path.stat().st_size
+        return key, path.stat().st_size
+
+    with ThreadPoolExecutor(max_workers=max(1, workers)) as pool:
+        for done, (key, size) in enumerate(pool.map(send, todo), start=1):
+            result.uploaded.append(key)
+            result.bytes_uploaded += size
+            if progress:
+                progress(done, len(todo))
     return result
