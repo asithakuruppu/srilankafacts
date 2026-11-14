@@ -47,3 +47,20 @@ def test_dry_run_sends_nothing(tmp_path):
 def test_refuses_private(tmp_path, kw):
     with pytest.raises(NotPublishableError):
         upload_release(_release(tmp_path, **kw), FakeClient(), "b")
+
+
+class ListingClient(FakeClient):
+    class _Pager:
+        def paginate(self, Bucket, Prefix):
+            yield {"Contents": [{"Key": "releases/v1/a.csv"}]}
+
+    def get_paginator(self, name):
+        assert name == "list_objects_v2"
+        return self._Pager()
+
+
+def test_uses_one_listing_not_per_file_checks(tmp_path):
+    c = ListingClient()
+    res = upload_release(_release(tmp_path), c, "b")
+    assert res.skipped_existing == ["releases/v1/a.csv"]
+    assert len(c.calls) == 2
