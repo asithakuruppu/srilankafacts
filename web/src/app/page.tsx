@@ -3,6 +3,7 @@ import Link from "next/link";
 
 import MapView from "@/components/map-view";
 import { formatNumber, formatValue } from "@/lib/format";
+import { groupIndicators } from "@/lib/indicator-groups";
 import {
   getChildren,
   getGeographyIndex,
@@ -137,18 +138,25 @@ export default function HomePage() {
             religion appear only on place pages, never ranked or mapped.
           </p>
         </div>
-        <div className="indicator-grid">
-          {indicators.map((indicator) => (
-            <Link
-              key={indicator.id}
-              className="indicator-card"
-              href={`/indicator/${indicator.id}`}
-            >
-              <span className="indicator-name">{indicator.name}</span>
-              <span className="indicator-meta">
-                {indicator.unit} · {indicator.measure_type}
-              </span>
-            </Link>
+        <div className="indicator-groups">
+          {groupIndicators(indicators).map((group, i) => (
+            <details className="indicator-group" key={group.label} open={i === 0}>
+              <summary>
+                <span className="indicator-group-name">{group.label}</span>
+                <span className="indicator-meta">
+                  {group.indicators.length} indicator{group.indicators.length === 1 ? "" : "s"}
+                </span>
+              </summary>
+              <ul>
+                {group.indicators.map((indicator) => (
+                  <li key={indicator.id}>
+                    <Link href={`/indicator/${indicator.id}`}>
+                      {indicator.short_name ?? indicator.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </details>
           ))}
         </div>
       </section>

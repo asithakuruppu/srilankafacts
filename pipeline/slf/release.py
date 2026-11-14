@@ -547,6 +547,7 @@ def _write_api(
             "id": indicator.id,
             "name": indicator.name,
             "short_name": indicator.short_name,
+            "topic": list(indicator.topic),
             "unit": indicator.unit,
             "measure_type": indicator.measure_type,
             "definition": indicator.definition,

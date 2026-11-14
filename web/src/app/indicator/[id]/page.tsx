@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 
 import MapView from "@/components/map-view";
 import { formatNumber, formatValue, levelLabel } from "@/lib/format";
+import { groupIndicators } from "@/lib/indicator-groups";
 import {
   getGeographyIndex,
   getIndicator,
@@ -52,7 +53,11 @@ export default async function IndicatorPage({ params }: PageProps<"/indicator/[i
     .sort((a, b) => (b.value ?? 0) - (a.value ?? 0));
   const max = rows[0]?.value ?? 0;
   const min = rows.at(-1)?.value ?? 0;
-  const related = getIndicators().filter((item) => item.id !== indicator.id);
+  // Same reader-facing group only; the home page lists every group.
+  const group = groupIndicators(getIndicators()).find((g) =>
+    g.indicators.some((item) => item.id === indicator.id),
+  );
+  const related = (group?.indicators ?? []).filter((item) => item.id !== indicator.id);
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Dataset",
@@ -225,8 +230,13 @@ export default async function IndicatorPage({ params }: PageProps<"/indicator/[i
         <div className="section-head">
           <div>
             <p className="eyebrow">Related</p>
-            <h2 id="related-heading">Other indicators</h2>
+            <h2 id="related-heading">
+              {group && group.label !== "Other" ? `More in ${group.label}` : "Other indicators"}
+            </h2>
           </div>
+          <p className="section-note">
+            <Link href="/#indicators">All indicators</Link>
+          </p>
         </div>
         <div className="indicator-grid">
           {related.map((item) => (
