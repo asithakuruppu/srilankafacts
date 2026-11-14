@@ -115,7 +115,12 @@ Within each table, the shortfalls add up exactly to the "Other" surplus (50,329 
   [census-2024-ethnicity-religion.md](../../qa/census-2024-ethnicity-religion.md).
 - A reader for the two .xls files (the `xlrd` dependency, or convert during extract). Either way,
   that is a new dependency or a decision, under AGENTS rule 8.
-- Q01 sampling extends to the new tables before any public release.
+- **Q01 machine re-trace extended, 2026-11-14:** `uv run slf audit q01` now also samples
+  `census-2024-topic-tables` (`slf/audit_topics.py`, independent of the ingest code): one value
+  per indicator at each level plus every `not_available` value. On `v2026.11.10-preview.1`, 0 of
+  1,471 sampled values failed the re-trace or the place-file check, and there were 0 ethnicity or
+  religion values at GN level ✅. The human part of Q01 (the lead's sheet) does not cover these
+  tables yet ❌.
 
 ## Not verified / limits
 
