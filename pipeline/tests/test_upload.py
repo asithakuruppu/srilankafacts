@@ -10,7 +10,7 @@ class FakeClient:
         self.calls = []
 
     def upload_file(self, path, bucket, key, ExtraArgs=None):
-        self.calls.append((bucket, key, ExtraArgs["ContentType"]))
+        self.calls.append((bucket, key, (ExtraArgs or {})["ContentType"]))
 
 
 def _release(tmp_path, publishable=True, access="public"):

@@ -26,3 +26,24 @@ Agents never create accounts, handle credentials or create cloud resources (AGEN
 
 - [ ] Monthly: check costs (R2, hosting) and review Dependabot pull requests.
 - [ ] Rotate R2 tokens yearly or when anyone with access leaves.
+
+## Hosting and uploading a release (proposed in D-034)
+
+Credentials stay in your shell or CI secrets; never paste them anywhere.
+
+- R2 bucket: `srilankafacts-data`, public through its `r2.dev` address for now (R2 → bucket → Settings → Public access).
+- Environment: `SLF_S3_BUCKET=srilankafacts-data`; `SLF_S3_ENDPOINT=https://<account-id>.r2.cloudflarestorage.com` (the account address only, **no** bucket name in the path); `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` from your R2 token. The region is always `auto`; the commands set it themselves, so ignore any AWS region in your machine config.
+- Upload (in `pipeline/`, after `uv sync --extra s3`; safe to re-run, existing keys are left alone):
+
+```bash
+uv run slf upload --release-dir data/build/releases/v2026.11.14
+```
+
+- Verify afterwards (read-only; exits non-zero on any missing, extra or mismatched file):
+
+```bash
+uv run slf verify-upload --release-dir data/build/releases/v2026.11.14
+```
+
+- Website on Vercel: the site builds from local release files, so build locally and deploy the result (in `web/`, with `SLF_RELEASE_DIR` set to the release folder): `vercel build` then `vercel deploy --prebuilt`.
+- ❓ Unverified risk: the 857 MB `api/` folder may exceed Vercel's deployment limits. Try the deploy and report the error if it does.
