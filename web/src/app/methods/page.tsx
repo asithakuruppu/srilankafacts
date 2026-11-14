@@ -196,7 +196,8 @@ export default function MethodsPage() {
             <li>All 25 district population and housing anchors against DCS final-report tables.</li>
             <li>
               Ethnic group and religion for Sri Lanka and all 25 districts against the final
-              report (Tables 6.1.11 and 6.1.15): 390 values, 0 differences.
+              report (Tables 6.1.11 and 6.1.15): 390 values, 0 differences. Sector for the same
+              places (Table 3.6): 78 values, 0 differences.
             </li>
             <li>Total = male + female and age components = total for all 14,008 GN rows.</li>
             <li>
