@@ -7,9 +7,12 @@ running · 🟡 claimed by a source, not checked · ❌ not found or failed · �
 
 **Yes, the remaining census tables can be downloaded, and they are now snapshotted** ✅. 31
 workbooks plus a fresh copy of the CPH 2024 page were fetched on 2026-11-12 into
-`raw/dcs/census-2024-topic-tables/` (immutable, sha256 recorded; list at the end). Nothing is
-ingested or published yet. The catalogue entry `census-2024-topic-tables` is `proposed`, with
-no `publication` block, so a public release cannot include it.
+`raw/dcs/census-2024-topic-tables/` (immutable, sha256 recorded; list at the end). *Status
+2026-11-14:* all four D-032 steps are ingested and in the local preview `v2026.11.10-preview.2`;
+the catalogue entry is `active` with a `publication` block naming D-032 (see "Ingest progress"
+below). Nothing is public yet. Population A1 and A5 (sex and age) are used as a check only
+([cross-check](../../qa/census-2024-a5-crosscheck.md)); migration (A4), `OHU_DS` and `HH_DS`
+are not ingested.
 
 What is available at each level ✅:
 
