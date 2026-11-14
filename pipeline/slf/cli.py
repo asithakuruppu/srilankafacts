@@ -143,6 +143,41 @@ def release(
             typer.echo(f"  {rel}")
 
 
+@app.command("upload")
+def upload(
+    release_dir: Annotated[Path, typer.Option(help="Built public release folder.")],
+    prefix: Annotated[
+        str | None, typer.Option(help="Key prefix; default releases/<version>.")
+    ] = None,
+    dry_run: Annotated[
+        bool, typer.Option(help="List what would be uploaded; send nothing.")
+    ] = False,
+) -> None:
+    """Upload a publishable release to the S3/R2 bucket named by SLF_S3_BUCKET."""
+    from slf.upload import NotPublishableError, upload_release
+
+    bucket = os.environ.get("SLF_S3_BUCKET")
+    if not bucket:
+        typer.echo("SLF_S3_BUCKET must be set", err=True)
+        raise typer.Exit(code=2)
+    try:
+        import boto3  # type: ignore[import-not-found]
+    except ImportError:
+        typer.echo("needs the optional extra: uv sync --extra s3", err=True)
+        raise typer.Exit(code=2) from None
+    client = boto3.client("s3", endpoint_url=os.environ.get("SLF_S3_ENDPOINT"))
+    try:
+        res = upload_release(release_dir, client, bucket, prefix, dry_run)
+    except NotPublishableError as exc:
+        typer.echo(f"ERROR {exc}", err=True)
+        raise typer.Exit(code=1) from None
+    verb = "would upload" if dry_run else "uploaded"
+    typer.echo(
+        f"{verb} {len(res.uploaded)} files ({res.bytes_uploaded / 1e6:.1f} MB); "
+        f"{len(res.skipped_existing)} already present and left unchanged"
+    )
+
+
 @catalog_app.command("validate")
 def catalog_validate(
     root: Annotated[Path, typer.Option(help="Path to the catalog folder.")] = Path("../catalog"),
