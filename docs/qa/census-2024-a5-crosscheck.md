@@ -15,7 +15,7 @@ is used here as a check only; none of its values are published.
 ## Result ✅
 
 Release `v2026.11.10-preview.2`; script
-[`data/census-2024-a5-crosscheck.py`](data/census-2024-a5-crosscheck.py). DS lines join through the
+`slf audit crosschecks` (`slf/crosschecks/dcs_tables.py`). DS lines join through the
 reviewed match file `dcs-census2024-population-a-series-ds.csv` and the G02 crosswalk.
 
 | | Lines | Values compared | Differ |

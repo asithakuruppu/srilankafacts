@@ -431,6 +431,46 @@ def audit_q01(
         raise typer.Exit(1)
 
 
+@audit_app.command("crosschecks")
+def audit_crosschecks(
+    release_dir: Annotated[Path, typer.Option(help="Release folder to check.")],
+    pdf_pages: Annotated[
+        Path,
+        typer.Option(help="Final Report page text from scripts/pdf_pages.swift."),
+    ] = Path("./data/build/audit/pdf-pages"),
+    out_dir: Annotated[Path, typer.Option(help="Report folder.")] = Path("../docs/qa"),
+) -> None:
+    """Compare a release with DCS's own DS tables and its Final Report (independent checks)."""
+    import json
+
+    from slf import crosschecks
+    from slf.crosschecks.final_report import PAGES
+
+    missing = [n for n in PAGES if not (pdf_pages / f"page-{n:03d}.txt").exists()]
+    if missing:
+        typer.echo(
+            "Final Report page text missing; run first:\n  swift scripts/pdf_pages.swift "
+            f"<CPH2024_Final_Eng.pdf> {pdf_pages} {' '.join(str(n) for n in PAGES)}",
+            err=True,
+        )
+        raise typer.Exit(2)
+    latest = json.loads((release_dir / "api/v1/releases/latest.json").read_text("utf-8"))
+    results = crosschecks.run_all(release_dir, pdf_pages)
+    out_dir.mkdir(parents=True, exist_ok=True)
+    report = out_dir / f"crosschecks-{latest['release']}.md"
+    report.write_text(crosschecks.render(results, latest["release"]), encoding="utf-8")
+    for r in results:
+        typer.echo(f"{r.check}: {r.compared} compared, {len(r.differences)} differ")
+    new, gone = crosschecks.unexplained(results)
+    for message in new:
+        typer.echo(f"new difference: {message}", err=True)
+    for key in gone:
+        typer.echo(f"known difference no longer seen: {key}", err=True)
+    typer.echo(f"report: {report}")
+    if new or gone:
+        raise typer.Exit(1)
+
+
 @profile_app.command("smoothing-experiment")
 def profile_smoothing_experiment(
     observations: Annotated[Path, typer.Option(help="Census observations parquet.")] = Path(

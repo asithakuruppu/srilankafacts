@@ -83,14 +83,14 @@ not the number.
 Final Report Table 3.6 (PDF page 72) prints 2024 population by urban, estate urban, rural and
 estate rural sector for Sri Lanka and every district. The release's "urban" is DCS's GN-file
 "Urban*", which combines urban and estate urban, so the check compares it with their sum
-([script](data/census-2024-final-report-sector.py); `v2026.11.10-preview.2`): **26 lines, 78
+(`slf audit crosschecks`; `v2026.11.10-preview.2`): **26 lines, 78
 values, 0 differences**. Every PDF row also adds up to its own total.
 
 ## Final Report comparison: five-year age (added 2026-11-14) ✅
 
 Final Report Table 6.1.3 (PDF page 104) prints the 2024 national population by five-year age
 group and sex. Against the release's national values
-([script](data/census-2024-final-report-age.py); 60-64 comes from `census-2024-gnd-tables`):
+(`slf audit crosschecks`; 60-64 comes from `census-2024-gnd-tables`):
 total, male, female and all 20 age groups, **23 values, 0 differences**. District and DS age
 groups have no Final Report counterpart.
 
