@@ -130,8 +130,11 @@ export default function HomePage() {
             <h2>{indicators.length} indicators in this preview</h2>
           </div>
           <p className="section-note">
-            Two DCS workbooks are held: population by sex and age group, and occupied housing
-            units. Derived shares and ratios are computed from those counts, never copied.
+            From DCS Census 2024 workbooks and tables: population by sex and age, occupied
+            housing units, households and their amenities, age group, sector and local authority
+            type, and, for DS divisions and larger areas, housing structure and materials. Shares
+            and ratios are computed from the published counts, never copied. Ethnic group and
+            religion appear only on place pages, never ranked or mapped.
           </p>
         </div>
         <div className="indicator-grid">
