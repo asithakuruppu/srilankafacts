@@ -25,6 +25,15 @@ class UploadResult:
     bytes_uploaded: int = 0
 
 
+def _transfer_config() -> Any:
+    """Few connections per big file: many files already run at once, and R2 drops floods."""
+    try:
+        from boto3.s3.transfer import TransferConfig  # type: ignore[import-not-found]
+    except ImportError:  # tests with a fake client
+        return None
+    return TransferConfig(max_concurrency=2)
+
+
 def _exists(client: Any, bucket: str, key: str) -> bool:
     from botocore.exceptions import ClientError  # type: ignore[import-not-found]
 
@@ -95,7 +104,9 @@ def upload_release(
         path, key = item
         if not dry_run:
             ctype = mimetypes.guess_type(path.name)[0] or "application/octet-stream"
-            client.upload_file(str(path), bucket, key, ExtraArgs={"ContentType": ctype})
+            client.upload_file(
+                str(path), bucket, key, ExtraArgs={"ContentType": ctype}, Config=_transfer_config()
+            )
         return key, path.stat().st_size
 
     with ThreadPoolExecutor(max_workers=max(1, workers)) as pool:

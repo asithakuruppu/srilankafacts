@@ -9,7 +9,7 @@ class FakeClient:
     def __init__(self):
         self.calls = []
 
-    def upload_file(self, path, bucket, key, ExtraArgs=None):
+    def upload_file(self, path, bucket, key, ExtraArgs=None, Config=None):
         self.calls.append((bucket, key, (ExtraArgs or {})["ContentType"]))
 
 
@@ -79,7 +79,7 @@ def test_parallel_workers_upload_everything_once(tmp_path):
     calls, lock, seen = [], threading.Lock(), []
 
     class C:
-        def upload_file(self, path, bucket, key, ExtraArgs=None):
+        def upload_file(self, path, bucket, key, ExtraArgs=None, Config=None):
             with lock:
                 calls.append(key)
 
