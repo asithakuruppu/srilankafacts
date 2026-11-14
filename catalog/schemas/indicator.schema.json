@@ -108,7 +108,8 @@
       "default": "api",
       "enum": [
         "api",
-        "downloads_only"
+        "downloads_only",
+        "places_only"
       ],
       "title": "Distribution",
       "type": "string"

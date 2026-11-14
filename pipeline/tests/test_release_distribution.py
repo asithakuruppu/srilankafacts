@@ -1,4 +1,5 @@
-"""Indicators marked downloads_only stay out of place and per-level API files (LA-004)."""
+"""downloads_only indicators stay out of place and per-level API files (LA-004); places_only
+indicators are in place files but not in per-level files (D-033)."""
 
 from __future__ import annotations
 
@@ -44,15 +45,20 @@ def _observation(indicator_id: str, value: float) -> dict[str, object]:
     }
 
 
-def test_downloads_only_indicator_is_left_out_of_place_and_level_files(tmp_path: Path):
+def test_distribution_controls_place_and_level_files(tmp_path: Path):
     catalog = Catalog(
         indicators={
             "households_total": _indicator("households_total", "api"),
             "households_water_bowser": _indicator("households_water_bowser", "downloads_only"),
+            "population_religion_hindu": _indicator("population_religion_hindu", "places_only"),
         }
     )
     observations = pd.DataFrame(
-        [_observation("households_total", 10.0), _observation("households_water_bowser", 2.0)]
+        [
+            _observation("households_total", 10.0),
+            _observation("households_water_bowser", 2.0),
+            _observation("population_religion_hindu", 3.0),
+        ]
     )
     geographies = pd.DataFrame(
         [
@@ -78,7 +84,11 @@ def test_downloads_only_indicator_is_left_out_of_place_and_level_files(tmp_path:
         citation="test",
     )
     place = json.loads((tmp_path / "api/v1/places/LK.json").read_text())
-    assert [v["indicator_id"] for v in place["values"]] == ["households_total"]
+    assert [v["indicator_id"] for v in place["values"]] == [
+        "households_total",
+        "population_religion_hindu",
+    ]
+    assert not any(w.startswith("api/v1/indicators/population_religion_hindu/") for w in written)
     assert not any(w.startswith("api/v1/indicators/households_water_bowser/") for w in written)
     assert any(w.startswith("api/v1/indicators/households_total/") for w in written)
     index = json.loads((tmp_path / "api/v1/indicators.json").read_text())

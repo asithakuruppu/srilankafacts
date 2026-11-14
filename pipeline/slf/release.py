@@ -561,7 +561,8 @@ def _write_api(
         payload = {**base, "indicator": entry}
         _write(out / "api" / "v1" / "indicators" / f"{indicator_id}.json", _json_bytes(payload))
         written.append(f"api/v1/indicators/{indicator_id}.json")
-        if indicator_id in downloads_only:
+        if indicator_id in downloads_only or indicator.distribution == "places_only":
+            # places_only (D-033): no per-level files, which feed rankings, maps and tables
             continue
         for level_name in levels:
             level_rows = pd.DataFrame(rows[rows["level_name"] == level_name])

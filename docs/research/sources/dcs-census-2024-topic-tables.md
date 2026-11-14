@@ -106,7 +106,13 @@ Within each table, the shortfalls add up exactly to the "Other" surplus (50,329 
   against GN occupied housing units (340 of 340 equal); A1–A4 agree with A9–A12. Not in a
   release. Method: [census-2024-housing-materials.md](../../methods/census-2024-housing-materials.md);
   QA: [census-2024-housing-materials.md](../../qa/census-2024-housing-materials.md).
-- Ethnicity and religion need `sensitivity` set and the folding rule recorded.
+- **Step (d) done, 2026-11-14:** population by ethnic group and religion for DS divisions,
+  districts and Sri Lanka from Population A6 and A7 (D-033), 32 indicators, information floor
+  `ds-2024`, `sensitivity: sensitive_group`, `distribution: places_only` (place pages only, no
+  rankings, maps or neighbour comparisons). Each DS match checked against GN population (340 of
+  340 equal); A2 and A3 agree with A6 and A7. GN files not ingested. Not in a release. Method:
+  [census-2024-ethnicity-religion.md](../../methods/census-2024-ethnicity-religion.md); QA:
+  [census-2024-ethnicity-religion.md](../../qa/census-2024-ethnicity-religion.md).
 - A reader for the two .xls files (the `xlrd` dependency, or convert during extract). Either way,
   that is a new dependency or a decision, under AGENTS rule 8.
 - Q01 sampling extends to the new tables before any public release.

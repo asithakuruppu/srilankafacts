@@ -49,7 +49,10 @@ Aggregation = Literal["sum", "recompute_from_components", "none"]
 HigherIs = Literal["better", "worse", "neutral"]
 # Where a release carries an indicator's values: "api" puts them in place files and per-level API
 # files as well as the downloads; "downloads_only" keeps them in observations.parquet/.csv only.
-Distribution = Literal["api", "downloads_only"]
+# api: everywhere. downloads_only: observation downloads only (LA-004). places_only: downloads and
+# place files, but no per-level indicator files, indicator pages, rankings, maps or neighbour
+# comparisons (D-033, ethnicity and religion).
+Distribution = Literal["api", "downloads_only", "places_only"]
 SupportType = Literal[
     "area_total", "area_mean", "location_uncertain", "object_extent", "field_sample"
 ]

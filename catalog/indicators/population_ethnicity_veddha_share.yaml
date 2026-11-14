@@ -1,0 +1,19 @@
+id: population_ethnicity_veddha_share
+name: "Share of population by ethnic group: Veddha"
+short_name: "Ethnic group: Veddha (%)"
+topic: [population, ethnicity]
+measure_type: share
+unit: percent
+universe: persons
+numerator: population_ethnicity_veddha
+denominator: population_total
+aggregation: recompute_from_components
+higher_is: neutral
+distribution: places_only
+decimals: 1
+sensitivity: sensitive_group
+definition: >
+  population_ethnicity_veddha divided by the total number of persons in the same table, times 100. Computed from the
+  published counts. DS divisions and larger areas only (D-033).
+source_definition_ref: "CPH 2024, Population table A6 (district and DS) and A2 (district), column 'Veddhas'"
+methodology_notes: docs/methods/census-2024-ethnicity-religion.md

@@ -1,0 +1,19 @@
+id: population_religion_other_share
+name: "Share of population by religion: Other"
+short_name: "Religion: Other (%)"
+topic: [population, religion]
+measure_type: share
+unit: percent
+universe: persons
+numerator: population_religion_other
+denominator: population_total
+aggregation: recompute_from_components
+higher_is: neutral
+distribution: places_only
+decimals: 1
+sensitivity: sensitive_group
+definition: >
+  population_religion_other divided by the total number of persons in the same table, times 100. Computed from the
+  published counts. DS divisions and larger areas only (D-033).
+source_definition_ref: "CPH 2024, Population table A7 (district and DS) and A3 (district), column 'Other'"
+methodology_notes: docs/methods/census-2024-ethnicity-religion.md

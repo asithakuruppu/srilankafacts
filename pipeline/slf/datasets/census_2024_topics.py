@@ -19,7 +19,11 @@ Step (c) adds DS and district housing unit structure and wall, roof and floor ma
 Housing A-series tables A9-A12 (checked against A1-A4); see ``census_2024_materials``. These have
 no GN breakdown, so their information floor is the DS division.
 
-Ethnicity and religion are a later step under D-032 and D-033; they are not read here.
+Step (d) adds population by ethnic group and by religion for DS divisions, districts, provinces
+and the country, from the Population A-series tables A6 and A7 (checked against A2 and A3); see
+``census_2024_ethnicity_religion``. Under D-033 they are never summed from GN values, carry
+``sensitivity: sensitive_group``, and are kept out of rankings, maps and neighbour comparisons
+(``distribution: places_only`` in the catalogue).
 """
 
 from __future__ import annotations
@@ -35,6 +39,7 @@ import openpyxl
 import pandas as pd
 
 from slf.dataset import Dataset, QAReport, Row
+from slf.datasets import census_2024_ethnicity_religion as er
 from slf.datasets import census_2024_gnd as gnd
 from slf.datasets import census_2024_materials as mat
 from slf.datasets.census_2024_gnd import _crosswalk, _int_cell
@@ -532,6 +537,7 @@ def _row(
         indicator in COUNT_INDICATORS
         or indicator in POP_COUNT_INDICATORS
         or indicator in mat.MAT_COUNT_INDICATORS
+        or indicator in er.ID_COUNT_INDICATORS
     )
     if indicator.startswith("households"):
         universe, unit, described = "households", "households", "households"
@@ -539,7 +545,11 @@ def _row(
         universe, unit, described = "housing_units_occupied", "housing_units", "housing units"
     else:
         universe, unit, described = "persons", "persons", "persons"
-    by = "DS (Housing A-series tables)" if information_floor == "ds-2024" else "GN"
+    sensitive = indicator in er.ID_INDICATORS
+    if sensitive:
+        by = "DS (Population A-series tables)"
+    else:
+        by = "DS (Housing A-series tables)" if information_floor == "ds-2024" else "GN"
     return {
         "claim_id": f"dcs-census2024:{geography_id}:{indicator}:{PERIOD}",
         "indicator_id": indicator,
@@ -554,7 +564,7 @@ def _row(
         "information_footprint_ref": information_floor,
         "universe": universe,
         "collection_method": "enumeration",
-        "sensitivity": "public",
+        "sensitivity": "sensitive_group" if sensitive else "public",
         "revision_status": "provisional",
         "preferred": True,
         "preferred_reason": (
@@ -611,6 +621,8 @@ class Census2024TopicTables(Dataset):
             *((t.filename, t.url) for t in POP_TOPICS),
             *((t.ds_file, t.ds_url) for t in mat.MAT_TOPICS),
             *((t.district_file, t.district_url) for t in mat.MAT_TOPICS),
+            *((t.ds_file, t.ds_url) for t in er.ID_TOPICS),
+            *((t.district_file, t.district_url) for t in er.ID_TOPICS),
         ]
         refs: list[SnapshotRef] = []
         for filename, url in wanted:
@@ -660,6 +672,7 @@ class Census2024TopicTables(Dataset):
             self.subtotal_errors.extend(compare_with_subtotals(topic, pop, subtotals))
             self.pop_missing_gn[topic.key] = sorted(set(frame["dcs_gn"]) - set(pop["dcs_gn"]))
         self._extract_materials(storage, province_of)
+        self._extract_identity(storage)
         return frame.to_dict("records")
 
     def _extract_materials(self, storage: Storage, province_of: Mapping[int, int]) -> None:
@@ -691,6 +704,33 @@ class Census2024TopicTables(Dataset):
         self.mat_errors.extend(match_errors)
         self.mat_district_codes = district_codes
         self.mat_province_of = dict(province_of)
+
+    def _extract_identity(self, storage: Storage) -> None:
+        """Parse A6, A7 (DS) and A2, A3 (district), check them, and match DS lines (D-033)."""
+        self.id_lines: dict[str, list[mat.MatLine]] = {}
+        self.id_sha256: dict[str, str] = {}
+        district_tables: dict[str, dict[str, mat.MatLine]] = {}
+        for topic in er.ID_TOPICS:
+            ds_ref = _latest(storage, topic.ds_file)
+            self.id_lines[topic.key] = er.parse_ds_table(topic, _rows(storage, ds_ref))
+            self.id_sha256[topic.key] = ds_ref.sha256
+            district_ref = _latest(storage, topic.district_file)
+            district_tables[topic.key] = er.parse_district_table(
+                topic, _rows(storage, district_ref)
+            )
+        self.id_errors = er.check_tables(self.id_lines, district_tables)
+
+        population = gnd.parse_population(storage, gnd._latest(storage, gnd.POP_FILE))
+        by_ds: dict[str, int] = {}
+        for ds, persons in zip(population["dcs_ds"], population["population_total"], strict=True):
+            by_ds[str(ds)] = by_ds.get(str(ds), 0) + int(persons)
+        catalog = Path(__file__).resolve().parents[3] / "catalog"
+        matches = mat.load_matches(str(catalog.joinpath(*er.MATCH_FILE)))
+        first = self.id_lines[er.ID_TOPICS[0].key]
+        self.id_ds_codes, match_errors = mat.match_ds_lines(
+            first, matches, self.mat_district_codes, by_ds, what="population"
+        )
+        self.id_errors.extend(match_errors)
 
     def harmonise(self, rows: list[Row], ref: SnapshotRef) -> list[Row]:
         catalog = Path(__file__).resolve().parents[3] / "catalog"
@@ -793,6 +833,8 @@ class Census2024TopicTables(Dataset):
                 )
         if getattr(self, "mat_lines", None):
             observations.extend(self._materials_rows(ds_map))
+        if getattr(self, "id_lines", None):
+            observations.extend(self._identity_rows(ds_map))
         return observations
 
     def _materials_rows(self, ds_map: Mapping[str, str]) -> list[Row]:
@@ -818,21 +860,80 @@ class Census2024TopicTables(Dataset):
                             self.mat_no_spine_ds.append(f"{dcs} {line.label}")
                         continue
                 observations.extend(
-                    _materials_values(
-                        topic, sha, geo, line.total, line.counts, f"{sheet}, row {line.line}"
+                    _table_values(
+                        _mat_items(topic),
+                        sha,
+                        geo,
+                        line.total,
+                        line.counts,
+                        f"{sheet}, row {line.line}",
                     )
                 )
             for province, parts in sorted(provinces.items()):
                 rows_text = ", ".join(str(p.line) for p in parts)
                 observations.extend(
-                    _materials_values(
-                        topic,
+                    _table_values(
+                        _mat_items(topic),
                         sha,
                         f"LK{province}",
                         sum(p.total for p in parts),
                         tuple(sum(col) for col in zip(*(p.counts for p in parts), strict=True)),
                         f"{sheet}, district rows {rows_text} summed to province {province}",
                         aggregate=True,
+                    )
+                )
+        return observations
+
+    def _identity_rows(self, ds_map: Mapping[str, str]) -> list[Row]:
+        """A6/A7 DS, district and Sri Lanka lines as published; provinces as district sums."""
+        observations: list[Row] = []
+        self.id_no_spine_ds: list[str] = []
+        for topic in er.ID_TOPICS:
+            sha = self.id_sha256[topic.key]
+            sheet = f"{topic.ds_file}, sheet '{topic.ds_table}'"
+            items = _id_items(topic)
+            total_column = er.DS_LAYOUT.total_column
+            first_column = er.DS_LAYOUT.first_category_column
+            provinces: dict[int, list[mat.MatLine]] = {}
+            for line in self.id_lines[topic.key]:
+                if line.kind == "country":
+                    geo: str | None = "LK"
+                elif line.kind == "district":
+                    code = self.mat_district_codes[line.district]
+                    geo = f"LK{code:02d}"
+                    provinces.setdefault(self.mat_province_of[code], []).append(line)
+                else:
+                    dcs = self.id_ds_codes.get((line.district, line.label))
+                    geo = ds_map.get(dcs) if dcs else None
+                    if geo is None:
+                        if topic is er.ID_TOPICS[0]:
+                            self.id_no_spine_ds.append(f"{dcs} {line.label}")
+                        continue
+                observations.extend(
+                    _table_values(
+                        items,
+                        sha,
+                        geo,
+                        line.total,
+                        line.counts,
+                        f"{sheet}, row {line.line}",
+                        total_column=total_column,
+                        first_column=first_column,
+                    )
+                )
+            for province, parts in sorted(provinces.items()):
+                rows_text = ", ".join(str(p.line) for p in parts)
+                observations.extend(
+                    _table_values(
+                        items,
+                        sha,
+                        f"LK{province}",
+                        sum(p.total for p in parts),
+                        tuple(sum(col) for col in zip(*(p.counts for p in parts), strict=True)),
+                        f"{sheet}, district rows {rows_text} summed to province {province}",
+                        aggregate=True,
+                        total_column=total_column,
+                        first_column=first_column,
                     )
                 )
         return observations
@@ -853,6 +954,7 @@ class Census2024TopicTables(Dataset):
                 indicator in SHARE_INDICATORS
                 or indicator in POP_SHARE_INDICATORS
                 or indicator in mat.MAT_SHARE_INDICATORS
+                or indicator in er.ID_SHARE_INDICATORS
             )
             if is_share and value is not None and value > 100:
                 report.errors.append(f"{row['claim_id']}: share above 100: {value}")
@@ -863,12 +965,12 @@ class Census2024TopicTables(Dataset):
                     f"{geo}: {len(set(ALL_INDICATORS) & seen)} household indicators, expected "
                     f"{len(ALL_INDICATORS)}"
                 )
-            for topic in mat.MAT_TOPICS:
+            for topic in (*mat.MAT_TOPICS, *er.ID_TOPICS):
                 wanted = set(topic.count_ids + topic.share_ids)
                 present = len(wanted & seen)
                 if present and present != len(wanted):
                     report.errors.append(
-                        f"{geo}: {present} housing {topic.key} indicators, expected {len(wanted)}"
+                        f"{geo}: {present} {topic.key} indicators, expected {len(wanted)}"
                     )
             for topic in POP_TOPICS:
                 wanted = set(topic.count_ids + topic.share_ids)
@@ -889,6 +991,27 @@ class Census2024TopicTables(Dataset):
 
         report.errors.extend(getattr(self, "subtotal_errors", []))
         report.errors.extend(getattr(self, "mat_errors", []))
+        report.errors.extend(getattr(self, "id_errors", []))
+        id_places = {
+            topic.key: {
+                geo for geo, seen in indicators_by_geo.items() if set(topic.count_ids) & seen
+            }
+            for topic in er.ID_TOPICS
+        }
+        if len({frozenset(places) for places in id_places.values()}) > 1:
+            report.errors.append(
+                "ethnicity and religion cover different places: "
+                + ", ".join(f"{k} {len(v)}" for k, v in id_places.items())
+            )
+        gn_level = sorted(
+            geo
+            for geo, seen in indicators_by_geo.items()
+            if re.fullmatch(r"LK\d{9}", geo) and set(er.ID_INDICATORS) & seen
+        )
+        if gn_level:
+            report.errors.append(
+                f"ethnicity or religion values at GN level (D-033): {gn_level[:5]}"
+            )
         mat_places = {
             topic.key: {
                 geo for geo, seen in indicators_by_geo.items() if set(topic.count_ids) & seen
@@ -899,6 +1022,13 @@ class Census2024TopicTables(Dataset):
             report.errors.append(
                 "housing structure and materials topics cover different places: "
                 + ", ".join(f"{k} {len(v)}" for k, v in mat_places.items())
+            )
+        id_no_spine = getattr(self, "id_no_spine_ds", [])
+        if id_no_spine:
+            report.warnings.append(
+                f"{len(id_no_spine)} DS lines in Population A6-A7 have no spine unit, so no "
+                "DS-level ethnicity or religion values (they stay in their district): "
+                + ", ".join(id_no_spine)
             )
         no_spine = getattr(self, "mat_no_spine_ds", [])
         if no_spine:
@@ -1034,8 +1164,16 @@ def _population_rows(
     return observations
 
 
-def _materials_values(
-    topic: mat.MatTopic,
+def _mat_items(topic: mat.MatTopic) -> list[tuple[str, str, str]]:
+    return [(topic.count_id(c), topic.share_id(c), c.source_label) for c in topic.categories]
+
+
+def _id_items(topic: er.IdTopic) -> list[tuple[str, str, str]]:
+    return [(topic.count_id(c), topic.share_id(c), c.source_label) for c in topic.categories]
+
+
+def _table_values(
+    items: list[tuple[str, str, str]],
     sha: str,
     geo: str,
     total: int,
@@ -1043,21 +1181,27 @@ def _materials_values(
     where: str,
     *,
     aggregate: bool = False,
+    total_column: int = mat.TOTAL_COLUMN,
+    first_column: int = mat.FIRST_CATEGORY_COLUMN,
 ) -> list[Row]:
-    """Count and share rows for one line (or one province sum) of an A9-A12 table."""
+    """Count and share rows for one line (or one province sum) of a DS-level A-series table.
+
+    ``items`` is (count indicator, share indicator, heading as printed) for each category, in
+    column order.
+    """
     out: list[Row] = []
     notes = ["aggregate"] if aggregate else []
-    total_letter = _column_letter(mat.TOTAL_COLUMN)
-    for category, count in zip(topic.categories, counts, strict=True):
-        letter = _column_letter(topic.column(category))
+    total_letter = _column_letter(total_column)
+    for j, ((count_id, share_id, label), count) in enumerate(zip(items, counts, strict=True)):
+        letter = _column_letter(first_column + j)
         if aggregate:
             cell, share_cell = where, f"{where}; derived share"
         else:
-            cell = f"{where}, column {letter} ('{category.source_label}')"
+            cell = f"{where}, column {letter} ('{label}')"
             share_cell = f"{where}, column {letter} ÷ column {total_letter}; derived share"
         for indicator, value, locator in (
-            (topic.count_id(category), float(count), cell),
-            (topic.share_id(category), _share(float(count), float(total)), share_cell),
+            (count_id, float(count), cell),
+            (share_id, _share(float(count), float(total)), share_cell),
         ):
             out.append(
                 _row(
