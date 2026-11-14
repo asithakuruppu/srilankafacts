@@ -39,6 +39,15 @@ def _one_decimal(x: float) -> Decimal:
     return Decimal(repr(x)).quantize(Decimal("0.1"), rounding=ROUND_HALF_UP)
 
 
+FR_1112_CHECK = "Final Report 11.12: firewood and gas share by district"
+
+
+def _sum(ours: dict[tuple[str, str], float], geo: str, indicators: list[str]) -> float | None:
+    """Sum of release values, or None when any is missing (reported as a difference)."""
+    parts = [ours.get((geo, i)) for i in indicators]
+    return None if any(p is None for p in parts) else float(sum(p for p in parts if p is not None))
+
+
 def _compare(result: Result, key: str, label: str, pdf: object, got: object) -> None:
     result.compared += 1
     if got != pdf:
@@ -103,7 +112,8 @@ def ethnicity_religion(release: Path, pages_dir: Path) -> list[Result]:
         for name, numbers in rows.items():
             geo = places[mat.district_key(name)]
             for indicators, pdf in zip(columns, numbers[pick], strict=True):
-                got = int(sum(ours[(geo, i)] for i in indicators))
+                total = _sum(ours, geo, indicators)
+                got = None if total is None else int(total)
                 _compare(result, f"{geo} {'+'.join(indicators)}", f"{name}", pdf, got)
         out.append(result)
     return out
@@ -247,12 +257,13 @@ def housing(release: Path, pages_dir: Path) -> list[Result]:
             m = re.search(rf"^{re.escape(name)} ({NUM}) ", text, re.M)
             if m is None:
                 raise ValueError(f"{title}: line {name!r} not found")
-            got = int(sum(ours[("LK", i)] for i in indicators))
+            total = _sum(ours, "LK", indicators)
+            got = None if total is None else int(total)
             _compare(result, f"LK {'+'.join(indicators)}", name, _int(m.group(1)), got)
         out.append(result)
 
     text = _page(pages_dir, 211, "Table 11.12")
-    result = Result("Final Report 11.12: firewood and gas share by district")
+    result = Result(FR_1112_CHECK)
     for m in re.finditer(r"^([A-Z][A-Za-z ]+?) [\d.]+ ([\d.]+) [\d.]+ ([\d.]+)$", text, re.M):
         geo = places.get(mat.district_key(m.group(1)))
         if geo is None:
@@ -261,7 +272,8 @@ def housing(release: Path, pages_dir: Path) -> list[Result]:
             ("households_cooking_firewood_share", m.group(2)),
             ("households_cooking_gas_share", m.group(3)),
         ):
-            got = _one_decimal(ours[(geo, indicator)])
+            value = ours.get((geo, indicator))
+            got = None if value is None else _one_decimal(value)
             _compare(result, f"{geo} {indicator}", m.group(1), Decimal(pdf), got)
     if result.compared != 52:
         raise ValueError(f"Table 11.12: {result.compared} values, expected 52")
@@ -278,7 +290,8 @@ def housing(release: Path, pages_dir: Path) -> list[Result]:
         if not (section and m and (section, m.group(1)) in MATERIALS):
             continue
         indicators = MATERIALS[(section, m.group(1))]
-        got = _one_decimal(sum(ours[("LK", i)] for i in indicators))
+        total = _sum(ours, "LK", indicators)
+        got = None if total is None else _one_decimal(total)
         _compare(
             result,
             f"LK {'+'.join(indicators)}",

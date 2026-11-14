@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
+from functools import lru_cache
 from pathlib import Path
 
 import pandas as pd
@@ -25,7 +26,10 @@ class Result:
     notes: list[str] = field(default_factory=list)
 
 
+@lru_cache(maxsize=4)
 def values(release: Path, *datasets: str) -> dict[tuple[str, str], float]:
+    """(geography id, indicator) -> value. Cached: several checks read the same files; callers
+    must not modify the returned dict."""
     frames = [
         pd.read_parquet(
             release / "observations" / f"{d}.parquet",

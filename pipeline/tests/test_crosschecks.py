@@ -9,38 +9,51 @@ from slf.crosschecks.common import Result
 from slf.crosschecks.final_report import _compare, _one_decimal
 
 
-def _known_key() -> str:
-    return next(iter(crosschecks.KNOWN))
+def _results(skip: int | None = None) -> list[Result]:
+    """Results that reproduce every KNOWN difference (optionally leaving one out)."""
+    by_check: dict[str, dict[str, str]] = {}
+    for i, (check, key) in enumerate(crosschecks.KNOWN):
+        if i != skip:
+            by_check.setdefault(check, {})[key] = "known"
+    return [Result(check, 10, diffs) for check, diffs in by_check.items()]
 
 
 def test_known_differences_pass_and_new_ones_fail():
-    key = _known_key()
-    others = {k: "x" for k in crosschecks.KNOWN if k != key}
-    ok = Result("check", compared=10, differences={key: "known", **others})
-    assert crosschecks.unexplained([ok]) == ([], [])
-
-    new = Result("check", compared=10, differences={**ok.differences, "LK9 x": "boom"})
-    found, gone = crosschecks.unexplained([new])
-    assert found == ["check: boom"] and gone == []
+    assert crosschecks.unexplained(_results()) == ([], [])
+    results = _results()
+    results[0].differences["LK9 x"] = "boom"
+    found, gone = crosschecks.unexplained(results)
+    assert found == [f"{results[0].check}: boom"] and gone == []
 
 
 def test_a_known_difference_that_disappears_is_reported():
-    missing = {k: "x" for k in list(crosschecks.KNOWN)[1:]}
-    _, gone = crosschecks.unexplained([Result("check", 10, missing)])
-    assert gone == [_known_key()]
+    check, key = next(iter(crosschecks.KNOWN))
+    _, gone = crosschecks.unexplained(_results(skip=0))
+    assert gone == [f"{check}: {key}"]
+
+
+def test_known_keys_are_scoped_to_their_check():
+    _check, key = next(iter(crosschecks.KNOWN))
+    results = [*_results(), Result("Some other check", 1, {key: "same key, other check"})]
+    found, _ = crosschecks.unexplained(results)
+    assert found == ["Some other check: same key, other check"]
 
 
 def test_known_list_covers_the_two_investigated_cases_only():
-    reasons = set(crosschecks.KNOWN.values())
-    assert len(crosschecks.KNOWN) == 44 and len(reasons) == 2
-    assert all(k.startswith("LK") for k in crosschecks.KNOWN)
+    assert len(crosschecks.KNOWN) == 44 and len(set(crosschecks.KNOWN.values())) == 2
+    assert {check for check, _ in crosschecks.KNOWN} == {
+        crosschecks.A5_CHECK,
+        crosschecks.FR_1112_CHECK,
+    }
+    assert all(key.startswith("LK") for _, key in crosschecks.KNOWN)
 
 
 def test_compare_and_rounding():
     result = Result("c")
     _compare(result, "LK a", "label", 5, 5)
     _compare(result, "LK b", "label", 5, 6)
-    assert result.compared == 2 and list(result.differences) == ["LK b"]
+    _compare(result, "LK c", "label", 5, None)  # missing in the release: reported, not a crash
+    assert result.compared == 3 and list(result.differences) == ["LK b", "LK c"]
     # half-up, as printed reports round
     assert _one_decimal(55.35) == Decimal("55.4") and _one_decimal(55.3364) == Decimal("55.3")
 

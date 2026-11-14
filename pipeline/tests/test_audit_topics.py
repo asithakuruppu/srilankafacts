@@ -174,3 +174,15 @@ def test_lead_rows_offer_a_passing_nonzero_cell_per_step(tmp_path: Path):
     assert sheet["check"].tolist() == [21]  # only step (a) exists in this release
     assert sheet["where_to_look"].tolist() == ["HH_GND_excel.xlsx, sheet 'Households', cell K5"]
     assert sheet["published_value"].tolist() == [40.0]
+
+
+def test_a_failed_trace_does_not_pass_for_a_not_available_value(tmp_path: Path):
+    raw, sha = _workbook(tmp_path)
+    rows = _rows(sha)
+    ind, geo, _value, loc = rows[3]  # DS share, GN sum
+    rows[3] = (ind, geo, None, loc.replace("2 GN rows", "3 GN rows"))  # published not_available
+    res = at.run(_release(tmp_path, sha, rows, {(i, g) for i, g, _, _ in rows}), raw)
+    assert res is not None
+    bad = res.sample[res.sample["geography_id"].eq("LK1103") & ~res.sample["source_match"]]
+    assert len(bad) == 1
+    assert all(str(m).startswith(at.FAILED) for m in bad["trace_method"].tolist())

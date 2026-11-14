@@ -438,6 +438,7 @@ def audit_crosschecks(
         Path,
         typer.Option(help="Final Report page text from scripts/pdf_pages.swift."),
     ] = Path("./data/build/audit/pdf-pages"),
+    raw_dir: Annotated[Path, typer.Option(help="Raw snapshots folder.")] = Path("./data/raw"),
     out_dir: Annotated[Path, typer.Option(help="Report folder.")] = Path("../docs/qa"),
 ) -> None:
     """Compare a release with DCS's own DS tables and its Final Report (independent checks)."""
@@ -455,7 +456,7 @@ def audit_crosschecks(
         )
         raise typer.Exit(2)
     latest = json.loads((release_dir / "api/v1/releases/latest.json").read_text("utf-8"))
-    results = crosschecks.run_all(release_dir, pdf_pages)
+    results = crosschecks.run_all(release_dir, pdf_pages, raw_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
     report = out_dir / f"crosschecks-{latest['release']}.md"
     report.write_text(crosschecks.render(results, latest["release"]), encoding="utf-8")
