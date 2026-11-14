@@ -572,6 +572,9 @@ def build_spatial_context(
             indicator_values = pd.Series(values[indicator_id]).reindex(
                 units["geography_id"].astype(str)
             )
+            if not indicator_values.notna().any():
+                # e.g. DS-only tables at GN level: no table, rather than one full of no_data
+                continue
             indicator_status = pd.Series(status[indicator_id]).reindex(
                 units["geography_id"].astype(str)
             )

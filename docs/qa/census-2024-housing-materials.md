@@ -102,16 +102,28 @@ Occupied housing units 6,030,541.
 
 "Not relevant" equals structure "Other" (1,211) in every place, not only nationally.
 
-## Size in a trial release
+## Size in a trial release ✅
 
-Not measured ❌. A trial preview release with both census datasets stopped part-way on
-2026-11-14: the disk ran out of space (3.1 GB free on the machine). The partial output was
-deleted.
+A trial preview release with both census datasets, run 2026-11-14 in a scratch folder and then
+deleted (the old local preview releases were deleted first, with the lead's approval, to free
+disk space):
 
-Estimate ❓, from the step (b) trial (`LK1103.json` 54 KB for 78 values, about 0.7 KB per value,
-mostly provenance text): this step adds 37 shares to each of 374 place files (about 25 KB each,
-roughly 9 MB in all) and 27,676 rows to the observations download (about 1.5% more rows). No GN
-file changes. The release size stays about 2.1 GB, set by steps (a) and (b).
+| | Step (b) trial | Plus this step |
+|---|---|---|
+| Release size | 2.1 GB | 2.1 GB |
+| API folder | 842 MB | 851 MB |
+| Place files | 730 MB | 737 MB |
+| Observations download | 1.0 GB | 1.0 GB (1,002,841,164 bytes CSV) |
+| One DS place file (`LK1103.json`) | 54 KB (78 values) | 75 KB (115 values) |
+| Files | 15,483 | 15,890 |
+
+The earlier estimate (about +9 MB of place files) was close: +7 MB measured.
+
+**Fixed in this step:** the first trial wrote spatial-context tables (`stats/local_*_gn.parquet`)
+for all 74 new indicators at GN level, although they have no GN values: 74 files, 13.1 MB, every
+row `no_data`. They held no values, and GN place files never showed materials ✅. The
+spatial-context stage now skips a level where an indicator has no values (`slf/enrich.py`, with a
+test). The second trial has 0 such files ✅ and 74 fewer files in total.
 
 ## Not checked
 
