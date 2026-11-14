@@ -78,7 +78,15 @@ A trial preview release with both census datasets (built in a scratch folder, th
 Place files are now about 4× today's. As before, most of each value's size is provenance text,
 not the number.
 
+## Final Report comparison: sector (added 2026-11-14) ✅
+
+Final Report Table 3.6 (PDF page 72) prints 2024 population by urban, estate urban, rural and
+estate rural sector for Sri Lanka and every district. The release's "urban" is DCS's GN-file
+"Urban*", which combines urban and estate urban, so the check compares it with their sum
+([script](data/census-2024-final-report-sector.py); `v2026.11.10-preview.2`): **26 lines, 78
+values, 0 differences**. Every PDF row also adds up to its own total.
+
 ## Not checked
 
-- Final Report PDF tables ❌. Human spot check (Q01) ❌.
+- Final Report tables for five-year age and local authority type ❌. Human spot check (Q01) ❌.
 - Small-denominator flag on these shares ❓.
