@@ -54,3 +54,13 @@ Every approval the lead gives on a corrections entry, a QA sheet or a data judge
 - **Evidence:** [docs/methods/census-2024-households.md](../methods/census-2024-households.md) §5 (trial release sizes); the agent's recommendation in PR 28.
 - **Lead's words:** "Total plus 37 shares."
 - **How to reverse:** remove `distribution: downloads_only` from the 37 count files (the default is `api`) and rebuild the release.
+
+## LA-005: LA-004 also applies to age, sector and local authority type
+
+- **Date:** 2026-11-14
+- **Approved by:** Shamil Asitha Kuruppu (lead)
+- **What:** The 51 indicators of D-032 step b follow LA-004. The 26 shares go to place files, per-level API files and the website. The 25 counts (`population_age_*`, `population_sector_*`, `population_local_authority_*`, without `_share`) are `distribution: downloads_only`.
+- **Scope:** How releases distribute these indicators. No values change.
+- **Evidence:** [docs/qa/census-2024-age-sector-local-authority.md](../qa/census-2024-age-sector-local-authority.md) (trial release sizes); the agent's recommendation in PR 29.
+- **Lead's words:** "Yes, keep LA-004."
+- **How to reverse:** remove `distribution: downloads_only` from the 25 count files and rebuild the release.

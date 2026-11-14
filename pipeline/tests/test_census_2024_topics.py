@@ -114,3 +114,81 @@ def test_compare_flags_a_category_mismatch_and_unmatched_rows():
     assert any("LK11 households_cooking_firewood: GN sum 9.0" in e for e in errors)
     assert any("LK11 households_cooking_gas: GN sum 1.0" in e for e in errors)
     assert not any(e.startswith("LK ") for e in errors)
+
+
+def _pop_sheet(topic: mod.PopTopic, lines: list[list[object]]) -> list[tuple[object, ...]]:
+    """A minimal GN population sheet: title on line 2, headings on topic.label_line."""
+    width = max(c.column for c in topic.categories) + 1
+    blank = tuple([None] * width)
+    title: list[object] = [None] * width
+    title[0] = topic.title
+    labels: list[object] = [None] * width
+    labels[mod.POP_TOTAL_COLUMN] = "Total"
+    for c in topic.categories:
+        labels[c.column] = c.source_label
+    head = [blank, tuple(title)] + [blank] * (topic.label_line - 3) + [tuple(labels)]
+    return head + [tuple(line + [None] * (width - len(line))) for line in lines]
+
+
+SECTOR = next(t for t in mod.POP_TOPICS if t.key == "sector")
+
+
+def test_population_parser_reads_gn_and_subtotal_lines():
+    sheet = _pop_sheet(
+        SECTOR,
+        [
+            ["Sri Lanka", None, None, None, None, None, 30, 10, 20, 0],
+            [11, "Colombo", None, None, None, None, 30, 10, 20, 0],
+            [None, None, 3, "Colombo", None, None, 30, 10, 20, 0],
+            [11, "Colombo", 3, "Colombo", 5, "A", 10, 10, 0, 0],
+            [11, "Colombo", 3, "Colombo", 10, "B", 20, 0, 20, 0],
+        ],
+    )
+    frame, subtotals = mod.parse_population_topic(SECTOR, sheet)
+    assert list(frame["dcs_gn"]) == ["1103005", "1103010"]
+    assert subtotals[("ds", "1103")] == [30, 10, 20, 0]
+    assert set(subtotals) == {("country", "LK"), ("district", "11"), ("ds", "1103")}
+    assert mod.compare_with_subtotals(SECTOR, frame, subtotals) == []
+
+
+def test_population_parser_fails_when_categories_do_not_sum():
+    sheet = _pop_sheet(SECTOR, [[11, "Colombo", 3, "Colombo", 5, "A", 10, 9, 0, 0]])
+    with pytest.raises(ValueError, match="categories sum to 9"):
+        mod.parse_population_topic(SECTOR, sheet)
+
+
+def test_subtotal_mismatch_is_reported():
+    sheet = _pop_sheet(
+        SECTOR,
+        [
+            ["Sri Lanka", None, None, None, None, None, 10, 10, 0, 0],
+            [11, "Colombo", None, None, None, None, 10, 10, 0, 0],
+            [None, None, 3, "Colombo", None, None, 11, 11, 0, 0],
+            [11, "Colombo", 3, "Colombo", 5, "A", 10, 10, 0, 0],
+        ],
+    )
+    frame, subtotals = mod.parse_population_topic(SECTOR, sheet)
+    errors = mod.compare_with_subtotals(SECTOR, frame, subtotals)
+    assert any("ds 1103 population_total: GN sum 10, DCS 11" in e for e in errors)
+
+
+def test_population_indicators_avoid_existing_count_and_are_complete():
+    age = next(t for t in mod.POP_TOPICS if t.key == "age")
+    assert len(age.categories) == 20
+    assert "population_age_60_64" not in mod.POP_COUNT_INDICATORS
+    assert "population_age_60_64_share" in mod.POP_SHARE_INDICATORS
+    assert len(mod.POP_COUNT_INDICATORS) == 25
+    assert len(mod.POP_SHARE_INDICATORS) == 26
+    assert not set(mod.POP_INDICATORS) & set(mod.ALL_INDICATORS)
+
+
+def test_population_rows_use_persons_universe():
+    row = mod._row(
+        indicator="population_sector_rural",
+        geography_id="LK11",
+        value=5.0,
+        source_locator="test",
+        snapshot_sha256="abc",
+    )
+    assert row["universe"] == "persons"
+    assert row["unit"] == "persons"

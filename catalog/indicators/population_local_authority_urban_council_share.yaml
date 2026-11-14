@@ -1,0 +1,18 @@
+id: population_local_authority_urban_council_share
+name: "Share of population by local authority type: Urban council"
+short_name: "Local authority: Urban council (%)"
+topic: [population, local-government]
+measure_type: share
+unit: percent
+universe: persons
+numerator: population_local_authority_urban_council
+denominator: population_total
+aggregation: recompute_from_components
+higher_is: neutral
+decimals: 1
+sensitivity: public
+definition: >
+  population_local_authority_urban_council divided by the total population in the same file, times 100. Computed from the
+  published counts.
+source_definition_ref: "CPH 2024, Population by Local Government Authority and GN Division, column 'Urban Council'"
+methodology_notes: docs/methods/census-2024-age-sector-local-authority.md

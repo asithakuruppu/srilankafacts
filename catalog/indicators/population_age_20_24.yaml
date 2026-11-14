@@ -1,0 +1,19 @@
+id: population_age_20_24
+name: "Population aged 20–24"
+short_name: "Aged 20–24"
+topic: [population, age]
+measure_type: count
+unit: persons
+universe: persons
+numerator: null
+denominator: null
+aggregation: sum
+higher_is: neutral
+distribution: downloads_only
+decimals: 0
+sensitivity: public
+definition: >
+  Number of persons aged 20 to 24 years, as recorded by the Census of Population and Housing 2024. Each person is counted in
+  exactly one five-year age group.
+source_definition_ref: "CPH 2024, Population by five-year age group and GN Division, column '20-24'"
+methodology_notes: docs/methods/census-2024-age-sector-local-authority.md

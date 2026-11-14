@@ -1,0 +1,19 @@
+id: population_sector_estate_rural
+name: "Population by sector: Estate rural"
+short_name: "Sector: Estate rural"
+topic: [population, sector]
+measure_type: count
+unit: persons
+universe: persons
+numerator: null
+denominator: null
+aggregation: sum
+higher_is: neutral
+distribution: downloads_only
+decimals: 0
+sensitivity: public
+definition: >
+  Number of persons living in the estate rural sector, as recorded by the Census of Population and Housing 2024. Each person is counted in
+  exactly one sector. The 2012 Census called this sector "Estate".
+source_definition_ref: "CPH 2024, Population by Sector and GN Division, column 'Estate Rural**'"
+methodology_notes: docs/methods/census-2024-age-sector-local-authority.md

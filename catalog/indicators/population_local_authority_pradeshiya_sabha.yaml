@@ -1,0 +1,19 @@
+id: population_local_authority_pradeshiya_sabha
+name: "Population by local authority type: Pradeshiya sabha"
+short_name: "Local authority: Pradeshiya sabha"
+topic: [population, local-government]
+measure_type: count
+unit: persons
+universe: persons
+numerator: null
+denominator: null
+aggregation: sum
+higher_is: neutral
+distribution: downloads_only
+decimals: 0
+sensitivity: public
+definition: >
+  Number of persons living in a GN area governed by a pradeshiya sabha, as recorded by the Census of Population and Housing 2024. Each person is counted in
+  exactly one local authority type.
+source_definition_ref: "CPH 2024, Population by Local Government Authority and GN Division, column 'Pradeshiya Sabha'"
+methodology_notes: docs/methods/census-2024-age-sector-local-authority.md

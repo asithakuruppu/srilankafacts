@@ -95,8 +95,12 @@ Within each table, the shortfalls add up exactly to the "Other" surplus (50,329 
   indicators, checked against district tables A5–A8 with 0 differences. Not in a release.
   Method: [census-2024-households.md](../../methods/census-2024-households.md); QA:
   [census-2024-households.md](../../qa/census-2024-households.md).
-- New indicators in `catalog/indicators/` for five-year age groups, sector and local authority type. Ethnicity and religion need
-  `sensitivity` set and the folding rule recorded.
+- **Step (b) done, 2026-11-13:** five-year age, sector and local authority type at GN level, 51
+  indicators, checked against DCS's own DS, district and national subtotal lines with 0
+  differences, and against the population workbook. Not in a release. Method:
+  [census-2024-age-sector-local-authority.md](../../methods/census-2024-age-sector-local-authority.md);
+  QA: [census-2024-age-sector-local-authority.md](../../qa/census-2024-age-sector-local-authority.md).
+- Ethnicity and religion need `sensitivity` set and the folding rule recorded.
 - DS-level values for structure and materials, with an information floor that says "DS level;
   no GN breakdown is published".
 - A reader for the two .xls files (the `xlrd` dependency, or convert during extract). Either way,
