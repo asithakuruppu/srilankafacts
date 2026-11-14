@@ -132,5 +132,7 @@ test.describe("ethnicity and religion (D-033)", () => {
     await page.goto("/indicator/population_religion_hindu_share");
     await expect(page.getByText("This page could not be found.")).toBeVisible();
     await expect(page.getByText("District distribution")).toHaveCount(0);
+    // Missing pages are served with status 200 under Cache Components, so they must not be indexed
+    await expect(page.locator('meta[name="robots"][content="noindex"]')).toHaveCount(1);
   });
 });

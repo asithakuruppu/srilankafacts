@@ -94,4 +94,5 @@ def test_distribution_controls_place_and_level_files(tmp_path: Path):
     index = json.loads((tmp_path / "api/v1/indicators.json").read_text())
     entry = {i["id"]: i for i in index["indicators"]}["households_water_bowser"]
     assert entry["distribution"] == "downloads_only"
+    assert entry["topic"] == []
     assert entry["value_count"] == 1

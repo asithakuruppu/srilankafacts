@@ -944,6 +944,41 @@ tbody tr:last-child td {
   color: var(--muted);
 }
 
+.indicator-groups {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.indicator-group {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+}
+
+.indicator-group summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  padding: 0.7rem 0.9rem;
+  cursor: pointer;
+}
+
+.indicator-group-name {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.indicator-group ul {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 0.35rem 1rem;
+  margin: 0;
+  padding: 0 0.9rem 0.8rem;
+  list-style: none;
+  font-size: 0.88rem;
+}
+
 .level-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));

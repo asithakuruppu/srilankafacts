@@ -43,6 +43,8 @@ export type IndicatorMeta = {
   id: string;
   name: string;
   short_name: string | null;
+  /** Catalogue topic, for example ["housing", "water"]; absent in releases before v2026.11.10-preview.2. */
+  topic?: string[];
   definition: string;
   measure_type: string;
   unit: string;
