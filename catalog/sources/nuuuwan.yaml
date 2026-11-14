@@ -14,3 +14,5 @@ rights:
   last_reviewed: 2026-11-07
 notes: >
   Machine-readable census and other repositories; cross-check only. Licences per repository to be checked.
+  lk_census_2024: MIT (code). lk_elections and gig-data: no licence (GitHub metadata, 2026-11-15);
+  gig-data states no origin for its PD geometries or GN-to-PD assignment.

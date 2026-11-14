@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import ssl
 import urllib.request
 from dataclasses import asdict, dataclass
 from datetime import UTC, datetime
@@ -79,10 +80,15 @@ def snapshot_url(
     filename: str | None = None,
     licence_note: str | None = None,
     timeout: float = 60.0,
+    ssl_context: ssl.SSLContext | None = None,
 ) -> SnapshotRef:
-    """Fetch ``url`` and snapshot the response body."""
+    """Fetch ``url`` and snapshot the response body.
+
+    ``ssl_context`` lets a caller pass a verifying context with a different CA bundle (certificate
+    checks are never turned off).
+    """
     request = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
-    with urllib.request.urlopen(request, timeout=timeout) as response:
+    with urllib.request.urlopen(request, timeout=timeout, context=ssl_context) as response:
         content = response.read()
     name = filename or url.rstrip("/").rsplit("/", 1)[-1] or "download"
     return snapshot_bytes(

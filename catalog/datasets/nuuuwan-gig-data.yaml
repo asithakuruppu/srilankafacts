@@ -1,0 +1,31 @@
+id: nuuuwan-gig-data
+source: nuuuwan
+title: "gig-data: entity lists and geometries incl. GN-to-PD assignment (community)"
+landing_page: https://github.com/nuuuwan/gig-data
+pipeline_module: slf.datasets.electoral_geography
+schedule: manual
+geography_scheme: electoral
+geography_vintage: null
+reference_period: null
+rights: inherit
+spatial:
+  support: area
+  scheme: electoral
+  level: polling_division
+  vintage: null
+  coverage: LK
+  measured_in: null
+  positional_accuracy: null
+  crs_source: unconfirmed
+  resolution: null
+  information_unit: null
+  information_count: null
+  derived_by: null
+indicators: []
+cross_checks: []
+status: active
+notes: >
+  Internal QA only (G05 electoral). ents/gnd.tsv gives each GN an ed_id and pd_id; geo/pd and geo/ed
+  hold 160 PD and 22 ED geometries. No licence and no stated origin for the PD membership or geometry
+  (2026-11-15), so nothing derived from it is committed to catalog/ or put in a release; it is read only
+  inside the local build to exercise G05's checks until an official GN list per PD is obtained.

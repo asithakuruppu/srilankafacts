@@ -1,28 +1,42 @@
 id: election-results
 source: election-commission
-title: "Election results by electoral district and polling division"
-landing_page: null
-pipeline_module: null
+title: "Election results by electoral district and polling division (first: Presidential Election 2024)"
+landing_page: https://elections.gov.lk/si/elections/PRE_2024_Results.html
+pipeline_module: slf.datasets.election_results
 schedule: manual
 geography_scheme: electoral
-geography_vintage: null
-reference_period: null
+geography_vintage: pre-2024
+reference_period: "2024-09-21"
 rights: inherit
 spatial:
   support: area
   scheme: electoral
   level: polling_division
-  vintage: null
+  vintage: pre-2024
   coverage: LK
   measured_in: null
   positional_accuracy: null
   crs_source: not_applicable
   resolution: null
-  information_unit: null
-  information_count: null
+  information_unit: polling_division
+  information_count: 160
   derived_by: null
-indicators: []
-cross_checks: []
+indicators:
+  - electors_registered
+  - votes_polled
+  - votes_valid
+  - votes_rejected
+  - votes_candidate
+  - turnout
+  - votes_rejected_share
+  - votes_candidate_share
+cross_checks:
+  - upstream: nuuuwan/lk_elections
+    note: "public/data/elections/government-elections-presidential.regions-ec.2024.tsv; comparison only, no licence"
 status: proposed
 notes: >
-  Stage 2. Postal votes are reported per electoral district and are never pushed down.
+  Stage 2. One result PDF per polling division (160) and one postal-vote PDF per electoral district (22),
+  plus the register of electors by polling division 2016-2025 (official list of EDs and PDs).
+  Postal votes are reported per electoral district and are never pushed down to polling divisions.
+  Some PDFs are scans; values are OCR-extracted on-device and stay machine_extracted until the lead
+  verifies them. Rights unclear: not publishable until a lead decision (proposed D-035) is Accepted.

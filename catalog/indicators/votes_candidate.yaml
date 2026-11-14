@@ -1,0 +1,19 @@
+id: votes_candidate
+name: Votes obtained by a candidate
+short_name: Votes (candidate)
+topic: [elections]
+measure_type: count
+unit: votes
+universe: votes
+numerator: null
+denominator: null
+aggregation: sum
+higher_is: neutral
+decimals: 0
+sensitivity: public
+definition: >
+  Votes obtained by one candidate, as printed on the result sheet. The candidate is given in the breakdown
+  (ballot number, name as printed, party abbreviation as printed). For the 2024 presidential election these
+  are first-preference votes; preference counts are a separate result not ingested here.
+source_definition_ref: "Election Commission result sheet, column 'Votes Obtained'"
+methodology_notes: docs/methods/election-results.md
