@@ -80,7 +80,7 @@ class S3Storage:
         except ImportError as exc:  # pragma: no cover - depends on optional extra
             raise RuntimeError("S3 storage needs the optional extra: uv sync --extra s3") from exc
         self.bucket = bucket
-        self._s3 = boto3.client("s3", endpoint_url=endpoint_url)
+        self._s3 = boto3.client("s3", endpoint_url=endpoint_url, region_name="auto")
 
     def put(self, key: str, data: bytes) -> None:
         key = _check_key(key)
