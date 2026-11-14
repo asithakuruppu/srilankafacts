@@ -31,8 +31,7 @@ That gives 51 indicators: 25 counts and 26 shares (count ÷ total population × 
   than one sector and 120 in more than one local authority type ✅.
 
 As with the households (LA-004), the 25 counts are `distribution: downloads_only` and the 26
-shares go to place pages and the API. That follows LA-004's pattern; the lead has not ruled on
-these topics specifically (see "Decisions needed").
+shares go to place pages and the API. The lead approved this on 2026-11-14 (LA-005).
 
 ## 2. Source
 
