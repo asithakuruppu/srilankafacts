@@ -105,7 +105,8 @@ export function getIndicators(): IndicatorMeta[] {
         indicator.distribution !== "downloads_only" &&
         indicator.distribution !== "places_only",
     )
-    .sort((a, b) => a.name.localeCompare(b.name));
+    // numeric collation: "aged 5–9" sorts before "aged 10–14"
+    .sort((a, b) => a.name.localeCompare(b.name, "en", { numeric: true }));
 }
 
 export function getIndicator(id: string): IndicatorMeta | null {

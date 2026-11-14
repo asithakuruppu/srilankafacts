@@ -21,6 +21,8 @@ type IndicatorOption = {
   unit: string;
   decimals: number;
   measureType: string;
+  /** Topic group label (same groups as the home page); options are passed in group order. */
+  group: string;
 };
 
 
@@ -127,10 +129,16 @@ export default function ExploreClient({
                 update({ indicator: event.target.value });
               }}
             >
-              {indicators.map((item) => (
-                <option key={item.id} value={item.id}>
-                  {item.name}
-                </option>
+              {[...new Set(indicators.map((item) => item.group))].map((group) => (
+                <optgroup key={group} label={group}>
+                  {indicators
+                    .filter((item) => item.group === group)
+                    .map((item) => (
+                      <option key={item.id} value={item.id}>
+                        {item.name}
+                      </option>
+                    ))}
+                </optgroup>
               ))}
             </select>
           </label>

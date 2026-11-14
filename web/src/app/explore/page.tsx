@@ -5,6 +5,7 @@ import ExploreClient from "@/app/explore/explore-client";
 import ExploreStatic from "@/components/explore-static";
 import { defaultIndicatorId, defaultLevelName } from "@/lib/explore-levels";
 import { exploreLevels } from "@/lib/explore-server";
+import { groupIndicators } from "@/lib/indicator-groups";
 import { getBoundaryLevels, getIndicators, getNationalValues } from "@/lib/release";
 
 export const metadata: Metadata = {
@@ -29,13 +30,16 @@ export default function ExplorePage() {
   return (
     <Suspense fallback={fallback}>
       <ExploreClient
-        indicators={indicators.map((indicator) => ({
-          id: indicator.id,
-          name: indicator.name,
-          unit: indicator.unit,
-          decimals: indicator.decimals,
-          measureType: indicator.measure_type,
-        }))}
+        indicators={groupIndicators(indicators).flatMap((group) =>
+          group.indicators.map((indicator) => ({
+            id: indicator.id,
+            name: indicator.name,
+            unit: indicator.unit,
+            decimals: indicator.decimals,
+            measureType: indicator.measure_type,
+            group: group.label,
+          })),
+        )}
         boundaryLevels={boundaryLevels}
         national={national}
       />
