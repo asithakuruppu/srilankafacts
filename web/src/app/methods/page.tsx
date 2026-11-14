@@ -1,6 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
+import {
+  DCS_GN_ROWS,
+  GN_WITH_VALUES,
+  SPINE_GN_WITHOUT_ROW,
+  UNMATCHED_DCS_GN,
+} from "@/lib/coverage";
+import { formatNumber } from "@/lib/format";
 import { getLatest, getPlace, placeValue } from "@/lib/release";
 
 export const metadata: Metadata = {
@@ -71,12 +78,12 @@ export default function MethodsPage() {
           </p>
           <ul>
             <li>
-              14,008 DCS GN rows. 13,945 match a current COD-AB v03 GN division; 63 unmatched
-              GNs enter their DS, district, province and country totals but have no GN-level
-              row.
+              {formatNumber(DCS_GN_ROWS)} DCS GN rows. {formatNumber(GN_WITH_VALUES)} match a
+              current COD-AB v03 GN division; {UNMATCHED_DCS_GN} unmatched GNs enter their DS,
+              district, province and country totals but have no GN-level row.
             </li>
             <li>
-              98 spine GNs have no DCS row in the GN population and housing workbooks and are
+              {SPINE_GN_WITHOUT_ROW} spine GNs have no DCS row in the GN population and housing workbooks and are
               marked{" "}
               <code>no_data</code>;
             </li>
@@ -105,7 +112,7 @@ export default function MethodsPage() {
             <li>density = population ÷ land area, with area computed in EPSG:5235.</li>
           </ul>
           <p>
-            DS, district, province and country counts are sums of GN rows, including the 63
+            DS, district, province and country counts are sums of GN rows, including the {UNMATCHED_DCS_GN}
             unmatched GNs. Rates are recomputed from the summed components, never averaged from
             GN rates. A zero denominator yields <code>not_available</code>, never zero.
           </p>

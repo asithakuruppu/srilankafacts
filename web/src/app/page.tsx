@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import MapView from "@/components/map-view";
+import { GN_WITH_VALUES, SPINE_GN_WITHOUT_ROW } from "@/lib/coverage";
 import { formatNumber, formatValue } from "@/lib/format";
 import { groupIndicators } from "@/lib/indicator-groups";
 import {
@@ -206,8 +207,9 @@ export default function HomePage() {
           ))}
         </div>
         <p className="muted small">
-          {index.size.toLocaleString("en-LK")} geographies in the spine. {formatNumber(13945)}{" "}
-          GN divisions have census values; 98 spine GNs have no row in the GN population and housing workbooks.
+          {index.size.toLocaleString("en-LK")} geographies in the spine. {formatNumber(GN_WITH_VALUES)}{" "}
+          GN divisions have census values; {SPINE_GN_WITHOUT_ROW} spine GNs have no row in the GN
+          population and housing workbooks.
         </p>
       </section>
 
