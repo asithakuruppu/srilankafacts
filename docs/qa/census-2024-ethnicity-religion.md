@@ -67,7 +67,35 @@ These are listed in DCS's column order. DCS's own district table prints one deci
 
 ## D-033 restrictions, as built
 
-SIZE_AND_RELEASE_CHECKS
+A trial preview release with both census datasets, run 2026-11-14 in a scratch folder and then
+deleted, compared with the step (c) trial:
+
+| | Step (c) trial | Plus this step |
+|---|---|---|
+| Release size | 2.1 GB | 2.1 GB |
+| API folder | 851 MB | 857 MB |
+| Place files | 737 MB | 743 MB |
+| One DS place file (`LK1103.json`) | 75 KB (115 values) | 94 KB (147 values, 32 of them ethnicity and religion) |
+| Files | 15,890 | 15,922 (+32: one metadata file per indicator) |
+
+In that trial ✅:
+
+- per-level files (`api/v1/indicators/<id>/<level>.json`) for these 32 indicators: 0;
+- neighbour-comparison files (`stats/local_*`) for them: 0;
+- ethnicity or religion values in a GN place file (`LK1103005.json` checked; the build also
+  refuses any): 0.
+
+On the website, run against the trial release (desktop and 375 px mobile) ✅:
+
+- the Colombo DS page (`/place/LK1103`) shows the "Ethnic group and religion" section, with
+  values equal to A6 row 13 (for example Sinhalese 64,504, Sri Lanka Moor / Muslim 122,247);
+- the GN page `/place/LK1103005` has no such section;
+- `/indicator/population_religion_hindu_share` returns 404, and the indicators list does not
+  name these indicators;
+- no console errors, and no horizontal scroll on mobile.
+
+Small groups show as "0.0%" where the share is under 0.05% (for example Sri Lanka Chetty, 44
+persons in Colombo DS); the count is shown beside it.
 
 ## Not checked
 
