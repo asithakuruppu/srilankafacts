@@ -97,8 +97,23 @@ On the website, run against the trial release (desktop and 375 px mobile) ✅:
 Small groups show as "0.0%" where the share is under 0.05% (for example Sri Lanka Chetty, 44
 persons in Colombo DS); the count is shown beside it.
 
+## Final Report comparison (added 2026-11-14) ✅
+
+DCS's Final Report (`CPH2024_Final_Eng.pdf`) prints 2024 population by ethnic group (Table
+6.1.11, PDF page 115) and by religion (Table 6.1.15, PDF page 124) for Sri Lanka and every
+district. Page text was extracted with PDFKit (`scripts/pdf_pages.swift`) and compared with the
+release ([script](data/census-2024-final-report-ethnicity-religion.py); `v2026.11.10-preview.2`):
+
+| Table | Lines | Values compared | Differ |
+|---|---|---|---|
+| 6.1.11 ethnic group (total + 7 groups) | Sri Lanka, 25 districts | 208 | 0 |
+| 6.1.15 religion (total + 6 groups) | Sri Lanka, 25 districts | 182 | 0 |
+
+Table 6.1.11's "Other" combines A6's Sri Lanka Chetty, Bharatha, Veddha and Other (nationally
+2,443 + 1,183 + 1,373 + 9,160 = 14,159). DS values have no Final Report counterpart.
+
 ## Not checked
 
-- Final Report PDF tables ❌. Human spot check (Q01) ❌.
+- Final Report: DS level has no counterpart table. Human spot check (Q01) ❌.
 - How the website section reads to users, and whether its wording is neutral enough, needs the
   lead's eye ❓.

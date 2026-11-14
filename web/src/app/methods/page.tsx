@@ -194,6 +194,10 @@ export default function MethodsPage() {
           <ul>
             <li>National anchors for population, sex, age groups and housing units.</li>
             <li>All 25 district population and housing anchors against DCS final-report tables.</li>
+            <li>
+              Ethnic group and religion for Sri Lanka and all 25 districts against the final
+              report (Tables 6.1.11 and 6.1.15): 390 values, 0 differences.
+            </li>
             <li>Total = male + female and age components = total for all 14,008 GN rows.</li>
             <li>
               An independent comparison against <code>nuuuwan/lk_census_2024</code> for total,
@@ -227,7 +231,7 @@ export default function MethodsPage() {
               <code>machine_extracted</code>.
             </li>
             <li>
-              The topic tables have not been compared with the DCS final report. Two housing
+              The other topic tables have not been compared with the DCS final report. Two housing
               labels are read, not confirmed: whether &ldquo;attached house&rdquo; floors count
               the floors of the building, and what DCS means by &ldquo;Not relevant&rdquo; for
               materials.

@@ -98,7 +98,9 @@ All run by the build; any failure stops it.
 
 ## 7. Gaps
 
-- No comparison with the Final Report PDF ❌. No human check (Q01) ❌.
+- Final Report: Tables 6.1.11 (ethnic group) and 6.1.15 (religion), 2024, Sri Lanka and all 25
+  districts: 390 values, 0 differences ✅ ([QA](../qa/census-2024-ethnicity-religion.md)). DS
+  values have no Final Report counterpart. No human check (Q01) ❌.
 - The website section was checked against a trial release only; it is not in a published release.
 - GN-level ethnicity and religion are not ingested (D-033 allows it for QA only); the folding
   figures above come from the source dossier.
