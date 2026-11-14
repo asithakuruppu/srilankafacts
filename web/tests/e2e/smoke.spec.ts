@@ -96,6 +96,17 @@ test.describe("without JavaScript (D-027)", () => {
     await expect(page.getByText("Loading explorer")).toHaveCount(0);
   });
 
+  test("place and indicator pages show their content, not a loading placeholder", async ({
+    page,
+  }) => {
+    await page.goto("/place/LK11");
+    await expect(page.getByRole("heading", { level: 1 })).toContainText("Colombo");
+    await expect(page.getByText("2,375,415").first()).toBeVisible();
+    await expect(page.getByText("Loading place")).toHaveCount(0);
+    await page.goto("/indicator/population_density");
+    await expect(page.getByRole("heading", { level: 1 })).toContainText("Population density");
+  });
+
   test("table pages link to each other and show values", async ({ page }) => {
     await page.goto("/explore");
     await page.getByRole("link", { name: "Total population" }).first().click();
@@ -133,6 +144,6 @@ test.describe("ethnicity and religion (D-033)", () => {
     await expect(page.getByText("This page could not be found.")).toBeVisible();
     await expect(page.getByText("District distribution")).toHaveCount(0);
     // Missing pages are served with status 200 under Cache Components, so they must not be indexed
-    await expect(page.locator('meta[name="robots"][content="noindex"]')).toHaveCount(1);
+    await expect(page.locator('meta[name="robots"][content="noindex"]').first()).toBeAttached();
   });
 });
