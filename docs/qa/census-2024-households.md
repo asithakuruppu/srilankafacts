@@ -66,6 +66,24 @@ Dataset `census-2024-topic-tables`, step (a) of D-032. Built 2026-11-13 with
 | toilet | Common or public toilet | 9,567 | 0.16 |
 | toilet | Not using a toilet | 13,326 | 0.22 |
 
+## DS-level cross-check against DCS tables A13–A16 (added 2026-11-14) ✅
+
+The build compares district and national sums with A5–A8 only. DCS's DS tables A13 (cooking),
+A14 (drinking water), A15 (lighting) and A16 (toilets) were then compared with the release's
+GN-summed values on every line ([script](data/census-2024-a13-a16-crosscheck.py); release
+`v2026.11.10-preview.2`). Each table column was mapped to the release count indicator with the
+same national value (one-to-one for all 37 categories), then tested on every other line. DS lines
+join through the reviewed Housing A-series match file and the G02 crosswalk.
+
+| Table | Categories | Lines | Values compared | Differ |
+|---|---|---|---|---|
+| A13 cooking | 8 + households | Sri Lanka, 25 districts, 339 DS | 3,285 | 0 |
+| A14 drinking water | 15 + households | same | 5,840 | 0 |
+| A15 lighting | 7 + households | same | 2,920 | 0 |
+| A16 toilets | 7 + households | same | 2,920 | 0 |
+
+DCS 5224 Kalmunai is skipped (no spine unit, D-022). Every A13–A16 DS label is in the match file.
+
 ## Not checked
 
 - Final Report PDF tables ❌; human source check (Q01) ❌.
