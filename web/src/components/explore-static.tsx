@@ -2,6 +2,7 @@ import Link from "next/link";
 
 import ExploreTable from "@/components/explore-table";
 import { staticTableHref } from "@/lib/explore-levels";
+import { groupIndicators } from "@/lib/indicator-groups";
 import { exploreCombos, exploreLevels, exploreRows } from "@/lib/explore-server";
 import { formatValue } from "@/lib/format";
 import { getIndicators, getNationalValues } from "@/lib/release";
@@ -68,18 +69,35 @@ export default function ExploreStatic({
           ))}
         </p>
         <p className="small">
-          <strong>Indicator:</strong>{" "}
-          {indicatorsForLevel.map((item, i) => (
-            <span key={item.id}>
-              {i > 0 ? " · " : ""}
-              {item.id === indicatorId ? (
-                <strong aria-current="page">{item.name}</strong>
-              ) : (
-                <Link href={staticTableHref(item.id, levelName)}>{item.name}</Link>
-              )}
-            </span>
-          ))}
+          <strong>Indicator</strong> (by topic; the current one is open):
         </p>
+        <div className="indicator-groups">
+          {groupIndicators(indicatorsForLevel).map((group) => (
+            <details
+              className="indicator-group"
+              key={group.label}
+              open={group.indicators.some((item) => item.id === indicatorId)}
+            >
+              <summary>
+                <span className="indicator-group-name">{group.label}</span>
+                <span className="indicator-meta">{group.indicators.length}</span>
+              </summary>
+              <ul>
+                {group.indicators.map((item) => (
+                  <li key={item.id}>
+                    {item.id === indicatorId ? (
+                      <strong aria-current="page">{item.name}</strong>
+                    ) : (
+                      <Link href={staticTableHref(item.id, levelName)}>
+                        {item.name}
+                      </Link>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </details>
+          ))}
+        </div>
       </nav>
       <section className="shell section section-tight">
         <ExploreTable
