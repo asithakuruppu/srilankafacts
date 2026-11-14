@@ -390,15 +390,21 @@ def audit_q01(
     """Draw the Q01 sample, re-trace each value to its raw source and write the lead's sheet."""
     import shutil
 
-    from slf import audit
+    from slf import audit, audit_topics
 
     res = audit.run(release_dir, raw_dir, catalog, pdf_pages, seed)
     sheet = audit.lead_sheet(res, seed)
+    topics = audit_topics.run(release_dir, raw_dir, seed)
     out_dir.mkdir(parents=True, exist_ok=True)
     stem = f"accuracy-audit-{res.release}"
     res.sample.to_csv(out_dir / f"{stem}-sample.csv", index=False)
     sheet.to_csv(out_dir / f"q01-lead-sheet-{res.release}.csv", index=False)
-    (out_dir / f"{stem}.md").write_text(audit.render(res, sheet), encoding="utf-8")
+    report = audit.render(res, sheet)
+    if topics is not None:
+        topics.sample.to_csv(out_dir / f"{stem}-topics-sample.csv", index=False)
+        report += audit_topics.render(topics)
+        res.warnings.extend(topics.warnings)
+    (out_dir / f"{stem}.md").write_text(report, encoding="utf-8")
     shots = out_dir / "screenshots" / "q01"
     shots.mkdir(parents=True, exist_ok=True)
     for png in sorted(pdf_pages.glob("page-*.png")):
@@ -409,6 +415,10 @@ def audit_q01(
     )
     if res.pdf is not None:
         typer.echo(f"Final Report: {audit.count_true(res.pdf['match'])}/{len(res.pdf)} match")
+    if topics is not None:
+        t = topics.sample
+        bad_t = audit.count_true(~(t["source_match"] & t["api_match"]))
+        typer.echo(f"Topic tables: {len(t)} values sampled; {bad_t} failed re-trace or API check")
     for w in res.warnings:
         typer.echo(f"warning: {w}", err=True)
     typer.echo(f"report: {out_dir / (stem + '.md')}")
