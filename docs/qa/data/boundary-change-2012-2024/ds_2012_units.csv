@@ -1,0 +1,332 @@
+ds_2012,district,district_code,order,name,total,male,female,page,line,change_type,geography_id,successors,gn_count,gn_unmatched
+11-01,Colombo,11,1,Colombo,323257,162798,160459,1,8,unchanged,LK1103,1103,35,1
+11-02,Colombo,11,2,Kolonnawa,191687,94125,97562,1,44,unchanged,LK1106,1106,46,0
+11-03,Colombo,11,3,Kaduwela,252041,123572,128469,2,44,unchanged,LK1109,1109,57,0
+11-04,Colombo,11,4,Homagama,237905,116728,121177,4,6,unchanged,LK1112,1112,81,0
+11-05,Colombo,11,5,Seethawaka,113807,55359,58448,5,40,unchanged,LK1115,1115,68,0
+11-06,Colombo,11,6,Padukka,65267,31889,33378,7,13,unchanged,LK1118,1118,46,0
+11-07,Colombo,11,7,Maharagama,196423,94117,102306,8,12,unchanged,LK1121,1121,41,0
+11-08,Colombo,11,8,Sri Jayawardanapura Kotte,107925,51992,55933,9,6,unchanged,LK1124,1124,20,0
+11-09,Colombo,11,9,Thimbirigasyaya,238057,118660,119397,9,27,unchanged,LK1127,1127,20,0
+11-10,Colombo,11,10,Dehiwala,88962,43201,45761,9,48,unchanged,LK1130,1130,15,0
+11-11,Colombo,11,11,Ratmalana,95506,46786,48720,10,16,unchanged,LK1131,1131,13,0
+11-12,Colombo,11,12,Moratuwa,168280,82323,85957,10,30,unchanged,LK1133,1133,42,0
+11-13,Colombo,11,13,Kesbewa,245232,118922,126310,11,25,unchanged,LK1136,1136,73,0
+12-01,Gampaha,12,1,Negombo,142136,68600,73536,13,4,unchanged,LK1203,1203,39,0
+12-02,Gampaha,12,2,Katana,235291,112803,122488,13,44,unchanged,LK1206,1206,79,0
+12-03,Gampaha,12,3,Divulapitiya,144506,70089,74417,15,28,unchanged,LK1209,1209,123,0
+12-04,Gampaha,12,4,Mirigama,164580,79185,85395,18,8,unchanged,LK1212,1212,149,0
+12-05,Gampaha,12,5,Minuwangoda,178331,85959,92372,21,14,unchanged,LK1215,1215,121,0
+12-06,Gampaha,12,6,Wattala,175525,84426,91099,23,40,unchanged,LK1218,1218,46,0
+12-07,Gampaha,12,7,Ja‐Ela,201521,97574,103947,24,39,unchanged,LK1221,1221,57,0
+12-08,Gampaha,12,8,Gampaha,197667,95570,102097,26,1,unchanged,LK1224,1224,101,0
+12-09,Gampaha,12,9,Attanagalla,179565,86489,93076,28,7,unchanged,LK1227,1227,151,0
+12-10,Gampaha,12,10,Dompe,154005,75233,78772,31,15,unchanged,LK1230,1230,133,0
+12-11,Gampaha,12,11,Mahara,207782,101389,106393,34,5,unchanged,LK1233,1233,92,0
+12-12,Gampaha,12,12,Kelaniya,137339,67461,69878,36,2,unchanged,LK1236,1236,37,0
+12-13,Gampaha,12,13,Biyagama,186585,92115,94470,36,40,unchanged,LK1239,1239,49,0
+13-01,Kalutara,13,1,Panadura,182285,87110,95175,37,43,unchanged,LK1303,1303,72,0
+13-02,Kalutara,13,2,Bandaragama,109236,52959,56277,39,20,unchanged,LK1306,1306,59,0
+13-03,Kalutara,13,3,Horana,113364,54799,58565,40,32,unchanged,LK1309,1309,61,0
+13-04,Kalutara,13,4,Ingiriya,53896,26423,27473,41,46,unchanged,LK1310,1310,31,0
+13-05,Kalutara,13,5,Bulathsinhala,64600,31276,33324,42,30,unchanged,LK1312,1312,54,0
+13-06,Kalutara,13,6,Madurawala,34381,16629,17752,43,37,unchanged,LK1315,1315,33,0
+13-07,Kalutara,13,7,Millaniya,52176,25345,26831,44,23,unchanged,LK1318,1318,44,0
+13-08,Kalutara,13,8,Kalutara,159697,77267,82430,45,20,unchanged,LK1321,1321,87,0
+13-09,Kalutara,13,9,Beruwala,164969,80599,84370,47,12,unchanged,LK1324,1324,82,0
+13-10,Kalutara,13,10,Dodangoda,63960,30844,33116,48,47,unchanged,LK1327,1327,45,0
+13-11,Kalutara,13,11,Mathugama,81286,39257,42029,49,45,unchanged,LK1330,1330,57,0
+13-12,Kalutara,13,12,Agalawatta,36669,17498,19171,51,7,unchanged,LK1333,1333,34,0
+13-13,Kalutara,13,13,Palindanuwara,50801,24977,25824,51,42,unchanged,LK1336,1336,43,0
+13-14,Kalutara,13,14,Walallavita,54628,26301,28327,52,38,unchanged,LK1339,1339,60,0
+21-01,Kandy,21,1,Thumpane,37642,18215,19427,54,4,unchanged,LK2103,2103,67,0
+21-02,Kandy,21,2,Poojapitiya,57914,27327,30587,55,24,renamed,LK2106,2106,67,0
+21-03,Kandy,21,3,Akurana,63397,29940,33457,56,44,unchanged,LK2109,2109,35,0
+21-04,Kandy,21,4,Pathadumbara,88725,41920,46805,57,32,unchanged,LK2112,2112,52,0
+21-05,Kandy,21,5,Panvila,26294,12213,14081,58,37,unchanged,LK2115,2115,14,0
+21-06,Kandy,21,6,Udadumbara,22505,11040,11465,59,4,unchanged,LK2118,2118,63,0
+21-07,Kandy,21,7,Minipe,51883,25468,26415,60,20,unchanged,LK2121,2121,48,0
+21-08,Kandy,21,8,Medadumbara,61034,28852,32182,61,21,unchanged,LK2124,2124,94,1
+21-09,Kandy,21,9,Kundasale,127070,60589,66481,63,20,unchanged,LK2127,2127,80,0
+21-10,Kandy,21,10,Kandy Four Gravets & Gangawata Korale,158561,76284,82277,65,5,unchanged,LK2130,2130,64,0
+21-11,Kandy,21,11,Harispattuwa,88177,41767,46410,66,22,unchanged,LK2133,2133,84,0
+21-12,Kandy,21,12,Hatharaliyadda,29986,14242,15744,68,11,unchanged,LK2134,2134,57,0
+21-13,Kandy,21,13,Yatinuwara,106027,50921,55106,69,21,unchanged,LK2136,2136,95,0
+21-14,Kandy,21,14,Udunuwara,110905,53554,57351,71,21,unchanged,LK2139,2139,124,0
+21-15,Kandy,21,15,Doluwa,49842,24407,25435,74,2,unchanged,LK2142,2142,33,0
+21-16,Kandy,21,16,Pathahewaheta,58188,28030,30158,74,36,unchanged,LK2145,2145,73,0
+21-17,Kandy,21,17,Delthota,30345,14179,16166,76,14,renamed,LK2148,2148,29,0
+21-18,Kandy,21,18,Udapalatha,91716,42716,49000,76,44,unchanged,LK2151,2151,49,0
+21-19,Kandy,21,19,Ganga Ihala Korale,55254,26539,28715,77,46,unchanged,LK2154,2154,31,0
+21-20,Kandy,21,20,Pasbage Korale,59917,27588,32329,78,30,unchanged,LK2157,2157,29,0
+22-01,Matale,22,1,Galewela,70042,33619,36423,79,13,unchanged,LK2203,2203,59,0
+22-02,Matale,22,2,Dambulla,72306,36307,35999,80,25,unchanged,LK2206,2206,59,0
+22-03,Matale,22,3,Naula,30884,15088,15796,81,37,unchanged,LK2209,2209,52,5
+22-04,Matale,22,4,Pallepola,29565,14022,15543,82,42,unchanged,LK2212,2212,44,0
+22-05,Matale,22,5,Yatawatta,30242,14496,15746,83,39,unchanged,LK2215,2215,56,0
+22-06,Matale,22,6,Matale,74864,35550,39314,84,48,unchanged,LK2218,2218,52,0
+22-07,Matale,22,7,Ambanganga Korale,15643,7324,8319,86,5,unchanged,LK2221,2221,20,0
+22-08,Matale,22,8,Laggala‐Pallegama,12110,6217,5893,86,26,unchanged,LK2224,2224,37,8
+22-09,Matale,22,9,Wilgamuwa,29494,14682,14812,87,16,unchanged,LK2227,2227,39,0
+22-10,Matale,22,10,Rattota,51354,24239,27115,88,8,unchanged,LK2230,2230,54,0
+22-11,Matale,22,11,Ukuwela,68027,32113,35914,89,15,unchanged,LK2233,2233,73,0
+23-01,Nuwara Eliya,23,1,Kothmale,101180,48527,52653,90,42,split,LK-ADM3-V2012-23-01,2302;2303,96,0
+23-02,Nuwara Eliya,23,2,Hanguranketha,88528,42156,46372,92,43,split,LK-ADM3-V2012-23-02,2306;2307,131,0
+23-03,Nuwara Eliya,23,3,Walapane,104119,49878,54241,95,31,split,LK-ADM3-V2012-23-03,2309;2310,125,0
+23-04,Nuwara Eliya,23,4,Nuwara Eliya,212094,102338,109756,98,13,split,LK-ADM3-V2012-23-04,2312;2313,72,0
+23-05,Nuwara Eliya,23,5,Ambagamuwa,205723,97448,108275,99,38,split,LK-ADM3-V2012-23-05,2314;2315,67,0
+31-01,Galle,31,1,Benthota,49975,24084,25891,101,11,renamed,LK3103,3103,51,0
+31-02,Galle,31,2,Balapitiya,67432,31977,35455,102,15,unchanged,LK3106,3106,51,0
+31-03,Galle,31,3,Karandeniya,62498,30175,32323,103,19,unchanged,LK3109,3109,40,0
+31-04,Galle,31,4,Elpitiya,64726,31068,33658,104,12,unchanged,LK3112,3112,51,0
+31-05,Galle,31,5,Niyagama,35574,17279,18295,105,16,unchanged,LK3115,3115,34,0
+31-06,Galle,31,6,Thawalama,32609,15957,16652,106,3,unchanged,LK3118,3118,36,0
+31-07,Galle,31,7,Neluwa,28640,14394,14246,106,40,unchanged,LK3121,3121,34,0
+31-08,Galle,31,8,Nagoda,53829,25936,27893,107,27,unchanged,LK3124,3124,53,0
+31-09,Galle,31,9,Baddegama,75008,35757,39251,108,33,split,LK-ADM3-V2012-31-09,3127;3128,70,0
+31-10,Galle,31,10,Welivitiya‐Divithura,29347,13988,15359,110,8,unchanged,LK3130,3130,20,0
+31-11,Galle,31,11,Ambalangoda,56961,27302,29659,110,29,unchanged,LK3133,3133,36,0
+31-12,Galle,31,12,Gonapeenuwala,21755,10261,11494,111,18,unchanged,LK3134,3134,19,0
+31-13,Galle,31,13,Hikkaduwa,101909,49104,52805,111,38,split,LK-ADM3-V2012-31-13,3135;3136;3137,97,0
+31-14,Galle,31,14,Galle Four Gravets,101749,48796,52953,113,40,unchanged,LK3139,3139,50,0
+31-15,Galle,31,15,Bope‐Poddala,50331,23863,26468,114,43,unchanged,LK3142,3142,44,0
+31-16,Galle,31,16,Akmeemana,77776,36906,40870,115,40,unchanged,LK3145,3145,63,0
+31-17,Galle,31,17,Yakkalamulla,45946,22173,23773,117,8,unchanged,LK3148,3148,44,0
+31-18,Galle,31,18,Imaduwa,44880,21289,23591,118,5,unchanged,LK3151,3151,43,0
+31-19,Galle,31,19,Habaraduwa,62389,29593,32796,119,1,unchanged,LK3154,3154,59,0
+32-01,Matara,32,1,Pitabeddara,51186,25038,26148,120,14,unchanged,LK3203,3203,40,0
+32-02,Matara,32,2,Kotapola,63255,30913,32342,121,7,unchanged,LK3206,3206,37,0
+32-03,Matara,32,3,Pasgoda,59160,28796,30364,121,45,unchanged,LK3209,3209,43,0
+32-04,Matara,32,4,Mulatiyana,50261,24116,26145,122,41,unchanged,LK3212,3212,48,0
+32-05,Matara,32,5,Athuraliya,32304,15391,16913,123,42,unchanged,LK3215,3215,28,0
+32-06,Matara,32,6,Akuressa,52912,25640,27272,124,23,unchanged,LK3218,3218,46,0
+32-07,Matara,32,7,Welipitiya,52098,24674,27424,125,22,unchanged,LK3221,3221,38,0
+32-08,Matara,32,8,Malimbada,34856,16369,18487,126,13,unchanged,LK3224,3224,29,0
+32-09,Matara,32,9,Kamburupitiya,40969,19617,21352,126,43,unchanged,LK3227,3227,39,0
+32-10,Matara,32,10,Hakmana,31648,15007,16641,127,35,unchanged,LK3230,3230,34,0
+32-11,Matara,32,11,Kirinda Puhulwella,20291,9606,10685,128,22,unchanged,LK3233,3233,25,0
+32-12,Matara,32,12,Thihagoda,33535,15907,17628,128,48,unchanged,LK3236,3236,40,0
+32-13,Matara,32,13,Weligama,72843,35157,37686,129,41,unchanged,LK3239,3239,48,0
+32-14,Matara,32,14,Matara Four Gravets,115805,54810,60995,130,42,unchanged,LK3242,3242,66,0
+32-15,Matara,32,15,Devinuwara,48253,22900,25353,132,13,unchanged,LK3245,3245,41,0
+32-16,Matara,32,16,Dickwella,54672,25962,28710,133,7,unchanged,LK3248,3248,48,0
+33-01,Hambantota,33,1,Sooriyawewa,43102,21876,21226,134,9,unchanged,LK3303,3303,21,0
+33-02,Hambantota,33,2,Lunugamvehera,31559,16178,15381,134,31,unchanged,LK3306,3306,36,0
+33-03,Hambantota,33,3,Thissamaharama,68606,34478,34128,135,20,unchanged,LK3309,3309,44,0
+33-04,Hambantota,33,4,Hambantota,57264,28652,28612,136,17,unchanged,LK3312,3312,30,0
+33-05,Hambantota,33,5,Ambalantota,72943,35996,36947,136,48,unchanged,LK3315,3315,55,0
+33-06,Hambantota,33,6,Angunakolapelessa,48301,23630,24671,138,8,unchanged,LK3318,3318,51,0
+33-07,Hambantota,33,7,Weeraketiya,41565,19949,21616,139,12,unchanged,LK3321,3321,60,0
+33-08,Hambantota,33,8,Katuwana,46772,22736,24036,140,25,unchanged,LK3324,3324,56,0
+33-09,Hambantota,33,9,Walasmulla,42274,20357,21917,141,34,unchanged,LK3325,3325,53,0
+33-10,Hambantota,33,10,Okewela,19018,9015,10003,142,40,unchanged,LK3327,3327,27,0
+33-11,Hambantota,33,11,Beliatta,55992,26697,29295,143,20,unchanged,LK3330,3330,71,0
+33-12,Hambantota,33,12,Tangalle,72507,35172,37335,144,44,unchanged,LK3333,3333,72,0
+41-01,Jaffna,41,1,Island North (Kayts),9876,4683,5193,146,22,unchanged,LK4103,4103,15,0
+41-02,Jaffna,41,2,Karainagar,9576,4379,5197,146,38,unchanged,LK4104,4104,9,0
+41-03,Jaffna,41,3,Valikamam West (Chankanai),46438,21794,24644,146,48,unchanged,LK4106,4106,25,0
+41-04,Jaffna,41,4,Valikamam South ‐West (Sandilipay),52269,24534,27735,147,26,unchanged,LK4109,4109,28,0
+41-05,Jaffna,41,5,Valikamam North,29518,14097,15421,148,7,renamed,LK4112,4112,45,0
+41-06,Jaffna,41,6,Valikamam South (Uduvil),53016,24645,28371,149,5,unchanged,LK4115,4115,30,0
+41-07,Jaffna,41,7,Valikamam East (Kopay),73225,34410,38815,149,36,unchanged,LK4118,4118,31,0
+41-08,Jaffna,41,8,Vadamaradchi South‐west,45730,21210,24520,150,20,renamed,LK4121,4121,35,0
+41-09,Jaffna,41,9,Vadamaradchi East,12766,6253,6513,151,8,unchanged,LK4124,4124,18,0
+41-10,Jaffna,41,10,Vadamaradchi North (Pointpedro),47565,22325,25240,151,27,unchanged,LK4127,4127,35,0
+41-11,Jaffna,41,11,Thenmaradchi (Chavakachcheri),64704,30483,34221,152,15,unchanged,LK4130,4130,60,0
+41-12,Jaffna,41,12,Nallur,68142,31624,36518,153,28,unchanged,LK4133,4133,40,0
+41-13,Jaffna,41,13,Jaffna,50491,23916,26575,154,21,unchanged,LK4136,4136,28,0
+41-14,Jaffna,41,14,Island South (Velanai),16742,7962,8780,155,2,unchanged,LK4139,4139,30,0
+41-15,Jaffna,41,15,Delft,3824,1858,1966,155,33,unchanged,LK4142,4142,6,0
+42-01,Mannar,42,1,Mannar Town,51078,25451,25627,155,41,unchanged,LK4203,4203,49,0
+42-02,Mannar,42,2,Manthai West,14771,7517,7254,156,43,unchanged,LK4206,4206,36,0
+42-03,Mannar,42,3,Madhu,7711,3973,3738,157,32,unchanged,LK4209,4209,17,0
+42-04,Mannar,42,4,Nanaddan,17891,8955,8936,158,2,renamed,LK4212,4212,31,0
+42-05,Mannar,42,5,Musalai,8119,4157,3962,158,34,renamed,LK4215,4215,20,0
+43-01,Vavuniya,43,1,Vavuniya North,11578,5987,5591,159,8,unchanged,LK4303,4303,20,0
+43-02,Vavuniya,43,2,Vavuniya South,13118,6448,6670,159,29,unchanged,LK4306,4306,20,0
+43-03,Vavuniya,43,3,Vavuniya,117533,57179,60354,160,2,unchanged,LK4309,4309,42,0
+43-04,Vavuniya,43,4,Vengalacheddikulam,29886,15101,14785,160,45,unchanged,LK4312,4312,20,0
+44-01,Mullaitivu,44,1,Thunukkai,9699,4844,4855,161,19,unchanged,LK4403,4403,20,0
+44-02,Mullaitivu,44,2,Manthai East,7117,3634,3483,161,40,unchanged,LK4406,4406,15,0
+44-03,Mullaitivu,44,3,Puthukudiyiruppu,23824,11534,12290,162,8,renamed,LK4409,4409,19,0
+44-04,Mullaitivu,44,4,Oddusuddan,15721,8015,7706,162,28,unchanged,LK4412,4412,27,0
+44-05,Mullaitivu,44,5,Maritimepattu,28973,14622,14351,163,8,unchanged,LK4415,4415,46,0
+44-06,Mullaitivu,44,6,Welioya,6904,3387,3517,164,7,unchanged,LK4418,4418,9,0
+45-01,Kilinochchi,45,1,Pachchilaipalli,8530,4250,4280,164,18,unchanged,LK4503,4503,18,0
+45-02,Kilinochchi,45,2,Kandavalai,23194,11317,11877,164,37,unchanged,LK4506,4506,16,0
+45-03,Kilinochchi,45,3,Karachchi,61484,30129,31355,165,6,unchanged,LK4509,4509,42,0
+45-04,Kilinochchi,45,4,Poonakary,20302,10087,10215,166,1,unchanged,LK4512,4512,19,0
+51-01,Batticaloa,51,1,Koralai Pattu North (Vaharai),21537,10553,10984,166,22,unchanged,LK5103,5103,16,0
+51-02,Batticaloa,51,2,Koralai Pattu Central,25687,12463,13224,166,39,unchanged,LK5104,5104,9,0
+51-03,Batticaloa,51,3,Koralai Pattu West (Oddamavadi),22182,10955,11227,167,1,unchanged,LK5106,5106,8,0
+51-04,Batticaloa,51,4,Koralai Pattu (Valachchenai),23376,11169,12207,167,10,unchanged,LK5109,5109,12,0
+51-05,Batticaloa,51,5,Koralai Pattu South (Kiran),26143,12583,13560,167,23,unchanged,LK5110,5110,18,0
+51-06,Batticaloa,51,6,Eravur Pattu,75478,35948,39530,167,42,unchanged,LK5115,5112,39,1
+51-07,Batticaloa,51,7,Eravur Town,24643,11621,13022,168,34,unchanged,LK5139,5115,15,0
+51-08,Batticaloa,51,8,Manmunai North,86227,40750,45477,169,2,unchanged,LK5118,5118,48,0
+51-09,Batticaloa,51,9,Manmunai West,28489,13887,14602,170,3,unchanged,LK5121,5121,24,0
+51-10,Batticaloa,51,10,Kattankudy,40356,18635,21721,170,28,unchanged,LK5124,5124,18,0
+51-11,Batticaloa,51,11,Manmunai Pattu (Araipattai),30694,14214,16480,170,47,unchanged,LK5127,5127,27,0
+51-12,Batticaloa,51,12,Manmunai South‐West,24726,12105,12621,171,27,unchanged,LK5130,5130,24,0
+51-13,Batticaloa,51,13,Porativu Pattu,36222,16369,19853,172,4,unchanged,LK5133,5133,43,0
+51-14,Batticaloa,51,14,Manmunai South & Eruvil Pattu,60807,29424,31383,172,48,unchanged,LK5136,5136,45,0
+52-01,Ampara,52,1,Dehiattakandiya,60178,29897,30281,173,47,unchanged,LK5203,5203,13,0
+52-02,Ampara,52,2,Padiyathalawa,18290,9140,9150,174,13,unchanged,LK5206,5206,20,0
+52-03,Ampara,52,3,Mahaoya,20828,10541,10287,174,34,unchanged,LK5209,5209,17,0
+52-04,Ampara,52,4,Uhana,58325,28825,29500,175,4,unchanged,LK5212,5212,55,0
+52-05,Ampara,52,5,Ampara,43829,21422,22407,176,12,unchanged,LK5215,5215,22,0
+52-06,Ampara,52,6,Navithanveli,18727,8683,10044,176,35,unchanged,LK5216,5216,20,0
+52-07,Ampara,52,7,Samanthurai,60465,28670,31795,177,8,unchanged,LK5218,5218,51,0
+52-08,Ampara,52,8,Kalmunai Tamil Division (Sub Division),29800,13844,15956,178,12,renamed,LK-ADM3-P0001,5221,29,0
+52-09,Ampara,52,9,Kalmunai,44632,21583,23049,178,42,unchanged,,5224,29,0
+52-10,Ampara,52,10,Sainthamarathu,25461,12229,13232,179,24,renamed,LK5225,5225,17,0
+52-11,Ampara,52,11,Karaitheevu,16839,8019,8820,179,42,unchanged,LK5227,5227,17,0
+52-12,Ampara,52,12,Ninthavur,26361,12205,14156,180,12,unchanged,LK5230,5230,25,0
+52-13,Ampara,52,13,Addalachchenai,41968,20015,21953,180,38,unchanged,LK5233,5233,32,0
+52-14,Ampara,52,14,Irakkamam,14383,7132,7251,181,23,unchanged,LK5234,5234,12,0
+52-15,Ampara,52,15,Akkaraipattu,39166,19037,20129,181,36,unchanged,LK5236,5236,28,0
+52-16,Ampara,52,16,Alayadiwembu,22458,10709,11749,182,17,unchanged,LK5239,5239,22,0
+52-17,Ampara,52,17,Damana,38692,19049,19643,182,40,unchanged,LK5242,5242,33,0
+52-18,Ampara,52,18,Thirukkovil,25277,12123,13154,183,26,unchanged,LK5245,5245,22,0
+52-19,Ampara,52,19,Pothuvil,34809,16863,17946,184,1,unchanged,LK5248,5248,27,0
+52-20,Ampara,52,20,Lahugala,8914,4366,4548,184,29,unchanged,LK5251,5251,12,0
+53-01,Trincomalee,53,1,Padavi Sri Pura,11882,5850,6032,184,43,unchanged,LK5303,5303,10,1
+53-02,Trincomalee,53,2,Kuchchaveli,33218,16898,16320,185,6,unchanged,LK5306,5306,24,1
+53-03,Trincomalee,53,3,Gomarankadawala,7382,3785,3597,185,31,unchanged,LK5309,5309,10,0
+53-04,Trincomalee,53,4,Morawewa,7968,4118,3850,185,42,unchanged,LK5312,5312,10,0
+53-05,Trincomalee,53,5,Trincomalee Town and Gravets,97487,47145,50342,186,5,unchanged,LK5315,5315,42,0
+53-06,Trincomalee,53,6,Thambalagamuwa,28527,14003,14524,186,48,unchanged,LK5318,5318,12,0
+53-07,Trincomalee,53,7,Kanthale,46802,23127,23675,187,13,unchanged,LK5321,5321,23,0
+53-08,Trincomalee,53,8,Kinniya,64613,32468,32145,187,37,unchanged,LK5324,5324,31,0
+53-09,Trincomalee,53,9,Muttur,56621,27762,28859,188,21,unchanged,LK5327,5327,42,0
+53-10,Trincomalee,53,10,Seruvila,13632,6742,6890,189,16,unchanged,LK5330,5330,16,0
+53-11,Trincomalee,53,11,Verugal/ Echchilampattai,11409,5574,5835,189,33,renamed,LK5333,5333,10,0
+61-01,Kurunegala,61,1,Giribawa,31412,15180,16232,189,45,unchanged,LK6103,6103,35,0
+61-02,Kurunegala,61,2,Galgamuwa,55078,26813,28265,190,33,unchanged,LK6106,6106,62,0
+61-03,Kurunegala,61,3,Ehetuwewa,25781,12579,13202,191,48,unchanged,LK6109,6109,35,0
+61-04,Kurunegala,61,4,Ambanpola,22878,11020,11858,192,36,unchanged,LK6112,6112,28,0
+61-05,Kurunegala,61,5,Kotavehera,21263,10140,11123,193,17,unchanged,LK6115,6115,31,0
+61-06,Kurunegala,61,6,Rasnayakapura,21893,10648,11245,194,1,unchanged,LK6118,6118,28,0
+61-07,Kurunegala,61,7,Nikaweratiya,40452,19485,20967,194,30,unchanged,LK6121,6121,42,0
+61-08,Kurunegala,61,8,Maho,57485,27699,29786,195,25,unchanged,LK6124,6124,68,0
+61-09,Kurunegala,61,9,Polpithigama,76139,37001,39138,196,46,unchanged,LK6127,6127,82,0
+61-10,Kurunegala,61,10,Ibbagamuwa,85309,40633,44676,198,33,unchanged,LK6130,6130,74,0
+61-11,Kurunegala,61,11,Ganewatta,40137,19284,20853,200,12,unchanged,LK6133,6133,42,0
+61-12,Kurunegala,61,12,Wariyapola,61425,29810,31615,201,7,unchanged,LK6136,6136,56,0
+61-13,Kurunegala,61,13,Kobeigane,35975,17473,18502,202,16,unchanged,LK6139,6139,35,0
+61-14,Kurunegala,61,14,Bingiriya,62349,29799,32550,203,4,unchanged,LK6142,6142,52,0
+61-15,Kurunegala,61,15,Panduwasnuwara West,63742,30800,32942,204,9,boundary_adjusted,LK6145,6145,64,0
+61-16,Kurunegala,61,16,Panduwasnuwara East,32386,15561,16825,205,26,boundary_adjusted,LK6148,6148,39,0
+61-17,Kurunegala,61,17,Bamunakotuwa,36217,17263,18954,206,18,unchanged,LK6149,6149,36,0
+61-18,Kurunegala,61,18,Maspotha,34262,16293,17969,207,7,unchanged,LK6151,6151,33,0
+61-19,Kurunegala,61,19,Kurunegala,80755,38734,42021,207,41,unchanged,LK6154,6154,54,0
+61-20,Kurunegala,61,20,Mallawapitiya,52634,25197,27437,208,48,unchanged,LK6157,6157,45,0
+61-21,Kurunegala,61,21,Mawathagama,64904,30964,33940,209,46,unchanged,LK6160,6160,71,0
+61-22,Kurunegala,61,22,Rideegama,88714,42248,46466,211,22,unchanged,LK6163,6163,113,0
+61-23,Kurunegala,61,23,Weerambugedara,34339,16141,18198,213,40,unchanged,LK6166,6166,38,0
+61-24,Kurunegala,61,24,Kuliyapitiya East,54062,26076,27986,214,31,unchanged,LK6169,6169,45,0
+61-25,Kurunegala,61,25,Kuliyapitiya West,77316,36670,40646,215,29,unchanged,LK6172,6172,68,0
+61-26,Kurunegala,61,26,Udubaddawa,52231,25055,27176,217,2,unchanged,LK6175,6175,43,0
+61-27,Kurunegala,61,27,Pannala,124225,59466,64759,217,46,unchanged,LK6178,6178,87,0
+61-28,Kurunegala,61,28,Narammala,56279,26973,29306,219,38,unchanged,LK6181,6181,54,0
+61-29,Kurunegala,61,29,Alawwa,63667,30951,32716,220,45,unchanged,LK6184,6184,66,0
+61-30,Kurunegala,61,30,Polgahawela,65156,31245,33911,222,16,unchanged,LK6187,6187,84,0
+62-01,Puttalam,62,1,Kalpitiya,86405,43244,43161,224,6,unchanged,LK6203,6203,31,0
+62-02,Puttalam,62,2,Vanathavilluwa,17460,8631,8829,224,38,renamed,LK6206,6206,17,0
+62-03,Puttalam,62,3,Karuwalagaswewa,23440,11770,11670,225,8,unchanged,LK6209,6209,26,0
+62-04,Puttalam,62,4,Nawagattegama,14483,7131,7352,225,35,unchanged,LK6212,6212,19,0
+62-05,Puttalam,62,5,Puttalam,82443,39785,42658,226,7,unchanged,LK6215,6215,22,0
+62-06,Puttalam,62,6,Mundel,61638,29525,32113,226,30,unchanged,LK6218,6218,31,0
+62-07,Puttalam,62,7,Mahakumbukkadawala,18633,8975,9658,227,14,unchanged,LK6221,6221,25,0
+62-08,Puttalam,62,8,Anamaduwa,38286,18682,19604,227,40,unchanged,LK6224,6224,35,0
+62-09,Puttalam,62,9,Pallama,24441,11857,12584,228,28,unchanged,LK6227,6227,18,0
+62-10,Puttalam,62,10,Arachchikattuwa,40999,19723,21276,228,47,unchanged,LK6230,6230,33,0
+62-11,Puttalam,62,11,Chilaw,62515,29918,32597,229,33,unchanged,LK6233,6233,49,0
+62-12,Puttalam,62,12,Madampe,47920,23261,24659,230,35,unchanged,LK6236,6236,49,0
+62-13,Puttalam,62,13,Mahawewa,51078,24471,26607,231,37,unchanged,LK6239,6239,47,0
+62-14,Puttalam,62,14,Nattandiya,62145,29550,32595,232,37,unchanged,LK6242,6242,47,0
+62-15,Puttalam,62,15,Wennappuwa,68111,32209,35902,233,37,unchanged,LK6245,6245,52,0
+62-16,Puttalam,62,16,Dankotuwa,62399,30239,32160,234,42,unchanged,LK6248,6248,47,0
+71-01,Anuradhapura,71,1,Padaviya,22998,11353,11645,235,43,unchanged,LK7103,7103,15,0
+71-02,Anuradhapura,71,2,Kebithigollewa,22325,11098,11227,236,11,unchanged,LK7106,7106,26,0
+71-03,Anuradhapura,71,3,Medawachchiya,46906,22583,24323,236,38,unchanged,LK7109,7109,37,0
+71-04,Anuradhapura,71,4,Mahavilachchiya,22467,11177,11290,237,28,renamed,LK7112,7112,17,0
+71-05,Anuradhapura,71,5,Nuwaragam Palatha Central,61223,30296,30927,237,46,unchanged,LK7115,7115,40,0
+71-06,Anuradhapura,71,6,Rambewa,36782,17887,18895,238,39,unchanged,LK7118,7118,38,0
+71-07,Anuradhapura,71,7,Kahatagasdigiliya,40339,19398,20941,239,30,unchanged,LK7121,7121,40,0
+71-08,Anuradhapura,71,8,Horowpothana,36990,18251,18739,240,23,unchanged,LK7124,7124,38,0
+71-09,Anuradhapura,71,9,Galenbindunuwewa,46992,23019,23973,241,14,unchanged,LK7127,7127,41,0
+71-10,Anuradhapura,71,10,Mihinthale,35293,16702,18591,242,8,unchanged,LK7130,7130,25,0
+71-11,Anuradhapura,71,11,Nuwaragam Palatha East,69737,33995,35742,242,34,unchanged,LK7133,7133,29,0
+71-12,Anuradhapura,71,12,Nachchadoowa,25377,12339,13038,243,16,renamed,LK7136,7136,19,0
+71-13,Anuradhapura,71,13,Nochchiyagama,49886,24480,25406,243,36,unchanged,LK7139,7139,36,0
+71-14,Anuradhapura,71,14,Rajanganaya,33543,16265,17278,244,25,unchanged,LK7142,7142,21,0
+71-15,Anuradhapura,71,15,Thambuttegama,42437,20840,21597,244,47,unchanged,LK7145,7145,26,0
+71-16,Anuradhapura,71,16,Thalawa,57793,28234,29559,245,26,unchanged,LK7148,7148,39,0
+71-17,Anuradhapura,71,17,Thirappane,27044,13355,13689,246,18,unchanged,LK7151,7151,41,0
+71-18,Anuradhapura,71,18,Kekirawa,59241,29196,30045,247,12,unchanged,LK7154,7154,53,0
+71-19,Anuradhapura,71,19,Palugaswewa,15582,7802,7780,248,18,unchanged,LK7157,7157,16,0
+71-20,Anuradhapura,71,20,Ipalogama,38862,18517,20345,248,35,unchanged,LK7160,7160,32,0
+71-21,Anuradhapura,71,21,Galnewa,34756,16693,18063,249,20,unchanged,LK7163,7163,30,0
+71-22,Anuradhapura,71,22,Palagala,34002,16620,17382,250,3,unchanged,LK7166,7166,35,0
+72-01,Polonnaruwa,72,1,Hingurakgoda,64289,31574,32715,250,40,unchanged,LK7203,7203,53,0
+72-02,Polonnaruwa,72,2,Medirigiriya,65575,32172,33403,251,46,unchanged,LK7206,7206,45,0
+72-03,Polonnaruwa,72,3,Lankapura,36452,17621,18831,252,44,unchanged,LK7209,7209,28,0
+72-04,Polonnaruwa,72,4,Welikanda,33770,17285,16485,253,25,unchanged,LK7210,7210,30,0
+72-05,Polonnaruwa,72,5,Dimbulagala,79661,39903,39758,254,8,unchanged,LK7212,7212,56,0
+72-06,Polonnaruwa,72,6,Thamankaduwa,82426,40633,41793,255,17,unchanged,LK7215,7215,55,0
+72-07,Polonnaruwa,72,7,Elahera,43915,21592,22323,256,25,unchanged,LK7218,7218,28,0
+81-01,Badulla,81,1,Mahiyanganaya,75776,37276,38500,257,7,unchanged,LK8103,8103,35,0
+81-02,Badulla,81,2,Rideemaliyadda,51618,25163,26455,257,43,unchanged,LK8106,8106,42,0
+81-03,Badulla,81,3,Meegahakivula,19719,9531,10188,258,38,unchanged,LK8109,8109,20,0
+81-04,Badulla,81,4,Kandaketiya,23075,11188,11887,259,11,unchanged,LK8112,8112,26,0
+81-05,Badulla,81,5,Soranathota,22571,10695,11876,259,38,unchanged,LK8115,8115,25,0
+81-06,Badulla,81,6,Passara,48807,23035,25772,260,16,unchanged,LK8118,8118,41,0
+81-07,Badulla,81,7,Lunugala,31381,14731,16650,261,10,unchanged,LK8119,8119,28,0
+81-08,Badulla,81,8,Badulla,75042,35179,39863,261,39,unchanged,LK8121,8121,29,0
+81-09,Badulla,81,9,Hali‐Ela,90571,42925,47646,262,21,unchanged,LK8124,8124,57,0
+81-10,Badulla,81,10,Paranagama,77998,37722,40276,263,31,renamed,LK8127,8127,68,0
+81-11,Badulla,81,11,Welimada,100808,49010,51798,265,4,unchanged,LK8130,8130,64,0
+81-12,Badulla,81,12,Bandarawela,65502,31107,34395,266,21,unchanged,LK8133,8133,35,0
+81-13,Badulla,81,13,Ella,45181,21965,23216,267,9,unchanged,LK8136,8136,32,0
+81-14,Badulla,81,14,Haputale,49798,24299,25499,267,42,unchanged,LK8139,8139,26,0
+81-15,Badulla,81,15,Haldummulla,37558,18122,19436,268,21,unchanged,LK8142,8142,39,0
+82-01,Moneragala,82,1,Bibile,40329,19325,21004,269,14,unchanged,LK8203,8203,40,0
+82-02,Moneragala,82,2,Madulla,31238,15231,16007,270,7,unchanged,LK8206,8206,38,0
+82-03,Moneragala,82,3,Medagama,35881,17338,18543,270,46,unchanged,LK8209,8209,35,0
+82-04,Moneragala,82,4,Siyambalanduwa,54040,27179,26861,271,34,unchanged,LK8212,8212,48,0
+82-05,Moneragala,82,5,Moneragala,49520,24857,24663,272,35,unchanged,LK8215,8215,26,0
+82-06,Moneragala,82,6,Badalkumbura,40103,19409,20694,273,14,unchanged,LK8218,8218,41,0
+82-07,Moneragala,82,7,Wellawaya,60060,30005,30055,274,8,unchanged,LK8221,8221,29,0
+82-08,Moneragala,82,8,Buttala,53084,26730,26354,274,38,unchanged,LK8224,8224,29,0
+82-09,Moneragala,82,9,Katharagama,18220,9583,8637,275,20,unchanged,LK8227,8227,5,0
+82-10,Moneragala,82,10,Thanamalvila,26683,13600,13083,275,26,unchanged,LK8230,8230,14,0
+82-11,Moneragala,82,11,Sevanagala,41900,20911,20989,275,41,unchanged,LK8233,8233,14,0
+91-01,Ratnapura,91,1,Eheliyagoda,70839,34795,36044,276,9,unchanged,LK9103,9103,44,0
+91-02,Ratnapura,91,2,Kuruvita,95646,47608,48038,277,6,unchanged,LK9106,9106,39,0
+91-03,Ratnapura,91,3,Kiriella,32613,16088,16525,277,46,unchanged,LK9109,9109,17,0
+91-04,Ratnapura,91,4,Ratnapura,120212,59039,61173,278,16,unchanged,LK9112,9112,53,0
+91-05,Ratnapura,91,5,Imbulpe,59477,28697,30780,279,22,unchanged,LK9115,9115,50,0
+91-06,Ratnapura,91,6,Balangoda,81563,39754,41809,280,25,split,LK-ADM3-V2012-91-06,9118;9119,53,0
+91-07,Ratnapura,91,7,Opanayaka,26587,13087,13500,281,31,renamed,LK9121,9121,20,0
+91-08,Ratnapura,91,8,Pelmadulla,89469,44351,45118,282,4,unchanged,LK9124,9124,37,0
+91-09,Ratnapura,91,9,Elapatha,37853,18862,18991,282,42,unchanged,LK9127,9127,20,0
+91-10,Ratnapura,91,10,Ayagama,30894,15500,15394,283,15,unchanged,LK9130,9130,21,0
+91-11,Ratnapura,91,11,Kalawana,51307,25607,25700,283,37,unchanged,LK9133,9133,33,0
+91-12,Ratnapura,91,12,Nivithigala,60130,29944,30186,284,23,unchanged,LK9136,9136,24,0
+91-13,Ratnapura,91,13,Kahawatta,43298,21289,22009,284,48,unchanged,LK9139,9139,21,0
+91-14,Ratnapura,91,14,Godakawela,76469,37296,39173,285,22,unchanged,LK9142,9142,44,0
+91-15,Ratnapura,91,15,Weligepola,30983,15423,15560,286,19,unchanged,LK9145,9145,30,0
+91-16,Ratnapura,91,16,Embilipitiya,134713,66264,68449,287,2,unchanged,LK9148,9148,40,0
+91-17,Ratnapura,91,17,Kolonna,45954,22797,23157,287,43,unchanged,LK9151,9151,29,0
+92-01,Kegalle,92,1,Rambukkana,82769,38929,43840,288,26,unchanged,LK9203,9203,89,0
+92-02,Kegalle,92,2,Mawanella,111727,52665,59062,290,20,unchanged,LK9206,9206,71,0
+92-03,Kegalle,92,3,Aranayaka,68464,32163,36301,291,44,unchanged,LK9209,9209,61,0
+92-04,Kegalle,92,4,Kegalle,90854,43127,47727,293,10,unchanged,LK9212,9212,61,0
+92-05,Kegalle,92,5,Galigamuwa,74490,35581,38909,294,24,unchanged,LK9215,9215,51,0
+92-06,Kegalle,92,6,Warakapola,113056,54179,58877,295,28,unchanged,LK9218,9218,78,0
+92-07,Kegalle,92,7,Ruwanwella,63913,30654,33259,297,11,unchanged,LK9221,9221,38,0
+92-08,Kegalle,92,8,Bulathkohupitiya,47095,22490,24605,298,2,unchanged,LK9224,9224,27,0
+92-09,Kegalle,92,9,Yatiyanthota,61096,29449,31647,298,30,unchanged,LK9227,9227,32,0
+92-10,Kegalle,92,10,Dehiovita,81315,39367,41948,299,15,unchanged,LK9230,9230,39,0
+92-11,Kegalle,92,11,Deraniyagala,45869,22216,23653,300,7,unchanged,LK9233,9233,26,0

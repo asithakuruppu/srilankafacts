@@ -1,0 +1,342 @@
+ds_2012,name_2012,ds_2024,name_2024,gn_count,pop_2012,share_of_2012_gns,share_of_2024_gns,major,change_type
+11-01,Colombo,1103,Colombo,34,319462,0.9714,0.9714,True,unchanged
+11-02,Kolonnawa,1106,Kolonnawa,46,191687,1.0,1.0,True,unchanged
+11-03,Kaduwela,1109,Kaduwela,57,252041,1.0,1.0,True,unchanged
+11-04,Homagama,1112,Homagama,81,237905,1.0,1.0,True,unchanged
+11-05,Seethawaka,1115,Seethawaka,68,113807,1.0,1.0,True,unchanged
+11-06,Padukka,1118,Padukka,46,65267,1.0,1.0,True,unchanged
+11-07,Maharagama,1121,Maharagama,41,196423,1.0,1.0,True,unchanged
+11-08,Sri Jayawardanapura Kotte,1124,Sri Jayawardanapura Kotte,20,107925,1.0,1.0,True,unchanged
+11-09,Thimbirigasyaya,1127,Thimbirigasyaya,20,238057,1.0,1.0,True,unchanged
+11-10,Dehiwala,1130,Dehiwala,15,88962,1.0,1.0,True,unchanged
+11-11,Ratmalana,1131,Ratmalana,13,95506,1.0,1.0,True,unchanged
+11-12,Moratuwa,1133,Moratuwa,42,168280,1.0,1.0,True,unchanged
+11-13,Kesbewa,1136,Kesbewa,73,245232,1.0,1.0,True,unchanged
+12-01,Negombo,1203,Negombo,39,142136,1.0,1.0,True,unchanged
+12-02,Katana,1206,Katana,79,235291,1.0,1.0,True,unchanged
+12-03,Divulapitiya,1209,Divulapitiya,123,144506,1.0,1.0,True,unchanged
+12-04,Mirigama,1212,Mirigama,149,164580,1.0,1.0,True,unchanged
+12-05,Minuwangoda,1215,Minuwangoda,121,178331,1.0,1.0,True,unchanged
+12-06,Wattala,1218,Wattala,46,175525,1.0,1.0,True,unchanged
+12-07,Ja‐Ela,1221,Ja-Ela,57,201521,1.0,1.0,True,unchanged
+12-08,Gampaha,1224,Gampaha,101,197667,1.0,1.0,True,unchanged
+12-09,Attanagalla,1227,Attanagalla,151,179565,1.0,1.0,True,unchanged
+12-10,Dompe,1230,Dompe,133,154005,1.0,1.0,True,unchanged
+12-11,Mahara,1233,Mahara,92,207782,1.0,1.0,True,unchanged
+12-12,Kelaniya,1236,Kelaniya,37,137339,1.0,1.0,True,unchanged
+12-13,Biyagama,1239,Biyagama,49,186585,1.0,1.0,True,unchanged
+13-01,Panadura,1303,Panadura,72,182285,1.0,1.0,True,unchanged
+13-02,Bandaragama,1306,Bandaragama,59,109236,1.0,1.0,True,unchanged
+13-03,Horana,1309,Horana,61,113364,1.0,1.0,True,unchanged
+13-04,Ingiriya,1310,Ingiriya,31,53896,1.0,1.0,True,unchanged
+13-05,Bulathsinhala,1312,Bulathsinhala,54,64600,1.0,1.0,True,unchanged
+13-06,Madurawala,1315,Madurawala,33,34381,1.0,1.0,True,unchanged
+13-07,Millaniya,1318,Millaniya,44,52176,1.0,1.0,True,unchanged
+13-08,Kalutara,1321,Kalutara,87,159697,1.0,1.0,True,unchanged
+13-09,Beruwala,1324,Beruwala,82,164969,1.0,1.0,True,unchanged
+13-10,Dodangoda,1327,Dodangoda,45,63960,1.0,1.0,True,unchanged
+13-11,Mathugama,1330,Mathugama,57,81286,1.0,1.0,True,unchanged
+13-12,Agalawatta,1333,Agalawatta,34,36669,1.0,1.0,True,unchanged
+13-13,Palindanuwara,1336,Palindanuwara,43,50801,1.0,1.0,True,unchanged
+13-14,Walallavita,1339,Walallavita,60,54628,1.0,1.0,True,unchanged
+21-01,Thumpane,2103,Thumpane,67,37642,1.0,1.0,True,unchanged
+21-02,Poojapitiya,2106,Pujapitiya,67,57914,1.0,1.0,True,renamed
+21-03,Akurana,2109,Akurana,35,63397,1.0,1.0,True,unchanged
+21-04,Pathadumbara,2112,Pathadumbara,52,88725,1.0,1.0,True,unchanged
+21-05,Panvila,2115,Panvila,14,26294,1.0,1.0,True,unchanged
+21-06,Udadumbara,2118,Udadumbara,63,22505,1.0,1.0,True,unchanged
+21-07,Minipe,2121,Minipe,48,51883,1.0,1.0,True,unchanged
+21-08,Medadumbara,2124,Medadumbara,93,61034,0.9894,1.0,True,unchanged
+21-09,Kundasale,2127,Kundasale,80,127070,1.0,1.0,True,unchanged
+21-10,Kandy Four Gravets & Gangawata Korale,2130,Kandy Four Gravets & Gangawata Korale,64,158561,1.0,1.0,True,unchanged
+21-11,Harispattuwa,2133,Harispattuwa,84,88177,1.0,1.0,True,unchanged
+21-12,Hatharaliyadda,2134,Hatharaliyadda,57,29986,1.0,1.0,True,unchanged
+21-13,Yatinuwara,2136,Yatinuwara,95,106027,1.0,1.0,True,unchanged
+21-14,Udunuwara,2139,Udunuwara,124,110905,1.0,1.0,True,unchanged
+21-15,Doluwa,2142,Doluwa,33,49842,1.0,1.0,True,unchanged
+21-16,Pathahewaheta,2145,Pathahewaheta,73,58188,1.0,1.0,True,unchanged
+21-17,Delthota,2148,Deltota,29,30345,1.0,1.0,True,renamed
+21-18,Udapalatha,2151,Udapalatha,49,91716,1.0,1.0,True,unchanged
+21-19,Ganga Ihala Korale,2154,Ganga Ihala Korale,31,55254,1.0,1.0,True,unchanged
+21-20,Pasbage Korale,2157,Pasbage Korale,29,59917,1.0,1.0,True,unchanged
+22-01,Galewela,2203,Galewela,59,70042,1.0,1.0,True,unchanged
+22-02,Dambulla,2206,Dambulla,59,72306,1.0,1.0,True,unchanged
+22-03,Naula,2209,Naula,47,28322,0.9038,1.0,True,unchanged
+22-04,Pallepola,2212,Pallepola,44,29565,1.0,1.0,True,unchanged
+22-05,Yatawatta,2215,Yatawatta,56,30242,1.0,1.0,True,unchanged
+22-06,Matale,2218,Matale,52,74864,1.0,1.0,True,unchanged
+22-07,Ambanganga Korale,2221,Ambanganga Korale,20,15643,1.0,1.0,True,unchanged
+22-08,Laggala‐Pallegama,2224,Laggala-Pallegama,29,10070,0.7838,1.0,True,unchanged
+22-09,Wilgamuwa,2227,Wilgamuwa,39,29494,1.0,1.0,True,unchanged
+22-10,Rattota,2230,Rattota,54,51354,1.0,1.0,True,unchanged
+22-11,Ukuwela,2233,Ukuwela,73,68027,1.0,1.0,True,unchanged
+23-01,Kothmale,2302,Kothmale West,49,39253,0.5104,1.0,True,split
+23-01,Kothmale,2303,Kothmale East,47,61927,0.4896,1.0,True,split
+23-02,Hanguranketha,2306,Hanguranketha,79,55371,0.6031,1.0,True,split
+23-02,Hanguranketha,2307,Mathurata,52,33157,0.3969,1.0,True,split
+23-03,Walapane,2309,Walapane,62,62501,0.496,1.0,True,split
+23-03,Walapane,2310,Nildandahinna,63,41618,0.504,1.0,True,split
+23-04,Nuwara Eliya,2312,Nuwara Eliya,38,89256,0.5278,1.0,True,split
+23-04,Nuwara Eliya,2313,Thalawakelle,34,122838,0.4722,1.0,True,split
+23-05,Ambagamuwa,2314,Norwood,35,162563,0.5224,1.0,True,split
+23-05,Ambagamuwa,2315,Ambagamuwa Koralaya,32,43160,0.4776,1.0,True,split
+31-01,Benthota,3103,Bentota,51,49975,1.0,1.0,True,renamed
+31-02,Balapitiya,3106,Balapitiya,51,67432,1.0,1.0,True,unchanged
+31-03,Karandeniya,3109,Karandeniya,40,62498,1.0,1.0,True,unchanged
+31-04,Elpitiya,3112,Elpitiya,51,64726,1.0,1.0,True,unchanged
+31-05,Niyagama,3115,Niyagama,34,35574,1.0,1.0,True,unchanged
+31-06,Thawalama,3118,Thawalama,36,32609,1.0,1.0,True,unchanged
+31-07,Neluwa,3121,Neluwa,34,28640,1.0,1.0,True,unchanged
+31-08,Nagoda,3124,Nagoda,53,53829,1.0,1.0,True,unchanged
+31-09,Baddegama,3127,Baddegama,48,48057,0.6857,1.0,True,split
+31-09,Baddegama,3128,Wanduramba,22,26951,0.3143,1.0,True,split
+31-10,Welivitiya‐Divithura,3130,Welivitiya-Divithura,20,29347,1.0,1.0,True,unchanged
+31-11,Ambalangoda,3133,Ambalangoda,36,56961,1.0,1.0,True,unchanged
+31-12,Gonapeenuwala,3134,Gonapeenuwala,19,21755,1.0,1.0,True,unchanged
+31-13,Hikkaduwa,3135,Madampagama,38,33935,0.3918,1.0,True,split
+31-13,Hikkaduwa,3136,Hikkaduwa,27,27075,0.2784,1.0,True,split
+31-13,Hikkaduwa,3137,Rathgama,32,40899,0.3299,1.0,True,split
+31-14,Galle Four Gravets,3139,Galle Four Gravets,50,101749,1.0,1.0,True,unchanged
+31-15,Bope‐Poddala,3142,Bope-Poddala,44,50331,1.0,1.0,True,unchanged
+31-16,Akmeemana,3145,Akmeemana,63,77776,1.0,1.0,True,unchanged
+31-17,Yakkalamulla,3148,Yakkalamulla,44,45946,1.0,1.0,True,unchanged
+31-18,Imaduwa,3151,Imaduwa,43,44880,1.0,1.0,True,unchanged
+31-19,Habaraduwa,3154,Habaraduwa,59,62389,1.0,1.0,True,unchanged
+32-01,Pitabeddara,3203,Pitabeddara,40,51186,1.0,1.0,True,unchanged
+32-02,Kotapola,3206,Kotapola,37,63255,1.0,1.0,True,unchanged
+32-03,Pasgoda,3209,Pasgoda,43,59160,1.0,1.0,True,unchanged
+32-04,Mulatiyana,3212,Mulatiyana,48,50261,1.0,1.0,True,unchanged
+32-05,Athuraliya,3215,Athuraliya,28,32304,1.0,1.0,True,unchanged
+32-06,Akuressa,3218,Akuressa,46,52912,1.0,1.0,True,unchanged
+32-07,Welipitiya,3221,Welipitiya,38,52098,1.0,1.0,True,unchanged
+32-08,Malimbada,3224,Malimbada,29,34856,1.0,1.0,True,unchanged
+32-09,Kamburupitiya,3227,Kamburupitiya,39,40969,1.0,1.0,True,unchanged
+32-10,Hakmana,3230,Hakmana,34,31648,1.0,1.0,True,unchanged
+32-11,Kirinda Puhulwella,3233,Kirinda Puhulwella,25,20291,1.0,1.0,True,unchanged
+32-12,Thihagoda,3236,Thihagoda,40,33535,1.0,1.0,True,unchanged
+32-13,Weligama,3239,Weligama,48,72843,1.0,1.0,True,unchanged
+32-14,Matara Four Gravets,3242,Matara Four Gravets,66,115805,1.0,1.0,True,unchanged
+32-15,Devinuwara,3245,Devinuwara,41,48253,1.0,1.0,True,unchanged
+32-16,Dickwella,3248,Dickwella,48,54672,1.0,1.0,True,unchanged
+33-01,Sooriyawewa,3303,Sooriyawewa,21,43102,1.0,1.0,True,unchanged
+33-02,Lunugamvehera,3306,Lunugamvehera,36,31559,1.0,1.0,True,unchanged
+33-03,Thissamaharama,3309,Thissamaharama,44,68606,1.0,1.0,True,unchanged
+33-04,Hambantota,3312,Hambantota,30,57264,1.0,1.0,True,unchanged
+33-05,Ambalantota,3315,Ambalantota,55,72943,1.0,1.0,True,unchanged
+33-06,Angunakolapelessa,3318,Angunakolapelessa,51,48301,1.0,1.0,True,unchanged
+33-07,Weeraketiya,3321,Weeraketiya,60,41565,1.0,1.0,True,unchanged
+33-08,Katuwana,3324,Katuwana,56,46772,1.0,1.0,True,unchanged
+33-09,Walasmulla,3325,Walasmulla,53,42274,1.0,1.0,True,unchanged
+33-10,Okewela,3327,Okewela,27,19018,1.0,1.0,True,unchanged
+33-11,Beliatta,3330,Beliatta,71,55992,1.0,1.0,True,unchanged
+33-12,Tangalle,3333,Tangalle,72,72507,1.0,1.0,True,unchanged
+41-01,Island North (Kayts),4103,Island North (Kayts),15,9876,1.0,1.0,True,unchanged
+41-02,Karainagar,4104,Karainagar,9,9576,1.0,1.0,True,unchanged
+41-03,Valikamam West (Chankanai),4106,Valikamam West (Chankanai),25,46438,1.0,1.0,True,unchanged
+41-04,Valikamam South ‐West (Sandilipay),4109,Valikamam South-West (Sandilipay),28,52269,1.0,1.0,True,unchanged
+41-05,Valikamam North,4112,Valikamam North (Tellipallai),45,29518,1.0,1.0,True,renamed
+41-06,Valikamam South (Uduvil),4115,Valikamam South (Uduvil),30,53016,1.0,1.0,True,unchanged
+41-07,Valikamam East (Kopay),4118,Valikamam East (Kopay),31,73225,1.0,1.0,True,unchanged
+41-08,Vadamaradchi South‐west,4121,Vadamaradchi South-West (Karaveddy),35,45730,1.0,1.0,True,renamed
+41-09,Vadamaradchi East,4124,Vadamaradchi East,18,12766,1.0,1.0,True,unchanged
+41-10,Vadamaradchi North (Pointpedro),4127,Vadamaradchi North (Point Pedro),35,47565,1.0,1.0,True,unchanged
+41-11,Thenmaradchi (Chavakachcheri),4130,Thenmaradchi (Chavakachcheri),60,64704,1.0,1.0,True,unchanged
+41-12,Nallur,4133,Nallur,40,68142,1.0,1.0,True,unchanged
+41-13,Jaffna,4136,Jaffna,28,50491,1.0,1.0,True,unchanged
+41-14,Island South (Velanai),4139,Island South (Velanai),30,16742,1.0,1.0,True,unchanged
+41-15,Delft,4142,Delft,6,3824,1.0,1.0,True,unchanged
+42-01,Mannar Town,4203,Mannar Town,49,51078,1.0,1.0,True,unchanged
+42-02,Manthai West,4206,Manthai West,36,14771,1.0,1.0,True,unchanged
+42-03,Madhu,4209,Madhu,17,7711,1.0,1.0,True,unchanged
+42-04,Nanaddan,4212,Nanattan,31,17891,1.0,1.0,True,renamed
+42-05,Musalai,4215,Musali,20,8119,1.0,1.0,True,renamed
+43-01,Vavuniya North,4303,Vavuniya North,20,11578,1.0,1.0,True,unchanged
+43-02,Vavuniya South,4306,Vavuniya South,20,13118,1.0,1.0,True,unchanged
+43-03,Vavuniya,4309,Vavuniya,42,117533,1.0,1.0,True,unchanged
+43-04,Vengalacheddikulam,4312,Vengalacheddikulam,20,29886,1.0,1.0,True,unchanged
+44-01,Thunukkai,4403,Thunukkai,20,9699,1.0,1.0,True,unchanged
+44-02,Manthai East,4406,Manthai East,15,7117,1.0,1.0,True,unchanged
+44-03,Puthukudiyiruppu,4409,Puthukkudiyiruppu,19,23824,1.0,1.0,True,renamed
+44-04,Oddusuddan,4412,Oddusuddan,27,15721,1.0,1.0,True,unchanged
+44-05,Maritimepattu,4415,Maritimepattu,46,28973,1.0,1.0,True,unchanged
+44-06,Welioya,4418,Welioya,9,6904,1.0,1.0,True,unchanged
+45-01,Pachchilaipalli,4503,Pachchilaipalli,18,8530,1.0,1.0,True,unchanged
+45-02,Kandavalai,4506,Kandavalai,16,23194,1.0,1.0,True,unchanged
+45-03,Karachchi,4509,Karachchi,42,61484,1.0,1.0,True,unchanged
+45-04,Poonakary,4512,Poonakary,19,20302,1.0,1.0,True,unchanged
+51-01,Koralai Pattu North (Vaharai),5103,Koralai Pattu North (Vaharai),16,21537,1.0,1.0,True,unchanged
+51-02,Koralai Pattu Central,5104,Koralai Pattu Central,9,25687,1.0,1.0,True,unchanged
+51-03,Koralai Pattu West (Oddamavadi),5106,Koralai Pattu West (Oddamavadi),8,22182,1.0,1.0,True,unchanged
+51-04,Koralai Pattu (Valachchenai),5109,Koralai Pattu (Valachchenai),12,23376,1.0,1.0,True,unchanged
+51-05,Koralai Pattu South (Kiran),5110,Koralai Pattu South (Kiran),18,26143,1.0,1.0,True,unchanged
+51-06,Eravur Pattu,5112,Eravur Pattu,38,73757,0.9744,0.9744,True,unchanged
+51-07,Eravur Town,5115,Eravur Town,15,24643,1.0,1.0,True,unchanged
+51-08,Manmunai North,5118,Manmunai North,48,86227,1.0,1.0,True,unchanged
+51-09,Manmunai West,5121,Manmunai West,24,28489,1.0,1.0,True,unchanged
+51-10,Kattankudy,5124,Kattankudy,18,40356,1.0,1.0,True,unchanged
+51-11,Manmunai Pattu (Araipattai),5127,Manmunai Pattu (Araipattai),27,30694,1.0,1.0,True,unchanged
+51-12,Manmunai South‐West,5130,Manmunai South-West,24,24726,1.0,1.0,True,unchanged
+51-13,Porativu Pattu,5133,Porativu Pattu,43,36222,1.0,1.0,True,unchanged
+51-14,Manmunai South & Eruvil Pattu,5136,Manmunai South & Eruvil pattu,45,60807,1.0,1.0,True,unchanged
+52-01,Dehiattakandiya,5203,Dehiattakandiya,13,60178,1.0,1.0,True,unchanged
+52-02,Padiyathalawa,5206,Padiyathalawa,20,18290,1.0,1.0,True,unchanged
+52-03,Mahaoya,5209,Mahaoya,17,20828,1.0,1.0,True,unchanged
+52-04,Uhana,5212,Uhana,55,58325,1.0,1.0,True,unchanged
+52-05,Ampara,5215,Ampara,22,43829,1.0,1.0,True,unchanged
+52-06,Navithanveli,5216,Navithanveli,20,18727,1.0,1.0,True,unchanged
+52-07,Samanthurai,5218,Samanthurai,51,60465,1.0,1.0,True,unchanged
+52-08,Kalmunai Tamil Division (Sub Division),5221,Kalmunai North Sub,29,29800,1.0,1.0,True,renamed
+52-09,Kalmunai,5224,Kalmunai,29,44632,1.0,1.0,True,unchanged
+52-10,Sainthamarathu,5225,Sainthamaruthu,17,25461,1.0,1.0,True,renamed
+52-11,Karaitheevu,5227,Karaitheevu,17,16839,1.0,1.0,True,unchanged
+52-12,Ninthavur,5230,Ninthavur,25,26361,1.0,1.0,True,unchanged
+52-13,Addalachchenai,5233,Addalachchenai,32,41968,1.0,1.0,True,unchanged
+52-14,Irakkamam,5234,Irakkamam,12,14383,1.0,1.0,True,unchanged
+52-15,Akkaraipattu,5236,Akkaraipattu,28,39166,1.0,1.0,True,unchanged
+52-16,Alayadiwembu,5239,Alayadiwembu,22,22458,1.0,1.0,True,unchanged
+52-17,Damana,5242,Damana,33,38692,1.0,1.0,True,unchanged
+52-18,Thirukkovil,5245,Thirukkovil,22,25277,1.0,1.0,True,unchanged
+52-19,Pothuvil,5248,Pothuvil,27,34809,1.0,1.0,True,unchanged
+52-20,Lahugala,5251,Lahugala,12,8914,1.0,1.0,True,unchanged
+53-01,Padavi Sri Pura,5303,Padavi Sri Pura,9,11244,0.9,0.9,True,unchanged
+53-02,Kuchchaveli,5306,Kuchchaveli,23,30972,0.9583,0.9583,True,unchanged
+53-03,Gomarankadawala,5309,Gomarankadawala,10,7382,1.0,1.0,True,unchanged
+53-04,Morawewa,5312,Morawewa,10,7968,1.0,1.0,True,unchanged
+53-05,Trincomalee Town and Gravets,5315,Trincomalee Town and Gravets,42,97487,1.0,1.0,True,unchanged
+53-06,Thambalagamuwa,5318,Thambalagamuwa,12,28527,1.0,1.0,True,unchanged
+53-07,Kanthale,5321,Kanthale,23,46802,1.0,1.0,True,unchanged
+53-08,Kinniya,5324,Kinniya,31,64613,1.0,1.0,True,unchanged
+53-09,Muttur,5327,Muttur,42,56621,1.0,1.0,True,unchanged
+53-10,Seruvila,5330,Seruvila,16,13632,1.0,1.0,True,unchanged
+53-11,Verugal/ Echchilampattai,5333,Verugal (Eachchilampattu),10,11409,1.0,1.0,True,renamed
+61-01,Giribawa,6103,Giribawa,35,31412,1.0,1.0,True,unchanged
+61-02,Galgamuwa,6106,Galgamuwa,62,55078,1.0,1.0,True,unchanged
+61-03,Ehetuwewa,6109,Ehetuwewa,35,25781,1.0,1.0,True,unchanged
+61-04,Ambanpola,6112,Ambanpola,28,22878,1.0,1.0,True,unchanged
+61-05,Kotavehera,6115,Kotavehera,31,21263,1.0,1.0,True,unchanged
+61-06,Rasnayakapura,6118,Rasnayakapura,28,21893,1.0,1.0,True,unchanged
+61-07,Nikaweratiya,6121,Nikaweratiya,42,40452,1.0,1.0,True,unchanged
+61-08,Maho,6124,Maho,68,57485,1.0,1.0,True,unchanged
+61-09,Polpithigama,6127,Polpithigama,82,76139,1.0,1.0,True,unchanged
+61-10,Ibbagamuwa,6130,Ibbagamuwa,74,85309,1.0,1.0,True,unchanged
+61-11,Ganewatta,6133,Ganewatta,42,40137,1.0,1.0,True,unchanged
+61-12,Wariyapola,6136,Wariyapola,56,61425,1.0,1.0,True,unchanged
+61-13,Kobeigane,6139,Kobeigane,35,35975,1.0,1.0,True,unchanged
+61-14,Bingiriya,6142,Bingiriya,52,62349,1.0,1.0,True,unchanged
+61-15,Panduwasnuwara West,6145,Panduwasnuwara West,64,63742,1.0,0.9552,True,boundary_adjusted
+61-16,Panduwasnuwara East,6145,Panduwasnuwara West,3,2380,0.0769,0.0448,False,boundary_adjusted
+61-16,Panduwasnuwara East,6148,Panduwasnuwara East,36,30006,0.9231,1.0,True,boundary_adjusted
+61-17,Bamunakotuwa,6149,Bamunakotuwa,36,36217,1.0,1.0,True,unchanged
+61-18,Maspotha,6151,Maspotha,33,34262,1.0,1.0,True,unchanged
+61-19,Kurunegala,6154,Kurunegala,54,80755,1.0,1.0,True,unchanged
+61-20,Mallawapitiya,6157,Mallawapitiya,45,52634,1.0,1.0,True,unchanged
+61-21,Mawathagama,6160,Mawathagama,71,64904,1.0,1.0,True,unchanged
+61-22,Rideegama,6163,Rideegama,113,88714,1.0,1.0,True,unchanged
+61-23,Weerambugedara,6166,Weerambugedara,38,34339,1.0,1.0,True,unchanged
+61-24,Kuliyapitiya East,6169,Kuliyapitiya East,45,54062,1.0,1.0,True,unchanged
+61-25,Kuliyapitiya West,6172,Kuliyapitiya West,68,77316,1.0,1.0,True,unchanged
+61-26,Udubaddawa,6175,Udubaddawa,43,52231,1.0,1.0,True,unchanged
+61-27,Pannala,6178,Pannala,87,124225,1.0,1.0,True,unchanged
+61-28,Narammala,6181,Narammala,54,56279,1.0,1.0,True,unchanged
+61-29,Alawwa,6184,Alawwa,66,63667,1.0,1.0,True,unchanged
+61-30,Polgahawela,6187,Polgahawela,84,65156,1.0,1.0,True,unchanged
+62-01,Kalpitiya,6203,Kalpitiya,31,86405,1.0,1.0,True,unchanged
+62-02,Vanathavilluwa,6206,Vanathawilluwa,17,17460,1.0,1.0,True,renamed
+62-03,Karuwalagaswewa,6209,Karuwalagaswewa,26,23440,1.0,1.0,True,unchanged
+62-04,Nawagattegama,6212,Nawagattegama,19,14483,1.0,1.0,True,unchanged
+62-05,Puttalam,6215,Puttalam,22,82443,1.0,1.0,True,unchanged
+62-06,Mundel,6218,Mundel,31,61638,1.0,1.0,True,unchanged
+62-07,Mahakumbukkadawala,6221,Mahakumbukkadawala,25,18633,1.0,1.0,True,unchanged
+62-08,Anamaduwa,6224,Anamaduwa,35,38286,1.0,1.0,True,unchanged
+62-09,Pallama,6227,Pallama,18,24441,1.0,1.0,True,unchanged
+62-10,Arachchikattuwa,6230,Arachchikattuwa,33,40999,1.0,1.0,True,unchanged
+62-11,Chilaw,6233,Chilaw,49,62515,1.0,1.0,True,unchanged
+62-12,Madampe,6236,Madampe,49,47920,1.0,1.0,True,unchanged
+62-13,Mahawewa,6239,Mahawewa,47,51078,1.0,1.0,True,unchanged
+62-14,Nattandiya,6242,Nattandiya,47,62145,1.0,1.0,True,unchanged
+62-15,Wennappuwa,6245,Wennappuwa,52,68111,1.0,1.0,True,unchanged
+62-16,Dankotuwa,6248,Dankotuwa,47,62399,1.0,1.0,True,unchanged
+71-01,Padaviya,7103,Padaviya,15,22998,1.0,1.0,True,unchanged
+71-02,Kebithigollewa,7106,Kebithigollewa,26,22325,1.0,1.0,True,unchanged
+71-03,Medawachchiya,7109,Medawachchiya,37,46906,1.0,1.0,True,unchanged
+71-04,Mahavilachchiya,7112,Mahawilachchiya,17,22467,1.0,1.0,True,renamed
+71-05,Nuwaragam Palatha Central,7115,Nuwaragam Palatha Central,40,61223,1.0,1.0,True,unchanged
+71-06,Rambewa,7118,Rambewa,38,36782,1.0,1.0,True,unchanged
+71-07,Kahatagasdigiliya,7121,Kahatagasdigiliya,40,40339,1.0,1.0,True,unchanged
+71-08,Horowpothana,7124,Horowpothana,38,36990,1.0,1.0,True,unchanged
+71-09,Galenbindunuwewa,7127,Galenbindunuwewa,41,46992,1.0,1.0,True,unchanged
+71-10,Mihinthale,7130,Mihinthale,25,35293,1.0,1.0,True,unchanged
+71-11,Nuwaragam Palatha East,7133,Nuwaragam Palatha East,29,69737,1.0,1.0,True,unchanged
+71-12,Nachchadoowa,7136,Nachchaduwa,19,25377,1.0,1.0,True,renamed
+71-13,Nochchiyagama,7139,Nochchiyagama,36,49886,1.0,1.0,True,unchanged
+71-14,Rajanganaya,7142,Rajanganaya,21,33543,1.0,1.0,True,unchanged
+71-15,Thambuttegama,7145,Thambuttegama,26,42437,1.0,1.0,True,unchanged
+71-16,Thalawa,7148,Thalawa,39,57793,1.0,1.0,True,unchanged
+71-17,Thirappane,7151,Thirappane,41,27044,1.0,1.0,True,unchanged
+71-18,Kekirawa,7154,Kekirawa,53,59241,1.0,1.0,True,unchanged
+71-19,Palugaswewa,7157,Palugaswewa,16,15582,1.0,1.0,True,unchanged
+71-20,Ipalogama,7160,Ipalogama,32,38862,1.0,1.0,True,unchanged
+71-21,Galnewa,7163,Galnewa,30,34756,1.0,1.0,True,unchanged
+71-22,Palagala,7166,Palagala,35,34002,1.0,1.0,True,unchanged
+72-01,Hingurakgoda,7203,Hingurakgoda,53,64289,1.0,1.0,True,unchanged
+72-02,Medirigiriya,7206,Medirigiriya,45,65575,1.0,1.0,True,unchanged
+72-03,Lankapura,7209,Lankapura,28,36452,1.0,1.0,True,unchanged
+72-04,Welikanda,7210,Welikanda,30,33770,1.0,1.0,True,unchanged
+72-05,Dimbulagala,7212,Dimbulagala,56,79661,1.0,1.0,True,unchanged
+72-06,Thamankaduwa,7215,Thamankaduwa,55,82426,1.0,1.0,True,unchanged
+72-07,Elahera,7218,Elahera,28,43915,1.0,1.0,True,unchanged
+81-01,Mahiyanganaya,8103,Mahiyanganaya,35,75776,1.0,1.0,True,unchanged
+81-02,Rideemaliyadda,8106,Rideemaliyadda,42,51618,1.0,1.0,True,unchanged
+81-03,Meegahakivula,8109,Meegahakivula,20,19719,1.0,1.0,True,unchanged
+81-04,Kandaketiya,8112,Kandaketiya,26,23075,1.0,1.0,True,unchanged
+81-05,Soranathota,8115,Soranathota,25,22571,1.0,1.0,True,unchanged
+81-06,Passara,8118,Passara,41,48807,1.0,1.0,True,unchanged
+81-07,Lunugala,8119,Lunugala,28,31381,1.0,1.0,True,unchanged
+81-08,Badulla,8121,Badulla,29,75042,1.0,1.0,True,unchanged
+81-09,Hali‐Ela,8124,Hali-Ela,57,90571,1.0,1.0,True,unchanged
+81-10,Paranagama,8127,Uva Paranagama,68,77998,1.0,1.0,True,renamed
+81-11,Welimada,8130,Welimada,64,100808,1.0,1.0,True,unchanged
+81-12,Bandarawela,8133,Bandarawela,35,65502,1.0,1.0,True,unchanged
+81-13,Ella,8136,Ella,32,45181,1.0,1.0,True,unchanged
+81-14,Haputale,8139,Haputale,26,49798,1.0,1.0,True,unchanged
+81-15,Haldummulla,8142,Haldummulla,39,37558,1.0,1.0,True,unchanged
+82-01,Bibile,8203,Bibile,40,40329,1.0,1.0,True,unchanged
+82-02,Madulla,8206,Madulla,38,31238,1.0,1.0,True,unchanged
+82-03,Medagama,8209,Medagama,35,35881,1.0,1.0,True,unchanged
+82-04,Siyambalanduwa,8212,Siyambalanduwa,48,54040,1.0,1.0,True,unchanged
+82-05,Moneragala,8215,Moneragala,26,49520,1.0,1.0,True,unchanged
+82-06,Badalkumbura,8218,Badalkumbura,41,40103,1.0,1.0,True,unchanged
+82-07,Wellawaya,8221,Wellawaya,29,60060,1.0,1.0,True,unchanged
+82-08,Buttala,8224,Buttala,29,53084,1.0,1.0,True,unchanged
+82-09,Katharagama,8227,Katharagama,5,18220,1.0,1.0,True,unchanged
+82-10,Thanamalvila,8230,Thanamalvila,14,26683,1.0,1.0,True,unchanged
+82-11,Sevanagala,8233,Sevanagala,14,41900,1.0,1.0,True,unchanged
+91-01,Eheliyagoda,9103,Eheliyagoda,44,70839,1.0,1.0,True,unchanged
+91-02,Kuruvita,9106,Kuruvita,39,95646,1.0,1.0,True,unchanged
+91-03,Kiriella,9109,Kiriella,17,32613,1.0,1.0,True,unchanged
+91-04,Ratnapura,9112,Ratnapura,53,120212,1.0,1.0,True,unchanged
+91-05,Imbulpe,9115,Imbulpe,50,59477,1.0,1.0,True,unchanged
+91-06,Balangoda,9118,Balangoda,41,69395,0.7736,1.0,True,split
+91-06,Balangoda,9119,Kaltota,12,12168,0.2264,1.0,True,split
+91-07,Opanayaka,9121,Opanayake,20,26587,1.0,1.0,True,renamed
+91-08,Pelmadulla,9124,Pelmadulla,37,89469,1.0,1.0,True,unchanged
+91-09,Elapatha,9127,Elapatha,20,37853,1.0,1.0,True,unchanged
+91-10,Ayagama,9130,Ayagama,21,30894,1.0,1.0,True,unchanged
+91-11,Kalawana,9133,Kalawana,33,51307,1.0,1.0,True,unchanged
+91-12,Nivithigala,9136,Nivithigala,24,60130,1.0,1.0,True,unchanged
+91-13,Kahawatta,9139,Kahawatta,21,43298,1.0,1.0,True,unchanged
+91-14,Godakawela,9142,Godakawela,44,76469,1.0,1.0,True,unchanged
+91-15,Weligepola,9145,Weligepola,30,30983,1.0,1.0,True,unchanged
+91-16,Embilipitiya,9148,Embilipitiya,40,134713,1.0,1.0,True,unchanged
+91-17,Kolonna,9151,Kolonna,29,45954,1.0,1.0,True,unchanged
+92-01,Rambukkana,9203,Rambukkana,89,82769,1.0,1.0,True,unchanged
+92-02,Mawanella,9206,Mawanella,71,111727,1.0,1.0,True,unchanged
+92-03,Aranayaka,9209,Aranayaka,61,68464,1.0,1.0,True,unchanged
+92-04,Kegalle,9212,Kegalle,61,90854,1.0,1.0,True,unchanged
+92-05,Galigamuwa,9215,Galigamuwa,51,74490,1.0,1.0,True,unchanged
+92-06,Warakapola,9218,Warakapola,78,113056,1.0,1.0,True,unchanged
+92-07,Ruwanwella,9221,Ruwanwella,38,63913,1.0,1.0,True,unchanged
+92-08,Bulathkohupitiya,9224,Bulathkohupitiya,27,47095,1.0,1.0,True,unchanged
+92-09,Yatiyanthota,9227,Yatiyanthota,32,61096,1.0,1.0,True,unchanged
+92-10,Dehiovita,9230,Dehiovita,39,81315,1.0,1.0,True,unchanged
+92-11,Deraniyagala,9233,Deraniyagala,26,45869,1.0,1.0,True,unchanged

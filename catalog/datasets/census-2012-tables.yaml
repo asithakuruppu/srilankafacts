@@ -1,8 +1,8 @@
 id: census-2012-tables
 source: dcs
-title: "Census of Population and Housing 2012: tables"
-landing_page: null
-pipeline_module: null
+title: "Census of Population and Housing 2012: DS and GN population (final)"
+landing_page: https://www.statistics.gov.lk/abstract2024/chapter2
+pipeline_module: slf.history
 schedule: manual
 geography_scheme: admin
 geography_vintage: "2012"
@@ -19,10 +19,26 @@ spatial:
   crs_source: not_applicable
   resolution: null
   information_unit: gn-2012
-  information_count: null
+  information_count: 14022
   derived_by: null
 indicators: []
-cross_checks: []
-status: proposed
+cross_checks:
+  - upstream: nuuuwan/lk_census_2012
+    note: >
+      Holds a copy of the DCS-authored GN file (source.pdf) and its own parse (data.json);
+      the parse is compared, never used as authority. The PDF itself is the DCS document.
+status: active
 notes: >
-  Stage 2. Historical baseline for 2012 to 2024 comparison through a boundary crosswalk.
+  Two inputs. (1) DCS Statistical Abstract 2024 Table 2.7, population by DS division and sex,
+  Census 2012 (final), served by DCS at https://www.statistics.gov.lk/abstract2024/CHAP2/2.7.pdf
+  (snapshot raw/dcs/census-2012-tables/; 331 DS rows). (2) DCS "Population by GN division and sex
+  2012", a PDF authored by DCS (metadata: printed from "Population by GN and Sex 2012.xlsx",
+  created 2015-05-06). The original DCS address was not found on the live site or in the Web
+  Archive; the copy held is the mirror in nuuuwan/lk_census_2012 at commit 8d8af05 (snapshot
+  raw/nuuuwan/nuuuwan-lk-census-2012/). It gives 25 district, 331 DS and 14,022 GN rows (33 GNs
+  without figures) with DCS GN numbers but no DS or GN codes. Every DS total in (2) equals a row
+  of (1), and every district total equals Final Report 2024 Table 3.3 (G06 QA). Used only for the
+  2012->2024 DS comparison (docs/methods/boundary-change-2012-2024.md); not in any release.
+  Rights unclear (no terms on any DCS page or PDF checked); no publication block, so the release
+  builder will not publish it. Dossier: docs/research/sources/dcs-census-2012-and-history.md.
+  Decision on using the mirrored DCS file: D-035 (Proposed).

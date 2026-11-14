@@ -10,3 +10,15 @@ Prompt R01 · checked 2026-11-07 · catalogue: `catalog/sources/nuuuwan.yaml`, `
 | The data originates from DCS, so the MIT licence covers the code, while the rights in the figures follow DCS | ❓ | inference; to confirm with the maintainer (introduction drafted) |
 
 Use: cross-check of our own DCS extraction (D01), never as authority.
+
+## `lk_census_2012` (checked 2026-11-14, G06)
+
+| Finding | Status | Evidence |
+|---|---|---|
+| Repository `nuuuwan/lk_census_2012`, MIT, created 2026-03-26, last push 2026-06-13; pinned commit `8d8af05` | ✅ | GitHub API |
+| Per topic: `source.pdf` (a DCS-authored PDF, e.g. "Population by GN division and sex 2012", created 2015-05-06), `raw_data.json`, `data.json`, `validation.json` | ✅ | snapshot `raw/nuuuwan/nuuuwan-lk-census-2012/20261114T194914Z/population-gender_source.pdf`, `…/20261114T194916Z/population-gender_data.json` |
+| `data.json` region ids (`LK-1103005` style) are given by matching names to a later GN list, not printed by DCS; `validation.json` lists the 9 DS divisions created after 2012 as missing | ✅ | read |
+| The DCS original of `source.pdf` is not on any DCS address we found | ❌ | [DCS 2012 dossier](dcs-census-2012-and-history.md) |
+
+Use: the `source.pdf` is used as a copy of a DCS document under D-035 (Proposed); our own parse
+replaces nuuuwan's. `data.json` is a cross-check only (D-008).

@@ -32,7 +32,7 @@ Reusable, project-specific prompts for AI coding agents and research assistants 
 | [G03](geography/G03-geometry-qa.md) | Geometry QA report and QGIS review pack | 0 | G01 |
 | [G04](geography/G04-boundary-tiles.md) | Boundary PMTiles and Sri Lanka basemap extract | 1 | G01, G03, W01 tokens |
 | [G05](geography/G05-non-admin-geographies.md) | Non-admin geographies (LA, ED/PD, MOH) and denominators | 2 | G02, D01, R02 for boundaries |
-| [G06](geography/G06-boundary-vintages.md) | Boundary vintages and 2012↔2024 comparability | 2 | G02, D01 |
+| [G06](geography/G06-boundary-vintages.md) | Boundary vintages and 2012↔2024 comparability (v2, active; DS run 2026-11-15) and the district census series | 2 | G02, D01, R01/R02 |
 | [G07](geography/G07-analytic-grid.md) | Analytic grid (H3) and GN-to-hex weights | 2 | G01, G03, R02 |
 | [G08](geography/G08-feature-layer.md) | Feature layer v1: buildings, landmarks, land cover | 2 | G07, legal checks |
 | **Data** | | | |

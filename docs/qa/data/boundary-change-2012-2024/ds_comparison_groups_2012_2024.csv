@@ -1,0 +1,10 @@
+ds_2012,names_2012,ds_2024,names_2024,pop_2012,pop_2024,change,annual_rate_pct,comparison,method
+23-01,Kothmale,2302;2303,Kothmale West; Kothmale East,101180,103697,2517,0.19,exact,closed_gn_group
+23-02,Hanguranketha,2306;2307,Hanguranketha; Mathurata,88528,92106,3578,0.31,exact,closed_gn_group
+23-03,Walapane,2309;2310,Walapane; Nildandahinna,104119,107709,3590,0.27,exact,closed_gn_group
+23-04,Nuwara Eliya,2312;2313,Nuwara Eliya; Thalawakelle,212094,217863,5769,0.21,exact,closed_gn_group
+23-05,Ambagamuwa,2314;2315,Norwood; Ambagamuwa Koralaya,205723,203905,-1818,-0.07,exact,closed_gn_group
+31-09,Baddegama,3127;3128,Baddegama; Wanduramba,75008,78658,3650,0.37,exact,closed_gn_group
+31-13,Hikkaduwa,3135;3136;3137,Madampagama; Hikkaduwa; Rathgama,101909,101080,-829,-0.06,exact,closed_gn_group
+61-15;61-16,Panduwasnuwara West; Panduwasnuwara East,6145;6148,Panduwasnuwara West; Panduwasnuwara East,96128,102976,6848,0.54,exact,closed_gn_group
+91-06,Balangoda,9118;9119,Balangoda; Kaltota,81563,87911,6348,0.59,exact,closed_gn_group

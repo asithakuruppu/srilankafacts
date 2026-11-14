@@ -1,0 +1,341 @@
+dcs_ds,ds_name,district_code,geography_id,change_type,predecessors,pop_2012,pop_2024,change,growth_pct,annual_rate_pct,comparison,method,reason
+1103,Colombo,11,LK1103,unchanged,11-01,323257,292089,-31168,-9.64,-0.8,approximate,same_ds_total_gns_unverified,2 GNs unmatched (both sides)
+1106,Kolonnawa,11,LK1106,unchanged,11-02,191687,214070,22383,11.68,0.87,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+1109,Kaduwela,11,LK1109,unchanged,11-03,252041,277918,25877,10.27,0.77,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+1112,Homagama,11,LK1112,unchanged,11-04,237905,280771,42866,18.02,1.3,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+1115,Seethawaka,11,LK1115,unchanged,11-05,113807,122128,8321,7.31,0.55,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+1118,Padukka,11,LK1118,unchanged,11-06,65267,73014,7747,11.87,0.88,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+1121,Maharagama,11,LK1121,unchanged,11-07,196423,196500,77,0.04,0.0,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+1124,Sri Jayawardanapura Kotte,11,LK1124,unchanged,11-08,107925,96189,-11736,-10.87,-0.9,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+1127,Thimbirigasyaya,11,LK1127,unchanged,11-09,238057,217118,-20939,-8.8,-0.72,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+1130,Dehiwala,11,LK1130,unchanged,11-10,88962,93815,4853,5.46,0.42,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+1131,Ratmalana,11,LK1131,unchanged,11-11,95506,88063,-7443,-7.79,-0.64,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+1133,Moratuwa,11,LK1133,unchanged,11-12,168280,160199,-8081,-4.8,-0.39,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+1136,Kesbewa,11,LK1136,unchanged,11-13,245232,263541,18309,7.47,0.56,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+1203,Negombo,12,LK1203,unchanged,12-01,142136,137952,-4184,-2.94,-0.23,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+1206,Katana,12,LK1206,unchanged,12-02,235291,241219,5928,2.52,0.2,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+1209,Divulapitiya,12,LK1209,unchanged,12-03,144506,156957,12451,8.62,0.65,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+1212,Mirigama,12,LK1212,unchanged,12-04,164580,176747,12167,7.39,0.56,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+1215,Minuwangoda,12,LK1215,unchanged,12-05,178331,198774,20443,11.46,0.85,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+1218,Wattala,12,LK1218,unchanged,12-06,175525,182505,6980,3.98,0.31,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+1221,Ja-Ela,12,LK1221,unchanged,12-07,201521,204806,3285,1.63,0.13,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+1224,Gampaha,12,LK1224,unchanged,12-08,197667,205610,7943,4.02,0.31,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+1227,Attanagalla,12,LK1227,unchanged,12-09,179565,197725,18160,10.11,0.76,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+1230,Dompe,12,LK1230,unchanged,12-10,154005,169877,15872,10.31,0.77,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+1233,Mahara,12,LK1233,unchanged,12-11,207782,223060,15278,7.35,0.56,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+1236,Kelaniya,12,LK1236,unchanged,12-12,137339,133755,-3584,-2.61,-0.21,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+1239,Biyagama,12,LK1239,unchanged,12-13,186585,207155,20570,11.02,0.82,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+1303,Panadura,13,LK1303,unchanged,13-01,182285,187475,5190,2.85,0.22,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+1306,Bandaragama,13,LK1306,unchanged,13-02,109236,124133,14897,13.64,1.0,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+1309,Horana,13,LK1309,unchanged,13-03,113364,133685,20321,17.93,1.29,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+1310,Ingiriya,13,LK1310,unchanged,13-04,53896,58361,4465,8.28,0.62,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+1312,Bulathsinhala,13,LK1312,unchanged,13-05,64600,65550,950,1.47,0.11,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+1315,Madurawala,13,LK1315,unchanged,13-06,34381,36723,2342,6.81,0.52,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+1318,Millaniya,13,LK1318,unchanged,13-07,52176,56166,3990,7.65,0.58,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+1321,Kalutara,13,LK1321,unchanged,13-08,159697,166624,6927,4.34,0.33,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+1324,Beruwala,13,LK1324,unchanged,13-09,164969,180820,15851,9.61,0.72,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+1327,Dodangoda,13,LK1327,unchanged,13-10,63960,67089,3129,4.89,0.37,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+1330,Mathugama,13,LK1330,unchanged,13-11,81286,86065,4779,5.88,0.45,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+1333,Agalawatta,13,LK1333,unchanged,13-12,36669,36589,-80,-0.22,-0.02,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+1336,Palindanuwara,13,LK1336,unchanged,13-13,50801,51171,370,0.73,0.06,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+1339,Walallavita,13,LK1339,unchanged,13-14,54628,55333,705,1.29,0.1,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+2103,Thumpane,21,LK2103,unchanged,21-01,37642,38776,1134,3.01,0.23,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+2106,Pujapitiya,21,LK2106,renamed,21-02,57914,60316,2402,4.15,0.32,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+2109,Akurana,21,LK2109,unchanged,21-03,63397,71010,7613,12.01,0.89,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+2112,Pathadumbara,21,LK2112,unchanged,21-04,88725,93476,4751,5.35,0.41,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+2115,Panvila,21,LK2115,unchanged,21-05,26294,25650,-644,-2.45,-0.19,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+2118,Udadumbara,21,LK2118,unchanged,21-06,22505,23046,541,2.4,0.19,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+2121,Minipe,21,LK2121,unchanged,21-07,51883,55342,3459,6.67,0.51,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+2124,Medadumbara,21,LK2124,unchanged,21-08,61034,64539,3505,5.74,0.44,approximate,same_ds_total_gns_unverified,1 GNs unmatched (both sides)
+2127,Kundasale,21,LK2127,unchanged,21-09,127070,144383,17313,13.62,1.0,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+2130,Kandy Four Gravets & Gangawata Korale,21,LK2130,unchanged,21-10,158561,153329,-5232,-3.3,-0.26,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+2133,Harispattuwa,21,LK2133,unchanged,21-11,88177,94021,5844,6.63,0.5,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+2134,Hatharaliyadda,21,LK2134,unchanged,21-12,29986,31141,1155,3.85,0.3,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+2136,Yatinuwara,21,LK2136,unchanged,21-13,106027,112642,6615,6.24,0.47,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+2139,Udunuwara,21,LK2139,unchanged,21-14,110905,121018,10113,9.12,0.68,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+2142,Doluwa,21,LK2142,unchanged,21-15,49842,52784,2942,5.9,0.45,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+2145,Pathahewaheta,21,LK2145,unchanged,21-16,58188,60639,2451,4.21,0.32,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+2148,Deltota,21,LK2148,renamed,21-17,30345,31904,1559,5.14,0.39,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+2151,Udapalatha,21,LK2151,unchanged,21-18,91716,103181,11465,12.5,0.92,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+2154,Ganga Ihala Korale,21,LK2154,unchanged,21-19,55254,59145,3891,7.04,0.53,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+2157,Pasbage Korale,21,LK2157,unchanged,21-20,59917,65553,5636,9.41,0.71,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+2203,Galewela,22,LK2203,unchanged,22-01,70042,78639,8597,12.27,0.91,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+2206,Dambulla,22,LK2206,unchanged,22-02,72306,81239,8933,12.35,0.91,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+2209,Naula,22,LK2209,unchanged,22-03,30884,30718,-166,-0.54,-0.04,approximate,same_ds_total_gns_unverified,5 GNs unmatched (both sides)
+2212,Pallepola,22,LK2212,unchanged,22-04,29565,31629,2064,6.98,0.53,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+2215,Yatawatta,22,LK2215,unchanged,22-05,30242,32415,2173,7.19,0.54,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+2218,Matale,22,LK2218,unchanged,22-06,74864,80376,5512,7.36,0.56,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+2221,Ambanganga Korale,22,LK2221,unchanged,22-07,15643,15876,233,1.49,0.12,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+2224,Laggala-Pallegama,22,LK2224,unchanged,22-08,12110,16300,4190,34.6,2.33,approximate,same_ds_total_gns_unverified,8 GNs unmatched (both sides)
+2227,Wilgamuwa,22,LK2227,unchanged,22-09,29494,33715,4221,14.31,1.05,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+2230,Rattota,22,LK2230,unchanged,22-10,51354,53650,2296,4.47,0.34,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+2233,Ukuwela,22,LK2233,unchanged,22-11,68027,72313,4286,6.3,0.48,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+2302,Kothmale West,23,LK2321,new,23-01,39253,41955,2702,6.88,0.52,approximate,gn_reaggregation,new
+2303,Kothmale East,23,LK2303,new,23-01,61927,61742,-185,-0.3,-0.02,approximate,gn_reaggregation,new
+2306,Hanguranketha,23,LK2306,split_remainder,23-02,55371,58931,3560,6.43,0.49,approximate,gn_reaggregation,split_remainder
+2307,Mathurata,23,LK2318,new,23-02,33157,33175,18,0.05,0.0,approximate,gn_reaggregation,new
+2309,Walapane,23,LK2324,split_remainder,23-03,62501,65287,2786,4.46,0.34,approximate,gn_reaggregation,split_remainder
+2310,Nildandahinna,23,LK2309,new,23-03,41618,42422,804,1.93,0.15,approximate,gn_reaggregation,new
+2312,Nuwara Eliya,23,LK2312,split_remainder,23-04,89256,88332,-924,-1.04,-0.08,approximate,gn_reaggregation,split_remainder
+2313,Thalawakelle,23,LK2327,new,23-04,122838,129531,6693,5.45,0.42,approximate,gn_reaggregation,new
+2314,Norwood,23,LK2330,new,23-05,162563,161367,-1196,-0.74,-0.06,approximate,gn_reaggregation,new
+2315,Ambagamuwa Koralaya,23,LK2315,new,23-05,43160,42538,-622,-1.44,-0.11,approximate,gn_reaggregation,new
+3103,Bentota,31,LK3103,renamed,31-01,49975,49650,-325,-0.65,-0.05,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+3106,Balapitiya,31,LK3106,unchanged,31-02,67432,68150,718,1.06,0.08,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+3109,Karandeniya,31,LK3109,unchanged,31-03,62498,63862,1364,2.18,0.17,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+3112,Elpitiya,31,LK3112,unchanged,31-04,64726,66671,1945,3.0,0.23,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+3115,Niyagama,31,LK3115,unchanged,31-05,35574,35751,177,0.5,0.04,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+3118,Thawalama,31,LK3118,unchanged,31-06,32609,30989,-1620,-4.97,-0.4,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+3121,Neluwa,31,LK3121,unchanged,31-07,28640,27746,-894,-3.12,-0.25,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+3124,Nagoda,31,LK3124,unchanged,31-08,53829,52031,-1798,-3.34,-0.27,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+3127,Baddegama,31,LK3127,split_remainder,31-09,48057,50956,2899,6.03,0.46,approximate,gn_reaggregation,split_remainder
+3128,Wanduramba,31,LK3157,new,31-09,26951,27702,751,2.79,0.22,approximate,gn_reaggregation,new
+3130,Welivitiya-Divithura,31,LK3130,unchanged,31-10,29347,29356,9,0.03,0.0,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+3133,Ambalangoda,31,LK3133,unchanged,31-11,56961,59617,2656,4.66,0.36,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+3134,Gonapeenuwala,31,LK3134,unchanged,31-12,21755,23271,1516,6.97,0.53,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+3135,Madampagama,31,LK3160,new,31-13,33935,33408,-527,-1.55,-0.12,approximate,gn_reaggregation,new
+3136,Hikkaduwa,31,LK3136,split_remainder,31-13,27075,26216,-859,-3.17,-0.25,approximate,gn_reaggregation,split_remainder
+3137,Rathgama,31,LK3163,new,31-13,40899,41456,557,1.36,0.11,approximate,gn_reaggregation,new
+3139,Galle Four Gravets,31,LK3139,unchanged,31-14,101749,108321,6572,6.46,0.49,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+3142,Bope-Poddala,31,LK3142,unchanged,31-15,50331,57890,7559,15.02,1.1,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+3145,Akmeemana,31,LK3145,unchanged,31-16,77776,86136,8360,10.75,0.8,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+3148,Yakkalamulla,31,LK3148,unchanged,31-17,45946,46687,741,1.61,0.13,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+3151,Imaduwa,31,LK3151,unchanged,31-18,44880,48204,3324,7.41,0.56,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+3154,Habaraduwa,31,LK3154,unchanged,31-19,62389,63302,913,1.46,0.11,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+3203,Pitabeddara,32,LK3203,unchanged,32-01,51186,48867,-2319,-4.53,-0.36,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+3206,Kotapola,32,LK3206,unchanged,32-02,63255,61002,-2253,-3.56,-0.28,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+3209,Pasgoda,32,LK3209,unchanged,32-03,59160,61171,2011,3.4,0.26,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+3212,Mulatiyana,32,LK3212,unchanged,32-04,50261,51832,1571,3.13,0.24,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+3215,Athuraliya,32,LK3215,unchanged,32-05,32304,32811,507,1.57,0.12,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+3218,Akuressa,32,LK3218,unchanged,32-06,52912,53638,726,1.37,0.11,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+3221,Welipitiya,32,LK3221,unchanged,32-07,52098,55960,3862,7.41,0.56,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+3224,Malimbada,32,LK3224,unchanged,32-08,34856,36128,1272,3.65,0.28,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+3227,Kamburupitiya,32,LK3227,unchanged,32-09,40969,42816,1847,4.51,0.35,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+3230,Hakmana,32,LK3230,unchanged,32-10,31648,32985,1337,4.22,0.32,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+3233,Kirinda Puhulwella,32,LK3233,unchanged,32-11,20291,20627,336,1.66,0.13,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+3236,Thihagoda,32,LK3236,unchanged,32-12,33535,34306,771,2.3,0.18,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+3239,Weligama,32,LK3239,unchanged,32-13,72843,76136,3293,4.52,0.35,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+3242,Matara Four Gravets,32,LK3242,unchanged,32-14,115805,123868,8063,6.96,0.53,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+3245,Devinuwara,32,LK3245,unchanged,32-15,48253,49274,1021,2.12,0.16,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+3248,Dickwella,32,LK3248,unchanged,32-16,54672,56468,1796,3.29,0.25,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+3303,Sooriyawewa,33,LK3303,unchanged,33-01,43102,52709,9607,22.29,1.58,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+3306,Lunugamvehera,33,LK3306,unchanged,33-02,31559,36923,5364,17.0,1.23,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+3309,Thissamaharama,33,LK3309,unchanged,33-03,68606,74175,5569,8.12,0.61,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+3312,Hambantota,33,LK3312,unchanged,33-04,57264,67207,9943,17.36,1.26,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+3315,Ambalantota,33,LK3315,unchanged,33-05,72943,80506,7563,10.37,0.77,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+3318,Angunakolapelessa,33,LK3318,unchanged,33-06,48301,53409,5108,10.58,0.79,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+3321,Weeraketiya,33,LK3321,unchanged,33-07,41565,48241,6676,16.06,1.17,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+3324,Katuwana,33,LK3324,unchanged,33-08,46772,52169,5397,11.54,0.86,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+3325,Walasmulla,33,LK3325,unchanged,33-09,42274,47869,5595,13.24,0.97,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+3327,Okewela,33,LK3327,unchanged,33-10,19018,19992,974,5.12,0.39,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+3330,Beliatta,33,LK3330,unchanged,33-11,55992,58675,2683,4.79,0.37,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+3333,Tangalle,33,LK3333,unchanged,33-12,72507,79543,7036,9.7,0.73,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+4103,Island North (Kayts),41,LK4103,unchanged,41-01,9876,9931,55,0.56,0.04,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+4104,Karainagar,41,LK4104,unchanged,41-02,9576,9131,-445,-4.65,-0.37,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+4106,Valikamam West (Chankanai),41,LK4106,unchanged,41-03,46438,45160,-1278,-2.75,-0.22,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+4109,Valikamam South-West (Sandilipay),41,LK4109,unchanged,41-04,52269,52121,-148,-0.28,-0.02,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+4112,Valikamam North (Tellipallai),41,LK4112,renamed,41-05,29518,44914,15396,52.16,3.29,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+4115,Valikamam South (Uduvil),41,LK4115,unchanged,41-06,53016,50540,-2476,-4.67,-0.38,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+4118,Valikamam East (Kopay),41,LK4118,unchanged,41-07,73225,75979,2754,3.76,0.29,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+4121,Vadamaradchi South-West (Karaveddy),41,LK4121,renamed,41-08,45730,41102,-4628,-10.12,-0.84,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+4124,Vadamaradchi East,41,LK4124,unchanged,41-09,12766,13537,771,6.04,0.46,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+4127,Vadamaradchi North (Point Pedro),41,LK4127,unchanged,41-10,47565,43369,-4196,-8.82,-0.72,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+4130,Thenmaradchi (Chavakachcheri),41,LK4130,unchanged,41-11,64704,67782,3078,4.76,0.36,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+4133,Nallur,41,LK4133,unchanged,41-12,68142,72884,4742,6.96,0.53,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+4136,Jaffna,41,LK4136,unchanged,41-13,50491,48543,-1948,-3.86,-0.31,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+4139,Island South (Velanai),41,LK4139,unchanged,41-14,16742,16600,-142,-0.85,-0.07,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+4142,Delft,41,LK4142,unchanged,41-15,3824,3158,-666,-17.42,-1.5,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+4203,Mannar Town,42,LK4203,unchanged,42-01,51078,57772,6694,13.11,0.97,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+4206,Manthai West,42,LK4206,unchanged,42-02,14771,18674,3903,26.42,1.84,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+4209,Madhu,42,LK4209,unchanged,42-03,7711,9493,1782,23.11,1.63,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+4212,Nanattan,42,LK4212,renamed,42-04,17891,19674,1783,9.97,0.75,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+4215,Musali,42,LK4215,renamed,42-05,8119,18143,10024,123.46,6.31,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+4303,Vavuniya North,43,LK4303,unchanged,43-01,11578,14709,3131,27.04,1.88,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+4306,Vavuniya South,43,LK4306,unchanged,43-02,13118,14842,1724,13.14,0.97,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+4309,Vavuniya,43,LK4309,unchanged,43-03,117533,116991,-542,-0.46,-0.04,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+4312,Vengalacheddikulam,43,LK4312,unchanged,43-04,29886,25770,-4116,-13.77,-1.16,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+4403,Thunukkai,44,LK4403,unchanged,44-01,9699,10410,711,7.33,0.55,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+4406,Manthai East,44,LK4406,unchanged,44-02,7117,7650,533,7.49,0.57,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+4409,Puthukkudiyiruppu,44,LK4409,renamed,44-03,23824,39532,15708,65.93,3.97,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+4412,Oddusuddan,44,LK4412,unchanged,44-04,15721,18149,2428,15.44,1.13,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+4415,Maritimepattu,44,LK4415,unchanged,44-05,28973,36813,7840,27.06,1.88,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+4418,Welioya,44,LK4418,unchanged,44-06,6904,10065,3161,45.79,2.96,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+4503,Pachchilaipalli,45,LK4503,unchanged,45-01,8530,13045,4515,52.93,3.33,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+4506,Kandavalai,45,LK4506,unchanged,45-02,23194,24921,1727,7.45,0.56,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+4509,Karachchi,45,LK4509,unchanged,45-03,61484,74631,13147,21.38,1.52,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+4512,Poonakary,45,LK4512,unchanged,45-04,20302,24113,3811,18.77,1.35,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+5103,Koralai Pattu North (Vaharai),51,LK5103,unchanged,51-01,21537,25475,3938,18.28,1.32,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+5104,Koralai Pattu Central,51,LK5104,unchanged,51-02,25687,30603,4916,19.14,1.37,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+5106,Koralai Pattu West (Oddamavadi),51,LK5106,unchanged,51-03,22182,24583,2401,10.82,0.81,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+5109,Koralai Pattu (Valachchenai),51,LK5109,unchanged,51-04,23376,28762,5386,23.04,1.63,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+5110,Koralai Pattu South (Kiran),51,LK5110,unchanged,51-05,26143,28302,2159,8.26,0.62,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+5112,Eravur Pattu,51,LK5115,unchanged,51-06,75478,94237,18759,24.85,1.74,approximate,same_ds_total_gns_unverified,2 GNs unmatched (both sides)
+5115,Eravur Town,51,LK5139,unchanged,51-07,24643,26468,1825,7.41,0.56,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+5118,Manmunai North,51,LK5118,unchanged,51-08,86227,95107,8880,10.3,0.77,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+5121,Manmunai West,51,LK5121,unchanged,51-09,28489,32831,4342,15.24,1.11,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+5124,Kattankudy,51,LK5124,unchanged,51-10,40356,44794,4438,11.0,0.82,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+5127,Manmunai Pattu (Araipattai),51,LK5127,unchanged,51-11,30694,36533,5839,19.02,1.37,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+5130,Manmunai South-West,51,LK5130,unchanged,51-12,24726,26676,1950,7.89,0.6,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+5133,Porativu Pattu,51,LK5133,unchanged,51-13,36222,38627,2405,6.64,0.5,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+5136,Manmunai South & Eruvil pattu,51,LK5136,unchanged,51-14,60807,62920,2113,3.47,0.27,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+5203,Dehiattakandiya,52,LK5203,unchanged,52-01,60178,67274,7096,11.79,0.87,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+5206,Padiyathalawa,52,LK5206,unchanged,52-02,18290,20834,2544,13.91,1.02,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+5209,Mahaoya,52,LK5209,unchanged,52-03,20828,23715,2887,13.86,1.02,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+5212,Uhana,52,LK5212,unchanged,52-04,58325,62216,3891,6.67,0.51,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+5215,Ampara,52,LK5215,unchanged,52-05,43829,47868,4039,9.22,0.69,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+5216,Navithanveli,52,LK5216,unchanged,52-06,18727,21856,3129,16.71,1.21,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+5218,Samanthurai,52,LK5218,unchanged,52-07,60465,72794,12329,20.39,1.46,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+5221,Kalmunai North Sub,52,LK-ADM3-P0001,renamed,52-08,29800,31556,1756,5.89,0.45,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+5224,Kalmunai,52,,unchanged,52-09,44632,52798,8166,18.3,1.32,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+5225,Sainthamaruthu,52,LK5225,renamed,52-10,25461,29873,4412,17.33,1.25,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+5227,Karaitheevu,52,LK5227,unchanged,52-11,16839,19493,2654,15.76,1.15,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+5230,Ninthavur,52,LK5230,unchanged,52-12,26361,30671,4310,16.35,1.19,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+5233,Addalachchenai,52,LK5233,unchanged,52-13,41968,53214,11246,26.8,1.86,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+5234,Irakkamam,52,LK5234,unchanged,52-14,14383,17671,3288,22.86,1.61,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+5236,Akkaraipattu,52,LK5236,unchanged,52-15,39166,44979,5813,14.84,1.09,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+5239,Alayadiwembu,52,LK5239,unchanged,52-16,22458,24838,2380,10.6,0.79,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+5242,Damana,52,LK5242,unchanged,52-17,38692,40325,1633,4.22,0.32,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+5245,Thirukkovil,52,LK5245,unchanged,52-18,25277,29252,3975,15.73,1.15,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+5248,Pothuvil,52,LK5248,unchanged,52-19,34809,42908,8099,23.27,1.64,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+5251,Lahugala,52,LK5251,unchanged,52-20,8914,10416,1502,16.85,1.22,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+5303,Padavi Sri Pura,53,LK5303,unchanged,53-01,11882,12081,199,1.67,0.13,approximate,same_ds_total_gns_unverified,2 GNs unmatched (both sides)
+5306,Kuchchaveli,53,LK5306,unchanged,53-02,33218,39873,6655,20.03,1.43,approximate,same_ds_total_gns_unverified,2 GNs unmatched (both sides)
+5309,Gomarankadawala,53,LK5309,unchanged,53-03,7382,8398,1016,13.76,1.01,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+5312,Morawewa,53,LK5312,unchanged,53-04,7968,9193,1225,15.37,1.12,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+5315,Trincomalee Town and Gravets,53,LK5315,unchanged,53-05,97487,100270,2783,2.85,0.22,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+5318,Thambalagamuwa,53,LK5318,unchanged,53-06,28527,33636,5109,17.91,1.29,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+5321,Kanthale,53,LK5321,unchanged,53-07,46802,50840,4038,8.63,0.65,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+5324,Kinniya,53,LK5324,unchanged,53-08,64613,86504,21891,33.88,2.29,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+5327,Muttur,53,LK5327,unchanged,53-09,56621,71881,15260,26.95,1.87,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+5330,Seruvila,53,LK5330,unchanged,53-10,13632,16007,2375,17.42,1.26,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+5333,Verugal (Eachchilampattu),53,LK5333,renamed,53-11,11409,14062,2653,23.25,1.64,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+6103,Giribawa,61,LK6103,unchanged,61-01,31412,34929,3517,11.2,0.83,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+6106,Galgamuwa,61,LK6106,unchanged,61-02,55078,61759,6681,12.13,0.9,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+6109,Ehetuwewa,61,LK6109,unchanged,61-03,25781,28317,2536,9.84,0.74,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+6112,Ambanpola,61,LK6112,unchanged,61-04,22878,25515,2637,11.53,0.86,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+6115,Kotavehera,61,LK6115,unchanged,61-05,21263,24031,2768,13.02,0.96,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+6118,Rasnayakapura,61,LK6118,unchanged,61-06,21893,24912,3019,13.79,1.01,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+6121,Nikaweratiya,61,LK6121,unchanged,61-07,40452,43402,2950,7.29,0.55,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+6124,Maho,61,LK6124,unchanged,61-08,57485,64122,6637,11.55,0.86,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+6127,Polpithigama,61,LK6127,unchanged,61-09,76139,86411,10272,13.49,0.99,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+6130,Ibbagamuwa,61,LK6130,unchanged,61-10,85309,94167,8858,10.38,0.77,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+6133,Ganewatta,61,LK6133,unchanged,61-11,40137,43431,3294,8.21,0.62,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+6136,Wariyapola,61,LK6136,unchanged,61-12,61425,66488,5063,8.24,0.62,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+6139,Kobeigane,61,LK6139,unchanged,61-13,35975,40669,4694,13.05,0.96,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+6142,Bingiriya,61,LK6142,unchanged,61-14,62349,66724,4375,7.02,0.53,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+6145,Panduwasnuwara West,61,LK6145,boundary_adjusted,61-15,66122,71186,5064,7.66,0.58,approximate,gn_reaggregation,boundary_adjusted
+6148,Panduwasnuwara East,61,LK6148,boundary_adjusted,61-16,30006,31790,1784,5.95,0.45,approximate,gn_reaggregation,boundary_adjusted
+6149,Bamunakotuwa,61,LK6149,unchanged,61-17,36217,39442,3225,8.9,0.67,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+6151,Maspotha,61,LK6151,unchanged,61-18,34262,41873,7611,22.21,1.57,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+6154,Kurunegala,61,LK6154,unchanged,61-19,80755,88999,8244,10.21,0.76,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+6157,Mallawapitiya,61,LK6157,unchanged,61-20,52634,59491,6857,13.03,0.96,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+6160,Mawathagama,61,LK6160,unchanged,61-21,64904,70867,5963,9.19,0.69,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+6163,Rideegama,61,LK6163,unchanged,61-22,88714,95960,7246,8.17,0.62,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+6166,Weerambugedara,61,LK6166,unchanged,61-23,34339,36590,2251,6.56,0.5,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+6169,Kuliyapitiya East,61,LK6169,unchanged,61-24,54062,61223,7161,13.25,0.98,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+6172,Kuliyapitiya West,61,LK6172,unchanged,61-25,77316,82587,5271,6.82,0.52,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+6175,Udubaddawa,61,LK6175,unchanged,61-26,52231,54466,2235,4.28,0.33,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+6178,Pannala,61,LK6178,unchanged,61-27,124225,135845,11620,9.35,0.7,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+6181,Narammala,61,LK6181,unchanged,61-28,56279,59806,3527,6.27,0.48,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+6184,Alawwa,61,LK6184,unchanged,61-29,63667,65689,2022,3.18,0.25,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+6187,Polgahawela,61,LK6187,unchanged,61-30,65156,67465,2309,3.54,0.27,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+6203,Kalpitiya,62,LK6203,unchanged,62-01,86405,96995,10590,12.26,0.91,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+6206,Vanathawilluwa,62,LK6206,renamed,62-02,17460,19991,2531,14.5,1.06,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+6209,Karuwalagaswewa,62,LK6209,unchanged,62-03,23440,26225,2785,11.88,0.88,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+6212,Nawagattegama,62,LK6212,unchanged,62-04,14483,17571,3088,21.32,1.52,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+6215,Puttalam,62,LK6215,unchanged,62-05,82443,94777,12334,14.96,1.09,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+6218,Mundel,62,LK6218,unchanged,62-06,61638,72570,10932,17.74,1.28,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+6221,Mahakumbukkadawala,62,LK6221,unchanged,62-07,18633,21867,3234,17.36,1.26,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+6224,Anamaduwa,62,LK6224,unchanged,62-08,38286,43526,5240,13.69,1.01,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+6227,Pallama,62,LK6227,unchanged,62-09,24441,27938,3497,14.31,1.05,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+6230,Arachchikattuwa,62,LK6230,unchanged,62-10,40999,42749,1750,4.27,0.33,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+6233,Chilaw,62,LK6233,unchanged,62-11,62515,63639,1124,1.8,0.14,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+6236,Madampe,62,LK6236,unchanged,62-12,47920,48994,1074,2.24,0.17,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+6239,Mahawewa,62,LK6239,unchanged,62-13,51078,48833,-2245,-4.4,-0.35,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+6242,Nattandiya,62,LK6242,unchanged,62-14,62145,65500,3355,5.4,0.41,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+6245,Wennappuwa,62,LK6245,unchanged,62-15,68111,64768,-3343,-4.91,-0.39,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+6248,Dankotuwa,62,LK6248,unchanged,62-16,62399,62873,474,0.76,0.06,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+7103,Padaviya,71,LK7103,unchanged,71-01,22998,24493,1495,6.5,0.49,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+7106,Kebithigollewa,71,LK7106,unchanged,71-02,22325,26432,4107,18.4,1.32,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+7109,Medawachchiya,71,LK7109,unchanged,71-03,46906,52496,5590,11.92,0.88,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+7112,Mahawilachchiya,71,LK7112,renamed,71-04,22467,24194,1727,7.69,0.58,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+7115,Nuwaragam Palatha Central,71,LK7115,unchanged,71-05,61223,71529,10306,16.83,1.22,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+7118,Rambewa,71,LK7118,unchanged,71-06,36782,39861,3079,8.37,0.63,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+7121,Kahatagasdigiliya,71,LK7121,unchanged,71-07,40339,44903,4564,11.31,0.84,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+7124,Horowpothana,71,LK7124,unchanged,71-08,36990,41261,4271,11.55,0.86,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+7127,Galenbindunuwewa,71,LK7127,unchanged,71-09,46992,51952,4960,10.55,0.79,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+7130,Mihinthale,71,LK7130,unchanged,71-10,35293,44107,8814,24.97,1.75,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+7133,Nuwaragam Palatha East,71,LK7133,unchanged,71-11,69737,76138,6401,9.18,0.69,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+7136,Nachchaduwa,71,LK7136,renamed,71-12,25377,28266,2889,11.38,0.85,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+7139,Nochchiyagama,71,LK7139,unchanged,71-13,49886,55471,5585,11.2,0.83,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+7142,Rajanganaya,71,LK7142,unchanged,71-14,33543,36236,2693,8.03,0.61,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+7145,Thambuttegama,71,LK7145,unchanged,71-15,42437,47061,4624,10.9,0.81,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+7148,Thalawa,71,LK7148,unchanged,71-16,57793,61216,3423,5.92,0.45,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+7151,Thirappane,71,LK7151,unchanged,71-17,27044,31121,4077,15.08,1.1,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+7154,Kekirawa,71,LK7154,unchanged,71-18,59241,65317,6076,10.26,0.77,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+7157,Palugaswewa,71,LK7157,unchanged,71-19,15582,18138,2556,16.4,1.19,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+7160,Ipalogama,71,LK7160,unchanged,71-20,38862,41961,3099,7.97,0.6,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+7163,Galnewa,71,LK7163,unchanged,71-21,34756,39458,4702,13.53,1.0,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+7166,Palagala,71,LK7166,unchanged,71-22,34002,38469,4467,13.14,0.97,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+7203,Hingurakgoda,72,LK7203,unchanged,72-01,64289,70651,6362,9.9,0.74,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+7206,Medirigiriya,72,LK7206,unchanged,72-02,65575,72482,6907,10.53,0.79,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+7209,Lankapura,72,LK7209,unchanged,72-03,36452,39673,3221,8.84,0.66,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+7210,Welikanda,72,LK7210,unchanged,72-04,33770,38196,4426,13.11,0.97,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+7212,Dimbulagala,72,LK7212,unchanged,72-05,79661,85907,6246,7.84,0.59,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+7215,Thamankaduwa,72,LK7215,unchanged,72-06,82426,92056,9630,11.68,0.87,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+7218,Elahera,72,LK7218,unchanged,72-07,43915,48565,4650,10.59,0.79,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+8103,Mahiyanganaya,81,LK8103,unchanged,81-01,75776,89082,13306,17.56,1.27,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+8106,Rideemaliyadda,81,LK8106,unchanged,81-02,51618,60882,9264,17.95,1.29,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+8109,Meegahakivula,81,LK8109,unchanged,81-03,19719,22683,2964,15.03,1.1,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+8112,Kandaketiya,81,LK8112,unchanged,81-04,23075,26913,3838,16.63,1.21,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+8115,Soranathota,81,LK8115,unchanged,81-05,22571,24407,1836,8.13,0.61,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+8118,Passara,81,LK8118,unchanged,81-06,48807,49636,829,1.7,0.13,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+8119,Lunugala,81,LK8119,unchanged,81-07,31381,31881,500,1.59,0.12,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+8121,Badulla,81,LK8121,unchanged,81-08,75042,83033,7991,10.65,0.79,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+8124,Hali-Ela,81,LK8124,unchanged,81-09,90571,94226,3655,4.04,0.31,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+8127,Uva Paranagama,81,LK8127,renamed,81-10,77998,82069,4071,5.22,0.4,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+8130,Welimada,81,LK8130,unchanged,81-11,100808,105510,4702,4.66,0.36,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+8133,Bandarawela,81,LK8133,unchanged,81-12,65502,65488,-14,-0.02,-0.0,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+8136,Ella,81,LK8136,unchanged,81-13,45181,49439,4258,9.42,0.71,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+8139,Haputale,81,LK8139,unchanged,81-14,49798,48280,-1518,-3.05,-0.24,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+8142,Haldummulla,81,LK8142,unchanged,81-15,37558,38778,1220,3.25,0.25,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+8203,Bibile,82,LK8203,unchanged,82-01,40329,47266,6937,17.2,1.24,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+8206,Madulla,82,LK8206,unchanged,82-02,31238,36446,5208,16.67,1.21,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+8209,Medagama,82,LK8209,unchanged,82-03,35881,44614,8733,24.34,1.71,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+8212,Siyambalanduwa,82,LK8212,unchanged,82-04,54040,63055,9015,16.68,1.21,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+8215,Moneragala,82,LK8215,unchanged,82-05,49520,56951,7431,15.01,1.1,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+8218,Badalkumbura,82,LK8218,unchanged,82-06,40103,46595,6492,16.19,1.18,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+8221,Wellawaya,82,LK8221,unchanged,82-07,60060,73280,13220,22.01,1.56,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+8224,Buttala,82,LK8224,unchanged,82-08,53084,60606,7522,14.17,1.04,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+8227,Katharagama,82,LK8227,unchanged,82-09,18220,18158,-62,-0.34,-0.03,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+8230,Thanamalvila,82,LK8230,unchanged,82-10,26683,31238,4555,17.07,1.24,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+8233,Sevanagala,82,LK8233,unchanged,82-11,41900,49376,7476,17.84,1.29,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+9103,Eheliyagoda,91,LK9103,unchanged,91-01,70839,74071,3232,4.56,0.35,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+9106,Kuruvita,91,LK9106,unchanged,91-02,95646,97966,2320,2.43,0.19,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+9109,Kiriella,91,LK9109,unchanged,91-03,32613,33631,1018,3.12,0.24,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+9112,Ratnapura,91,LK9112,unchanged,91-04,120212,121166,954,0.79,0.06,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+9115,Imbulpe,91,LK9115,unchanged,91-05,59477,64555,5078,8.54,0.64,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+9118,Balangoda,91,LK9118,split_remainder,91-06,69395,74893,5498,7.92,0.6,approximate,gn_reaggregation,split_remainder
+9119,Kaltota,91,LK9154,new,91-06,12168,13018,850,6.99,0.53,approximate,gn_reaggregation,new
+9121,Opanayake,91,LK9121,renamed,91-07,26587,27244,657,2.47,0.19,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+9124,Pelmadulla,91,LK9124,unchanged,91-08,89469,93818,4349,4.86,0.37,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+9127,Elapatha,91,LK9127,unchanged,91-09,37853,38429,576,1.52,0.12,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+9130,Ayagama,91,LK9130,unchanged,91-10,30894,29944,-950,-3.08,-0.24,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+9133,Kalawana,91,LK9133,unchanged,91-11,51307,50753,-554,-1.08,-0.09,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+9136,Nivithigala,91,LK9136,unchanged,91-12,60130,59442,-688,-1.14,-0.09,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+9139,Kahawatta,91,LK9139,unchanged,91-13,43298,43708,410,0.95,0.07,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+9142,Godakawela,91,LK9142,unchanged,91-14,76469,78541,2072,2.71,0.21,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+9145,Weligepola,91,LK9145,unchanged,91-15,30983,34168,3185,10.28,0.77,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+9148,Embilipitiya,91,LK9148,unchanged,91-16,134713,160008,25295,18.78,1.35,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+9151,Kolonna,91,LK9151,unchanged,91-17,45954,50068,4114,8.95,0.67,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+9203,Rambukkana,92,LK9203,unchanged,92-01,82769,87055,4286,5.18,0.4,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+9206,Mawanella,92,LK9206,unchanged,92-02,111727,126026,14299,12.8,0.94,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+9209,Aranayaka,92,LK9209,unchanged,92-03,68464,69075,611,0.89,0.07,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+9212,Kegalle,92,LK9212,unchanged,92-04,90854,94314,3460,3.81,0.29,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+9215,Galigamuwa,92,LK9215,unchanged,92-05,74490,73778,-712,-0.96,-0.08,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+9218,Warakapola,92,LK9218,unchanged,92-06,113056,117967,4911,4.34,0.33,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+9221,Ruwanwella,92,LK9221,unchanged,92-07,63913,65797,1884,2.95,0.23,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+9224,Bulathkohupitiya,92,LK9224,unchanged,92-08,47095,45237,-1858,-3.95,-0.32,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+9227,Yatiyanthota,92,LK9227,unchanged,92-09,61096,62255,1159,1.9,0.15,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+9230,Dehiovita,92,LK9230,unchanged,92-10,81315,84967,3652,4.49,0.34,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists
+9233,Deraniyagala,92,LK9233,unchanged,92-11,45869,44005,-1864,-4.06,-0.33,exact,same_gn_list,every GN matched one-to-one between the DCS 2012 and 2024 lists

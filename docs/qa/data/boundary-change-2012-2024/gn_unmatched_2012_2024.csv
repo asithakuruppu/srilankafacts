@@ -1,0 +1,23 @@
+side,district_code,ds,name,gn_number,total,locator,explanation
+2012,11,11-01,Slave Island,,3795.0,page 1 line 34,
+2012,21,21-08,Victoria,825,,page 63 line 9,listed by DCS in 2012 without figures
+2012,22,22-03,Medapihilla,E407C,463.0,page 82 line 14,"Matale: 13 of 545 GNs removed for the Kalu Ganga and Moragahakanda reservoirs (Final Report 2024, Table 2.4 note 1)"
+2012,22,22-03,Kadawatha,E407B,555.0,page 82 line 15,"Matale: 13 of 545 GNs removed for the Kalu Ganga and Moragahakanda reservoirs (Final Report 2024, Table 2.4 note 1)"
+2012,22,22-03,Galporugolla,E401A,333.0,page 82 line 16,"Matale: 13 of 545 GNs removed for the Kalu Ganga and Moragahakanda reservoirs (Final Report 2024, Table 2.4 note 1)"
+2012,22,22-03,Elagamuwa,E407,547.0,page 82 line 17,"Matale: 13 of 545 GNs removed for the Kalu Ganga and Moragahakanda reservoirs (Final Report 2024, Table 2.4 note 1)"
+2012,22,22-03,Kambarawa,E401,664.0,page 82 line 41,"Matale: 13 of 545 GNs removed for the Kalu Ganga and Moragahakanda reservoirs (Final Report 2024, Table 2.4 note 1)"
+2012,22,22-08,Ganga Henwala,E389A,63.0,page 86 line 46,"Matale: 13 of 545 GNs removed for the Kalu Ganga and Moragahakanda reservoirs (Final Report 2024, Table 2.4 note 1)"
+2012,22,22-08,Karadamulla,E397C,502.0,page 86 line 47,"Matale: 13 of 545 GNs removed for the Kalu Ganga and Moragahakanda reservoirs (Final Report 2024, Table 2.4 note 1)"
+2012,22,22-08,Gonawala,E397B,202.0,page 86 line 48,"Matale: 13 of 545 GNs removed for the Kalu Ganga and Moragahakanda reservoirs (Final Report 2024, Table 2.4 note 1)"
+2012,22,22-08,Laggala Pallegama,E397,439.0,page 87 line 1,"Matale: 13 of 545 GNs removed for the Kalu Ganga and Moragahakanda reservoirs (Final Report 2024, Table 2.4 note 1)"
+2012,22,22-08,Miniranketiya,E397D,323.0,page 87 line 2,"Matale: 13 of 545 GNs removed for the Kalu Ganga and Moragahakanda reservoirs (Final Report 2024, Table 2.4 note 1)"
+2012,22,22-08,Rawanagama,E397A,208.0,page 87 line 3,"Matale: 13 of 545 GNs removed for the Kalu Ganga and Moragahakanda reservoirs (Final Report 2024, Table 2.4 note 1)"
+2012,22,22-08,Imaduwa,E390,171.0,page 87 line 8,"Matale: 13 of 545 GNs removed for the Kalu Ganga and Moragahakanda reservoirs (Final Report 2024, Table 2.4 note 1)"
+2012,22,22-08,Rambukoluwa,E389,132.0,page 87 line 9,"Matale: 13 of 545 GNs removed for the Kalu Ganga and Moragahakanda reservoirs (Final Report 2024, Table 2.4 note 1)"
+2012,51,51-06,Kommathurai EastKommathurai Eas196,,1721.0,page 168 line 13,
+2012,53,53-01,Kavanthissapura,31H,638.0,page 184 line 46,
+2012,53,53-02,Pulmoddai Division No. 2,31H,2246.0,page 185 line 9,
+2024,11,1103,Kompagngnaweediya,,3189.0,GN_population.xlsx row 31 (DCS GN 1103130),
+2024,51,5112,Kommathurai East,196,1995.0,GN_population.xlsx row 7835 (DCS GN 5112095),
+2024,53,5303,Kawanthissapura,31H,605.0,GN_population.xlsx row 8605 (DCS GN 5303015),
+2024,53,5306,Pulmoddai Division No 02,31H,2120.0,GN_population.xlsx row 8615 (DCS GN 5306015),
