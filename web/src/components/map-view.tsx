@@ -27,10 +27,10 @@ type MapViewProps = {
   preloaded?: AreaDataset | null;
 };
 
-const NO_DATA = "#d8d5cc";
+const NO_DATA = "#cfd3dc";
 const EMPTY_VALUES = new Map<string, ValueRow>();
-const SEQUENTIAL = ["#e8f1ec", "#b9d8cd", "#7fb9a9", "#3f8d7b", "#125e50"];
-const DIVERGING = ["#8c4a2f", "#d9a17c", "#f2efe9", "#8fc4b5", "#146356"];
+const SEQUENTIAL = ["#e4e9fa", "#b3c0f0", "#7388dc", "#3250bd", "#142a80"];
+const DIVERGING = ["#9c3d12", "#e2a06f", "#f0f0f2", "#8fa2e6", "#1c3fae"];
 
 function quantile(sorted: number[], fraction: number): number {
   if (sorted.length === 0) {
@@ -152,7 +152,7 @@ export default function MapView({
               {
                 id: "background",
                 type: "background",
-                paint: { "background-color": "#f4f1e8" },
+                paint: { "background-color": "#e9ecf2" },
               },
             ],
           },
@@ -270,13 +270,13 @@ export default function MapView({
         id: "areas-line",
         type: "line",
         source: "areas",
-        paint: { "line-color": "#6b746f", "line-width": 0.4, "line-opacity": 0.55 },
+        paint: { "line-color": "#4a5163", "line-width": 0.4, "line-opacity": 0.55 },
       });
       map.addLayer({
         id: "areas-selected",
         type: "line",
         source: "areas",
-        paint: { "line-color": "#a5641c", "line-width": 2.4 },
+        paint: { "line-color": "#f2b400", "line-width": 3 },
         filter: ["==", ["get", "geography_id"], selectedId ?? "__none__"],
       });
     } else {

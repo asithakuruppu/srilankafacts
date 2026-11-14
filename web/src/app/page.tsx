@@ -10,6 +10,7 @@ import {
   getGeographyIndex,
   getIndicators,
   getLatest,
+  getObservationFor,
   getPlace,
   placeValue,
 } from "@/lib/release";
@@ -27,6 +28,7 @@ export default function HomePage() {
   const indicators = getIndicators();
   const provinces = getChildren("LK");
   const index = getGeographyIndex();
+  const popObservation = country ? getObservationFor(country, "population_total") : null;
 
   return (
     <>
@@ -59,6 +61,12 @@ export default function HomePage() {
               {formatValue(placeValue(country, "population_total"), "persons")}
             </p>
             <p className="muted">persons enumerated on 19 December 2024</p>
+            {popObservation ? (
+              <p className="source-line">
+                {popObservation.dataset_id} · sha256 {popObservation.snapshot_sha256.slice(0, 8)} ·{" "}
+                {popObservation.source_locator}
+              </p>
+            ) : null}
             <dl className="hero-facts">
               <div>
                 <dt>Occupied housing units</dt>
@@ -95,7 +103,7 @@ export default function HomePage() {
       <section className="section shell">
         <div className="section-head">
           <div>
-            <p className="eyebrow">The map</p>
+            <p className="eyebrow">01 / The map</p>
             <h2>Population by district</h2>
           </div>
           <p className="section-note">
@@ -128,7 +136,7 @@ export default function HomePage() {
       <section className="section shell" id="indicators">
         <div className="section-head">
           <div>
-            <p className="eyebrow">What is measured</p>
+            <p className="eyebrow">02 / What is measured</p>
             <h2>{indicators.length} indicators in this preview</h2>
           </div>
           <p className="section-note">
@@ -165,7 +173,7 @@ export default function HomePage() {
       <section className="section shell">
         <div className="section-head">
           <div>
-            <p className="eyebrow">Levels</p>
+            <p className="eyebrow">03 / Levels</p>
             <h2>From the country to the GN division</h2>
           </div>
         </div>
@@ -216,7 +224,7 @@ export default function HomePage() {
       <section className="section shell">
         <div className="section-head">
           <div>
-            <p className="eyebrow">Limits</p>
+            <p className="eyebrow">04 / Limits</p>
             <h2>What this preview does not claim</h2>
           </div>
         </div>
