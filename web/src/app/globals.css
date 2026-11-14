@@ -1701,11 +1701,6 @@ blockquote {
   color: var(--accent-strong);
 }
 
-/* Reserve the viewport while a place page streams in, so the footer does not jump (Q02 CLS). */
-.place-skeleton {
-  min-height: 100vh;
-}
-
 main:focus {
   outline: none;
 }

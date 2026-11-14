@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Suspense } from "react";
 
 import IdentityPanel, { IDENTITY_INDICATORS } from "@/components/identity-panel";
 import MapView from "@/components/map-view";
@@ -69,22 +68,14 @@ export async function generateMetadata({
   };
 }
 
-export default function PlacePage({ params }: PageProps<"/place/[geoId]">) {
-  return (
-    <Suspense fallback={<PlaceSkeleton />}>
-      {params.then(({ geoId }) => (
-        <PlaceContent geoId={geoId} />
-      ))}
-    </Suspense>
-  );
-}
+// Read params at the top, not inside <Suspense>: Suspense would stream the content into a hidden
+// block that needs JavaScript to show (D-027: pages must read without JavaScript). The route may
+// therefore block on navigation, which instant = false allows.
+export const instant = false;
 
-function PlaceSkeleton() {
-  return (
-    <div className="shell section place-skeleton" aria-busy="true">
-      <p className="muted">Loading place…</p>
-    </div>
-  );
+export default async function PlacePage({ params }: PageProps<"/place/[geoId]">) {
+  const { geoId } = await params;
+  return <PlaceContent geoId={geoId} />;
 }
 
 function PlaceContent({ geoId }: { geoId: string }) {

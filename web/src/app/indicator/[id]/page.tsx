@@ -34,6 +34,11 @@ export async function generateMetadata({
   };
 }
 
+// Read params at the top, not inside <Suspense>: Suspense would stream the content into a hidden
+// block that needs JavaScript to show (D-027: pages must read without JavaScript). The route may
+// therefore block on navigation, which instant = false allows.
+export const instant = false;
+
 export default async function IndicatorPage({ params }: PageProps<"/indicator/[id]">) {
   const { id } = await params;
   const indicator = getIndicator(id);
