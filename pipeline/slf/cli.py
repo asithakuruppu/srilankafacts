@@ -165,8 +165,13 @@ def upload(
     except ImportError:
         typer.echo("needs the optional extra: uv sync --extra s3", err=True)
         raise typer.Exit(code=2) from None
+    from botocore.config import Config  # type: ignore[import-not-found]
+
     client = boto3.client(
-        "s3", endpoint_url=os.environ.get("SLF_S3_ENDPOINT"), region_name="auto"
+        "s3",
+        endpoint_url=os.environ.get("SLF_S3_ENDPOINT"),
+        region_name="auto",
+        config=Config(retries={"max_attempts": 10, "mode": "adaptive"}, connect_timeout=20),
     )  # R2 accepts only "auto" (not AWS regions from the machine config)
     try:
         res = upload_release(release_dir, client, bucket, prefix, dry_run)

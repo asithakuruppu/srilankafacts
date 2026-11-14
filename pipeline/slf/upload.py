@@ -36,6 +36,16 @@ def _exists(client: Any, bucket: str, key: str) -> bool:
     return True
 
 
+def _list_keys(client: Any, bucket: str, prefix: str) -> set[str]:
+    """All keys already under ``prefix``: a few paged listings instead of one request per file."""
+    keys: set[str] = set()
+    for page in client.get_paginator("list_objects_v2").paginate(
+        Bucket=bucket, Prefix=prefix + "/"
+    ):
+        keys.update(obj["Key"] for obj in page.get("Contents", []))
+    return keys
+
+
 def check_publishable(release_dir: Path) -> str:
     """Return the release version, or raise if the release must not be public."""
     pkg = json.loads((release_dir / "datapackage.json").read_text("utf-8"))
@@ -63,7 +73,11 @@ def upload_release(
     """
     version = check_publishable(release_dir)
     prefix = (prefix or f"releases/{version}").strip("/")
-    check = exists or (lambda key: _exists(client, bucket, key))
+    if exists is None:
+        present = _list_keys(client, bucket, prefix)
+        check = present.__contains__
+    else:
+        check = exists
     result = UploadResult()
     for path in sorted(p for p in release_dir.rglob("*") if p.is_file()):
         key = f"{prefix}/{path.relative_to(release_dir).as_posix()}"
