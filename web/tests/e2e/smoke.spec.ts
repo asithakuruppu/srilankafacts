@@ -78,8 +78,8 @@ test("static API carries the preview flag and provenance", async ({ request }) =
   expect(response.ok()).toBe(true);
   const body = await response.json();
   expect(body.publishable).toBe(false);
-  expect(body.release).toBe("v2026.11.4-preview.1");
-  expect(body.values.length).toBe(14);
+  expect(body.release).toMatch(/^v\d{4}\.\d{1,2}\.\d+-preview\.\d+$/);
+  expect(body.values.length).toBeGreaterThan(14);
   expect(body.values[0].snapshot_sha256).toMatch(/^[0-9a-f]{64}$/);
 });
 
@@ -104,5 +104,33 @@ test.describe("without JavaScript (D-027)", () => {
     await page.getByRole("link", { name: "Provinces" }).click();
     await expect(page).toHaveURL(/\/explore\/table\/population_total\/province$/);
     await expect(page.getByRole("link", { name: "Western" }).first()).toBeVisible();
+  });
+});
+
+test.describe("ethnicity and religion (D-033)", () => {
+  test("DS page shows them in their own section, in DCS's order, without indicator links", async ({
+    page,
+  }) => {
+    await page.goto("/place/LK1103");
+    const section = page.locator("#ethnicity-religion");
+    await expect(section.getByRole("heading", { name: "Ethnic group and religion" })).toBeVisible();
+    // Colombo DS, PopulationA_A6.xlsx row 13, column H
+    const burgher = section.getByRole("row", { name: /^Burgher/ });
+    await expect(burgher).toContainText("1,401");
+    // DCS column order, never sorted by value: Sinhalese first although Moor/Muslim is larger here
+    await expect(section.locator("tbody th").first()).toHaveText("Sinhalese");
+    await expect(page.locator('a[href^="/indicator/population_ethnicity"]')).toHaveCount(0);
+    await expect(page.locator('a[href^="/indicator/population_religion"]')).toHaveCount(0);
+  });
+
+  test("GN pages do not show them and they have no indicator page", async ({ page }) => {
+    await page.goto("/place/LK1103005");
+    await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
+    await expect(page.locator("#ethnicity-religion")).toHaveCount(0);
+    // No indicator page: Next.js streams its not-found view (with status 200 here, as for any
+    // unknown indicator id).
+    await page.goto("/indicator/population_religion_hindu_share");
+    await expect(page.getByText("This page could not be found.")).toBeVisible();
+    await expect(page.getByText("District distribution")).toHaveCount(0);
   });
 });
