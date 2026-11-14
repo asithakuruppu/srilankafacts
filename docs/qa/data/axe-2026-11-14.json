@@ -1,0 +1,66 @@
+{
+ "axe": {
+  "light /": [],
+  "light /explore": [],
+  "light /place/LK": [],
+  "light /place/LK11": [],
+  "light /place/LK1103": [],
+  "light /place/LK1103005": [],
+  "light /indicator/population_total": [],
+  "light /indicators": [],
+  "light /data": [],
+  "light /methods": [],
+  "dark /": [],
+  "dark /explore": [],
+  "dark /place/LK": [],
+  "dark /place/LK11": [],
+  "dark /place/LK1103": [],
+  "dark /place/LK1103005": [],
+  "dark /indicator/population_total": [],
+  "dark /indicators": [],
+  "dark /data": [],
+  "dark /methods": []
+ },
+ "lighthouse": {
+  "/": {
+   "score": 100,
+   "failing": []
+  },
+  "/explore": {
+   "score": 100,
+   "failing": []
+  },
+  "/place/LK": {
+   "score": 100,
+   "failing": []
+  },
+  "/place/LK11": {
+   "score": 100,
+   "failing": []
+  },
+  "/place/LK1103": {
+   "score": 100,
+   "failing": []
+  },
+  "/place/LK1103005": {
+   "score": 100,
+   "failing": []
+  },
+  "/indicator/population_total": {
+   "score": 100,
+   "failing": []
+  },
+  "/indicators": {
+   "score": 100,
+   "failing": []
+  },
+  "/data": {
+   "score": 100,
+   "failing": []
+  },
+  "/methods": {
+   "score": 100,
+   "failing": []
+  }
+ }
+}
