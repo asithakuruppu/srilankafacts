@@ -128,7 +128,7 @@ test). The second trial has 0 such files ✅ and 74 fewer files in total.
 ## Final Report comparison (added 2026-11-14) ✅
 
 Final Report Table 11.6 (PDF page 205) prints the national percentage of housing units by wall,
-roof and floor material, to one decimal ([script](data/census-2024-final-report-housing.py)):
+roof and floor material, to one decimal (`slf audit crosschecks`):
 **24 values, 0 differences**, once the Final Report's "Other" is compared with the release's
 Other **plus "Not relevant"**. The Final Report has no "Not relevant" line; its roof "Other" is
 0.2 (8,655 + 1,211 = 9,866 housing units, 0.16 percent) where the release's roof Other alone is

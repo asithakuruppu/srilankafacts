@@ -70,7 +70,7 @@ Dataset `census-2024-topic-tables`, step (a) of D-032. Built 2026-11-13 with
 
 The build compares district and national sums with A5–A8 only. DCS's DS tables A13 (cooking),
 A14 (drinking water), A15 (lighting) and A16 (toilets) were then compared with the release's
-GN-summed values on every line ([script](data/census-2024-a13-a16-crosscheck.py); release
+GN-summed values on every line (`slf audit crosschecks`; release
 `v2026.11.10-preview.2`). Each table column was mapped to the release count indicator with the
 same national value (one-to-one for all 37 categories), then tested on every other line. DS lines
 join through the reviewed Housing A-series match file and the G02 crosswalk.
@@ -86,7 +86,7 @@ DCS 5224 Kalmunai is skipped (no spine unit, D-022). Every A13–A16 DS label is
 
 ## Final Report comparison (added 2026-11-14)
 
-Final Report housing chapter against the release ([script](data/census-2024-final-report-housing.py); `v2026.11.10-preview.2`):
+Final Report housing chapter against the release (`slf audit crosschecks`; `v2026.11.10-preview.2`):
 
 | Table | What | Values | Differ |
 |---|---|---|---|

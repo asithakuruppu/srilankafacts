@@ -102,7 +102,7 @@ persons in Colombo DS); the count is shown beside it.
 DCS's Final Report (`CPH2024_Final_Eng.pdf`) prints 2024 population by ethnic group (Table
 6.1.11, PDF page 115) and by religion (Table 6.1.15, PDF page 124) for Sri Lanka and every
 district. Page text was extracted with PDFKit (`scripts/pdf_pages.swift`) and compared with the
-release ([script](data/census-2024-final-report-ethnicity-religion.py); `v2026.11.10-preview.2`):
+release (`slf audit crosschecks`; `v2026.11.10-preview.2`):
 
 | Table | Lines | Values compared | Differ |
 |---|---|---|---|
