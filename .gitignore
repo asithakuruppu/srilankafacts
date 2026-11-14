@@ -1,7 +1,7 @@
 # Local data: raw snapshots and releases live in object storage, never in Git
 /data/
 pipeline/data/
-
+secrets/
 # Secrets
 .env
 .env.*
