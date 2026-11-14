@@ -379,6 +379,7 @@ def match_ds_lines(
     matches: Mapping[tuple[str, str], str],
     district_codes: Mapping[str, int],
     gn_housing_by_ds: Mapping[str, int],
+    what: str = "occupied housing units",
 ) -> tuple[dict[tuple[str, str], str], list[str]]:
     """(district, DS label) -> DCS DS code for every DS line, with the numeric check.
 
@@ -386,7 +387,8 @@ def match_ds_lines(
     (``check_tables``) but have different blank rows.
 
     ``district_codes`` maps normalised district names to DCS district codes.
-    ``gn_housing_by_ds`` is the sum of GN occupied housing units per DCS DS code.
+    ``gn_housing_by_ds`` is the sum of GN occupied housing units per DCS DS code (or of
+    ``what``, when another table reuses this check).
     """
     errors: list[str] = []
     out: dict[tuple[str, str], str] = {}
@@ -407,7 +409,7 @@ def match_ds_lines(
         if expected != m.total:
             errors.append(
                 f"row {m.line}: {m.label!r} -> DCS DS {ds}: table total {m.total}, GN sum of "
-                f"occupied housing units {expected}"
+                f"{what} {expected}"
             )
         if (m.district, m.label) in out:
             errors.append(f"row {m.line}: {m.label!r} appears twice in its district")
@@ -417,5 +419,5 @@ def match_ds_lines(
         errors.append(f"match file rows not used: {sorted(unused)}")
     missing = set(gn_housing_by_ds) - set(out.values())
     if missing:
-        errors.append(f"DCS DS codes with GN housing but no table line: {sorted(missing)}")
+        errors.append(f"DCS DS codes with GN {what} but no table line: {sorted(missing)}")
     return out, errors

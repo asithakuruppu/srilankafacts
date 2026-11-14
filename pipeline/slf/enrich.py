@@ -569,6 +569,9 @@ def build_spatial_context(
         for indicator_id in sorted(values.columns):
             if indicator_id not in catalog.indicators:
                 continue
+            if catalog.indicators[indicator_id].distribution == "places_only":
+                # D-033: no neighbour comparisons for ethnicity and religion
+                continue
             indicator_values = pd.Series(values[indicator_id]).reindex(
                 units["geography_id"].astype(str)
             )

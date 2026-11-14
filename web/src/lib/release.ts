@@ -97,7 +97,14 @@ export function getCorrections(): CorrectionsLog | null {
 export function getIndicators(): IndicatorMeta[] {
   const list = readJson<IndicatorList>("api/v1/indicators.json");
   return list.indicators
-    .filter((indicator) => indicator.levels.length > 0 && indicator.distribution !== "downloads_only")
+    // downloads_only: no place or level files (LA-004). places_only: place pages only, never
+    // ranked, mapped or listed as an indicator (D-033).
+    .filter(
+      (indicator) =>
+        indicator.levels.length > 0 &&
+        indicator.distribution !== "downloads_only" &&
+        indicator.distribution !== "places_only",
+    )
     .sort((a, b) => a.name.localeCompare(b.name));
 }
 

@@ -86,7 +86,7 @@ def test_local_moran_constant_field_is_not_called_significant():
     assert set(result["class"]) == {"not_significant"}
 
 
-def test_build_spatial_context_skips_levels_without_values(tmp_path):
+def test_build_spatial_context_skips_empty_levels_and_places_only(tmp_path):
     from slf.catalog import Catalog, CatalogReport, load_catalog
     from slf.enrich import build_spatial_context
 
@@ -108,10 +108,18 @@ def test_build_spatial_context_skips_levels_without_values(tmp_path):
     )
     rows = [("occupied_housing_units", g, 10.0 + i) for i, g in enumerate(gn_ids + ds_ids)]
     rows += [("housing_roof_tile", g, 5.0 + i) for i, g in enumerate(ds_ids)]
+    rows += [("population_religion_hindu_share", g, 5.0 + i) for i, g in enumerate(ds_ids)]
     observations = pd.DataFrame(rows, columns=["indicator_id", "geography_id", "value"])
     observations["value_status"] = "normal"
     catalog = Catalog(
-        indicators={k: full.indicators[k] for k in ("occupied_housing_units", "housing_roof_tile")}
+        indicators={
+            k: full.indicators[k]
+            for k in (
+                "occupied_housing_units",
+                "housing_roof_tile",
+                "population_religion_hindu_share",
+            )
+        }
     )
     result = build_spatial_context(
         observations=observations,
@@ -125,3 +133,5 @@ def test_build_spatial_context_skips_levels_without_values(tmp_path):
     assert "stats/local_housing_roof_tile_ds.parquet" in result.files
     assert "stats/local_housing_roof_tile_gn.parquet" not in result.files
     assert not (tmp_path / "out" / "stats" / "local_housing_roof_tile_gn.parquet").exists()
+    # D-033: places_only indicators get no neighbour comparisons at any level
+    assert not [f for f in result.files if "population_religion" in f]

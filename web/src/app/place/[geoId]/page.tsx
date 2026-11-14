@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
+import IdentityPanel, { IDENTITY_INDICATORS } from "@/components/identity-panel";
 import MapView from "@/components/map-view";
 import ProfilePanel from "@/components/profile-panel";
 import Provenance from "@/components/provenance";
@@ -99,7 +100,9 @@ function PlaceContent({ geoId }: { geoId: string }) {
   const nationalValues = getNationalValues();
   const children = getChildren(geography.geography_id);
   const latest = getLatest();
-  const values = [...place.values].sort((a, b) => {
+  // Ethnic group and religion have their own section (D-033), not the indicator table.
+  const values = place.values.filter((value) => !IDENTITY_INDICATORS.has(value.indicator_id));
+  values.sort((a, b) => {
     const left = HEADLINE_ORDER.indexOf(a.indicator_id);
     const right = HEADLINE_ORDER.indexOf(b.indicator_id);
     return (left === -1 ? 99 : left) - (right === -1 ? 99 : right);
@@ -393,6 +396,8 @@ function PlaceContent({ geoId }: { geoId: string }) {
         {place.source_comparisons && place.source_comparisons.length > 0 ? (
           <SourcesPanel comparisons={place.source_comparisons} />
         ) : null}
+
+        <IdentityPanel place={place} />
 
         <section className="section" id="data" aria-labelledby="data-heading">
           <div className="section-head">

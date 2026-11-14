@@ -1,0 +1,20 @@
+id: population_religion_other_christian
+name: "Population by religion: Other Christian"
+short_name: "Religion: Other Christian"
+topic: [population, religion]
+measure_type: count
+unit: persons
+universe: persons
+numerator: null
+denominator: null
+aggregation: sum
+higher_is: neutral
+distribution: places_only
+decimals: 0
+sensitivity: sensitive_group
+definition: >
+  Number of persons whose religion is recorded as "Other Christian" by the Census of Population and Housing
+  2024, using DCS's category name. Each person is counted in exactly one category.
+  Published by DCS for DS divisions and districts; values here come from those tables, never from sums of GN values, because DCS's GN files fold groups of fewer than 10 people into "Other" (D-033).
+source_definition_ref: "CPH 2024, Population table A7 (district and DS) and A3 (district), column 'Other Christian'"
+methodology_notes: docs/methods/census-2024-ethnicity-religion.md

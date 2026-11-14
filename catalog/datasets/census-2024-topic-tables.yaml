@@ -231,6 +231,38 @@ indicators:
   - housing_floor_sand_share
   - housing_floor_other_share
   - housing_floor_not_relevant_share
+  - population_ethnicity_sinhalese
+  - population_ethnicity_sri_lanka_tamil
+  - population_ethnicity_indian_tamil
+  - population_ethnicity_sri_lanka_moor
+  - population_ethnicity_burgher
+  - population_ethnicity_malay
+  - population_ethnicity_sri_lanka_chetty
+  - population_ethnicity_bharatha
+  - population_ethnicity_veddha
+  - population_ethnicity_other
+  - population_religion_buddhist
+  - population_religion_hindu
+  - population_religion_islam
+  - population_religion_roman_catholic
+  - population_religion_other_christian
+  - population_religion_other
+  - population_ethnicity_sinhalese_share
+  - population_ethnicity_sri_lanka_tamil_share
+  - population_ethnicity_indian_tamil_share
+  - population_ethnicity_sri_lanka_moor_share
+  - population_ethnicity_burgher_share
+  - population_ethnicity_malay_share
+  - population_ethnicity_sri_lanka_chetty_share
+  - population_ethnicity_bharatha_share
+  - population_ethnicity_veddha_share
+  - population_ethnicity_other_share
+  - population_religion_buddhist_share
+  - population_religion_hindu_share
+  - population_religion_islam_share
+  - population_religion_roman_catholic_share
+  - population_religion_other_christian_share
+  - population_religion_other_share
 cross_checks:
   - upstream: nuuuwan/lk_census_2024
     note: comparison only, never as authority
@@ -247,6 +279,12 @@ notes: >
   information floor is the DS division (ds-2024), not the GN; DS names join to DCS DS codes
   through catalog/geographies/name-matches/dcs-census2024-a-series-ds.csv, each match checked
   against GN occupied housing units (method: docs/methods/census-2024-housing-materials.md).
+  Step d (D-033): population by ethnic group and religion for DS divisions, districts and Sri
+  Lanka from Population tables A6 and A7, checked against A2 and A3; 16 counts and 16 shares,
+  sensitivity sensitive_group, distribution places_only (place pages, no rankings, maps or
+  neighbour comparisons). DS names join through
+  catalog/geographies/name-matches/dcs-census2024-population-a-series-ds.csv, each match checked
+  against GN population (method: docs/methods/census-2024-ethnicity-religion.md).
   Not yet in any release. GN level:
   households with drinking water, cooking fuel, lighting and toilet (14,008 GN rows); population
   by ethnic group, religion, five-year age group, sector and local authority type (14,003 GN
