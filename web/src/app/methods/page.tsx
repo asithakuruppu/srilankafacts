@@ -209,7 +209,10 @@ export default function MethodsPage() {
               male and female: 0 mismatches across 14,008 GNs. The comparison is not an
               authority and supplies no published value.
             </li>
-            <li>Two release builds produced identical checksums.</li>
+            <li>
+              Two release builds produced identical checksums, including a rebuild of the
+              current preview with all census topic tables (15,921 files).
+            </li>
             <li>
               A machine re-trace of a sample from <code>v2026.11.10-preview.1</code>: each value
               re-read from its raw snapshot without the ingest code. 0 of 207 GN-workbook values
