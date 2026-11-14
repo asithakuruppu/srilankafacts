@@ -293,6 +293,18 @@ These were stated by you or are standing rules in [brainstorm-decisions.md](../b
 - **Consequences:** the ethnicity and religion ingest (D-032 step d) reads the A-series tables, which are DS and district level only. The website needs a neutral presentation for these two topics, separate from the ranked indicator views. No thematic map for these two topics in 1B.
 - **Revisit when:** there is a proposed way to show folded GN cells; DCS publishes unfolded GN tables; or user testing asks for it.
 
+## D-034: Downloads are served from Cloudflare R2 (r2.dev for now); the website is deployed to Vercel as a prebuilt build
+- **Status:** Proposed · 2026-11-14 (builds on D-007, D-030, D-032)
+- **Context:** The first public release `v2026.11.14` (2.1 GB, 15,922 files, non-commercial per D-030 and D-032) is being uploaded with `slf upload`. The lead needs a place for the files and a way to show the website. The site reads the release from local files at build time (`SLF_RELEASE_DIR`), so a Vercel build from Git alone has no data.
+- **Decision:**
+  - Release files live in the R2 bucket `srilankafacts-data` under `releases/<version>/`, public read through the bucket's `r2.dev` address for now. A custom domain comes later.
+  - R2 clients use region `auto` and the account endpoint **without** the bucket in the path. Keys are never overwritten.
+  - `slf upload` puts a release there; `slf verify-upload` (read-only) proves the bucket matches the local release: file count, sizes, MD5 for single-part ETags, and a sampled SHA-256 download against `CHECKSUMS.sha256`.
+  - The website is deployed to Vercel as a prebuilt deploy: `vercel build` then `vercel deploy --prebuilt`, run locally with `SLF_RELEASE_DIR` pointing at the release folder.
+- **Alternatives:** build on Vercel from Git (rejected: no release data in the repository); serve everything from Vercel (rejected: size); put the release in Git (rejected: 2.1 GB).
+- **Consequences:** r2.dev is rate-limited and meant for testing, so it is acceptable for a non-commercial preview but not for launch. ❓ Open risk, not verified: the 857 MB `api/` folder may exceed Vercel's deployment size or file-count limits. If it does, the site must fetch `api/` from R2 instead of bundling it, which is a code change.
+- **Revisit when:** the Vercel prebuilt deploy is tried and passes or fails on size; before launch (custom domain for R2, rate limits); or D-030 changes.
+
 ---
 
 ## Template

@@ -185,6 +185,63 @@ def upload(
     )
 
 
+@app.command("verify-upload")
+def verify_upload_cmd(
+    release_dir: Annotated[Path, typer.Option(help="Local release folder that was uploaded.")],
+    prefix: Annotated[
+        str | None, typer.Option(help="Key prefix; default releases/<version>.")
+    ] = None,
+    sample: Annotated[
+        int, typer.Option(help="Files to download and hash against CHECKSUMS.sha256.")
+    ] = 20,
+) -> None:
+    """Check the bucket named by SLF_S3_BUCKET matches a local release (read-only)."""
+    from slf.upload import NotPublishableError
+    from slf.verify_upload import verify_upload
+
+    bucket = os.environ.get("SLF_S3_BUCKET")
+    if not bucket:
+        typer.echo("SLF_S3_BUCKET must be set", err=True)
+        raise typer.Exit(code=2)
+    try:
+        import boto3  # type: ignore[import-not-found]
+    except ImportError:
+        typer.echo("needs the optional extra: uv sync --extra s3", err=True)
+        raise typer.Exit(code=2) from None
+    from botocore.config import Config  # type: ignore[import-not-found]
+
+    client = boto3.client(
+        "s3",
+        endpoint_url=os.environ.get("SLF_S3_ENDPOINT"),
+        region_name="auto",
+        config=Config(retries={"max_attempts": 10, "mode": "adaptive"}, connect_timeout=20),
+    )
+    try:
+        res = verify_upload(release_dir, client, bucket, prefix, sample)
+    except NotPublishableError as exc:
+        typer.echo(f"ERROR {exc}", err=True)
+        raise typer.Exit(code=1) from None
+    typer.echo(f"{res.prefix}: {res.local_files} local files, {res.remote_files} in bucket")
+    typer.echo(
+        f"ETag = MD5 checked: {res.etag_checked}; multipart (size only): "
+        f"{res.multipart_size_only}; downloaded and SHA-256 checked: {res.hash_checked}"
+    )
+    for label, items in [
+        ("MISSING", res.missing),
+        ("EXTRA", res.extra),
+        ("SIZE MISMATCH", res.size_mismatch),
+        ("ETAG MISMATCH", res.etag_mismatch),
+        ("SHA-256 MISMATCH", res.hash_mismatch),
+    ]:
+        for item in items[:50]:
+            typer.echo(f"{label} {item}", err=True)
+        if len(items) > 50:
+            typer.echo(f"{label} ... and {len(items) - 50} more", err=True)
+    if not res.ok:
+        raise typer.Exit(code=1)
+    typer.echo("OK: bucket matches the release")
+
+
 @catalog_app.command("validate")
 def catalog_validate(
     root: Annotated[Path, typer.Option(help="Path to the catalog folder.")] = Path("../catalog"),
