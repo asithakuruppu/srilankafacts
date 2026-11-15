@@ -486,19 +486,23 @@ def _check(sheet: Sheet) -> None:
     if t["valid"] is not None and t["rejected"] is not None and t["polled"] is not None:
         if t["valid"] + t["rejected"] != t["polled"]:
             sheet.problems.append("valid + rejected != polled")
+    adds_up = False
     if t["valid"] is not None and all(r.value is not None for r in sheet.candidates.values()):
         total = sum(r.value for r in sheet.candidates.values())  # type: ignore[misc]
-        if total != t["valid"]:
+        adds_up = total == t["valid"]
+        if not adds_up:
             sheet.problems.append(f"candidates sum to {total}, valid is {t['valid']}")
-            # The sheet does not add up: keep only values its printed percentages confirm.
-            for code, r in sheet.candidates.items():
-                if not r.pct_checked:
-                    sheet.problems.append(
-                        f"{code}: {r.value} withheld (sheet does not add up; not confirmed by "
-                        f"its printed percentage)"
-                    )
-                    r.value = None
-                    r.how = "withheld"
+    if not adds_up:
+        # The sheet's total cannot confirm its rows: keep only values that its printed
+        # percentages confirm. (Majority reads alone were wrong in 4 of 7,604 cases.)
+        for code, r in sheet.candidates.items():
+            if r.value is not None and not r.pct_checked:
+                sheet.problems.append(
+                    f"{code}: {r.value} withheld (sheet does not add up; not confirmed by "
+                    f"its printed percentage)"
+                )
+                r.value = None
+                r.how = "withheld"
     if t["polled"] is not None and t["electors"] is not None and t["polled"] > t["electors"]:
         sheet.problems.append("polled exceeds registered electors")
     if sheet.ed_number is None:
