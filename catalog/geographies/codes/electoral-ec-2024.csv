@@ -1,0 +1,365 @@
+geography_id,vintage,code_system,external_code,external_name,match_method,confidence,notes
+LK-ED-01,ec-2024,election-commission,1,Colombo,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 1"
+LK-ED-01,ec-2024,nuuuwan,EC-01,Colombo,exact_code,1.0,nuuuwan EC-id = Commission ED number
+LK-ED-02,ec-2024,election-commission,2,Gampaha,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 2"
+LK-ED-02,ec-2024,nuuuwan,EC-02,Gampaha,exact_code,1.0,nuuuwan EC-id = Commission ED number
+LK-ED-03,ec-2024,election-commission,3,Kalutara,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 3"
+LK-ED-03,ec-2024,nuuuwan,EC-03,Kalutara,exact_code,1.0,nuuuwan EC-id = Commission ED number
+LK-ED-04,ec-2024,election-commission,4,Mahanuwara,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 4"
+LK-ED-04,ec-2024,nuuuwan,EC-04,Mahanuwara,exact_code,1.0,nuuuwan EC-id = Commission ED number
+LK-ED-05,ec-2024,election-commission,5,Matale,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 5"
+LK-ED-05,ec-2024,nuuuwan,EC-05,Matale,exact_code,1.0,nuuuwan EC-id = Commission ED number
+LK-ED-06,ec-2024,election-commission,6,Nuwara-Eliya,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 6"
+LK-ED-06,ec-2024,nuuuwan,EC-06,Nuwara-Eliya,exact_code,1.0,nuuuwan EC-id = Commission ED number
+LK-ED-07,ec-2024,election-commission,7,Galle,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 7"
+LK-ED-07,ec-2024,nuuuwan,EC-07,Galle,exact_code,1.0,nuuuwan EC-id = Commission ED number
+LK-ED-08,ec-2024,election-commission,8,Matara,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 8"
+LK-ED-08,ec-2024,nuuuwan,EC-08,Matara,exact_code,1.0,nuuuwan EC-id = Commission ED number
+LK-ED-09,ec-2024,election-commission,9,Hambantota,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 9"
+LK-ED-09,ec-2024,nuuuwan,EC-09,Hambantota,exact_code,1.0,nuuuwan EC-id = Commission ED number
+LK-ED-10,ec-2024,election-commission,10,Jaffna,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 10"
+LK-ED-10,ec-2024,nuuuwan,EC-10,Jaffna,exact_code,1.0,nuuuwan EC-id = Commission ED number
+LK-ED-11,ec-2024,election-commission,11,Vanni,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 11"
+LK-ED-11,ec-2024,nuuuwan,EC-11,Vanni,exact_code,1.0,nuuuwan EC-id = Commission ED number
+LK-ED-12,ec-2024,election-commission,12,Batticaloa,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 12"
+LK-ED-12,ec-2024,nuuuwan,EC-12,Batticaloa,exact_code,1.0,nuuuwan EC-id = Commission ED number
+LK-ED-13,ec-2024,election-commission,13,Digamadulla,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 13"
+LK-ED-13,ec-2024,nuuuwan,EC-13,Digamadulla,exact_code,1.0,nuuuwan EC-id = Commission ED number
+LK-ED-14,ec-2024,election-commission,14,Trincomalee,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 14"
+LK-ED-14,ec-2024,nuuuwan,EC-14,Trincomalee,exact_code,1.0,nuuuwan EC-id = Commission ED number
+LK-ED-15,ec-2024,election-commission,15,Kurunegala,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 15"
+LK-ED-15,ec-2024,nuuuwan,EC-15,Kurunegala,exact_code,1.0,nuuuwan EC-id = Commission ED number
+LK-ED-16,ec-2024,election-commission,16,Puttalam,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 16"
+LK-ED-16,ec-2024,nuuuwan,EC-16,Puttalam,exact_code,1.0,nuuuwan EC-id = Commission ED number
+LK-ED-17,ec-2024,election-commission,17,Anuradhapura,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 17"
+LK-ED-17,ec-2024,nuuuwan,EC-17,Anuradhapura,exact_code,1.0,nuuuwan EC-id = Commission ED number
+LK-ED-18,ec-2024,election-commission,18,Polonnaruwa,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 18"
+LK-ED-18,ec-2024,nuuuwan,EC-18,Polonnaruwa,exact_code,1.0,nuuuwan EC-id = Commission ED number
+LK-ED-19,ec-2024,election-commission,19,Badulla,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 19"
+LK-ED-19,ec-2024,nuuuwan,EC-19,Badulla,exact_code,1.0,nuuuwan EC-id = Commission ED number
+LK-ED-20,ec-2024,election-commission,20,Moneragala,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 20"
+LK-ED-20,ec-2024,nuuuwan,EC-20,Moneragala,exact_code,1.0,nuuuwan EC-id = Commission ED number
+LK-ED-21,ec-2024,election-commission,21,Ratnapura,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 21"
+LK-ED-21,ec-2024,nuuuwan,EC-21,Ratnapura,exact_code,1.0,nuuuwan EC-id = Commission ED number
+LK-ED-22,ec-2024,election-commission,22,Kegalle,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 22"
+LK-ED-22,ec-2024,nuuuwan,EC-22,Kegalle,exact_code,1.0,nuuuwan EC-id = Commission ED number
+LK-PD-01A,ec-2024,election-commission,1-A,Colombo North,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 1 line 18"
+LK-PD-01A,ec-2024,nuuuwan,EC-01A,Colombo North,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-01B,ec-2024,election-commission,1-B,Colombo Central,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 1 line 19"
+LK-PD-01B,ec-2024,nuuuwan,EC-01B,Colombo Central,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-01C,ec-2024,election-commission,1-C,Borella,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 1 line 20"
+LK-PD-01C,ec-2024,nuuuwan,EC-01C,Borella,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-01D,ec-2024,election-commission,1-D,Colombo East,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 1 line 21"
+LK-PD-01D,ec-2024,nuuuwan,EC-01D,Colombo East,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-01E,ec-2024,election-commission,1-E,Colombo West,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 1 line 22"
+LK-PD-01E,ec-2024,nuuuwan,EC-01E,Colombo West,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-01F,ec-2024,election-commission,1-F,Dehiwala,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 1 line 23"
+LK-PD-01F,ec-2024,nuuuwan,EC-01F,Dehiwala,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-01G,ec-2024,election-commission,1-G,Ratmalana,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 1 line 24"
+LK-PD-01G,ec-2024,nuuuwan,EC-01G,Ratmalana,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-01H,ec-2024,election-commission,1-H,Kolonnawa,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 1 line 25"
+LK-PD-01H,ec-2024,nuuuwan,EC-01H,Kolonnawa,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-01I,ec-2024,election-commission,1-I,Kotte,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 1 line 26"
+LK-PD-01I,ec-2024,nuuuwan,EC-01I,Kotte,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-01J,ec-2024,election-commission,1-J,Kaduwela,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 1 line 27"
+LK-PD-01J,ec-2024,nuuuwan,EC-01J,Kaduwela,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-01K,ec-2024,election-commission,1-K,Awissawella,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 1 line 28"
+LK-PD-01K,ec-2024,nuuuwan,EC-01K,Awissawella,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-01L,ec-2024,election-commission,1-L,Homagama,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 1 line 29"
+LK-PD-01L,ec-2024,nuuuwan,EC-01L,Homagama,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-01M,ec-2024,election-commission,1-M,Maharagama,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 1 line 30"
+LK-PD-01M,ec-2024,nuuuwan,EC-01M,Maharagama,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-01N,ec-2024,election-commission,1-N,Kesbewa,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 1 line 31"
+LK-PD-01N,ec-2024,nuuuwan,EC-01N,Kesbewa,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-01O,ec-2024,election-commission,1-O,Moratuwa,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 1 line 32"
+LK-PD-01O,ec-2024,nuuuwan,EC-01O,Moratuwa,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-02A,ec-2024,election-commission,2-A,Wattala,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 2 line 18"
+LK-PD-02A,ec-2024,nuuuwan,EC-02A,Wattala,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-02B,ec-2024,election-commission,2-B,Negombo,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 2 line 19"
+LK-PD-02B,ec-2024,nuuuwan,EC-02B,Negombo,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-02C,ec-2024,election-commission,2-C,Katana,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 2 line 20"
+LK-PD-02C,ec-2024,nuuuwan,EC-02C,Katana,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-02D,ec-2024,election-commission,2-D,Divulapitiya,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 2 line 21"
+LK-PD-02D,ec-2024,nuuuwan,EC-02D,Divulapitiya,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-02E,ec-2024,election-commission,2-E,Meerigama,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 2 line 22"
+LK-PD-02E,ec-2024,nuuuwan,EC-02E,Meerigama,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-02F,ec-2024,election-commission,2-F,Minuwangoda,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 2 line 23"
+LK-PD-02F,ec-2024,nuuuwan,EC-02F,Minuwangoda,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-02G,ec-2024,election-commission,2-G,Attanagalla,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 2 line 24"
+LK-PD-02G,ec-2024,nuuuwan,EC-02G,Attanagalla,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-02H,ec-2024,election-commission,2-H,Gampaha,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 2 line 25"
+LK-PD-02H,ec-2024,nuuuwan,EC-02H,Gampaha,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-02I,ec-2024,election-commission,2-I,Ja-Ela,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 2 line 26"
+LK-PD-02I,ec-2024,nuuuwan,EC-02I,Ja-Ela,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-02J,ec-2024,election-commission,2-J,Mahara,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 2 line 27"
+LK-PD-02J,ec-2024,nuuuwan,EC-02J,Mahara,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-02K,ec-2024,election-commission,2-K,Dompe,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 2 line 28"
+LK-PD-02K,ec-2024,nuuuwan,EC-02K,Dompe,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-02L,ec-2024,election-commission,2-L,Biyagama,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 2 line 29"
+LK-PD-02L,ec-2024,nuuuwan,EC-02L,Biyagama,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-02M,ec-2024,election-commission,2-M,Kelaniya,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 2 line 30"
+LK-PD-02M,ec-2024,nuuuwan,EC-02M,Kelaniya,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-03A,ec-2024,election-commission,3-A,Panadura,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 3 line 18"
+LK-PD-03A,ec-2024,nuuuwan,EC-03A,Panadura,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-03B,ec-2024,election-commission,3-B,Bandaragama,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 3 line 19"
+LK-PD-03B,ec-2024,nuuuwan,EC-03B,Bandaragama,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-03C,ec-2024,election-commission,3-C,Horana,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 3 line 20"
+LK-PD-03C,ec-2024,nuuuwan,EC-03C,Horana,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-03D,ec-2024,election-commission,3-D,Bulathsinhala,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 3 line 21"
+LK-PD-03D,ec-2024,nuuuwan,EC-03D,Bulathsinhala,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-03E,ec-2024,election-commission,3-E,Mathugama,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 3 line 22"
+LK-PD-03E,ec-2024,nuuuwan,EC-03E,Mathugama,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-03F,ec-2024,election-commission,3-F,Kalutara,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 3 line 23"
+LK-PD-03F,ec-2024,nuuuwan,EC-03F,Kalutara,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-03G,ec-2024,election-commission,3-G,Beruwala,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 3 line 24"
+LK-PD-03G,ec-2024,nuuuwan,EC-03G,Beruwala,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-03H,ec-2024,election-commission,3-H,Agalawatta,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 3 line 25"
+LK-PD-03H,ec-2024,nuuuwan,EC-03H,Agalawatta,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-04A,ec-2024,election-commission,4-A,Galagedara,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 4 line 18"
+LK-PD-04A,ec-2024,nuuuwan,EC-04A,Galagedara,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-04B,ec-2024,election-commission,4-B,Harispaththuwa,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 4 line 19"
+LK-PD-04B,ec-2024,nuuuwan,EC-04B,Harispaththuwa,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-04C,ec-2024,election-commission,4-C,Pathadumbara,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 4 line 20"
+LK-PD-04C,ec-2024,nuuuwan,EC-04C,Pathadumbara,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-04D,ec-2024,election-commission,4-D,Udadumbara,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 4 line 21"
+LK-PD-04D,ec-2024,nuuuwan,EC-04D,Udadumbara,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-04E,ec-2024,election-commission,4-E,Theldeniya,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 4 line 22"
+LK-PD-04E,ec-2024,nuuuwan,EC-04E,Theldeniya,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-04F,ec-2024,election-commission,4-F,Kundasale,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 4 line 23"
+LK-PD-04F,ec-2024,nuuuwan,EC-04F,Kundasale,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-04G,ec-2024,election-commission,4-G,Hewaheta,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 4 line 24"
+LK-PD-04G,ec-2024,nuuuwan,EC-04G,Hewaheta,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-04H,ec-2024,election-commission,4-H,Senkadagala,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 4 line 25"
+LK-PD-04H,ec-2024,nuuuwan,EC-04H,Senkadagala,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-04I,ec-2024,election-commission,4-I,Mahanuwara,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 4 line 26"
+LK-PD-04I,ec-2024,nuuuwan,EC-04I,Mahanuwara,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-04J,ec-2024,election-commission,4-J,Yatinuwara,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 4 line 27"
+LK-PD-04J,ec-2024,nuuuwan,EC-04J,Yatinuwara,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-04K,ec-2024,election-commission,4-K,Udunuwara,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 4 line 28"
+LK-PD-04K,ec-2024,nuuuwan,EC-04K,Udunuwara,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-04L,ec-2024,election-commission,4-L,Gampola,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 4 line 29"
+LK-PD-04L,ec-2024,nuuuwan,EC-04L,Gampola,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-04M,ec-2024,election-commission,4-M,Nawalapitiya,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 4 line 30"
+LK-PD-04M,ec-2024,nuuuwan,EC-04M,Nawalapitiya,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-05A,ec-2024,election-commission,5-A,Dambulla,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 5 line 18"
+LK-PD-05A,ec-2024,nuuuwan,EC-05A,Dambulla,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-05B,ec-2024,election-commission,5-B,Laggala,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 5 line 19"
+LK-PD-05B,ec-2024,nuuuwan,EC-05B,Laggala,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-05C,ec-2024,election-commission,5-C,Matale,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 5 line 20"
+LK-PD-05C,ec-2024,nuuuwan,EC-05C,Matale,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-05D,ec-2024,election-commission,5-D,Raththota,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 5 line 21"
+LK-PD-05D,ec-2024,nuuuwan,EC-05D,Raththota,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-06A,ec-2024,election-commission,6-A,Nuwara-Eliya,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 6 line 18"
+LK-PD-06A,ec-2024,nuuuwan,EC-06A,Nuwara-Eliya,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-06B,ec-2024,election-commission,6-B,Kotmale,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 6 line 19"
+LK-PD-06B,ec-2024,nuuuwan,EC-06B,Kotmale,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-06C,ec-2024,election-commission,6-C,Hanguranketha,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 6 line 20"
+LK-PD-06C,ec-2024,nuuuwan,EC-06C,Hanguranketha,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-06D,ec-2024,election-commission,6-D,Walapane,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 6 line 21"
+LK-PD-06D,ec-2024,nuuuwan,EC-06D,Walapane,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-07A,ec-2024,election-commission,7-A,Balapitiya,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 7 line 18"
+LK-PD-07A,ec-2024,nuuuwan,EC-07A,Balapitiya,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-07B,ec-2024,election-commission,7-B,Ambalangoda,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 7 line 19"
+LK-PD-07B,ec-2024,nuuuwan,EC-07B,Ambalangoda,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-07C,ec-2024,election-commission,7-C,Karandeniya,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 7 line 20"
+LK-PD-07C,ec-2024,nuuuwan,EC-07C,Karandeniya,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-07D,ec-2024,election-commission,7-D,Bentara-Elpitiya,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 7 line 21"
+LK-PD-07D,ec-2024,nuuuwan,EC-07D,Bentara-Elpitiya,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-07E,ec-2024,election-commission,7-E,Hiniduma,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 7 line 22"
+LK-PD-07E,ec-2024,nuuuwan,EC-07E,Hiniduma,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-07F,ec-2024,election-commission,7-F,Baddegama,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 7 line 23"
+LK-PD-07F,ec-2024,nuuuwan,EC-07F,Baddegama,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-07G,ec-2024,election-commission,7-G,Rathgama,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 7 line 24"
+LK-PD-07G,ec-2024,nuuuwan,EC-07G,Rathgama,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-07H,ec-2024,election-commission,7-H,Galle,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 7 line 25"
+LK-PD-07H,ec-2024,nuuuwan,EC-07H,Galle,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-07I,ec-2024,election-commission,7-I,Akmeemana,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 7 line 26"
+LK-PD-07I,ec-2024,nuuuwan,EC-07I,Akmeemana,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-07J,ec-2024,election-commission,7-J,Habaraduwa,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 7 line 27"
+LK-PD-07J,ec-2024,nuuuwan,EC-07J,Habaraduwa,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-08A,ec-2024,election-commission,8-A,Deniyaya,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 8 line 18"
+LK-PD-08A,ec-2024,nuuuwan,EC-08A,Deniyaya,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-08B,ec-2024,election-commission,8-B,Hakmana,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 8 line 19"
+LK-PD-08B,ec-2024,nuuuwan,EC-08B,Hakmana,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-08C,ec-2024,election-commission,8-C,Akuressa,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 8 line 20"
+LK-PD-08C,ec-2024,nuuuwan,EC-08C,Akuressa,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-08D,ec-2024,election-commission,8-D,Kamburupitiya,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 8 line 21"
+LK-PD-08D,ec-2024,nuuuwan,EC-08D,Kamburupitiya,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-08E,ec-2024,election-commission,8-E,Devinuwara,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 8 line 22"
+LK-PD-08E,ec-2024,nuuuwan,EC-08E,Devinuwara,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-08F,ec-2024,election-commission,8-F,Matara,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 8 line 23"
+LK-PD-08F,ec-2024,nuuuwan,EC-08F,Matara,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-08G,ec-2024,election-commission,8-G,Weligama,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 8 line 24"
+LK-PD-08G,ec-2024,nuuuwan,EC-08G,Weligama,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-09A,ec-2024,election-commission,9-A,Mulkirigala,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 9 line 18"
+LK-PD-09A,ec-2024,nuuuwan,EC-09A,Mulkirigala,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-09B,ec-2024,election-commission,9-B,Beliatta,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 9 line 19"
+LK-PD-09B,ec-2024,nuuuwan,EC-09B,Beliatta,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-09C,ec-2024,election-commission,9-C,Tangalle,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 9 line 20"
+LK-PD-09C,ec-2024,nuuuwan,EC-09C,Tangalle,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-09D,ec-2024,election-commission,9-D,Thissamaharamaya,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 9 line 21"
+LK-PD-09D,ec-2024,nuuuwan,EC-09D,Thissamaharamaya,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-10A,ec-2024,election-commission,10-A,Kayts,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 10 line 18"
+LK-PD-10A,ec-2024,nuuuwan,EC-10A,Kayts,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-10B,ec-2024,election-commission,10-B,Waddukkoddai,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 10 line 19"
+LK-PD-10B,ec-2024,nuuuwan,EC-10B,Waddukkoddai,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-10C,ec-2024,election-commission,10-C,Kankasanthurai,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 10 line 20"
+LK-PD-10C,ec-2024,nuuuwan,EC-10C,Kankasanthurai,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-10D,ec-2024,election-commission,10-D,Manipay,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 10 line 21"
+LK-PD-10D,ec-2024,nuuuwan,EC-10D,Manipay,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-10E,ec-2024,election-commission,10-E,Kopay,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 10 line 22"
+LK-PD-10E,ec-2024,nuuuwan,EC-10E,Kopay,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-10F,ec-2024,election-commission,10-F,Uduppidi,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 10 line 23"
+LK-PD-10F,ec-2024,nuuuwan,EC-10F,Uduppidi,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-10G,ec-2024,election-commission,10-G,Point Pedro,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 10 line 24"
+LK-PD-10G,ec-2024,nuuuwan,EC-10G,Point Pedro,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-10H,ec-2024,election-commission,10-H,Chawakachcheri,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 10 line 25"
+LK-PD-10H,ec-2024,nuuuwan,EC-10H,Chawakachcheri,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-10I,ec-2024,election-commission,10-I,Nallur,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 10 line 26"
+LK-PD-10I,ec-2024,nuuuwan,EC-10I,Nallur,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-10J,ec-2024,election-commission,10-J,Jaffna,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 10 line 27"
+LK-PD-10J,ec-2024,nuuuwan,EC-10J,Jaffna,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-10K,ec-2024,election-commission,10-K,Kilinochchi,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 10 line 28"
+LK-PD-10K,ec-2024,nuuuwan,EC-10K,Kilinochchi,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-11A,ec-2024,election-commission,11-A,Mannar,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 11 line 18"
+LK-PD-11A,ec-2024,nuuuwan,EC-11A,Mannar,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-11B,ec-2024,election-commission,11-B,Vavuniya,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 11 line 19"
+LK-PD-11B,ec-2024,nuuuwan,EC-11B,Vavuniya,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-11C,ec-2024,election-commission,11-C,Mullaitivu,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 11 line 20"
+LK-PD-11C,ec-2024,nuuuwan,EC-11C,Mullaitivu,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-12A,ec-2024,election-commission,12-A,Kalkuda,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 12 line 18"
+LK-PD-12A,ec-2024,nuuuwan,EC-12A,Kalkuda,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-12B,ec-2024,election-commission,12-B,Batticaloa,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 12 line 19"
+LK-PD-12B,ec-2024,nuuuwan,EC-12B,Batticaloa,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-12C,ec-2024,election-commission,12-C,Paddiruppu,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 12 line 20"
+LK-PD-12C,ec-2024,nuuuwan,EC-12C,Paddiruppu,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-13A,ec-2024,election-commission,13-A,Ampara,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 13 line 18"
+LK-PD-13A,ec-2024,nuuuwan,EC-13A,Ampara,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-13B,ec-2024,election-commission,13-B,Samanthurai,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 13 line 19"
+LK-PD-13B,ec-2024,nuuuwan,EC-13B,Samanthurai,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-13C,ec-2024,election-commission,13-C,Kalmunai,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 13 line 20"
+LK-PD-13C,ec-2024,nuuuwan,EC-13C,Kalmunai,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-13D,ec-2024,election-commission,13-D,Pothuvil,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 13 line 21"
+LK-PD-13D,ec-2024,nuuuwan,EC-13D,Pothuvil,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-14A,ec-2024,election-commission,14-A,Seruwil,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 14 line 18"
+LK-PD-14A,ec-2024,nuuuwan,EC-14A,Seruwil,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-14B,ec-2024,election-commission,14-B,Trincomalee,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 14 line 19"
+LK-PD-14B,ec-2024,nuuuwan,EC-14B,Trincomalee,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-14C,ec-2024,election-commission,14-C,Mutur,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 14 line 20"
+LK-PD-14C,ec-2024,nuuuwan,EC-14C,Mutur,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-15A,ec-2024,election-commission,15-A,Galgamuwa,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 15 line 18"
+LK-PD-15A,ec-2024,nuuuwan,EC-15A,Galgamuwa,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-15B,ec-2024,election-commission,15-B,Nikaweratiya,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 15 line 19"
+LK-PD-15B,ec-2024,nuuuwan,EC-15B,Nikaweratiya,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-15C,ec-2024,election-commission,15-C,Yapahuwa,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 15 line 20"
+LK-PD-15C,ec-2024,nuuuwan,EC-15C,Yapahuwa,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-15D,ec-2024,election-commission,15-D,Hiriyala,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 15 line 21"
+LK-PD-15D,ec-2024,nuuuwan,EC-15D,Hiriyala,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-15E,ec-2024,election-commission,15-E,Wariyapola,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 15 line 22"
+LK-PD-15E,ec-2024,nuuuwan,EC-15E,Wariyapola,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-15F,ec-2024,election-commission,15-F,Panduwasnuwara,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 15 line 23"
+LK-PD-15F,ec-2024,nuuuwan,EC-15F,Panduwasnuwara,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-15G,ec-2024,election-commission,15-G,Bingiriya,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 15 line 24"
+LK-PD-15G,ec-2024,nuuuwan,EC-15G,Bingiriya,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-15H,ec-2024,election-commission,15-H,Katugampola,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 15 line 25"
+LK-PD-15H,ec-2024,nuuuwan,EC-15H,Katugampola,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-15I,ec-2024,election-commission,15-I,Kuliyapitiya,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 15 line 26"
+LK-PD-15I,ec-2024,nuuuwan,EC-15I,Kuliyapitiya,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-15J,ec-2024,election-commission,15-J,Dambadeniya,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 15 line 27"
+LK-PD-15J,ec-2024,nuuuwan,EC-15J,Dambadeniya,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-15K,ec-2024,election-commission,15-K,Polgahawela,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 15 line 28"
+LK-PD-15K,ec-2024,nuuuwan,EC-15K,Polgahawela,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-15L,ec-2024,election-commission,15-L,Kurunegala,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 15 line 29"
+LK-PD-15L,ec-2024,nuuuwan,EC-15L,Kurunegala,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-15M,ec-2024,election-commission,15-M,Mawathagama,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 15 line 30"
+LK-PD-15M,ec-2024,nuuuwan,EC-15M,Mawathagama,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-15N,ec-2024,election-commission,15-N,Dodangaslanda,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 15 line 31"
+LK-PD-15N,ec-2024,nuuuwan,EC-15N,Dodangaslanda,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-16A,ec-2024,election-commission,16-A,Puttalam,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 16 line 18"
+LK-PD-16A,ec-2024,nuuuwan,EC-16A,Puttalam,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-16B,ec-2024,election-commission,16-B,Anamaduwa,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 16 line 19"
+LK-PD-16B,ec-2024,nuuuwan,EC-16B,Anamaduwa,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-16C,ec-2024,election-commission,16-C,Chillaw,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 16 line 20"
+LK-PD-16C,ec-2024,nuuuwan,EC-16C,Chillaw,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-16D,ec-2024,election-commission,16-D,Naththandiya,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 16 line 21"
+LK-PD-16D,ec-2024,nuuuwan,EC-16D,Naththandiya,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-16E,ec-2024,election-commission,16-E,Wennappuwa,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 16 line 22"
+LK-PD-16E,ec-2024,nuuuwan,EC-16E,Wennappuwa,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-17A,ec-2024,election-commission,17-A,Medawachchiya,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 17 line 18"
+LK-PD-17A,ec-2024,nuuuwan,EC-17A,Medawachchiya,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-17B,ec-2024,election-commission,17-B,Horowpathana,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 17 line 19"
+LK-PD-17B,ec-2024,nuuuwan,EC-17B,Horowpathana,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-17C,ec-2024,election-commission,17-C,Anuradhapura East,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 17 line 20"
+LK-PD-17C,ec-2024,nuuuwan,EC-17C,Anuradhapura East,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-17D,ec-2024,election-commission,17-D,Anuradhapura West,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 17 line 21"
+LK-PD-17D,ec-2024,nuuuwan,EC-17D,Anuradhapura West,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-17E,ec-2024,election-commission,17-E,Kalawewa,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 17 line 22"
+LK-PD-17E,ec-2024,nuuuwan,EC-17E,Kalawewa,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-17F,ec-2024,election-commission,17-F,Mihinthale,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 17 line 23"
+LK-PD-17F,ec-2024,nuuuwan,EC-17F,Mihinthale,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-17G,ec-2024,election-commission,17-G,Kekirawa,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 17 line 24"
+LK-PD-17G,ec-2024,nuuuwan,EC-17G,Kekirawa,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-18A,ec-2024,election-commission,18-A,Minneriya,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 18 line 18"
+LK-PD-18A,ec-2024,nuuuwan,EC-18A,Minneriya,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-18B,ec-2024,election-commission,18-B,Medirigiriya,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 18 line 19"
+LK-PD-18B,ec-2024,nuuuwan,EC-18B,Medirigiriya,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-18C,ec-2024,election-commission,18-C,Polonnaruwa,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 18 line 20"
+LK-PD-18C,ec-2024,nuuuwan,EC-18C,Polonnaruwa,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-19A,ec-2024,election-commission,19-A,Mahiyanganaya,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 19 line 18"
+LK-PD-19A,ec-2024,nuuuwan,EC-19A,Mahiyanganaya,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-19B,ec-2024,election-commission,19-B,Viyaluwa,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 19 line 19"
+LK-PD-19B,ec-2024,nuuuwan,EC-19B,Viyaluwa,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-19C,ec-2024,election-commission,19-C,Passara,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 19 line 20"
+LK-PD-19C,ec-2024,nuuuwan,EC-19C,Passara,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-19D,ec-2024,election-commission,19-D,Badulla,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 19 line 21"
+LK-PD-19D,ec-2024,nuuuwan,EC-19D,Badulla,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-19E,ec-2024,election-commission,19-E,Hali Ela,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 19 line 22"
+LK-PD-19E,ec-2024,nuuuwan,EC-19E,Hali Ela,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-19F,ec-2024,election-commission,19-F,Uva Paranagama,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 19 line 23"
+LK-PD-19F,ec-2024,nuuuwan,EC-19F,Uva Paranagama,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-19G,ec-2024,election-commission,19-G,Welimada,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 19 line 24"
+LK-PD-19G,ec-2024,nuuuwan,EC-19G,Welimada,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-19H,ec-2024,election-commission,19-H,Bandarawela,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 19 line 25"
+LK-PD-19H,ec-2024,nuuuwan,EC-19H,Bandarawela,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-19I,ec-2024,election-commission,19-I,Haputale,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 19 line 26"
+LK-PD-19I,ec-2024,nuuuwan,EC-19I,Haputale,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-20A,ec-2024,election-commission,20-A,Bibila,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 20 line 18"
+LK-PD-20A,ec-2024,nuuuwan,EC-20A,Bibila,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-20B,ec-2024,election-commission,20-B,Moneragala,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 20 line 19"
+LK-PD-20B,ec-2024,nuuuwan,EC-20B,Moneragala,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-20C,ec-2024,election-commission,20-C,Wellawaya,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 20 line 20"
+LK-PD-20C,ec-2024,nuuuwan,EC-20C,Wellawaya,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-21A,ec-2024,election-commission,21-A,Eheliyagoda,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 21 line 18"
+LK-PD-21A,ec-2024,nuuuwan,EC-21A,Eheliyagoda,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-21B,ec-2024,election-commission,21-B,Ratnapura,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 21 line 19"
+LK-PD-21B,ec-2024,nuuuwan,EC-21B,Ratnapura,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-21C,ec-2024,election-commission,21-C,Pelmadulla,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 21 line 20"
+LK-PD-21C,ec-2024,nuuuwan,EC-21C,Pelmadulla,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-21D,ec-2024,election-commission,21-D,Balangoda,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 21 line 21"
+LK-PD-21D,ec-2024,nuuuwan,EC-21D,Balangoda,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-21E,ec-2024,election-commission,21-E,Rakwana,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 21 line 22"
+LK-PD-21E,ec-2024,nuuuwan,EC-21E,Rakwana,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-21F,ec-2024,election-commission,21-F,Nivithigala,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 21 line 23"
+LK-PD-21F,ec-2024,nuuuwan,EC-21F,Nivithigala,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-21G,ec-2024,election-commission,21-G,Kalawana,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 21 line 24"
+LK-PD-21G,ec-2024,nuuuwan,EC-21G,Kalawana,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-21H,ec-2024,election-commission,21-H,Kolonna,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 21 line 25"
+LK-PD-21H,ec-2024,nuuuwan,EC-21H,Kolonna,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-22A,ec-2024,election-commission,22-A,Dedigama,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 22 line 18"
+LK-PD-22A,ec-2024,nuuuwan,EC-22A,Dedigama,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-22B,ec-2024,election-commission,22-B,Galigamuwa,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 22 line 19"
+LK-PD-22B,ec-2024,nuuuwan,EC-22B,Galigamuwa,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-22C,ec-2024,election-commission,22-C,Kegalle,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 22 line 20"
+LK-PD-22C,ec-2024,nuuuwan,EC-22C,Kegalle,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-22D,ec-2024,election-commission,22-D,Rambukkana,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 22 line 21"
+LK-PD-22D,ec-2024,nuuuwan,EC-22D,Rambukkana,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-22E,ec-2024,election-commission,22-E,Mawanella,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 22 line 22"
+LK-PD-22E,ec-2024,nuuuwan,EC-22E,Mawanella,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-22F,ec-2024,election-commission,22-F,Aranayaka,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 22 line 23"
+LK-PD-22F,ec-2024,nuuuwan,EC-22F,Aranayaka,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-22G,ec-2024,election-commission,22-G,Yatiyanthota,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 22 line 24"
+LK-PD-22G,ec-2024,nuuuwan,EC-22G,Yatiyanthota,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-22H,ec-2024,election-commission,22-H,Ruwanwella,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 22 line 25"
+LK-PD-22H,ec-2024,nuuuwan,EC-22H,Ruwanwella,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
+LK-PD-22I,ec-2024,election-commission,22-I,Deraniyagala,exact_code,1.0,"register of electors 2016-2025, sha256 ce155452481e, page 22 line 26"
+LK-PD-22I,ec-2024,nuuuwan,EC-22I,Deraniyagala,exact_code,1.0,nuuuwan EC-id = Commission ED number + PD letter
