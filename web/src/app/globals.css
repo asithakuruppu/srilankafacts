@@ -1898,3 +1898,53 @@ main:focus {
   padding: 0.25rem 0.5rem;
   border-bottom: 1px solid var(--line);
 }
+
+.pie {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+  align-items: center;
+  margin: 0.6rem 0;
+}
+.pie-svg {
+  width: 220px;
+  height: 220px;
+  flex: none;
+}
+.pie-slice {
+  stroke: var(--surface);
+  stroke-width: 1.5;
+}
+.pie-slice-click {
+  cursor: pointer;
+}
+.pie-slice-active {
+  stroke: var(--ink);
+  stroke-width: 3;
+}
+.pie-legend {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  flex: 1 1 260px;
+  display: grid;
+  gap: 0.3rem;
+  font-size: 0.85rem;
+}
+.pie-legend li {
+  display: grid;
+  grid-template-columns: 14px 1fr auto;
+  gap: 0.5rem;
+  align-items: baseline;
+}
+.pie-legend-active {
+  font-weight: 700;
+}
+.pie-swatch {
+  width: 12px;
+  height: 12px;
+  display: inline-block;
+}
+.pie-legend .link-button {
+  text-align: left;
+}
