@@ -30,6 +30,10 @@ schemes:
       - {level: 1, id: polling_division, name: Polling division}
     nests_in_admin: partly
     stage: "2"
+    notes: >
+      Vintage ec-2024: 22 EDs (LK-ED-NN, Commission ED number) and 160 PDs (LK-PD-NNX, ED number +
+      Commission PD letter) from the register of electors 2016-2025. EDs are whole districts
+      (relations/electoral_ec-2024.csv); PDs have no GN composition yet (proposed D-040).
   - id: health
     name: Health geography
     authority: Ministry of Health

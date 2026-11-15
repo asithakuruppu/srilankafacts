@@ -5,14 +5,14 @@ landing_page: https://elections.gov.lk/si/elections/PRE_2024_Results.html
 pipeline_module: slf.datasets.election_results
 schedule: manual
 geography_scheme: electoral
-geography_vintage: pre-2024
+geography_vintage: ec-2024
 reference_period: "2024-09-21"
 rights: inherit
 spatial:
   support: area
   scheme: electoral
   level: polling_division
-  vintage: pre-2024
+  vintage: ec-2024
   coverage: LK
   measured_in: null
   positional_accuracy: null

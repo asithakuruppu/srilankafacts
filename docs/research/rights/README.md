@@ -11,3 +11,4 @@ Intended uses assessed everywhere: (1) display on the website; (2) redistributio
 | [census-2024-gnd-tables](census-2024-gnd-tables.md) | `unclear` | No terms anywhere; needs the DCS reply, or a recorded decision by the lead to publish with attribution |
 | [nsdi-admin-boundaries](nsdi-admin-boundaries.md) | `unclear` | No terms; cross-check only; contains personal data we never collect |
 | [osm-sri-lanka](osm-sri-lanka.md) | `permitted_with_conditions`, ODbL-1.0 | Permitted with attribution; derived databases stay ODbL |
+| [election-results](election-results.md) | `unclear` | No terms on elections.gov.lk; publication needs a lead decision (proposed D-039). No PD boundaries or GN-per-PD list with rights; nuuuwan `lk_elections`/`gig-data` unlicensed, internal QA only (proposed D-040) |

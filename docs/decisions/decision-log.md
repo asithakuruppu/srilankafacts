@@ -368,6 +368,46 @@ These were stated by you or are standing rules in [brainstorm-decisions.md](../b
 
 ---
 
+## D-039: Election Commission results may be published non-commercially, with attribution and a notice (as D-030 for DCS)
+- **Status:** Proposed · 2026-11-15 (agent proposal; numbering leaves D-038 for the open census-history PR) · Builds on D-030
+- **Context:** The 2024 presidential results by polling division (PD) and electoral district (ED) are ingested and checked ([QA](../qa/election-results-pre-2024.md)). 7,593 of 7,644 sheet values are read; all agree with nuuuwan's extraction, and our ED and national sums match the Commission's own district and all-island sheets (879 of 879). The Commission publishes no terms of use ✅ ([rights memo](../research/rights/election-results.md) E1–E3). A letter asking for terms is drafted, not sent. Rights stay `unclear`, so the catalogue refuses publication.
+- **Decision (proposed):** the same position the lead took for DCS in D-030, applied to `election-results`:
+  1. Attribution on every page, download and API response: "Source: Election Commission of Sri Lanka, Presidential Election 2024, official results by polling division and postal votes by electoral district (elections.gov.lk)."
+  2. Notice: the Commission has not published reuse terms; Sri Lanka Facts publishes these results non-commercially for public information, has asked for terms, and will correct or remove them on the Commission's request.
+  3. Non-commercial only. No redistribution of the Commission's PDFs (link to its page).
+  4. Takedown within 7 days on objection.
+  5. Values stay `machine_extracted`. The 51 unread or withheld cells stay `not_available` until the lead's verification sheet fills them.
+  6. Neutral presentation (AGENTS rule 12; [live-events §3](../architecture/live-events-and-sources.md#3-election-results)): no party-favourable colours, no inference about how groups voted.
+- **Alternatives:** wait for the Commission (results stay private); publish ED and national totals only (smaller exposure, less use).
+- **Consequences:** if Accepted, the dataset gets a `publication` block naming this entry, and the release builder can include it. The website still needs a neutral results view (not built).
+- **Revisit when:** the Commission replies; a lawyer reviews whether official results are protected at all ([memo](../research/rights/election-results.md) E7).
+
+## D-040: Polling divisions have ids and results but no GN composition until an official list exists; nuuuwan's GN→PD list is internal QA only
+- **Status:** Proposed · 2026-11-15 (agent proposal)
+- **Context:** G05 needs each non-admin unit composed of GNs with weights. For the 22 EDs this is exact: each is one or more whole districts (Jaffna = Jaffna + Kilinochchi; Vanni = Mannar + Vavuniya + Mullaitivu; 🟡 secondary source, consistent with the register ✅ and with nuuuwan for 13,620 of 13,620 GNs ✅). For the 160 PDs:
+  - no official GN list or PD boundary file with known rights is public ([rights memo](../research/rights/election-results.md));
+  - nuuuwan's `gig-data` has a GN→PD list, but no licence and no stated origin;
+  - our checks show the list is unreliable: 423 spine GNs have no PD; for 21 PDs, nuuuwan's own shape and GN list overlap with IoU below 0.9; electors per 100 adults range from 40 to 655 ([QA](../qa/electoral-geography-ec-2024.md)).
+- **Decision (proposed):**
+  - ED and PD ids (`LK-ED-NN`, `LK-PD-NNX`), Commission codes and PD→ED `parent` edges go in the catalogue.
+  - ED `composed_of` districts (weight 1). ED denominators are the districts' census totals (exact).
+  - **No PD `composed_of` relations and no PD denominators are published.** nuuuwan's list stays in the local build for QA only.
+  - PD results (counts, shares, turnout) remain usable without denominators.
+  - Ask the Commission for its GN list per PD (letter drafted).
+- **Alternatives:** use nuuuwan's list with a "modelled" label (rejected: no licence, and the checks show errors); overlay nuuuwan's PD shapes (same rights problem, and the shapes disagree with the list); digitise PD maps ourselves (large effort, unknown source rights).
+- **Consequences:** there are no per-capita PD figures or PD-to-census-profile links yet, so the "results linked to census profiles" part of the election atlas works at ED level only for now.
+- **Revisit when:** the Commission (or Survey Department) provides a GN list or boundaries with terms.
+
+## D-041: Scanned PDFs may be read with on-device Vision OCR (macOS), with arithmetic checks, instead of a new Python dependency
+- **Status:** Proposed · 2026-11-15 (agent proposal; AGENTS rule 8)
+- **Context:** Many 2024 result sheets are scans; some have no text layer at all. The pipeline has no PDF or OCR library. The repo already uses `scripts/pdf_pages.swift` (PDFKit, macOS) for audits.
+- **Decision (proposed):** `pipeline/scripts/pdf_ocr.swift` (PDFKit text plus Apple Vision OCR: whole page, right half and votes column) produces page text in the build folder, compiled once by the pipeline. Nothing leaves the machine. Values are accepted only through checks on the sheet itself (printed percentages, totals, sum rules); anything unconfirmed is `not_available` and goes to a verification sheet. No new Python dependency. Extraction runs on macOS only; CI and tests use fixtures.
+- **Alternatives:** Tesseract or a Python OCR stack (new system and Python dependencies, unknown accuracy on these sheets); an external AI service (D02 allows it for statistical tables, but it adds cost and data transfer, and is not needed at 99.3% read with checks); manual entry (7,644 values).
+- **Consequences:** building `election-results` from scratch needs a Mac; the page text is cached by snapshot sha256. If accuracy on other PDF sources is worse, revisit.
+- **Revisit when:** a Linux build of this dataset is needed, or another PDF source fails these checks.
+
+---
+
 ## Template
 
 ```markdown
