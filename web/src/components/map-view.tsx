@@ -55,7 +55,7 @@ function classBreaks(values: number[]): number[] {
   );
 }
 
-function colorExpression(compare: boolean, breaks: number[], national: number | null) {
+export function colorExpression(compare: boolean, breaks: number[], national: number | null) {
   const palette = compare ? DIVERGING : SEQUENTIAL;
   if (compare && national !== null) {
     const span = Math.max(...breaks.map((value) => Math.abs(value - national)), 1);
@@ -89,6 +89,13 @@ function colorExpression(compare: boolean, breaks: number[], national: number | 
     };
   }
   const steps = breaks.filter((_, index) => index < 4);
+  if (steps.length === 0) {
+    // MapLibre's "step" needs at least one stop; with one distinct value use a flat colour.
+    return {
+      expression: ["case", ["has", "value"], palette[0], NO_DATA] as unknown as string,
+      labels: ["all areas equal"],
+    };
+  }
   const expression = [
     "case",
     ["has", "value"],
