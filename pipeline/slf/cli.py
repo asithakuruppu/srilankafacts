@@ -457,6 +457,9 @@ def profile_build(
     observations: Annotated[Path, typer.Option(help="Census observations parquet.")] = Path(
         "./data/build/census-2024-gnd-tables/observations.parquet"
     ),
+    identity_observations: Annotated[
+        Path, typer.Option(help="Topic-table observations parquet (ethnic group and religion).")
+    ] = Path("./data/build/census-2024-topic-tables/observations.parquet"),
     spine_dir: Annotated[Path, typer.Option(help="Spine build folder.")] = Path(
         "./data/build/geography-spine"
     ),
@@ -469,7 +472,13 @@ def profile_build(
     from slf import profile
 
     geos = pd.read_parquet(spine_dir / "geographies.parquet")
-    result = profile.build_profile(pd.read_parquet(observations), geos, spine_dir, catalog, out_dir)
+    frames = [pd.read_parquet(observations)]
+    if identity_observations.exists():
+        identity = pd.read_parquet(identity_observations)
+        # only the ethnic-group and religion counts: the rest of the topic tables is not an input
+        ids = identity["indicator_id"].astype(str)
+        frames.append(identity.loc[ids.isin(profile.IDENTITY)])
+    result = profile.build_profile(pd.concat(frames), geos, spine_dir, catalog, out_dir)
     qa = out_dir / "qa.md"
     qa.write_text(profile.render_qa(result, geos), encoding="utf-8")
     for level, r in result.levels.items():

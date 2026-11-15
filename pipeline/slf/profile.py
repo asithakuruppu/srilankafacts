@@ -1,9 +1,10 @@
-"""The `profile` vector space (prompt A03 steps 2-6; D-025, D-029).
+"""The `profile` vector space (prompt A03 steps 2-6; D-025, D-029, D-037).
 
-Builds place and indicator coordinates from one PCA of the nine Census 2024 inputs named in
-``catalog/spaces/profile.yaml``, separately at GN and DS level, then derives similar places
-with an exact distance decomposition, distance from the national centre, contrasts between
-bordering units, and a block-removal sensitivity check.
+Builds place and indicator coordinates from one PCA of the Census 2024 inputs named in
+``catalog/spaces/profile.yaml``: nine at GN level, and those nine plus 16 ethnic-group and
+religion shares (the ``identity`` block, D-037) at DS level, where DCS publishes them. It then
+derives similar places with an exact distance decomposition, distance from the national centre,
+contrasts between bordering units, and a block-removal sensitivity check.
 
 Everything here is derived from the ledger and machine-computed. A distance is a similarity
 statement, never a fact and never a ranking (AGENTS rule 13). Nothing here changes a
@@ -25,7 +26,7 @@ from slf.enrich import load_neighbours
 from slf.schemas import VectorSpace
 
 SPACE_ID = "profile"
-SPACE_VERSION = "0.2"
+SPACE_VERSION = "0.3"
 PERIOD = "2024"
 LEVELS = {4: "gn", 3: "ds"}
 
@@ -43,7 +44,41 @@ BLOCKS: dict[str, list[str]] = {
         "population_density",
     ],
 }
+# D-037: ethnic-group and religion shares join the DS-level space only. DCS publishes them for DS
+# divisions and larger areas, never reliably at GN level (D-033, D-036). Slugs follow the
+# catalogue ids `population_ethnicity_<slug>` and `population_religion_<slug>`.
+# DCS's own category names, in DCS's column order.
+ETHNICITY_NAMES = {
+    "sinhalese": "Sinhalese",
+    "sri_lanka_tamil": "Sri Lanka Tamil",
+    "indian_tamil": "Indian Tamil",
+    "sri_lanka_moor": "Sri Lanka Moor",
+    "burgher": "Burgher",
+    "malay": "Malay",
+    "sri_lanka_chetty": "Sri Lanka Chetty",
+    "bharatha": "Bharatha",
+    "veddha": "Veddha",
+    "other": "Other",
+}
+RELIGION_NAMES = {
+    "buddhist": "Buddhist",
+    "hindu": "Hindu",
+    "islam": "Islam",
+    "roman_catholic": "Roman Catholic",
+    "other_christian": "Other Christian",
+    "other": "Other",
+}
+ETHNICITY = list(ETHNICITY_NAMES)
+RELIGION = list(RELIGION_NAMES)
+ETHNICITY_COUNTS = [f"population_ethnicity_{slug}" for slug in ETHNICITY]
+RELIGION_COUNTS = [f"population_religion_{slug}" for slug in RELIGION]
+IDENTITY = [*ETHNICITY_COUNTS, *RELIGION_COUNTS]
+BLOCKS_BY_LEVEL: dict[str, dict[str, list[str]]] = {
+    "gn": BLOCKS,
+    "ds": {**BLOCKS, "identity": IDENTITY},
+}
 INPUTS = [i for block in BLOCKS.values() for i in block]
+ALL_INPUTS = [*INPUTS, *IDENTITY]  # the inputs listed in the recipe; identity is DS level only
 INPUT_LABELS = {
     "population_total": "population (log)",
     "population_age_0_14": "share aged 0-14",
@@ -54,6 +89,14 @@ INPUT_LABELS = {
     "occupied_housing_units": "occupied housing units (log)",
     "persons_per_occupied_housing_unit": "persons per housing unit (log)",
     "population_density": "population density (log)",
+    **{
+        f"population_ethnicity_{slug}": f"share {name} (ethnic group)"
+        for slug, name in ETHNICITY_NAMES.items()
+    },
+    **{
+        f"population_religion_{slug}": f"share {name} (religion)"
+        for slug, name in RELIGION_NAMES.items()
+    },
 }
 
 MIN_POPULATION = 100.0  # D-026 / D-025
@@ -90,13 +133,22 @@ def load_space(catalog_root: Path) -> VectorSpace:
             f"{path}: version {space.version!r}, but the code implements {SPACE_VERSION}"
         )
     ids = [i.id for i in space.inputs]
-    if ids != INPUTS:
-        raise ValueError(f"{path}: inputs {ids} differ from the coded recipe {INPUTS}")
+    if ids != ALL_INPUTS:
+        raise ValueError(f"{path}: inputs {ids} differ from the coded recipe {ALL_INPUTS}")
     return space
 
 
-def transform(wide: pd.DataFrame) -> pd.DataFrame:
-    """Apply the recipe's transformations to one row per place of raw census values."""
+def _columns(blocks: dict[str, list[str]]) -> list[str]:
+    return [c for block in blocks.values() for c in block]
+
+
+def transform(wide: pd.DataFrame, blocks: dict[str, list[str]] = BLOCKS) -> pd.DataFrame:
+    """Apply the recipe's transformations to one row per place of raw census values.
+
+    Identity inputs (DS level, D-037) become the square root of the category's percentage of
+    its topic's total (all ethnic groups, or all religions), a variance-stabilising step that
+    keeps zero counts defined; the shares of each topic sum to 100.
+    """
     total = wide["population_total"]
     out = pd.DataFrame(index=wide.index)
     out["population_total"] = np.log10(total)
@@ -106,10 +158,18 @@ def transform(wide: pd.DataFrame) -> pd.DataFrame:
     out["occupied_housing_units"] = np.log10(wide["occupied_housing_units"])
     out["persons_per_occupied_housing_unit"] = np.log10(wide["persons_per_occupied_housing_unit"])
     out["population_density"] = np.log10(wide["population_density"])
-    return out.loc[:, INPUTS]
+    for topic in (ETHNICITY_COUNTS, RELIGION_COUNTS):
+        wanted = [c for c in topic if c in _columns(blocks)]
+        if wanted:
+            topic_total = wide[topic].sum(axis=1)
+            for col in wanted:
+                out[col] = np.sqrt(wide[col] / topic_total * 100.0)
+    return out.loc[:, _columns(blocks)]
 
 
-def prepare(wide: pd.DataFrame, universe: list[str]) -> tuple[pd.DataFrame, pd.DataFrame]:
+def prepare(
+    wide: pd.DataFrame, universe: list[str], blocks: dict[str, list[str]] = BLOCKS
+) -> tuple[pd.DataFrame, pd.DataFrame]:
     """Return transformed inputs for eligible places and the excluded places with reasons.
 
     ``wide`` has one row per geography with raw indicator columns; ``universe`` is every spine
@@ -120,7 +180,7 @@ def prepare(wide: pd.DataFrame, universe: list[str]) -> tuple[pd.DataFrame, pd.D
         if gid not in wide.index:
             reasons[gid] = "no census row"
     rows = wide.loc[[g for g in universe if g in wide.index]]
-    needed = [*INPUTS, "population_female"]
+    needed = [*_columns(blocks), "population_female"]
     for gid, row in rows.iterrows():
         gid = str(gid)
         missing = [c for c in needed if c not in row.index or pd.isna(row[c])]
@@ -134,7 +194,7 @@ def prepare(wide: pd.DataFrame, universe: list[str]) -> tuple[pd.DataFrame, pd.D
         elif row["occupied_housing_units"] <= 0 or row["population_density"] <= 0:
             reasons[gid] = "zero housing units or density (log undefined)"
     keep = [str(g) for g in rows.index if str(g) not in reasons]
-    x = transform(rows.loc[keep])
+    x = transform(rows.loc[keep], blocks)
     bad = x.index[~np.isfinite(x.to_numpy()).all(axis=1)]
     for gid in bad:
         reasons[str(gid)] = "non-finite transformed value"
@@ -326,10 +386,12 @@ def census_wide(observations: pd.DataFrame) -> pd.DataFrame:
     return wide
 
 
-def _sensitivity(x: pd.DataFrame, full: np.ndarray) -> dict[str, dict[str, object]]:
+def _sensitivity(
+    x: pd.DataFrame, full: np.ndarray, all_blocks: dict[str, list[str]] = BLOCKS
+) -> dict[str, dict[str, object]]:
     out: dict[str, dict[str, object]] = {}
-    for removed in BLOCKS:
-        blocks = {name: cols for name, cols in BLOCKS.items() if name != removed}
+    for removed in all_blocks:
+        blocks = {name: cols for name, cols in all_blocks.items() if name != removed}
         f = fit(x, blocks)
         if not f.retained:
             positive = [j for j in range(len(f.eigenvalues)) if f.eigenvalues[j] > f.threshold]
@@ -350,7 +412,9 @@ def _sensitivity(x: pd.DataFrame, full: np.ndarray) -> dict[str, dict[str, objec
     return out
 
 
-def perturb_counts(wide: pd.DataFrame, rng: np.random.Generator) -> pd.DataFrame:
+def perturb_counts(
+    wide: pd.DataFrame, rng: np.random.Generator, blocks: dict[str, list[str]] = BLOCKS
+) -> pd.DataFrame:
     """Redraw each count from a Poisson distribution with the published count as its mean.
 
     The census is a full count, not a sample. This models the ordinary random variation that
@@ -358,7 +422,7 @@ def perturb_counts(wide: pd.DataFrame, rng: np.random.Generator) -> pd.DataFrame
     estimate of census error. Area is held fixed, so density moves with population.
     """
     w = wide.copy()
-    for col in NOISE_COUNTS:
+    for col in [*NOISE_COUNTS, *[c for c in IDENTITY if c in _columns(blocks)]]:
         w[col] = rng.poisson(w[col].fillna(0).clip(lower=0).to_numpy()).astype(float)
     w["population_total"] = w[AGE_COUNTS].sum(axis=1)
     w["sex_ratio"] = w["population_male"] / w["population_female"] * 100
@@ -370,7 +434,12 @@ def perturb_counts(wide: pd.DataFrame, rng: np.random.Generator) -> pd.DataFrame
 
 
 def stability(
-    wide: pd.DataFrame, x: pd.DataFrame, f: Fit, idx: np.ndarray, dist: np.ndarray
+    wide: pd.DataFrame,
+    x: pd.DataFrame,
+    f: Fit,
+    idx: np.ndarray,
+    dist: np.ndarray,
+    blocks: dict[str, list[str]] = BLOCKS,
 ) -> dict[str, object]:
     """How much a place's similar-places list depends on the fit, the axes and small counts."""
     n, k = idx.shape
@@ -386,7 +455,7 @@ def stability(
 
     boot = []
     for _ in range(BOOTSTRAP_RUNS):
-        fb = fit(x.iloc[rng.choice(n, n, replace=True)])
+        fb = fit(x.iloc[rng.choice(n, n, replace=True)], blocks)
         ids_b, _ = nearest_scores(project(fb, x) @ fb.basis, k)
         boot.append(float(overlap(idx, ids_b).mean()))
     out["bootstrap"] = {
@@ -399,7 +468,7 @@ def stability(
     pop = wide.loc[f.ids, "population_total"].to_numpy(dtype=float)
     exact, within, shift, fallback = [], [], [], []
     for _ in range(NOISE_RUNS):
-        xp = transform(perturb_counts(wide, rng).loc[f.ids])
+        xp = transform(perturb_counts(wide, rng, blocks).loc[f.ids], blocks)
         zp = project(f, xp)
         bad = ~np.isfinite(zp).all(axis=1)
         zp[bad] = f.z[bad]
@@ -442,8 +511,9 @@ def stability(
 def build_level(
     wide: pd.DataFrame, universe: list[str], level: str, neighbours: dict[str, list[str]]
 ) -> LevelResult:
-    x, excluded = prepare(wide, universe)
-    f = fit(x)
+    blocks = BLOCKS_BY_LEVEL[level]
+    x, excluded = prepare(wide, universe, blocks)
+    f = fit(x, blocks)
     if not f.retained:
         raise ValueError(f"{level}: the retention rule kept no axes")
     idx, dist = nearest(f)
@@ -498,9 +568,9 @@ def build_level(
         distances=dist,
         unusual=unusual,
         contrasts=contrasts,
-        sensitivity=_sensitivity(x, idx),
+        sensitivity=_sensitivity(x, idx, blocks),
         check_max_error=err,
-        stability=stability(wide, x, f, idx, dist),
+        stability=stability(wide, x, f, idx, dist, blocks),
     )
 
 

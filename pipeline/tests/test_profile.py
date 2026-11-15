@@ -106,14 +106,16 @@ def test_overlap_of_identical_lists_is_one():
 def test_committed_space_matches_the_coded_recipe():
     space = profile.load_space(REPO / "catalog")
     assert space.version == profile.SPACE_VERSION
-    assert "ethnicity" in space.excludes and "religion" in space.excludes
+    # D-037: ethnicity and religion are inputs now, so the recipe no longer excludes them
+    assert space.excludes == []
+    assert any("ethnicity" in i.id for i in space.inputs)
 
 
 def test_space_version_mismatch_is_refused(tmp_path: Path):
     (tmp_path / "spaces").mkdir()
     text = (REPO / "catalog" / "spaces" / "profile.yaml").read_text(encoding="utf-8")
     (tmp_path / "spaces" / "profile.yaml").write_text(
-        text.replace('version: "0.2"', 'version: "0.1"'), encoding="utf-8"
+        text.replace('version: "0.3"', 'version: "0.1"'), encoding="utf-8"
     )
     with pytest.raises(ValueError, match="version"):
         profile.load_space(tmp_path)
@@ -152,3 +154,57 @@ def test_stability_report_has_every_check():
     assert 0 <= boot["min_overlap"] <= boot["mean_overlap"] <= 1
     assert 0 <= noise["mean_overlap"] <= 1
     assert sum(b["places"] for b in noise["by_population"]) == len(f.ids)
+
+
+def _wide_with_identity(n: int = 300, seed: int = 2) -> pd.DataFrame:
+    wide = _wide(n, seed)
+    rng = np.random.default_rng(seed + 10)
+    total = wide["population_total"].to_numpy()
+    for counts in (profile.ETHNICITY_COUNTS, profile.RELIGION_COUNTS):
+        weights = rng.dirichlet(np.ones(len(counts)) * 0.5, n)
+        for col, w in zip(counts, weights.T, strict=True):
+            wide[col] = np.round(total * w)
+    return wide
+
+
+def test_ds_level_has_an_identity_block_and_gn_does_not():
+    assert "identity" in profile.BLOCKS_BY_LEVEL["ds"]
+    assert "identity" not in profile.BLOCKS_BY_LEVEL["gn"]
+    assert profile.BLOCKS_BY_LEVEL["gn"] == profile.BLOCKS
+    assert len(profile.IDENTITY) == 16
+
+
+def test_identity_inputs_are_sqrt_of_topic_percentages():
+    wide = _wide_with_identity()
+    blocks = profile.BLOCKS_BY_LEVEL["ds"]
+    x, _ = profile.prepare(wide, list(wide.index), blocks)
+    assert list(x.columns) == profile._columns(blocks)
+    row = wide.iloc[0]
+    topic_total = row[profile.ETHNICITY_COUNTS].sum()
+    expected = np.sqrt(row["population_ethnicity_burgher"] / topic_total * 100)
+    assert x.loc[wide.index[0], "population_ethnicity_burgher"] == pytest.approx(expected)
+    # squares of one topic's inputs are percentages and sum to 100
+    assert (x[profile.ETHNICITY_COUNTS] ** 2).sum(axis=1).round(6).eq(100).all()
+
+
+def test_ds_place_missing_identity_is_listed_not_dropped():
+    wide = _wide_with_identity()
+    wide.loc[wide.index[3], "population_religion_hindu"] = np.nan
+    x, excluded = profile.prepare(wide, list(wide.index), profile.BLOCKS_BY_LEVEL["ds"])
+    assert wide.index[3] not in x.index
+    reason = excluded.set_index("geography_id").loc[wide.index[3], "reason"]
+    assert "population_religion_hindu" in reason
+
+
+def test_ds_fit_and_block_removal_cover_identity():
+    wide = _wide_with_identity()
+    blocks = profile.BLOCKS_BY_LEVEL["ds"]
+    x, _ = profile.prepare(wide, list(wide.index), blocks)
+    f = profile.fit(x, blocks)
+    assert f.retained
+    idx, _ = profile.nearest(f)
+    sens = profile._sensitivity(x, idx, blocks)
+    assert set(sens) == {"without_demography", "without_housing", "without_identity"}
+    # the decomposition stays exact with the extra block
+    d2, axis, ind = profile.decompose(f, 0, 1)
+    assert axis.sum() == pytest.approx(d2) and ind.sum() == pytest.approx(d2)

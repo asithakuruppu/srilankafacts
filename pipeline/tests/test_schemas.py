@@ -190,7 +190,7 @@ INVALID: list[tuple[str, type[BaseModel], dict[str, Any], str]] = [
         "space using ethnicity",
         VectorSpace,
         changed(SPACE, inputs=[{"id": "ethnicity_share", "kind": "indicator"}]),
-        "D-015",
+        "excludes",
     ),
     ("time runs backwards", Observation, changed(OBS, time_end="2023-01-01"), "before time_start"),
     ("null value marked normal", Observation, changed(OBS, value=None), "value is null"),

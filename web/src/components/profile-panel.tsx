@@ -36,9 +36,11 @@ export default function ProfilePanel({
           </h2>
         </div>
         <p className="section-note">
-          Computed from nine census values (population, age structure, sex ratio, housing and
-          density) in the profile space v{profile.space_version}. A distance says how alike two
-          profiles are. It is not a fact about the places and not a ranking.
+          {profile.level === "ds"
+            ? "Computed from 25 census values (population, age structure, sex ratio, housing, density, and the shares of each ethnic group and religion)"
+            : "Computed from nine census values (population, age structure, sex ratio, housing and density)"}{" "}
+          in the profile space v{profile.space_version}. A distance says how alike two profiles
+          are. It is not a fact about the places and not a ranking.
         </p>
       </div>
 

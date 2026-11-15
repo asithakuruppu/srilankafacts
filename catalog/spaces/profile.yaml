@@ -7,12 +7,16 @@
 # Kaiser-equivalent rule in D-029 (accepted 2026-11-12). `slf profile build`
 # builds `vectors/profile_v0.2.parquet` (A03 steps 2-6).
 #
-# Scope is limited to the two DCS 2024 tables actually held: GN population by sex and
+# v0.3 (D-037, 2026-11-15): the lead decided ethnicity and religion belong in the profile space.
+# They enter at DS level only, as a third block with equal weight; the GN space is v0.2 unchanged.
+# The recipe below is the AGENT'S PROPOSED DESIGN for the lead to review (weight, transformation).
+#
+# Scope is otherwise limited to the two DCS 2024 tables actually held: GN population by sex and
 # age, and occupied housing units. The `housing_amenities` and `education_work` blocks
 # named in the A03 prompt do not exist in the held data and are not implied here.
 id: profile
-version: "0.2"
-title: Population and housing profile
+version: "0.3"
+title: Population, housing and (DS level) identity profile
 entity_types: [place, indicator]
 metric: euclidean
 inputs:
@@ -25,6 +29,23 @@ inputs:
   - { id: occupied_housing_units, kind: indicator, weight: 1.0 }
   - { id: persons_per_occupied_housing_unit, kind: indicator, weight: 1.0 }
   - { id: population_density, kind: indicator, weight: 1.0 }
+  # D-037: DS level only (DCS publishes these for DS divisions and larger areas, never GN)
+  - { id: population_ethnicity_sinhalese, kind: indicator, weight: 1.0 }
+  - { id: population_ethnicity_sri_lanka_tamil, kind: indicator, weight: 1.0 }
+  - { id: population_ethnicity_indian_tamil, kind: indicator, weight: 1.0 }
+  - { id: population_ethnicity_sri_lanka_moor, kind: indicator, weight: 1.0 }
+  - { id: population_ethnicity_burgher, kind: indicator, weight: 1.0 }
+  - { id: population_ethnicity_malay, kind: indicator, weight: 1.0 }
+  - { id: population_ethnicity_sri_lanka_chetty, kind: indicator, weight: 1.0 }
+  - { id: population_ethnicity_bharatha, kind: indicator, weight: 1.0 }
+  - { id: population_ethnicity_veddha, kind: indicator, weight: 1.0 }
+  - { id: population_ethnicity_other, kind: indicator, weight: 1.0 }
+  - { id: population_religion_buddhist, kind: indicator, weight: 1.0 }
+  - { id: population_religion_hindu, kind: indicator, weight: 1.0 }
+  - { id: population_religion_islam, kind: indicator, weight: 1.0 }
+  - { id: population_religion_roman_catholic, kind: indicator, weight: 1.0 }
+  - { id: population_religion_other_christian, kind: indicator, weight: 1.0 }
+  - { id: population_religion_other, kind: indicator, weight: 1.0 }
 transformations:
   - "population_total -> log10(persons)"
   - "age counts 0-14, 15-59, 60-64 and 65+ -> share of population_total; the four shares sum to 100 and one axis is therefore redundant"
@@ -34,12 +55,13 @@ transformations:
   - "population_density -> log10(persons per km2)"
   - "standardise each transformed indicator to mean 0 and standard deviation 1 across places, separately at GN and at DS level"
   - "winsorise standardised values at ±5; record the number clipped per indicator in the QA report"
-  - "blocks: demography = population_total, four age shares, sex_ratio (6 indicators); housing = occupied_housing_units, persons_per_occupied_housing_unit, population_density (3 indicators)"
+  - "identity inputs (DS level only, D-037): each ethnic-group and religion count -> share of that topic's total (all ethnic groups, or all religions) -> square root of the percentage, which keeps zero counts defined; the shares of each topic sum to 100, so one direction per topic is redundant"
+  - "blocks: demography = population_total, four age shares, sex_ratio (6 indicators); housing = occupied_housing_units, persons_per_occupied_housing_unit, population_density (3 indicators); at DS level only, identity = 10 ethnic-group and 6 religion inputs (16 indicators). GN space: two blocks, 9 inputs, unchanged from v0.2"
   - "equal block weight: scale each block's columns by 1/sqrt(number of indicators in the block), so each block carries total variance 1 before PCA"
-  - "missing values: no imputation; a place is in the vector only when all 9 inputs are present and population_total >= 100, otherwise it is listed with its reason"
-  - "PCA by SVD on the places x indicators matrix; retain components with eigenvalue > total weighted variance / number of indicators (Kaiser-equivalent: 2/9 = 0.222 for the full space) and at least 3 loadings with |loading| >= 0.3 on the block-weighted columns; cap at 6 axes; store all computed axes"
+  - "missing values: no imputation; a place is in the vector only when all inputs of its level (9 at GN, 25 at DS) are present and population_total >= 100, otherwise it is listed with its reason"
+  - "PCA by SVD on the places x indicators matrix; retain components with eigenvalue > total weighted variance / number of indicators (Kaiser-equivalent: 2/9 = 0.222 at GN, 3/25 = 0.12 at DS) and at least 3 loadings with |loading| >= 0.3 on the block-weighted columns; cap at 6 axes; store all computed axes"
   - "distance = Euclidean over the retained axes; squared distance decomposes exactly into axis contributions, and each axis into the named indicators"
-excludes: [ethnicity, religion]
+excludes: []
 status: active
 method_notes: >
   v0.1 was approved by the lead on 2026-11-08 (D-025). The approved eigenvalue rule

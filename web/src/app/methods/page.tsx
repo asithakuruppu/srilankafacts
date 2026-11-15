@@ -151,7 +151,9 @@ export default function MethodsPage() {
             communities. They exist for DS divisions and larger areas only, in DCS&apos;s
             categories, with counts and shares. They have indicator pages, maps, rankings and
             charts like other topics, and the place page lists them in DCS&apos;s order. They
-            are not used in the profile space or similar-place lists (D-015).
+            are part of the DS-level profile space and so can appear among the reasons two DS
+            divisions are alike (D-037). They are not in the GN profile, because there is no GN
+            level for them. A similarity is never a ranking or a statement about people.
           </p>
         </section>
 

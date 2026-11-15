@@ -1,8 +1,8 @@
-# Method: the `profile` space (v0.2)
+# Method: the `profile` space (v0.3)
 
 Status: **built locally, not published.** Recipe: [`catalog/spaces/profile.yaml`](../../catalog/spaces/profile.yaml)
-v0.2 (D-025; axis-retention rule D-029, accepted 2026-11-12). QA:
-[`docs/qa/profile-space-v0.2.md`](../qa/profile-space-v0.2.md). Code: `pipeline/slf/profile.py`,
+v0.3 (D-025; axis-retention rule D-029; ethnicity and religion at DS level D-037). QA:
+[`docs/qa/profile-space-v0.3.md`](../qa/profile-space-v0.3.md) (v0.2: [`profile-space-v0.2.md`](../qa/profile-space-v0.2.md)). Code: `pipeline/slf/profile.py`,
 run with `uv run slf profile build` in `pipeline/`.
 
 Everything in this space is machine-computed from census values and has not been validated by a
@@ -18,7 +18,7 @@ Nine Census 2024 values per place, in two blocks:
 - **Housing (3):** occupied housing units (log), persons per housing unit (log) and population
   density (log).
 
-Ethnicity and religion are excluded (D-015). Amenities and education/work are not held, so they
+**DS level only (D-037):** a third block, *identity*, adds 16 inputs: the share of each of 10 ethnic groups and 6 religions (DCS's categories), each as the square root of the percentage of its topic's total. DS divisions are thus compared on 25 inputs; the GN space keeps the nine, because DCS does not publish ethnicity and religion at GN level in a usable form (D-033, D-036). The block has equal weight with the other two. Amenities and education/work are not held, so they
 are not in the space.
 
 A place gets a vector only when all nine inputs exist, its population is at least 100 (D-026)
@@ -61,6 +61,8 @@ with the smallest parts and "most different" the three with the largest.
 | `excluded_places.csv` | Spine units without a vector, with the reason |
 
 ## Known limits
+
+- **DS numbers below are v0.2; v0.3 changes them** (QA: `docs/qa/profile-space-v0.3.md`, D-037). The GN figures are unchanged. At DS level with the identity block, refitting leaves 73% of a top-20 list unchanged (minimum run 47%, v0.2: 93%), redrawn counts leave 88% (v0.2: 84%), and removing the block changes about 38% of each list ✅.
 
 - **The axes are stable; GN similar-places lists are not** ✅ (QA §4b).
   - Refitting the PCA on resampled places leaves 89% of a GN's top 20 unchanged (DS 93%), so
