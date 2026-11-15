@@ -153,7 +153,7 @@ Two cautions:
 
 Rules:
 - A space version is tied to a release. Coordinates from different space versions are never compared.
-- Recipes exclude ethnicity and religion by default (D-015).
+- Recipes excluded ethnicity and religion by default (D-015); D-037 puts them into the DS-level `profile` recipe v0.3 as an `identity` block.
 - Every published relationship (a "similar places" list, a cluster, a distance) records `space_id` and `space_version`.
 
 Size check: GN profile space about 14,000 × 30 floats ≈ 1.7 MB ❓; landscape on H3 resolution 8, about 89,000 × 64 floats ≈ 23 MB ❓. Static files are enough.
@@ -173,7 +173,7 @@ Size check: GN profile space about 14,000 × 30 floats ≈ 1.7 MB ❓; landscape
 | Risk | Mitigation |
 |---|---|
 | Distances taken as facts | Ledger/space separation; every distance comes with its space, version and explanation |
-| Hidden value choices in recipes | Recipes public, versioned, adjustable; ethnicity and religion out of defaults |
+| Hidden value choices in recipes | Recipes public, versioned, adjustable; ethnicity and religion in the DS-level default only by lead decision (D-037), with the block named and its effect measured |
 | Spaces change between releases and confuse users | Space versions tied to releases; changelog explains axis changes |
 | Concept too abstract for general users | Lead with plain questions ("places like mine", "what makes this place different"), not with "vector space"; user-test in the Stage 1 soft launch |
 | Over-engineering | Stage 1 builds only `geo` and `profile`; everything else waits for evidence of use |

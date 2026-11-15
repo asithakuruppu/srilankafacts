@@ -176,3 +176,14 @@ test("indicators page shows a pie of the whole for share indicators", async ({ p
   await page.getByText("Show pie as table").click();
   await expect(page.getByRole("columnheader", { name: /Share \(%\)/ })).toBeVisible();
 });
+
+test("DS profile compares on 25 values and names ethnic group or religion among the reasons (D-037)", async ({
+  page,
+}) => {
+  await page.goto("/place/LK1103");
+  const profile = page.locator("#profile");
+  await expect(profile).toContainText("25 census values");
+  await expect(profile).toContainText(/Ethnic group|Religion/);
+  await page.goto("/place/LK1103005");
+  await expect(page.locator("#profile")).toContainText("nine census values");
+});

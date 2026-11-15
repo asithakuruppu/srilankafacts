@@ -396,11 +396,17 @@ class VectorSpace(Strict):
 
     @model_validator(mode="after")
     def _sensitive(self) -> VectorSpace:
-        bad = [i.id for i in self.inputs if any(w in i.id for w in ("ethnic", "religio"))]
+        # D-015 excluded ethnicity and religion from default spaces; D-037 lets a recipe include
+        # them when it says so by not listing them in `excludes`. Listing a group in `excludes`
+        # and also using it as an input is a contradiction and is refused.
+        bad = [
+            i.id
+            for i in self.inputs
+            for group, word in (("ethnicity", "ethnic"), ("religion", "religio"))
+            if group in self.excludes and word in i.id
+        ]
         if bad:
-            raise ValueError(
-                f"inputs {bad} use ethnicity or religion; D-015 excludes them from default spaces"
-            )
+            raise ValueError(f"inputs {bad} use a group the recipe lists in `excludes`")
         return self
 
 

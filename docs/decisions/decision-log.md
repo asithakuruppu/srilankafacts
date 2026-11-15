@@ -121,7 +121,7 @@ These were stated by you or are standing rules in [brainstorm-decisions.md](../b
 - **Decision:** Every value is shown against neighbours, parent, similar places and the country. Local cluster and outlier statistics (with false-discovery control) and small-number handling are computed in a new pipeline stage, *enrich*. Every place gets a **profile vector** from standardised indicator blocks, used for "places like this" (always with reasons), a typology (Stage 2), change vectors and custom recipes. All are precomputed static files plus in-browser computation: **no vector database, no server**. **Ethnicity and religion are excluded from default profiles.** Satellite embeddings (AlphaEarth) are a Stage 3 experiment, subject to a licence check.
 - **Alternatives:** classic indicator-by-indicator portal (rejected: not differentiated); vector database or embedding service (rejected: unnecessary at about 14,000 places).
 - **Consequences:** Census Atlas gains neighbour context, clusters/outliers and "places like this"; drawn areas, typology and scale check in Stage 2. New prompts D06, G07, A03.
-- **Open for the lead:** may users include ethnicity and religion in *custom* similarity recipes? Recommendation: no in Stage 1–2; revisit with advisers.
+- **Open for the lead:** may users include ethnicity and religion in *custom* similarity recipes? Recommendation: no in Stage 1–2; revisit with advisers. *(Amended by D-037: ethnicity and religion are now in the default DS-level profile.)*
 - **Revisit when:** user research shows the spatial context confuses rather than helps.
 
 ## D-016: Vector-native, fact-anchored core
@@ -332,6 +332,26 @@ These were stated by you or are standing rules in [brainstorm-decisions.md](../b
 - **Alternatives:** keep D-033's restrictions (rejected by the lead); also show folded GN values now (not done: needs a labelling design, see D-033 alternative (a)).
 - **Consequences:** `distribution: places_only` stays a valid mode but no indicator uses it. The release must be rebuilt for the change to appear; the already-published `v2026.11.14` still carries the D-033 behaviour. The place page keeps its own ethnic group and religion section in DCS's order, now with links to indicator pages.
 - **Revisit when:** DCS publishes unfolded GN tables, or a labelled way to show folded GN cells is agreed, or the lead decides on D-015 for these topics.
+
+---
+
+## D-037: Ethnicity and religion enter the DS-level profile space (amends D-015, D-025; profile v0.3)
+- **Status:** Accepted · 2026-11-15 (the lead decided that ethnicity and religion go into the profile space; the recipe details below are the agent's proposal for the lead to review)
+- **Context:** D-015 excluded ethnicity and religion from default profiles. D-036 made them ordinary indicators. The lead then decided they should also be in the profile space. DCS publishes them for DS divisions and larger areas only (D-033, D-036), so a GN-level input does not exist.
+- **Decision:**
+  - Profile v0.3 adds a third block, `identity`, at **DS level only**: the 10 ethnic-group and 6 religion categories (DCS's names). Each count becomes its share of its own topic's total, then the square root of the percentage (variance-stabilising; keeps zero counts defined). The block has equal weight with demography and housing (the existing rule, D-025), so each block carries one third of the variance.
+  - The **GN space is unchanged** (v0.2's nine inputs). GN similar-place lists are still not published (D-031).
+  - DS similar-place lists and "most alike / most different" reasons may now name identity inputs, labelled with DCS's category names. Wording stays neutral (AGENTS rule 12); a distance is never a ranking or a fact about people (rule 13).
+  - `catalog/spaces/profile.yaml` v0.3 has `excludes: []`; the schema guard now refuses an input only if the recipe also lists its group in `excludes`.
+- **Alternatives:** a separate DS-only identity space (more machinery; two spaces to explain); a lower weight for the identity block (a judgement the lead has not made; equal weight is the existing rule); log-ratio transform (breaks on zero counts, which occur for small groups).
+- **Consequences:** ✅ measured on the real data (DS, 339 places, 5 retained axes against 3 in v0.2; GN 13,934 places and 3 axes, unchanged):
+  - Removing the identity block keeps on average 62% of each DS top-20 list (the block matters a lot: about 38% of neighbours change). Removing demography keeps 55%, housing 49%.
+  - Refitting on resampled places keeps on average 73% of a DS top-20 list (minimum run 47%), against 93% (minimum 84%) in v0.2: **DS lists are less stable under refitting with the identity block.**
+  - Redrawing counts from a Poisson distribution keeps 88% (v0.2: 84%).
+  - The 16 identity inputs spread over axes 4 and 6; axis labels are still machine drafts needing the lead's wording.
+  - The default DS similar-place lists on the website change, so compare before publishing.
+  - Not built: custom user recipes (Stage 2), a GN identity input.
+- **Revisit when:** the lead reviews the weight and transformation; user testing shows the identity block dominates similar-place lists; DCS publishes unfolded GN tables.
 
 ---
 
