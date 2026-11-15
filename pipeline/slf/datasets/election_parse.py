@@ -1,7 +1,7 @@
 """Parse Election Commission result sheets (Presidential Election 2024) from page text.
 
 Each polling division (PD) and postal-vote sheet is two pages: a header (election, PD or "Postal
-Vote Result", electoral district), a table of 38 candidates (ballot number, name, party abbreviation,
+Vote Result", electoral district), a table of 38 candidates (ballot number, name, party code,
 votes, percentage) and four totals (valid, rejected, polled, registered electors).
 
 Many sheets are scans, so each value is read up to four ways:
@@ -11,8 +11,8 @@ Many sheets are scans, so each value is read up to four ways:
 3. ``col``: Vision OCR of the votes column only (``page-NNN.col.json``);
 4. ``text``: the PDF's own text layer, when it has one (``page-NNN.txt``).
 
-Rows are found by party abbreviation (a fixed set of 38 codes). A candidate's votes are accepted when
-a read agrees with the printed percentage (``round(100 * votes / valid, 2)``, allowing for the sheet's
+Rows are found by party code (a fixed set of 38). A candidate's votes are accepted when
+a read agrees with the printed percentage (``100 * votes / valid``, allowing for the sheet's
 rounding). The sheet must then add up: candidates sum to valid votes and valid + rejected = polled.
 If exactly the votes of some candidates are still unread, and the printed percentages and the sheet
 total determine them uniquely, they are filled by that arithmetic and marked ``derived``; otherwise
@@ -85,7 +85,7 @@ def normalise_code(token: str) -> str | None:
     t = token.strip().upper().replace(" ", "")
     if t in PARTY_CODES:
         return t
-    m = re.fullmatch(r"(IND|lND|1ND)([0-9OIL]{1,2})", t)
+    m = re.fullmatch(r"(IND|LND|1ND)([0-9OIL]{1,2})", t)
     if m:
         digits = m.group(2).replace("O", "0").replace("I", "1").replace("L", "1")
         code = f"IND{int(digits)}" if digits.isdigit() else None
@@ -180,10 +180,14 @@ def _column_x(page_boxes: Sequence[Box], label: str) -> float | None:
     return None
 
 
-def _header(pages: Sequence[SheetPage]) -> tuple[str, int | None, str | None, str | None, str | None]:
+def _header(
+    pages: Sequence[SheetPage],
+) -> tuple[str, int | None, str | None, str | None, str | None]:
     blob = "\n".join(b.text for b in pages[0].ocr) + "\n" + pages[0].text
     kind = "postal" if re.search(r"Postal\s*Vote", blob, re.I) else "pd"
-    ed = re.search(r"Electoral\s*District\s*:?\s*\n?\s*(\d{1,2})\s*-\s*([A-Za-z][A-Za-z \-]+)", blob)
+    ed = re.search(
+        r"Electoral\s*District\s*:?\s*\n?\s*(\d{1,2})\s*-\s*([A-Za-z][A-Za-z \-]+)", blob
+    )
     pdm = re.search(
         r"Polling\s*Division\s*:?\s*\n?\s*([A-Z]{1,2})\s*-\s*([A-Za-z][A-Za-z .\-]+)", blob
     )
@@ -347,7 +351,9 @@ def _support(r: Reading, value: int) -> int:
 def _settle_totals(sheet: Sheet) -> None:
     """Pick totals that satisfy valid + rejected = polled, preferring values most reads agree on."""
     cands = {
-        k: sorted({v for vals in r.reads.values() for v in vals}, key=lambda v, r=r: -_support(r, v))
+        k: sorted(
+            {v for vals in r.reads.values() for v in vals}, key=lambda v, r=r: -_support(r, v)
+        )
         for k, r in sheet.totals.items()
     }
     for v, rj, p in itertools.product(
@@ -367,8 +373,10 @@ def _accept_majority(r: Reading) -> None:
     """Accept the value read by at least two methods, if no other value has as much support."""
     seen = {v for vals in r.reads.values() for v in vals}
     ranked = sorted(seen, key=lambda v: -_support(r, v))
-    if ranked and _support(r, ranked[0]) >= 2 and (
-        len(ranked) == 1 or _support(r, ranked[1]) < _support(r, ranked[0])
+    if (
+        ranked
+        and _support(r, ranked[0]) >= 2
+        and (len(ranked) == 1 or _support(r, ranked[1]) < _support(r, ranked[0]))
     ):
         _accept(r, ranked[0])
 
@@ -409,7 +417,7 @@ def _settle_candidate(r: Reading, valid: int | None) -> None:
 
 
 def _repair_sum(sheet: Sheet) -> None:
-    """If candidates do not add up to valid votes, try other pct-consistent reads; unique fix only."""
+    """If candidates do not add up to valid, try other pct-consistent reads; unique fix only."""
     valid = sheet.totals["valid"].value
     if valid is None or any(r.value is None for r in sheet.candidates.values()):
         return
@@ -433,7 +441,7 @@ def _repair_sum(sheet: Sheet) -> None:
 
 
 def _derive_missing(sheet: Sheet, max_combinations: int = 20000) -> None:
-    """Fill unread candidate votes when printed percentages and the sheet total fix them uniquely."""
+    """Fill unread votes when printed percentages and the sheet total fix them uniquely."""
     valid = sheet.totals["valid"].value
     if valid is None:
         return
@@ -483,9 +491,13 @@ def _check(sheet: Sheet) -> None:
     for code, r in sheet.candidates.items():
         if r.value is None:
             sheet.problems.append(f"{code}: votes unread (reads {r.reads}, printed {r.pct}%)")
-    if t["valid"] is not None and t["rejected"] is not None and t["polled"] is not None:
-        if t["valid"] + t["rejected"] != t["polled"]:
-            sheet.problems.append("valid + rejected != polled")
+    if (
+        t["valid"] is not None
+        and t["rejected"] is not None
+        and t["polled"] is not None
+        and t["valid"] + t["rejected"] != t["polled"]
+    ):
+        sheet.problems.append("valid + rejected != polled")
     adds_up = False
     if t["valid"] is not None and all(r.value is not None for r in sheet.candidates.values()):
         total = sum(r.value for r in sheet.candidates.values())  # type: ignore[misc]

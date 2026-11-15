@@ -741,7 +741,10 @@ def electoral_build(
         spine_dir,
         census_dir,
         catalog,
-        electors.set_index("geography_id")["value"],
+        {
+            str(g): float(v)
+            for g, v in zip(electors["geography_id"], electors["value"], strict=True)
+        },
         out_dir,
     )
     for p in result.outputs:

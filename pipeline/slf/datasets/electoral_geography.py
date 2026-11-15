@@ -29,6 +29,7 @@ from collections import Counter, defaultdict
 from collections.abc import Iterable, Mapping
 from dataclasses import dataclass, field
 from pathlib import Path
+from typing import Any, cast
 
 import geopandas as gpd
 import pandas as pd
@@ -300,7 +301,7 @@ def iou_table(
             rows.append({"unit": unit, "iou": None, "unit_km2": None, "gn_union_km2": None})
             continue
         union = unary_union(list(gn_geoms.loc[ids].values))
-        a = gpd.GeoSeries([geom], crs="EPSG:4326").to_crs(AREA_CRS).iloc[0]
+        a = gpd.GeoSeries([cast(Any, geom)], crs="EPSG:4326").to_crs(AREA_CRS).iloc[0]
         b = gpd.GeoSeries([union], crs=gn_geoms.crs).to_crs(AREA_CRS).iloc[0]
         inter = a.intersection(b).area
         uni = a.union(b).area
@@ -318,7 +319,7 @@ def iou_table(
 def denominators(
     comp: Composition, gn_values: pd.DataFrame, indicators: Iterable[str]
 ) -> pd.DataFrame:
-    """Σ(weight × GN value) per unit and indicator; counts only (rates are recomputed later)."""
+    """Sum of (weight x GN value) per unit and indicator; counts only (rates are recomputed later)."""
     wanted = list(indicators)
     values = gn_values[gn_values["indicator_id"].isin(wanted)].pivot_table(
         index="geography_id", columns="indicator_id", values="value", aggfunc="first"
@@ -334,7 +335,11 @@ def denominators(
         for ind in wanted:
             if ind in values.columns:
                 row[ind] = float(
-                    sum(members[g] * float(values.at[g, ind]) for g in ids if pd.notna(values.at[g, ind]))
+                    sum(
+                        members[g] * float(values.at[g, ind])
+                        for g in ids
+                        if pd.notna(values.at[g, ind])
+                    )
                 )
         rows.append(row)
     return pd.DataFrame(rows)
@@ -426,9 +431,10 @@ def _census_gn(census_dirs: Iterable[Path], gn_ids: set[str]) -> pd.DataFrame:
     frames = []
     for d in census_dirs:
         f = pd.read_parquet(
-            d / "observations.parquet", columns=["indicator_id", "geography_id", "value", "breakdown"]
+            d / "observations.parquet",
+            columns=["indicator_id", "geography_id", "value", "breakdown"],
         )
-        f = f[f["geography_id"].isin(gn_ids) & f["breakdown"].isna()]
+        f = f[f["geography_id"].isin(sorted(gn_ids)) & f["breakdown"].isna()]
         frames.append(f[["indicator_id", "geography_id", "value"]])
     return pd.concat(frames, ignore_index=True).drop_duplicates(["indicator_id", "geography_id"])
 
@@ -447,9 +453,13 @@ DENOMINATORS = (
 def _with_adults(frame: pd.DataFrame) -> pd.DataFrame:
     if frame.empty:
         return frame
-    young = frame["population_age_0_4"] + frame["population_age_5_9"] + frame["population_age_10_14"]
+    young = (
+        frame["population_age_0_4"] + frame["population_age_5_9"] + frame["population_age_10_14"]
+    )
     frame["population_age_15_plus"] = frame["population_total"] - young
-    frame["population_age_20_plus"] = frame["population_age_15_plus"] - frame["population_age_15_19"]
+    frame["population_age_20_plus"] = (
+        frame["population_age_15_plus"] - frame["population_age_15_19"]
+    )
     return frame
 
 
@@ -459,7 +469,7 @@ def build(
     spine_dir: Path,
     census_dirs: list[Path],
     catalog: Path,
-    results: pd.DataFrame,
+    results: Mapping[str, float],
     out_dir: Path,
 ) -> ElectoralBuild:
     res = ElectoralBuild()
@@ -472,7 +482,9 @@ def build(
     for n, ds in ED_DISTRICTS.items():
         for d, name in ds:
             if names.get(d) != name:
-                res.errors.append(f"ED {n}: district {d} is '{names.get(d)}' in the spine, expected '{name}'")
+                res.errors.append(
+                    f"ED {n}: district {d} is '{names.get(d)}' in the spine, expected '{name}'"
+                )
 
     ed_comp = Composition(defaultdict(dict), "manual (district grouping)", "election-results")
     for gn, d in gn_district.items():
@@ -488,23 +500,32 @@ def build(
     gig_ed = read_tsv(storage, refs["ents/ed.tsv"])
     cw = pd.read_csv(catalog / "geographies" / "codes" / "nuuuwan.csv", dtype=str)
     nu_to_spine = dict(zip(cw["external_code"], cw["geography_id"], strict=False))
-    gig_gnd["spine_id"] = gig_gnd["id"].map(nu_to_spine)
+    gig_gnd["spine_id"] = [nu_to_spine.get(str(i)) for i in gig_gnd["id"]]
     unmatched_gig = gig_gnd[gig_gnd["spine_id"].isna()]
 
-    pd_comp = Composition(defaultdict(dict), "attribute (nuuuwan gig-data pd_id)", "nuuuwan-gig-data")
-    for _, r in gig_gnd[gig_gnd["spine_id"].notna()].iterrows():
-        unit = "LK-PD-" + str(r["pd_id"])[3:]
+    pd_comp = Composition(
+        defaultdict(dict), "attribute (nuuuwan gig-data pd_id)", "nuuuwan-gig-data"
+    )
+    sub = gig_gnd[gig_gnd["spine_id"].notna()]
+    matched: list[dict[str, str]] = [
+        {"spine_id": str(sid), "pd_id": str(p), "ed_id": str(e), "name": str(n)}
+        for sid, p, e, n in zip(
+            sub["spine_id"], sub["pd_id"], sub["ed_id"], sub["name"], strict=True
+        )
+    ]
+    for r in matched:
+        unit = "LK-PD-" + r["pd_id"][3:]
         pd_comp.members[unit][r["spine_id"]] = pd_comp.members[unit].get(r["spine_id"], 0.0) + 1.0
 
     # ED agreement with nuuuwan's per-GN ed_id
     ours_ed = {gn: ed_id(district_ed[d]) for gn, d in gn_district.items() if d in district_ed}
     ed_disagree = []
-    for _, r in gig_gnd[gig_gnd["spine_id"].notna()].iterrows():
-        theirs = "LK-ED-" + str(r["ed_id"])[3:]
+    for r in matched:
+        theirs = "LK-ED-" + r["ed_id"][3:]
         if ours_ed.get(r["spine_id"]) != theirs:
             ed_disagree.append((r["spine_id"], ours_ed.get(r["spine_id"]), theirs, r["name"]))
     pd_cross = [
-        (unit, sorted({ours_ed.get(g) for g in m}))
+        (unit, sorted({ours_ed.get(g) or "" for g in m}))
         for unit, m in pd_comp.members.items()
         if {ours_ed.get(g) for g in m} != {"LK-ED-" + unit[6:8]}
     ]
@@ -513,7 +534,9 @@ def build(
     versions = gpd.read_parquet(spine_dir / "geography_versions.geoparquet")
     gn_geoms = versions[versions["level"] == 4].set_index("geography_id")["geometry"]
     gn_geoms = gpd.GeoSeries(gn_geoms, crs=versions.crs)
-    nu_ed_geom = {ed_id(int(i[3:])): read_geojson(storage, refs[f"geo/ed/{i}.json"]) for i in ed_ids_ec}
+    nu_ed_geom = {
+        ed_id(int(i[3:])): read_geojson(storage, refs[f"geo/ed/{i}.json"]) for i in ed_ids_ec
+    }
     nu_pd_geom = {"LK-PD-" + i[3:]: read_geojson(storage, refs[f"geo/pd/{i}.json"]) for i in pd_ids}
     ed_iou = iou_table(nu_ed_geom, gn_geoms, ed_comp)
     pd_iou = iou_table(nu_pd_geom, gn_geoms, pd_comp)
@@ -523,7 +546,7 @@ def build(
     ed_den = _with_adults(denominators(ed_comp, census, DENOMINATORS))
     pd_den = _with_adults(denominators(pd_comp, census, DENOMINATORS))
     for frame in (ed_den, pd_den):
-        frame["electors_registered"] = frame["geography_id"].map(results)
+        frame["electors_registered"] = [results.get(str(g)) for g in frame["geography_id"]]
         frame["electors_per_100_adults_20_plus"] = (
             100 * frame["electors_registered"] / frame["population_age_20_plus"]
         ).round(2)
@@ -535,7 +558,10 @@ def build(
     # crosswalk could not match to the spine): the gap is the unmatched GNs' population.
     district_pop: dict[str, float] = {}
     for d in census_dirs:
-        f = pd.read_parquet(d / "observations.parquet", columns=["indicator_id", "geography_id", "value", "breakdown"])
+        f = pd.read_parquet(
+            d / "observations.parquet",
+            columns=["indicator_id", "geography_id", "value", "breakdown"],
+        )
         f = f[(f["indicator_id"] == "population_total") & f["breakdown"].isna()]
         district_pop.update(dict(zip(f["geography_id"], f["value"], strict=False)))
     ed_den["population_total_district_tables"] = ed_den["geography_id"].map(
@@ -586,8 +612,11 @@ def _qa(reg, gig_pd, gig_ed, ed_comp, pd_comp, ed_ws, pd_ws, ed_iou, pd_iou, ed_
         f = frame.dropna(subset=[col]).copy()
         f["dev"] = (f[col] - f[col].median()).abs()
         f = f.sort_values("dev", ascending=False).head(n)
-        rows = ["| unit | electors | pop 20+ | pop 15+ | electors per 100 aged 20+ |", "|---|---|---|---|---|"]
-        for _, r in f.iterrows():
+        rows = [
+            "| unit | electors | pop 20+ | pop 15+ | electors per 100 aged 20+ |",
+            "|---|---|---|---|---|",
+        ]
+        for r in f.to_dict("records"):
             rows.append(
                 f"| {r['geography_id']} | {int(r['electors_registered'])} | "
                 f"{int(r['population_age_20_plus'])} | {int(r['population_age_15_plus'])} | {r[col]} |"
@@ -626,7 +655,11 @@ def _qa(reg, gig_pd, gig_ed, ed_comp, pd_comp, ed_ws, pd_ws, ed_iou, pd_iou, ed_
         f"Sum over EDs of GN-summed population: {int(ed_den['population_total'].sum()):,}; of district totals: "
         f"{int(ed_den['population_total_district_tables'].sum()):,}; gap (GNs not matched to the spine): "
         f"{int(ed_den['population_gap_unmatched_gns'].sum()):,}. EDs with a gap: "
-        + ", ".join(f"{r.geography_id} {int(r.population_gap_unmatched_gns):,}" for r in ed_den.itertuples() if r.population_gap_unmatched_gns)
+        + ", ".join(
+            f"{r.geography_id} {int(r.population_gap_unmatched_gns):,}"
+            for r in ed_den.itertuples()
+            if r.population_gap_unmatched_gns
+        )
         + ".",
         "",
         "## IoU: unit geometry vs union of its member GNs (EPSG:5235)",

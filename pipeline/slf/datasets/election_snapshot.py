@@ -170,6 +170,7 @@ def extract_text(refs: list[SnapshotRef], storage: Storage, text_root: Path) -> 
             target = text_dir(text_root, ref)
             pdf = Path(tmp) / target.name
             pdf.write_bytes(storage.get(ref.key))
+            done = None
             for _attempt in range(3):  # Vision occasionally fails transiently; retry
                 done = subprocess.run(
                     [str(binary), str(target.parent), str(pdf)], capture_output=True, text=True
@@ -178,7 +179,9 @@ def extract_text(refs: list[SnapshotRef], storage: Storage, text_root: Path) -> 
                     break
                 shutil.rmtree(target, ignore_errors=True)  # never keep partial page text
             else:
-                problems.append(f"{ref.key}: {done.stderr.strip() or 'pdf_ocr failed'}")
+                problems.append(
+                    f"{ref.key}: {(done.stderr.strip() if done else '') or 'pdf_ocr failed'}"
+                )
     return problems
 
 

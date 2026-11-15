@@ -31,6 +31,7 @@ from collections import defaultdict
 from collections.abc import Mapping
 from dataclasses import dataclass
 from pathlib import Path
+from typing import Any
 
 import pandas as pd
 
@@ -45,7 +46,9 @@ DATASET_ID = snap.DATASET_ID
 VINTAGE = "ec-2024"
 ELECTION_DATE = "2024-09-21"
 CLAIM_PREFIX = "ec-pre2024"
-NUUUWAN_COMMIT = "5bae5346e1e86711fc866657ff862a25e3f6b376"  # nuuuwan/lk_elections master, 2026-11-15
+NUUUWAN_COMMIT = (
+    "5bae5346e1e86711fc866657ff862a25e3f6b376"  # nuuuwan/lk_elections master, 2026-11-15
+)
 NUUUWAN_URL = (
     f"https://raw.githubusercontent.com/nuuuwan/lk_elections/{NUUUWAN_COMMIT}/public/data/"
     "elections/government-elections-presidential.regions-ec.2024.tsv"
@@ -89,7 +92,9 @@ def load_pages(directory: Path) -> list[SheetPage]:
             return boxes(json.loads(path.read_text(encoding="utf-8"))) if path.exists() else []
 
         pages.append(
-            SheetPage(int(n), read("ocr"), read("strip"), t.read_text(encoding="utf-8"), read("col"))
+            SheetPage(
+                int(n), read("ocr"), read("strip"), t.read_text(encoding="utf-8"), read("col")
+            )
         )
     return pages
 
@@ -158,7 +163,9 @@ class ElectionResults(Dataset):
             sheet = parse_sheet(name, load_pages(snap.text_dir(text_root, r)))
             self.sheets.append(Parsed(r, sheet))
         for key, r in check_refs.items():
-            self.checks[key] = Parsed(r, parse_sheet(r.key.rsplit("/", 1)[-1], load_pages(snap.text_dir(text_root, r))))
+            self.checks[key] = Parsed(
+                r, parse_sheet(r.key.rsplit("/", 1)[-1], load_pages(snap.text_dir(text_root, r)))
+            )
         try:
             nref = snap.latest_any(storage, "nuuuwan", "nuuuwan-lk-elections", NUUUWAN_FILE)
             self.nuuuwan = pd.read_csv(io.BytesIO(storage.get(nref.key)), sep="\t").set_index(
@@ -333,7 +340,11 @@ def observation(r: Row) -> Row:
             "source_locator": r["locator"],
             "preferred_reason": (
                 "Only claim: Election Commission result sheet"
-                + (" (value fixed by the sheet's own total and printed percentages)" if derived else "")
+                + (
+                    " (value fixed by the sheet's own total and printed percentages)"
+                    if derived
+                    else ""
+                )
             ),
             "note_ids": ["derived_from_sheet_total"] if derived else [],
         }
@@ -386,14 +397,11 @@ def share_rows(observations: list[Row]) -> list[Row]:
     def emit(num: Row, den: Row, indicator: str) -> None:
         bd = num["breakdown"]
         row = _base(num["geography_id"], indicator, bd)
-        ok = (
-            num["value"] is not None
-            and den["value"] is not None
-            and den["value"] > 0
-        )
+        n, d = num["value"], den["value"]
+        ok = n is not None and d is not None and d > 0
         row.update(
             {
-                "value": round(100.0 * num["value"] / den["value"], 4) if ok else None,
+                "value": round(100.0 * n / d, 4) if n is not None and d else None,
                 "value_status": "normal" if ok else "not_available",
                 "unit": "percent",
                 "universe": "registered_electors" if indicator == "turnout" else "votes",
@@ -421,19 +429,7 @@ def share_rows(observations: list[Row]) -> list[Row]:
 # --- QA --------------------------------------------------------------------------------------
 
 
-def _value(observations: list[Row], geo: str, indicator: str, bd: Mapping[str, str] | None) -> float | None:
-    key = json.dumps(dict(bd) if bd else {}, sort_keys=True)
-    for o in observations:
-        if (
-            o["geography_id"] == geo
-            and o["indicator_id"] == indicator
-            and json.dumps(o["breakdown"] or {}, sort_keys=True) == key
-        ):
-            return o["value"]
-    return None
-
-
-def published_total_checks(ds: ElectionResults, observations: list[Row]) -> pd.DataFrame:
+def published_total_checks(ds: ElectionResults, observations: list[Row]) -> list[dict[str, Any]]:
     """Our ED and national sums against values read from the district and all-island sheets.
 
     Only sheet values confirmed by their printed percentage (or the sheet's own arithmetic) are
@@ -443,36 +439,39 @@ def published_total_checks(ds: ElectionResults, observations: list[Row]) -> pd.D
     for o in observations:
         if o["breakdown"] and "vote_type" in o["breakdown"]:
             continue
-        bd = {k: v for k, v in (o["breakdown"] or {}).items() if k in ("party",)}
+        bd = {k: v for k, v in (o["breakdown"] or {}).items() if k == "party"}
         index[(o["geography_id"], o["indicator_id"], json.dumps(bd))] = o["value"]
-    rows = []
+    rows: list[dict[str, Any]] = []
+
+    def add(geo: str, item: str, sheet: int, ours: float | None, file: str) -> None:
+        diff = None if ours is None else int(ours) - sheet
+        rows.append(
+            {"geography_id": geo, "item": item, "sheet": sheet, "ours": ours, "file": file,
+             "difference": diff}
+        )  # fmt: skip
+
     for key, p in ds.checks.items():
         geo = "LK" if key == "LK" else ed_id(int(key))
         s = p.sheet
         for k, ind in TOTAL_INDICATORS.items():
             r = s.totals[k]
-            if r.value is None:
-                continue
-            ours = index.get((geo, ind, json.dumps({})))
-            rows.append({"geography_id": geo, "item": ind, "sheet": r.value, "ours": ours, "file": s.file})
+            if r.value is not None:
+                add(geo, ind, r.value, index.get((geo, ind, json.dumps({}))), s.file)
         for _b, code, _n in CANDIDATES:
             r = s.candidates.get(code)
             if r is None or r.value is None or not (r.pct_checked or "sum" in r.how):
                 continue
             ours = index.get((geo, "votes_candidate", json.dumps({"party": code})))
-            rows.append({"geography_id": geo, "item": f"votes_candidate {code}", "sheet": r.value, "ours": ours, "file": s.file})
-    frame = pd.DataFrame(rows)
-    if not frame.empty:
-        frame["difference"] = frame["ours"] - frame["sheet"]
-    return frame
+            add(geo, f"votes_candidate {code}", r.value, ours, s.file)
+    return rows
 
 
-def nuuuwan_checks(ds: ElectionResults) -> pd.DataFrame:
+def nuuuwan_checks(ds: ElectionResults) -> list[dict[str, Any]]:
     """Every value we read against nuuuwan's TSV (comparison only)."""
     if ds.nuuuwan is None:
-        return pd.DataFrame()
-    nu = ds.nuuuwan
-    rows = []
+        return []
+    table: dict[str, dict[str, Any]] = ds.nuuuwan.to_dict(orient="index")  # type: ignore[assignment]
+    rows: list[dict[str, Any]] = []
     for p in ds.sheets:
         s = p.sheet
         if s.ed_number is None:
@@ -480,34 +479,34 @@ def nuuuwan_checks(ds: ElectionResults) -> pd.DataFrame:
         eid = f"EC-{s.ed_number:02d}" + ((s.pd_letter or "?") if s.kind == "pd" else "P")
         items = [(k, s.totals[k]) for k in TOTAL_INDICATORS] + list(s.candidates.items())
         for name, r in items:
-            theirs = nu.at[eid, name] if eid in nu.index and name in nu.columns else None
+            theirs = table.get(eid, {}).get(name)
+            ok = theirs is not None and not pd.isna(theirs)
             rows.append(
                 {
                     "file": s.file,
                     "nuuuwan_id": eid,
                     "item": name,
                     "ours": r.value,
-                    "nuuuwan": None if theirs is None or pd.isna(theirs) else round(float(theirs)),
+                    "nuuuwan": round(float(theirs)) if ok and theirs is not None else None,
                     "how": r.how,
                 }
             )
-    return pd.DataFrame(rows)
+    return rows
 
 
 def verification_sheet(ds: ElectionResults) -> pd.DataFrame:
     """Values for the lead to check: unread, withheld, derived, or differing from nuuuwan."""
-    nu = nuuuwan_checks(ds)
     rows = []
-    for _, r in nu.iterrows():
+    for r in nuuuwan_checks(ds):
         reason = None
-        if r["ours"] is None or pd.isna(r["ours"]):
-            reason = "not read (not_available)"
+        if r["ours"] is None:
+            reason = "withheld (not confirmed)" if r["how"] == "withheld" else "not read"
         elif r["how"] == "derived":
             reason = "derived from the sheet's total and printed percentages"
-        elif r["nuuuwan"] is not None and not pd.isna(r["nuuuwan"]) and r["ours"] != r["nuuuwan"]:
+        elif r["nuuuwan"] is not None and r["ours"] != r["nuuuwan"]:
             reason = "differs from nuuuwan"
         if reason:
-            rows.append({**r.to_dict(), "reason": reason, "lead_value": "", "lead_status": ""})
+            rows.append({**r, "reason": reason, "lead_value": "", "lead_status": ""})
     return pd.DataFrame(rows)
 
 
@@ -515,13 +514,13 @@ def qa_markdown(ds: ElectionResults, observations: list[Row], report: QAReport) 
     sheets = [p.sheet for p in ds.sheets]
     complete = [s for s in sheets if s.complete and not s.problems]
     nu = nuuuwan_checks(ds)
-    read = nu[nu["ours"].notna()] if not nu.empty else nu
-    both = read[read["nuuuwan"].notna()] if not read.empty else read
-    agree = int((both["ours"] == both["nuuuwan"]).sum()) if not both.empty else 0
-    differ = both[both["ours"] != both["nuuuwan"]] if not both.empty else both
-    unread = int(nu["ours"].isna().sum()) if not nu.empty else 0
+    read = [r for r in nu if r["ours"] is not None]
+    both = [r for r in read if r["nuuuwan"] is not None]
+    differ = [r for r in both if r["ours"] != r["nuuuwan"]]
     derived = sum(len(s.derived) for s in sheets)
     checks = published_total_checks(ds, observations)
+    compared = [c for c in checks if c["ours"] is not None]
+    diff = [c for c in compared if c["difference"] != 0]
     lines = [
         f"# QA report: {DATASET_ID} (Presidential Election 2024)",
         "",
@@ -530,9 +529,9 @@ def qa_markdown(ds: ElectionResults, observations: list[Row], report: QAReport) 
         f"{sum(s.kind == 'postal' for s in sheets)} postal-vote)",
         f"- Sheets complete and adding up (candidates = valid; valid + rejected = polled): "
         f"{len(complete)}",
-        f"- Values on sheets: {len(nu)}; read: {len(read)}; not read or withheld: {unread}; "
-        f"derived from sheet arithmetic: {derived}",
-        f"- Against nuuuwan/lk_elections ({NUUUWAN_COMMIT[:7]}): {agree} agree, "
+        f"- Values on sheets: {len(nu)}; read: {len(read)}; not read or withheld: "
+        f"{len(nu) - len(read)}; derived from sheet arithmetic: {derived}",
+        f"- Against nuuuwan/lk_elections ({NUUUWAN_COMMIT[:7]}): {len(both) - len(differ)} agree, "
         f"{len(differ)} differ",
         f"- Observations: {report.checked}; errors {len(report.errors)}; "
         f"warnings {len(report.warnings)}",
@@ -540,29 +539,28 @@ def qa_markdown(ds: ElectionResults, observations: list[Row], report: QAReport) 
         "## Differences from nuuuwan",
         "",
     ]
-    if differ.empty:
+    if not differ:
         lines.append("None.")
     else:
-        lines.append("| file | item | ours | nuuuwan | read by |")
-        lines.append("|---|---|---|---|---|")
-        for _, r in differ.iterrows():
-            lines.append(f"| {r['file']} | {r['item']} | {int(r['ours'])} | {int(r['nuuuwan'])} | {r['how']} |")
+        lines += ["| file | item | ours | nuuuwan | read by |", "|---|---|---|---|---|"]
+        lines += [
+            f"| {r['file']} | {r['item']} | {r['ours']} | {r['nuuuwan']} | {r['how']} |"
+            for r in differ
+        ]
     lines += ["", "## Sums against the Commission's district and all-island sheets", ""]
-    if checks.empty:
+    if not checks:
         lines.append("No district or all-island values could be read.")
     else:
-        compared = checks[checks["ours"].notna()]
-        diff = compared[compared["difference"] != 0]
         lines.append(
             f"{len(compared)} values compared ({len(checks) - len(compared)} not comparable "
             f"because our sum is not_available); {len(diff)} differ."
         )
-        if not diff.empty:
+        if diff:
             lines += ["", "| place | item | sheet | ours | difference |", "|---|---|---|---|---|"]
-            for _, r in diff.iterrows():
-                lines.append(
-                    f"| {r['geography_id']} | {r['item']} | {int(r['sheet'])} | "
-                    f"{int(r['ours'])} | {int(r['difference'])} |"
-                )
+            lines += [
+                f"| {c['geography_id']} | {c['item']} | {c['sheet']} | {int(c['ours'])} | "
+                f"{c['difference']} |"
+                for c in diff
+            ]
     lines += ["", report.to_markdown().split("\n", 2)[2]]
     return "\n".join(lines) + "\n"

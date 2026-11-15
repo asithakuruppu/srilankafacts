@@ -61,3 +61,5 @@ addopts = "-q"
 # Report templates with long prose lines; splitting them would hurt readability.
 "slf/datasets/crosswalk_admin.py" = ["E501"]
 "slf/datasets/cod_ab_admin.py" = ["E501"]
+"slf/datasets/electoral_geography.py" = ["E501"]
+"slf/datasets/election_results.py" = ["E501"]
