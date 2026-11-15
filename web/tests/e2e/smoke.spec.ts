@@ -165,3 +165,11 @@ test("indicators page still lists every indicator without JavaScript", async ({ 
   await expect(page.getByRole("link", { name: /Total population/ }).first()).toBeVisible();
   await context.close();
 });
+
+test("indicators page shows a pie of the whole for share indicators", async ({ page }) => {
+  await page.goto("/indicators?i=households_water_tube_well_share&a=LK1103");
+  await expect(page.getByRole("img", { name: /drinking water in Colombo/i })).toBeVisible();
+  await expect(page.getByText(/the shares add to 100\.0%/)).toBeVisible();
+  await page.getByText("Show pie as table").click();
+  await expect(page.getByRole("columnheader", { name: /Share \(%\)/ })).toBeVisible();
+});

@@ -72,3 +72,37 @@ export function loadLevelValues(
   valueCache.set(key, request);
   return request;
 }
+
+const placeCache = new Map<string, Promise<Map<string, number>>>();
+
+/** Every published value of one place as indicator id to value (one request, about 50-90 KB). */
+export function loadPlaceValues(geoId: string): Promise<Map<string, number>> {
+  const cached = placeCache.get(geoId);
+  if (cached) {
+    return cached;
+  }
+  const request = fetch(`/api/v1/places/${geoId}.json`)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`Place request failed (${response.status}).`);
+      }
+      return response.json() as Promise<{
+        values: { indicator_id: string; value: number | null }[];
+      }>;
+    })
+    .then((place) => {
+      const map = new Map<string, number>();
+      for (const row of place.values) {
+        if (row.value !== null) {
+          map.set(row.indicator_id, row.value);
+        }
+      }
+      return map;
+    })
+    .catch((error) => {
+      placeCache.delete(geoId);
+      throw error;
+    });
+  placeCache.set(geoId, request);
+  return request;
+}

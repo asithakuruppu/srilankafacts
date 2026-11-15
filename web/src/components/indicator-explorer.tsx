@@ -6,7 +6,9 @@ import { useEffect, useMemo, useState } from "react";
 
 import BarChart from "@/components/charts/bar-chart";
 import Histogram from "@/components/charts/histogram";
+import PieChart from "@/components/charts/pie-chart";
 import StatTile from "@/components/stat-tile";
+import { familyByIndicator, pieSlices, shareFamilies } from "@/lib/composition";
 import { formatNumber, formatValue } from "@/lib/format";
 import {
   type Hierarchy,
@@ -16,7 +18,7 @@ import {
   pathTo,
   rankOf,
 } from "@/lib/hierarchy";
-import { type LevelValue, loadHierarchy, loadLevelValues } from "@/lib/indicator-data";
+import { type LevelValue, loadHierarchy, loadLevelValues, loadPlaceValues } from "@/lib/indicator-data";
 
 export type ExplorerIndicator = {
   id: string;
@@ -100,6 +102,34 @@ export default function IndicatorExplorer({ indicators }: { indicators: Explorer
       live = false;
     };
   }, [dataKey, indicatorId, wanted]);
+
+  const families = useMemo(() => familyByIndicator(shareFamilies(indicators)), [indicators]);
+  const family = families.get(indicatorId) ?? null;
+  const [place, setPlace] = useState<{ id: string; values: Map<string, number> } | null>(null);
+  const placeId = family && area ? area.id : null;
+  useEffect(() => {
+    if (!placeId) {
+      return;
+    }
+    let live = true;
+    loadPlaceValues(placeId)
+      .then((values) => live && setPlace({ id: placeId, values }))
+      .catch(() => live && setPlace(null));
+    return () => {
+      live = false;
+    };
+  }, [placeId]);
+  const pie =
+    family && area && place?.id === area.id
+      ? (() => {
+          const parts = family.members
+            .map((member) => ({ ...member, value: place.values.get(member.id) }))
+            .filter((part): part is { id: string; label: string; value: number } => part.value !== undefined);
+          return parts.length === family.members.length
+            ? { parts, slices: pieSlices(parts, indicatorId), total: parts.reduce((t, p) => t + p.value, 0) }
+            : null;
+        })()
+      : null;
 
   function go(next: { i?: string; a?: string }) {
     const query = new URLSearchParams();
@@ -265,6 +295,49 @@ export default function IndicatorExplorer({ indicators }: { indicators: Explorer
               />
             ) : null}
           </div>
+
+          {family && pie ? (
+            <>
+              <h3>
+                {family.title} in {area.name}
+              </h3>
+              <p className="muted small">
+                Each slice is one category of the same whole; the shares add to{" "}
+                {formatNumber(pie.total, 1)}%. Click a slice or a name to chart that category by
+                area.
+                {pie.slices.some((slice) => slice.merged)
+                  ? " The smallest categories are combined into one slice; the table lists all."
+                  : ""}
+              </p>
+              <PieChart
+                slices={pie.slices}
+                selectedId={indicatorId}
+                onSelect={(id) => go({ i: id })}
+                label={`${family.title} in ${area.name}`}
+              />
+              <details className="ix-table">
+                <summary>Show pie as table</summary>
+                <table>
+                  <thead>
+                    <tr>
+                      <th scope="col">Category</th>
+                      <th scope="col">Share (%), 2024</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {[...pie.parts]
+                      .sort((a, b) => b.value - a.value)
+                      .map((part) => (
+                        <tr key={part.id}>
+                          <td>{part.label}</td>
+                          <td>{formatNumber(part.value, 1)}</td>
+                        </tr>
+                      ))}
+                  </tbody>
+                </table>
+              </details>
+            </>
+          ) : null}
 
           {childLevel === null ? (
             <p className="muted">
