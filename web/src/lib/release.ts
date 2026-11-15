@@ -97,8 +97,8 @@ export function getCorrections(): CorrectionsLog | null {
 export function getIndicators(): IndicatorMeta[] {
   const list = readJson<IndicatorList>("api/v1/indicators.json");
   return list.indicators
-    // downloads_only: no place or level files (LA-004). places_only: place pages only, never
-    // ranked, mapped or listed as an indicator (D-033).
+    // downloads_only: no place or level files (LA-004). places_only: place pages only (D-033);
+    // no indicator uses it since D-036, but releases up to v2026.11.14 still carry it.
     .filter(
       (indicator) =>
         indicator.levels.length > 0 &&

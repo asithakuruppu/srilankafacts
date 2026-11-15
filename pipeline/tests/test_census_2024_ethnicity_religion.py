@@ -147,12 +147,12 @@ def test_rows_are_sensitive_and_ds_floor():
     assert other["sensitivity"] == "public"
 
 
-def test_catalog_marks_every_indicator_places_only_and_sensitive():
+def test_catalog_marks_every_indicator_api_and_sensitive():
     catalog = load_catalog(CATALOG, None, CatalogReport())
     assert len(er.ID_COUNT_INDICATORS) == 16 and len(er.ID_SHARE_INDICATORS) == 16
     for indicator_id in er.ID_INDICATORS:
         indicator = catalog.indicators[indicator_id]
-        assert indicator.distribution == "places_only", indicator_id
+        assert indicator.distribution == "api", indicator_id  # D-036
         assert indicator.sensitivity == "sensitive_group", indicator_id
     existing = set(topics.ALL_INDICATORS) | set(topics.POP_INDICATORS) | set(mat.MAT_INDICATORS)
     assert not set(er.ID_INDICATORS) & existing

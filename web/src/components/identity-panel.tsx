@@ -1,12 +1,14 @@
+import Link from "next/link";
+
 import Provenance from "@/components/provenance";
 import { formatValue } from "@/lib/format";
 import { getObservationFor } from "@/lib/release";
 import type { Place } from "@/lib/types";
 
 /**
- * Ethnic group and religion (D-033): DS divisions and larger areas only, from DCS's own DS and
- * district tables. Shown in DCS's column order, never sorted by value, with no rankings, maps
- * or links to indicator pages.
+ * Ethnic group and religion (D-036): DS divisions and larger areas only, from DCS's own DS and
+ * district tables. Shown in DCS's column order, never sorted by value; each category links to its
+ * indicator page.
  */
 const TOPICS = [
   {
@@ -94,7 +96,9 @@ export default function IdentityPanel({ place }: { place: Place }) {
                 const share = getObservationFor(place, `${id}_share`);
                 return (
                   <tr key={id}>
-                    <th scope="row">{label}</th>
+                    <th scope="row">
+                      <Link href={`/indicator/${id}_share`}>{label}</Link>
+                    </th>
                     <td className="numeric">{formatValue(count?.value ?? null, "persons", 0)}</td>
                     <td className="numeric">{formatValue(share?.value ?? null, "percent", 1)}</td>
                     <td>{count ? <Provenance value={count} /> : null}</td>

@@ -144,7 +144,7 @@ export default function HomePage() {
             housing units, households and their amenities, age group, sector and local authority
             type, and, for DS divisions and larger areas, housing structure and materials. Shares
             and ratios are computed from the published counts, never copied. Ethnic group and
-            religion appear only on place pages, never ranked or mapped.
+            religion are included for DS divisions and larger areas, from DCS&apos;s own tables.
           </p>
         </div>
         <div className="indicator-groups">
@@ -264,7 +264,8 @@ export default function HomePage() {
           <div className="limit">
             <h3>Not a ranking of people</h3>
             <p>
-              No indicator here is broken down by ethnicity or religion. Spatial clusters are
+              Counts and shares describe where people were counted, not their worth or behaviour.
+              Ethnic group and religion follow DCS&apos;s own categories. Spatial clusters are
               descriptions of the data, not causal findings.
             </p>
           </div>

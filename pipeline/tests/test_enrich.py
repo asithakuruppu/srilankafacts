@@ -91,6 +91,12 @@ def test_build_spatial_context_skips_empty_levels_and_places_only(tmp_path):
     from slf.enrich import build_spatial_context
 
     full = load_catalog(Path(__file__).resolve().parents[2] / "catalog", None, CatalogReport())
+    # D-036 made ethnicity and religion ordinary `api` indicators; the places_only mode still
+    # exists, so mark one indicator that way to keep testing it.
+    hindu = full.indicators["population_religion_hindu_share"]
+    full.indicators["population_religion_hindu_share"] = hindu.model_copy(
+        update={"distribution": "places_only"}
+    )
     gn_ids = ["LK1103005", "LK1103010", "LK1103015"]
     ds_ids = ["LK1103", "LK1106"]
     (tmp_path / "spatial").mkdir()
@@ -133,5 +139,5 @@ def test_build_spatial_context_skips_empty_levels_and_places_only(tmp_path):
     assert "stats/local_housing_roof_tile_ds.parquet" in result.files
     assert "stats/local_housing_roof_tile_gn.parquet" not in result.files
     assert not (tmp_path / "out" / "stats" / "local_housing_roof_tile_gn.parquet").exists()
-    # D-033: places_only indicators get no neighbour comparisons at any level
+    # places_only (D-033 mode): indicators get no neighbour comparisons at any level
     assert not [f for f in result.files if "population_religion" in f]

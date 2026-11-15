@@ -9,7 +9,7 @@ geography_vintage: "2024"
 reference_period: "2024"
 rights: inherit
 # D-032 extends D-030 to these tables: the lead's non-commercial publication position. Not a
-# licence; rights stay unclear. D-033 limits ethnicity and religion to DS and district level.
+# licence; rights stay unclear. D-033 (kept by D-036) limits ethnicity and religion to DS and district level.
 publication:
   decision: D-032
   use: non_commercial

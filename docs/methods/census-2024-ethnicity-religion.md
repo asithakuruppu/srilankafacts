@@ -18,7 +18,7 @@ person is counted in exactly one category of each topic:
 
 That gives 32 indicators: 16 counts and 16 shares (count ÷ population × 100).
 
-- **D-033 applies.** Values come from DCS's own DS and district tables, never from sums of GN
+- **D-033's data rule applies (kept by D-036).** Values come from DCS's own DS and district tables, never from sums of GN
   values. DCS's GN files fold any group under 10 people in a GN into "Other", so GN sums
   under-count small groups (Burgher: 25,159 from GN sums, 31,721 in A2 and A6 ✅).
 - **No GN values.** Every value carries `information_footprint_ref: ds-2024`. The build fails if
@@ -29,22 +29,21 @@ That gives 32 indicators: 16 counts and 16 shares (count ÷ population × 100).
 - **No new total.** Each table's "Total number of persons" equals `population_total` from the GN
   population workbook (`census-2024-gnd-tables`) in every place ✅ (§4). Shares use that total.
 
-## 2. How a release carries them (D-033)
+## 2. How a release carries them (D-036, which supersedes D-033)
 
 - Rows carry `sensitivity: sensitive_group` (every other census row is `public`).
-- The 32 indicators are `distribution: places_only`, a new catalogue value. A release puts them in
-  the observation downloads and in place files (`api/v1/places/<id>.json`), and lists their
-  metadata in `api/v1/indicators.json`. It writes **no** per-level files
-  (`api/v1/indicators/<id>/<level>.json`), which are what the website's indicator pages, ranked
-  bars and Explore tables read, and the spatial-context stage computes **no** neighbour
-  comparisons (`stats/local_*`) for them. Tests cover both.
-- The website leaves `places_only` indicators out of every indicator list. On DS, district,
-  province and country pages, a separate "Ethnic group and religion" section shows counts and
-  shares in DCS's column order (never sorted by value), names the DCS table, and links each count
-  to its source. It does not link to an indicator page, and there is no map.
+- Since D-036 the 32 indicators are `distribution: api`, like other indicators: observation
+  downloads, place files, per-level files (`api/v1/indicators/<id>/<level>.json`, levels country,
+  province, district, ds and ds-provisional, never gn) and spatial-context tables. Releases up to
+  `v2026.11.14` were built under D-033 (`places_only`: place files only).
+- The website lists them as indicators (groups "Ethnic group" and "Religion"), with indicator
+  pages, maps, ranked bars, drill-down charts and pies. On DS, district, province and country
+  pages the separate "Ethnic group and religion" section still shows counts and shares in DCS's
+  column order (never sorted by value), names the DCS table, and now links each category to its
+  indicator page.
 - Counts are shown as well as shares, unlike the other topic-table steps (LA-004, LA-005): D-033
-  says "counts and shares", and 16 counts per place is small.
-- Profile and similarity spaces already refuse ethnicity and religion inputs (D-015, schema check).
+  (kept by D-036) says "counts and shares", and 16 counts per place is small.
+- Profile and similarity spaces still refuse ethnicity and religion inputs (D-015, schema check).
 
 ## 3. Source
 
@@ -102,5 +101,5 @@ All run by the build; any failure stops it.
   districts: 390 values, 0 differences ✅ ([QA](../qa/census-2024-ethnicity-religion.md)). DS
   values have no Final Report counterpart. No human check (Q01) ❌.
 - The website section was checked against a trial release only; it is not in a published release.
-- GN-level ethnicity and religion are not ingested (D-033 allows it for QA only); the folding
+- GN-level ethnicity and religion are not ingested (D-033 and D-036 allow it for QA only); the folding
   figures above come from the source dossier.
