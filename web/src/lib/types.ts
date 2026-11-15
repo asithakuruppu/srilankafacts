@@ -51,7 +51,7 @@ export type IndicatorMeta = {
   higher_is: string;
   /**
    * "downloads_only": values are in the observation downloads, not in place or level files.
-   * "places_only": in place files only; no level files, indicator pages or rankings (D-033).
+   * "places_only": in place files only; no level files, indicator pages or rankings (D-033; unused since D-036).
    */
   distribution?: "api" | "downloads_only" | "places_only";
   decimals: number;

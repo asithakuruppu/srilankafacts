@@ -92,7 +92,7 @@ function PlaceContent({ geoId }: { geoId: string }) {
   const nationalValues = getNationalValues();
   const children = getChildren(geography.geography_id);
   const latest = getLatest();
-  // Ethnic group and religion have their own section (D-033), not the indicator table.
+  // Ethnic group and religion have their own section (D-036), not the indicator table.
   const values = place.values.filter((value) => !IDENTITY_INDICATORS.has(value.indicator_id));
   values.sort((a, b) => {
     const left = HEADLINE_ORDER.indexOf(a.indicator_id);

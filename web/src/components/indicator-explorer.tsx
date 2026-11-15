@@ -371,7 +371,7 @@ export default function IndicatorExplorer({ indicators }: { indicators: Explorer
                 label={`${indicator.name} by ${LEVEL_SINGULAR[area.level + 1].toLowerCase()} in ${area.name}`}
                 onSelect={(id) => go({ a: id })}
               />
-              {childRows.length > 2 ? (
+              {childRows.length >= 8 ? (
                 <>
                   <h3>Distribution</h3>
                   <Histogram

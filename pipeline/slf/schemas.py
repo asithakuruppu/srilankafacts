@@ -51,7 +51,7 @@ HigherIs = Literal["better", "worse", "neutral"]
 # files as well as the downloads; "downloads_only" keeps them in observations.parquet/.csv only.
 # api: everywhere. downloads_only: observation downloads only (LA-004). places_only: downloads and
 # place files, but no per-level indicator files, indicator pages, rankings, maps or neighbour
-# comparisons (D-033, ethnicity and religion).
+# comparisons (D-033; no indicator uses it since D-036).
 Distribution = Literal["api", "downloads_only", "places_only"]
 SupportType = Literal[
     "area_total", "area_mean", "location_uncertain", "object_extent", "field_sample"

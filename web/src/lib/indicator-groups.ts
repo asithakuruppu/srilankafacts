@@ -4,6 +4,8 @@ import type { IndicatorMeta } from "@/lib/types";
 const GROUPS: { label: string; topics: string[] }[] = [
   { label: "Population, sex and density", topics: ["population", "population/sex", "population/housing"] },
   { label: "Age", topics: ["population/age"] },
+  { label: "Ethnic group (DS divisions and larger)", topics: ["population/ethnicity"] },
+  { label: "Religion (DS divisions and larger)", topics: ["population/religion"] },
   { label: "Sector", topics: ["population/sector"] },
   { label: "Local authority type", topics: ["population/local-government"] },
   { label: "Households and housing units", topics: ["housing"] },

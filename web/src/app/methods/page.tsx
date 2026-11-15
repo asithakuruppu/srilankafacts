@@ -145,19 +145,20 @@ export default function MethodsPage() {
             </li>
           </ul>
           <p>
-            <strong>Ethnic group and religion</strong> (decision D-033) come from DCS&apos;s DS
+            <strong>Ethnic group and religion</strong> (decision D-036) come from DCS&apos;s DS
             and district tables, never from sums of GN values: DCS&apos;s GN files fold any
             group of fewer than 10 people into &ldquo;Other&rdquo;, which under-counts small
-            communities. They are shown for DS divisions and larger areas only, in their own
-            section of the place page, in DCS&apos;s categories and order, with counts and
-            shares. They are never ranked, mapped or used to compare places.
+            communities. They exist for DS divisions and larger areas only, in DCS&apos;s
+            categories, with counts and shares. They have indicator pages, maps, rankings and
+            charts like other topics, and the place page lists them in DCS&apos;s order. They
+            are not used in the profile space or similar-place lists (D-015).
           </p>
         </section>
 
         <section>
           <h2>5. Spatial context</h2>
           <p>
-            For every indicator and level (except ethnic group and religion) the release computes neighbour median, minimum,
+            For every indicator and level the release computes neighbour median, minimum,
             maximum and mean, a spatial lag, parent and national values, a rank, and a local
             Moran’s I class. Local Moran uses the spine contiguity graph, 999 conditional
             permutations, a fixed seed (20241108) and Benjamini–Hochberg false-discovery-rate

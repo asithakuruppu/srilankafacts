@@ -282,7 +282,7 @@ These were stated by you or are standing rules in [brainstorm-decisions.md](../b
 - **Revisit when:** DCS replies, or with D-030.
 
 ## D-033: Ethnicity and religion are shown at DS and district level only, from DCS's own tables, neutrally
-- **Status:** Accepted · 2026-11-12 (decided by the lead)
+- **Status:** Superseded by D-036 · 2026-11-15 (was Accepted 2026-11-12, decided by the lead)
 - **Context:** DCS's GN files for ethnicity and religion move any group with fewer than 10 people in a GN into "Other" and show `-` in its cell ✅ (101,464 such cells for ethnicity, 39,241 for religion). Summing GNs therefore under-counts small groups: Burgher is 25,159 from GN sums against 31,721 in DCS's district table A2 ✅. D-015 keeps ethnicity and religion out of the profile space but says nothing about showing them as indicators. They are sensitive (AGENTS rule 12).
 - **Decision:** For 1B:
   - Ethnicity and religion are shown for DS divisions, districts, provinces and the country, using DCS's own DS and district tables (A2, A3, A6, A7), never sums of GN values.
@@ -318,6 +318,20 @@ These were stated by you or are standing rules in [brainstorm-decisions.md](../b
 - **Alternatives:** Observable Plot (deferred until the W01 spike; revisit if more chart types are needed); per-DS GN shards (a pipeline and API change, not needed at this size).
 - **Consequences:** Only `api` indicators appear (D-033 exclusions unchanged). 37 indicators have no GN level and stop at DS. The GN files are not sharded, so the first GN view of an indicator downloads its whole GN file.
 - **Revisit when:** the W01 chart spike runs, or GN loading proves too slow on mobile.
+
+---
+
+## D-036: Ethnicity and religion are ordinary indicators, at the levels DCS publishes them (supersedes D-033)
+- **Status:** Accepted · 2026-11-15 (decided by the lead)
+- **Context:** D-033 showed ethnicity and religion on place pages only, with no indicator pages, rankings, maps, charts or neighbour comparisons. The lead decided they should not be excluded: they are published DCS census figures and readers expect to explore them like any other topic.
+- **Decision:**
+  - The 32 ethnicity and religion indicators (`distribution: api`) get indicator pages, rankings, maps, drill-down charts and pies, downloads, and spatial-context statistics, like every other indicator.
+  - Unchanged from D-033, because it is a data limit, not a presentation policy: values come from DCS's own DS and district tables (A2, A3, A6, A7), never from sums of GN values, and use DCS's category names. They exist for DS divisions, districts, provinces and the country. There is no GN level, because DCS's GN files fold groups of fewer than 10 people into "Other" (101,464 ethnicity cells and 39,241 religion cells ✅ per D-033). Showing GN values needs the folded cells ingested and labelled; that is a separate piece of work and decision.
+  - Wording stays neutral (AGENTS rule 12): counts and shares with the source table named, no judgement. Ranking by a single group's share is allowed; the pages carry the standard "counts reflect population size" caution.
+  - Not changed here: D-015 keeps ethnicity and religion out of the profile vector space and similar-place lists. Distances are still never used to infer relations (rule 13). If the lead wants them in the profile space, that needs its own decision.
+- **Alternatives:** keep D-033's restrictions (rejected by the lead); also show folded GN values now (not done: needs a labelling design, see D-033 alternative (a)).
+- **Consequences:** `distribution: places_only` stays a valid mode but no indicator uses it. The release must be rebuilt for the change to appear; the already-published `v2026.11.14` still carries the D-033 behaviour. The place page keeps its own ethnic group and religion section in DCS's order, now with links to indicator pages.
+- **Revisit when:** DCS publishes unfolded GN tables, or a labelled way to show folded GN cells is agreed, or the lead decides on D-015 for these topics.
 
 ---
 

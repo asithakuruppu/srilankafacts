@@ -9,11 +9,11 @@ numerator: population_ethnicity_other
 denominator: population_total
 aggregation: recompute_from_components
 higher_is: neutral
-distribution: places_only
+distribution: api
 decimals: 1
 sensitivity: sensitive_group
 definition: >
   population_ethnicity_other divided by the total number of persons in the same table, times 100. Computed from the
-  published counts. DS divisions and larger areas only (D-033).
+  published counts. DS divisions and larger areas only (D-036).
 source_definition_ref: "CPH 2024, Population table A6 (district and DS) and A2 (district), column 'Other'"
 methodology_notes: docs/methods/census-2024-ethnicity-religion.md

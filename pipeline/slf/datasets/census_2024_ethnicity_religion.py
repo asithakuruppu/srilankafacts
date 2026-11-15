@@ -4,11 +4,11 @@ Source: DCS Census of Population and Housing 2024, Population A-series tables. A
 and A7 (religion) give, for Sri Lanka, each district and each DS division, the population by
 category. A2 and A3 give the same at district level only and are used as a check.
 
-D-033: these two topics are published for DS divisions, districts, provinces and the country only,
-from DCS's own DS and district tables, never from sums of GN values (the GN files fold groups of
-fewer than 10 people into "Other"). They carry ``sensitivity: sensitive_group`` and
-``distribution: places_only``: place files and downloads, but no per-level indicator files, no
-indicator pages, rankings, maps or neighbour comparisons.
+D-033, superseded by D-036: these two topics exist for DS divisions, districts, provinces and the
+country only, from DCS's own DS and district tables, never from sums of GN values (the GN files
+fold groups of fewer than 10 people into "Other"). They carry ``sensitivity: sensitive_group``
+and, since D-036, ``distribution: api``: indicator pages, rankings, maps and neighbour
+comparisons like any other indicator (the D-033 ``places_only`` mode is no longer used by them).
 
 The A-series tables carry no DS codes. DS lines join to DCS DS codes through a reviewed match
 file, never by name at build time, and every match must pass a numeric check: the DS total equals
