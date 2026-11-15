@@ -76,6 +76,16 @@ fs.writeFileSync(
   path.resolve(process.cwd(), "public/search-index.json"),
   JSON.stringify(searchIndex),
 );
+// Compact hierarchy for the indicator drill-down dropdowns: [id, name, parent_id, level].
+const hierarchy = admin.geographies
+  .map((geo) => [
+    geo.geography_id,
+    geo.name_en ?? geo.name_si ?? geo.name_ta ?? geo.geography_id,
+    geo.parent_id ?? null,
+    geo.level,
+  ])
+  .sort((a, b) => a[0].localeCompare(b[0]));
+fs.writeFileSync(path.join(out, "hierarchy.json"), JSON.stringify(hierarchy));
 fs.writeFileSync(
   path.join(out, "meta.json"),
   JSON.stringify(

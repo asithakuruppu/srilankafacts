@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Suspense } from "react";
+
+import IndicatorExplorer from "@/components/indicator-explorer";
 
 import { formatValue } from "@/lib/format";
 import { groupIndicators } from "@/lib/indicator-groups";
@@ -22,10 +25,28 @@ export default function IndicatorsPage() {
         <h1>Indicators</h1>
         <p className="lede">
           {indicators.length} measures built from the DCS Census 2024 workbooks and tables held,
-          grouped by topic. Each page states the definition, the national value, the district
-          distribution and the limits of the measure.
+          grouped by topic. Pick one, then drill down from the country through province, district
+          and DS division to the GN division. Each indicator page states the definition and the
+          limits of the measure.
         </p>
       </header>
+      <Suspense fallback={null}>
+        <IndicatorExplorer
+          indicators={groupIndicators(indicators).flatMap((group) =>
+            group.indicators.map((indicator) => ({
+              id: indicator.id,
+              name: indicator.name,
+              definition: indicator.definition,
+              unit: indicator.unit,
+              decimals: indicator.decimals,
+              measureType: indicator.measure_type,
+              levels: indicator.levels,
+              group: group.label,
+            })),
+          )}
+        />
+      </Suspense>
+      <h2 className="section">All indicators</h2>
       {groupIndicators(indicators).map((group) => (
         <section className="section" key={group.label} aria-label={group.label}>
           <h2>
