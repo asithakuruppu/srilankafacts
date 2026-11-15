@@ -307,6 +307,20 @@ These were stated by you or are standing rules in [brainstorm-decisions.md](../b
 
 ---
 
+## D-035: Indicator drill-down charts are hand-written SVG; the hierarchy ships as a compact `hierarchy.json`
+- **Status:** Proposed · 2026-11-15 (builds on D-007, D-027, D-033)
+- **Context:** `/indicators` was a text list. The lead wants charts that drill from the country to the GN division with dropdowns. D-007 leaves the chart library "pending spike"; no spike has run.
+- **Decision:**
+  - `/indicators` gets a client-side explorer: indicator select, cascading province / district / DS / GN selects, a ranked bar chart and histogram of the next level down, and a "Show as table" under the charts. Bars are clickable to drill in. The server-rendered topic list stays on the page as the no-JS fallback (D-027).
+  - Charts are plain SVG components in `web/src/components/charts/`; no chart dependency is added.
+  - `web/scripts/prepare-release.mjs` writes `public/release/hierarchy.json` (id, name, parent, level; about 0.6 MB for 14,418 areas) so the browser does not load the 2.5 MB spine.
+  - Values come from the existing `api/v1/indicators/{id}/{level}.json` files, fetched on demand. GN files are about 1.4 MB per indicator, loaded only when the GN level is reached.
+- **Alternatives:** Observable Plot (deferred until the W01 spike; revisit if more chart types are needed); per-DS GN shards (a pipeline and API change, not needed at this size).
+- **Consequences:** Only `api` indicators appear (D-033 exclusions unchanged). 37 indicators have no GN level and stop at DS. The GN files are not sharded, so the first GN view of an indicator downloads its whole GN file.
+- **Revisit when:** the W01 chart spike runs, or GN loading proves too slow on mobile.
+
+---
+
 ## Template
 
 ```markdown

@@ -147,3 +147,21 @@ test.describe("ethnicity and religion (D-033)", () => {
     await expect(page.locator('meta[name="robots"][content="noindex"]').first()).toBeAttached();
   });
 });
+
+test("indicators page drills down to GN divisions with charts and a table", async ({ page }) => {
+  // The CI fixture keeps only the Colombo DS (LK1103), so start there.
+  await page.goto("/indicators?i=population_total&a=LK1103");
+  await expect(page.getByRole("heading", { name: /GN divisions in Colombo/ })).toBeVisible();
+  await expect(page.getByRole("img", { name: /by gn division in Colombo/i })).toBeVisible();
+  await page.getByText("Show as table").click();
+  await expect(page.getByRole("columnheader", { name: /GN division/ })).toBeVisible();
+});
+
+test("indicators page still lists every indicator without JavaScript", async ({ browser }) => {
+  const context = await browser.newContext({ javaScriptEnabled: false });
+  const page = await context.newPage();
+  await page.goto("/indicators");
+  await expect(page.getByRole("heading", { name: "All indicators" })).toBeVisible();
+  await expect(page.getByRole("link", { name: /Total population/ }).first()).toBeVisible();
+  await context.close();
+});
