@@ -109,7 +109,7 @@ A starting list for `catalog/sources/` (prompt R01 creates one YAML file per sou
 | DCS Census 2024 | GN-level topic tables; final report tables | D, P | ❌ no terms found anywhere (R01/R02, 2026-11-07); ask | **Stage 0–1** |
 | HDX COD-AB (Survey Dept) | Admin boundaries 0–4 | D | ✅ CC BY-IGO (HDX licence field, 2026-11-07) | **Stage 0** (spine v0 built) |
 | NSDI ArcGIS REST | Boundaries (cross-check) | A | ❌ empty copyright field; ask | Stage 0 (check only; compared in G02/G03) |
-| DCS Census 2012 / 2001 / 1981 / 1971 | Historical census tables | P, D | ❌ | Stage 2 |
+| DCS Census 2012 / 2001 / 1981 / 1971 | Historical census tables. 2012 DS (Abstract 2024 T2.7) and district 1871–2012 (T2.1) held; 2012 GN file held via nuuuwan mirror only ([dossier](sources/dcs-census-2012-and-history.md), 2026-11-15) | P, D | ❌ no terms found (R02, 2026-11-15) | Stage 2 (G06 done for DS 2012↔2024) |
 | Election Commission | Results by ED/PD; LG 2025 | P, W | ❌ | Stage 2 |
 | Local-authority boundaries | 341 LAs | ❓ | ❓ | Stage 2 |
 | MOH area boundaries | ~330–350 areas | ❓ (nuuuwan holds 330) | ❓ | Stage 2 |

@@ -1,0 +1,32 @@
+id: nuuuwan-lk-census-2012
+source: nuuuwan
+title: "lk_census_2012: Census 2012 GN-level tables parsed from DCS PDFs"
+landing_page: https://github.com/nuuuwan/lk_census_2012
+pipeline_module: slf.history
+schedule: manual
+geography_scheme: admin
+geography_vintage: "2012"
+reference_period: "2012"
+rights: inherit
+spatial:
+  support: area
+  scheme: admin
+  level: gn
+  vintage: "2012"
+  coverage: LK
+  measured_in: null
+  positional_accuracy: null
+  crs_source: not_applicable
+  resolution: null
+  information_unit: gn-2012
+  information_count: null
+  derived_by: null
+indicators: []
+cross_checks: []
+status: active
+notes: >
+  Repository MIT (code); the figures originate from DCS, so their rights follow DCS. Holds, per
+  topic, the DCS-authored source PDF, a raw parse and a parse with region ids. The region ids are
+  assigned by name matching to a later GN list, so they are not used: our own parse of the same PDF
+  matches GNs on DCS GN numbers (slf.history). Snapshotted at commit 8d8af05: population-gender
+  source.pdf and data.json. Cross-check and mirror only (D-008); see D-038.

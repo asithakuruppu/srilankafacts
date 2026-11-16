@@ -1,0 +1,39 @@
+id: census-district-series
+source: dcs
+title: "Population by district, census years 1871-2024 (Statistical Abstract and Census 2024 Final Report)"
+landing_page: https://www.statistics.gov.lk/abstract2024/chapter2
+pipeline_module: slf.history
+schedule: manual
+geography_scheme: admin
+geography_vintage: null
+reference_period: null
+rights: inherit
+spatial:
+  support: area
+  scheme: admin
+  level: district
+  vintage: null
+  coverage: LK
+  measured_in: null
+  positional_accuracy: null
+  crs_source: not_applicable
+  resolution: null
+  information_unit: district-as-published
+  information_count: null
+  derived_by: null
+indicators: []
+cross_checks: []
+status: active
+notes: >
+  Statistical Abstract 2024 Table 2.1 (population by district, census years 1871-2012, in
+  thousands, one decimal; snapshot raw/dcs/census-district-series/), transcribed by an agent from
+  the page image to catalog/references/dcs-abstract2024-table2.1-transcription.csv and checked
+  by machine: all 310 values occur verbatim in the PDF text layer, and each year's districts sum
+  to the national figure within rounding (largest gap 0.9 thousand, 1871). Census 2024 Final
+  Report Tables 3.1 (national 1871-2024) and 3.3 (district 1981, 2001, 2012, 2024, exact counts)
+  come from the existing census-2024-gnd-tables snapshot. District boundaries changed before 2001
+  (new districts in 1978 and 1984; Chilaw and Negombo existed earlier), so only 2001 (where not
+  estimated), 2012 and 2024 are labelled `exact` against 2024 districts; earlier years are
+  `approximate`. The Abstract's 1981 figures differ from Final Report Table 3.3 for some districts
+  (both shown, D-019). 2001 figures for seven Northern and Eastern districts are DCS estimates.
+  Not in any release; rights unclear. Method: docs/methods/boundary-change-2012-2024.md §5.

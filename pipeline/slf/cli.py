@@ -595,6 +595,76 @@ def audit_crosschecks(
         raise typer.Exit(1)
 
 
+history_app = typer.Typer(
+    help="Census history (G06): 2012->2024 DS change, district series.", no_args_is_help=True
+)
+app.add_typer(history_app, name="history")
+
+
+@history_app.command("snapshot")
+def history_snapshot() -> None:
+    """Snapshot the 2012 GN file (nuuuwan mirror), Abstract 2024 Tables 2.1 and 2.7."""
+    from slf import history
+    from slf.storage import from_env
+
+    for ref in history.snapshot(from_env()):
+        typer.echo(f"{'reused' if ref.reused else 'stored'} {ref.key} sha256={ref.sha256[:12]}")
+
+
+@history_app.command("build")
+def history_build(
+    pages: Annotated[
+        Path, typer.Option(help="Folder with gn2012/, abstract27/, abstract21/, fr2024/ text.")
+    ] = Path("./data/build/history/pdf-pages"),
+    catalog: Annotated[Path, typer.Option(help="Catalogue folder.")] = Path("../catalog"),
+    out_dir: Annotated[Path, typer.Option(help="Build folder.")] = Path("./data/build/history"),
+    qa_dir: Annotated[Path, typer.Option(help="Reviewable QA tables.")] = Path(
+        "../docs/qa/data/boundary-change-2012-2024"
+    ),
+) -> None:
+    """Classify DS changes 2012->2024, write relations, comparisons and the district series."""
+    from slf import history
+    from slf.storage import from_env
+
+    storage = from_env()
+    missing = [k for k in history.PDF_PAGES if not (pages / k).is_dir()]
+    if missing:
+        typer.echo("PDF page text missing; for each, run:", err=True)
+        for k in missing:
+            prefix, name, which = history.PDF_PAGES[k]
+            ref = history.latest_snapshot(storage, prefix, name)
+            typer.echo(
+                f"  swift scripts/pdf_pages.swift <data>/{ref.key} {pages / k} <pages: {which}>",
+                err=True,
+            )
+        raise typer.Exit(2)
+    result = history.run(storage, pages, catalog)
+    rel = catalog / "geographies" / "relations" / "succession_ds_2012-2024.csv"
+    for p in history.write(result, out_dir, rel, qa_dir):
+        typer.echo(f"wrote {p}")
+    c = result.checks
+    for year, src in (("2012", "gn_file"), ("2024", "gn_workbook")):
+        typer.echo(
+            f"{year}: {src} {c[f'national_{year}_{src}']:,}; Table 3.3 "
+            f"{c[f'national_{year}_table_3_3']:,}; DS sum {c[f'national_{year}_ds_sum']:,}"
+        )
+    typer.echo(
+        f"DS 2012: {c['ds_2012_count']} (Table 2.3: {c['ds_2012_count_table_2_3']}); "
+        f"in Abstract 2.7: {c['ds_2012_rows_in_abstract_2_7']}"
+    )
+    typer.echo(
+        "2012 unit change types: "
+        + str(result.result.units_2012["change_type"].value_counts().to_dict())
+    )
+    typer.echo(
+        "2024 unit change types: "
+        + str(result.result.units_2024["change_type"].value_counts().to_dict())
+    )
+    typer.echo(
+        "comparison labels: " + str(result.result.comparison["comparison"].value_counts().to_dict())
+    )
+
+
 @profile_app.command("smoothing-experiment")
 def profile_smoothing_experiment(
     observations: Annotated[Path, typer.Option(help="Census observations parquet.")] = Path(
