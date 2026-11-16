@@ -139,7 +139,7 @@ Disagreements between DCS's own tables (kept side by side, D-019):
 
 ## Not verified
 
-- The DCS original of the 2012 GN file (we hold a mirror; D-035). Its DS totals all agree with
+- The DCS original of the 2012 GN file (we hold a mirror; D-038). Its DS totals all agree with
   DCS's Abstract Table 2.7, and its district totals with the Final Report, so a corrupted copy is
   unlikely ❓, but GN-level rows have no independent DCS check.
 - Gazettes for the 2012–2024 DS creations, and whether any GN boundary moved without a GN

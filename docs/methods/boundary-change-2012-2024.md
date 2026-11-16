@@ -1,6 +1,6 @@
 # Method: DS boundary change 2012 → 2024, and the district census series
 
-Prompt G06 (v2) · Stage 2 history · written 2026-11-15 by an agent · decision D-035 (Proposed)
+Prompt G06 (v2) · Stage 2 history · written 2026-11-15 by an agent · decision D-038 (Proposed)
 QA report: [`docs/qa/boundary-change-2012-2024.md`](../qa/boundary-change-2012-2024.md) ·
 command: `uv run slf history snapshot` then `uv run slf history build` (in `pipeline/`)
 
@@ -18,7 +18,7 @@ divisions in each DS in 2012 and 2024, and labels every comparison `exact` or `a
 
 | Input | What it gives | Where it comes from |
 |---|---|---|
-| "Population by GN division and sex 2012" (PDF, 300 pages) | 25 district, 331 DS and 14,022 GN rows, with DCS GN numbers (e.g. `495B`) and population by sex; final 2012 figures (national 20,359,439) | Authored by DCS (PDF metadata: printed from `Population by GN and Sex 2012.xlsx`, 2015-05-06). **The DCS address was not found** ❌ on the live site or in the Web Archive; the copy used is the one in `nuuuwan/lk_census_2012` at commit `8d8af05` (D-035) |
+| "Population by GN division and sex 2012" (PDF, 300 pages) | 25 district, 331 DS and 14,022 GN rows, with DCS GN numbers (e.g. `495B`) and population by sex; final 2012 figures (national 20,359,439) | Authored by DCS (PDF metadata: printed from `Population by GN and Sex 2012.xlsx`, 2015-05-06). **The DCS address was not found** ❌ on the live site or in the Web Archive; the copy used is the one in `nuuuwan/lk_census_2012` at commit `8d8af05` (D-038) |
 | Statistical Abstract 2024, Table 2.7 | Population by DS division and sex, Census 2012, final | DCS, `statistics.gov.lk/abstract2024/CHAP2/2.7.pdf` |
 | Census 2024 GN workbook (`GN_population.xlsx`) | 14,008 GNs with DCS DS and GN codes, GN numbers, provisional 2024 population | DCS (already held for Census 2024) |
 | Census 2024 Final Report, Tables 2.1, 2.3, 2.4, 3.1, 3.3 | Number of DS and GNs by district (2012, 2024); district populations 1981–2024 | DCS (already held) |

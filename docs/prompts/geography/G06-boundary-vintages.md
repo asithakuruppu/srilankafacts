@@ -8,12 +8,12 @@
 To make change-over-time comparisons honest when DS (or GN) units were split, merged, renamed or
 adjusted between two censuses, and to keep a district census series with comparability labels.
 First run: FROM 2012 → TO 2024 at DS level (done 2026-11-15, see Deliverables). Re-run when DCS
-publishes a new census, a 2012↔2024 concordance, or the original 2012 GN file (D-035).
+publishes a new census, a 2012↔2024 concordance, or the original 2012 GN file (D-038).
 
 ## Read first
 - `AGENTS.md`
 - `docs/architecture/data-model.md` §3.3 (identity vs version; `succeeded_by`/`preceded_by`; comparison labels)
-- `docs/decisions/decision-log.md`: D-019 (conflicting sources shown), D-021 (edge tables), D-022 (provisional units, Kalmunai), D-030/D-032 (non-commercial publication), D-035 (2012 GN file via a mirror; vintage ids)
+- `docs/decisions/decision-log.md`: D-019 (conflicting sources shown), D-021 (edge tables), D-022 (provisional units, Kalmunai), D-030/D-032 (non-commercial publication), D-038 (2012 GN file via a mirror; vintage ids)
 - `docs/methods/boundary-change-2012-2024.md` (the method this prompt runs) and `docs/qa/boundary-change-2012-2024.md` (last run)
 - `docs/research/sources/dcs-census-2012-and-history.md` and `docs/research/rights/census-2012-and-history.md`
 - Code: `pipeline/slf/history.py`, `pipeline/tests/test_history.py`; the 2024 side reuses `slf.datasets.census_2024_gnd.parse_population` and the DS crosswalk `catalog/geographies/codes/dcs-census2024.csv`
@@ -30,7 +30,7 @@ LEVEL:        ds   (gn only if DCS publishes a GN concordance or boundaries for 
    stores the 2012 GN file from the pinned nuuuwan commit, Abstract 2024 Tables 2.1 and 2.7). The
    Census 2024 Final Report and GN workbook come from `census-2024-gnd-tables`. If a DCS address
    for the 2012 GN file is found, snapshot it under `raw/dcs/census-2012-tables/` and compare
-   sha256 with the mirror; record the result in the dossier and D-035. If rights are unclear,
+   sha256 with the mirror; record the result in the dossier and D-038. If rights are unclear,
    record that and do not publish (no `publication` block without a lead decision).
 2. **Extract page text** with `swift scripts/pdf_pages.swift <pdf> data/build/history/pdf-pages/<name> <pages>`
    for `gn2012` (all 300 pages), `abstract27` (1–6), `abstract21` (1), `fr2024` (60 63 64 67 69).
@@ -54,7 +54,7 @@ LEVEL:        ds   (gn only if DCS publishes a GN concordance or boundaries for 
 - Never present an approximate comparison as exact. A rename alone keeps `exact`; any split,
   transfer or unmatched GN makes the unit-level comparison `approximate`.
 - Don't reconstruct boundaries by drawing or from COD-AB/NSDI geometry; use DCS's GN lists.
-- 2012 GN-level values stay unpublished (D-035); they are used only to rebuild 2012 DS
+- 2012 GN-level values stay unpublished (D-038); they are used only to rebuild 2012 DS
   populations on 2024 boundaries.
 - Vintage ids `LK-ADM3-V2012-<district>-<order>` are only for retired units; never reuse them.
 - DCS 5224 Kalmunai keeps no spine id until D-022 is revisited; no relation is written for it.

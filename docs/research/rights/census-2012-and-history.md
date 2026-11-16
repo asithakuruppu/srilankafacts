@@ -26,7 +26,7 @@ Reviewed 2026-11-15 · Prompt R02 · Not legal advice.
 | Modification | Not addressed | Official figures are never altered; transcription and reaggregation are labelled |
 | Share-alike | Not addressed | — |
 | Compatibility with CC BY 4.0 output | Unknown | Depends on DCS |
-| Using nuuuwan's mirror as the carrier of a DCS document | MIT permits copying the repository; it says nothing about the DCS content | D-035 (Proposed); credit nuuuwan as the mirror |
+| Using nuuuwan's mirror as the carrier of a DCS document | MIT permits copying the repository; it says nothing about the DCS content | D-038 (Proposed); credit nuuuwan as the mirror |
 
 Catalogue: all three datasets `rights: inherit` from their sources, which stay `status: unclear`,
 `commercial_reuse: unknown`. None has a `publication` block, so the release builder refuses to

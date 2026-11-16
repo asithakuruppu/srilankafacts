@@ -20,5 +20,5 @@ Use: cross-check of our own DCS extraction (D01), never as authority.
 | `data.json` region ids (`LK-1103005` style) are given by matching names to a later GN list, not printed by DCS; `validation.json` lists the 9 DS divisions created after 2012 as missing | ✅ | read |
 | The DCS original of `source.pdf` is not on any DCS address we found | ❌ | [DCS 2012 dossier](dcs-census-2012-and-history.md) |
 
-Use: the `source.pdf` is used as a copy of a DCS document under D-035 (Proposed); our own parse
+Use: the `source.pdf` is used as a copy of a DCS document under D-038 (Proposed); our own parse
 replaces nuuuwan's. `data.json` is a cross-check only (D-008).

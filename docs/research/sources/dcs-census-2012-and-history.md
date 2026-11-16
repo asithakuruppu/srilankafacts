@@ -13,7 +13,7 @@ Tags: ✅ verified by reading or running · 🟡 claimed by a source, not checke
   2024, Table 2.7 (PDF, 331 DS rows, trilingual).
 - **2012 GN-level population is published as a DCS-authored PDF, but we could not find it on a
   DCS address** ❌. The copy held is the one mirrored by nuuuwan. Its DS totals agree with Table
-  2.7 in all 331 cases and its district totals with the 2024 Final Report ✅. Using it is D-035
+  2.7 in all 331 cases and its district totals with the 2024 Final Report ✅. Using it is D-038
   (Proposed).
 - **District populations 1871–2012** are published by DCS in Statistical Abstract 2024 Table 2.1
   (thousands) ✅, and 1981–2024 as exact counts in Census 2024 Final Report Table 3.3 ✅. The two
