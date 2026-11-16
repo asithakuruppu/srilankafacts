@@ -366,10 +366,8 @@ These were stated by you or are standing rules in [brainstorm-decisions.md](../b
 
 ---
 
----
-
 ## D-039: Election Commission results may be published non-commercially, with attribution and a notice (as D-030 for DCS)
-- **Status:** Proposed · 2026-11-15 (agent proposal; numbering leaves D-038 for the open census-history PR) · Builds on D-030
+- **Status:** Proposed · 2026-11-15 (agent proposal) · Builds on D-030
 - **Context:** The 2024 presidential results by polling division (PD) and electoral district (ED) are ingested and checked ([QA](../qa/election-results-pre-2024.md)). 7,593 of 7,644 sheet values are read; all agree with nuuuwan's extraction, and our ED and national sums match the Commission's own district and all-island sheets (879 of 879). The Commission publishes no terms of use ✅ ([rights memo](../research/rights/election-results.md) E1–E3). A letter asking for terms is drafted, not sent. Rights stay `unclear`, so the catalogue refuses publication.
 - **Decision (proposed):** the same position the lead took for DCS in D-030, applied to `election-results`:
   1. Attribution on every page, download and API response: "Source: Election Commission of Sri Lanka, Presidential Election 2024, official results by polling division and postal votes by electoral district (elections.gov.lk)."
