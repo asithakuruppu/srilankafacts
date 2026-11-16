@@ -294,7 +294,7 @@ These were stated by you or are standing rules in [brainstorm-decisions.md](../b
 - **Revisit when:** there is a proposed way to show folded GN cells; DCS publishes unfolded GN tables; or user testing asks for it.
 
 ## D-034: Downloads are served from Cloudflare R2 (r2.dev for now); the website is deployed to Vercel as a prebuilt build
-- **Status:** Proposed · 2026-11-14 (builds on D-007, D-030, D-032)
+- **Status:** Accepted · 2026-11-14 (proposed); accepted by the lead 2026-11-16 (builds on D-007, D-030, D-032)
 - **Context:** The first public release `v2026.11.14` (2.1 GB, 15,922 files, non-commercial per D-030 and D-032) is being uploaded with `slf upload`. The lead needs a place for the files and a way to show the website. The site reads the release from local files at build time (`SLF_RELEASE_DIR`), so a Vercel build from Git alone has no data.
 - **Decision:**
   - Release files live in the R2 bucket `srilankafacts-data` under `releases/<version>/`, public read through the bucket's `r2.dev` address for now. A custom domain comes later.
@@ -306,7 +306,7 @@ These were stated by you or are standing rules in [brainstorm-decisions.md](../b
 - **Revisit when:** the Vercel prebuilt deploy is tried and passes or fails on size; before launch (custom domain for R2, rate limits); or D-030 changes.
 
 ## D-035: Indicator drill-down charts are hand-written SVG; the hierarchy ships as a compact `hierarchy.json`
-- **Status:** Proposed · 2026-11-15 (builds on D-007, D-027, D-033)
+- **Status:** Accepted · 2026-11-15 (proposed); accepted by the lead 2026-11-16 (builds on D-007, D-027, D-033)
 - **Context:** `/indicators` was a text list. The lead wants charts that drill from the country to the GN division with dropdowns. D-007 leaves the chart library "pending spike"; no spike has run.
 - **Decision:**
   - `/indicators` gets a client-side explorer: indicator select, cascading province / district / DS / GN selects, a ranked bar chart and histogram of the next level down, and a "Show as table" under the charts. Bars are clickable to drill in. The server-rendered topic list stays on the page as the no-JS fallback (D-027).
@@ -352,7 +352,7 @@ These were stated by you or are standing rules in [brainstorm-decisions.md](../b
 - **Revisit when:** the lead reviews the weight and transformation; user testing shows the identity block dominates similar-place lists; DCS publishes unfolded GN tables.
 
 ## D-038: Census history: the 2012 GN file is used from a mirror; retired 2012 DS units get vintage ids; comparisons carry exact/approximate
-- **Status:** Proposed · 2026-11-15 (G06 v2; builds on D-008, D-019, D-021, D-022, data-model §3.3)
+- **Status:** Accepted · 2026-11-15 (proposed); accepted by the lead 2026-11-16 (G06 v2; builds on D-008, D-019, D-021, D-022, data-model §3.3)
 - **Context:** Comparing the 2012 and 2024 censuses by DS needs DCS's 2012 list of GNs in each DS. DCS publishes 2012 DS totals (Statistical Abstract 2024 Table 2.7), but the GN-level file ("Population by GN division and sex 2012", authored by DCS in 2015) could not be found on any DCS address, live or archived. The only copy found is in `nuuuwan/lk_census_2012`. D-008 makes nuuuwan a cross-check, not an authority. The 2012 file has no DS or GN codes, only names and DCS GN numbers, and 9 DS divisions were created between the censuses (331 → 340).
 - **Decision:**
   - Use the mirrored PDF as a copy of a **DCS document** (not as nuuuwan's data): snapshot it from a pinned commit, parse it ourselves, record the mirror in provenance, and accept it because every one of its 331 DS totals equals DCS's own Table 2.7 and every district total equals the 2024 Final Report. Its GN-level values are used only to classify DS changes and to rebuild 2012 populations on 2024 DS boundaries; they are **not published** at GN level. nuuuwan's own parse and ids are not used.
@@ -367,7 +367,7 @@ These were stated by you or are standing rules in [brainstorm-decisions.md](../b
 ---
 
 ## D-039: Election Commission results may be published non-commercially, with attribution and a notice (as D-030 for DCS)
-- **Status:** Proposed · 2026-11-15 (agent proposal) · Builds on D-030
+- **Status:** Accepted · 2026-11-15 (proposed); accepted by the lead 2026-11-16 (agent proposal) · Builds on D-030
 - **Context:** The 2024 presidential results by polling division (PD) and electoral district (ED) are ingested and checked ([QA](../qa/election-results-pre-2024.md)). 7,593 of 7,644 sheet values are read; all agree with nuuuwan's extraction, and our ED and national sums match the Commission's own district and all-island sheets (879 of 879). The Commission publishes no terms of use ✅ ([rights memo](../research/rights/election-results.md) E1–E3). A letter asking for terms is drafted, not sent. Rights stay `unclear`, so the catalogue refuses publication.
 - **Decision (proposed):** the same position the lead took for DCS in D-030, applied to `election-results`:
   1. Attribution on every page, download and API response: "Source: Election Commission of Sri Lanka, Presidential Election 2024, official results by polling division and postal votes by electoral district (elections.gov.lk)."
@@ -381,7 +381,7 @@ These were stated by you or are standing rules in [brainstorm-decisions.md](../b
 - **Revisit when:** the Commission replies; a lawyer reviews whether official results are protected at all ([memo](../research/rights/election-results.md) E7).
 
 ## D-040: Polling divisions have ids and results but no GN composition until an official list exists; nuuuwan's GN→PD list is internal QA only
-- **Status:** Proposed · 2026-11-15 (agent proposal)
+- **Status:** Accepted · 2026-11-15 (proposed); accepted by the lead 2026-11-16 (agent proposal)
 - **Context:** G05 needs each non-admin unit composed of GNs with weights. For the 22 EDs this is exact: each is one or more whole districts (Jaffna = Jaffna + Kilinochchi; Vanni = Mannar + Vavuniya + Mullaitivu; 🟡 secondary source, consistent with the register ✅ and with nuuuwan for 13,620 of 13,620 GNs ✅). For the 160 PDs:
   - no official GN list or PD boundary file with known rights is public ([rights memo](../research/rights/election-results.md));
   - nuuuwan's `gig-data` has a GN→PD list, but no licence and no stated origin;
@@ -397,7 +397,7 @@ These were stated by you or are standing rules in [brainstorm-decisions.md](../b
 - **Revisit when:** the Commission (or Survey Department) provides a GN list or boundaries with terms.
 
 ## D-041: Scanned PDFs may be read with on-device Vision OCR (macOS), with arithmetic checks, instead of a new Python dependency
-- **Status:** Proposed · 2026-11-15 (agent proposal; AGENTS rule 8)
+- **Status:** Accepted · 2026-11-15 (proposed); accepted by the lead 2026-11-16 (agent proposal; AGENTS rule 8)
 - **Context:** Many 2024 result sheets are scans; some have no text layer at all. The pipeline has no PDF or OCR library. The repo already uses `scripts/pdf_pages.swift` (PDFKit, macOS) for audits.
 - **Decision (proposed):** `pipeline/scripts/pdf_ocr.swift` (PDFKit text plus Apple Vision OCR: whole page, right half and votes column) produces page text in the build folder, compiled once by the pipeline. Nothing leaves the machine. Values are accepted only through checks on the sheet itself (printed percentages, totals, sum rules); anything unconfirmed is `not_available` and goes to a verification sheet. No new Python dependency. Extraction runs on macOS only; CI and tests use fixtures.
 - **Alternatives:** Tesseract or a Python OCR stack (new system and Python dependencies, unknown accuracy on these sheets); an external AI service (D02 allows it for statistical tables, but it adds cost and data transfer, and is not needed at 99.3% read with checks); manual entry (7,644 values).
