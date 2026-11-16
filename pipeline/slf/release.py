@@ -300,6 +300,14 @@ def _geographies(spine_dir: Path) -> tuple[pd.DataFrame, gpd.GeoDataFrame]:
     return geographies, versions
 
 
+def _non_spine_code_files(catalog_root: Path) -> dict[str, set[str]]:
+    """Code lists of schemes whose ids are not in the spine (D-040: `LK-ED-…`, `LK-PD-…`)."""
+    found: dict[str, set[str]] = {}
+    for path in sorted((catalog_root / "geographies" / "codes").glob("electoral-*.csv")):
+        found[path.name] = set(pd.read_csv(path, dtype=str)["geography_id"].tolist())
+    return found
+
+
 def _boundary_frames(
     versions: gpd.GeoDataFrame, geographies: pd.DataFrame
 ) -> dict[int, gpd.GeoDataFrame]:
@@ -849,10 +857,20 @@ def build_release(
 
     geographies, versions = _geographies(spine_dir)
     known = set(geographies["geography_id"])
-    unknown = sorted(set(observations["geography_id"]) - known)
+    other_codes = _non_spine_code_files(catalog_root)
+    other_ids = {geo for ids in other_codes.values() for geo in ids}
+    unknown = sorted(set(observations["geography_id"]) - known - other_ids)
     if unknown:
         result.errors.append(f"observations reference unknown geographies: {unknown[:10]}")
         return result
+    # Datasets with values on non-spine units (for example ED/PD, D-040) go to the observation
+    # downloads only: place files, per-level files, spatial context and the website are built
+    # from the spine, and these units are not in it yet.
+    off_spine = ~observations["geography_id"].isin(sorted(known))
+    downloads_datasets = sorted(set(observations.loc[off_spine, "dataset_id"].tolist()))
+    api_observations = pd.DataFrame(
+        observations[~observations["dataset_id"].isin(downloads_datasets)]
+    ).reset_index(drop=True)
 
     corrections_log = None
     if corrections_path is not None:
@@ -893,8 +911,15 @@ def build_release(
         spine_dir / "geography_versions.geoparquet", out / "geography_versions.geoparquet"
     )
 
+    code_files: list[str] = []
+    for name in sorted(other_codes):
+        rel = f"geographies/{name}"
+        (out / "geographies").mkdir(exist_ok=True)
+        shutil.copyfile(catalog_root / "geographies" / "codes" / name, out / rel)
+        code_files.append(rel)
+
     spatial = build_spatial_context(
-        observations=observations,
+        observations=api_observations,
         geographies=geographies,
         catalog=catalog,
         spine_dir=spine_dir,
@@ -913,7 +938,7 @@ def build_release(
         if packaged.errors:
             return result
         profiles = packaged
-    compared = _source_comparisons(observations, geographies, catalog_root, data_dir, out)
+    compared = _source_comparisons(api_observations, geographies, catalog_root, data_dir, out)
     result.warnings.extend(compared.warnings)
 
     qa_lines = [
@@ -948,6 +973,18 @@ def build_release(
             f"{differ} of {len(pairs)} place-indicator pairs differ between publishable sources; "
             "see `qa/source-comparisons.md`.",
         ]
+    if downloads_datasets:
+        qa_lines += [
+            "",
+            "## Downloads only",
+            "",
+            *[
+                f"- {d}: in `observations/{d}.parquet` and `.csv` only, with unit codes in "
+                "`geographies/`; not in place files, per-level files or the website, because "
+                "its units are not in the geography spine."
+                for d in downloads_datasets
+            ],
+        ]
     notices = release_notices(datasets)
     if preview:
         qa_lines += [
@@ -978,7 +1015,7 @@ def build_release(
         out,
         version=version,
         preview=preview,
-        observations=observations,
+        observations=api_observations,
         geographies=geographies,
         catalog=catalog,
         datasets=datasets,
@@ -1026,6 +1063,7 @@ def build_release(
         + spatial.files
         + (profiles.files if profiles is not None else [])
         + compared.files
+        + code_files
         + [
             geopackage_file,
             "geographies.parquet",

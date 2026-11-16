@@ -8,6 +8,15 @@ geography_scheme: electoral
 geography_vintage: ec-2024
 reference_period: "2024-09-21"
 rights: inherit
+# D-039 (Accepted 2026-11-16): the lead's non-commercial publication position, as D-030 for DCS. Not a
+# licence; rights stay unclear. Values stay machine_extracted; unread cells stay not_available.
+publication:
+  decision: D-039
+  use: non_commercial
+  attribution: "Source: Election Commission of Sri Lanka, Presidential Election 2024, official results by polling division and postal votes by electoral district (elections.gov.lk)."
+  notice: "The Election Commission has not published reuse terms; Sri Lanka Facts publishes these results non-commercially for public information, has asked for terms, and will correct or remove them on the Commission's request."
+  takedown_days: 7
+  decided: 2026-11-16
 spatial:
   support: area
   scheme: electoral

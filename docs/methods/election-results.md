@@ -49,6 +49,10 @@ All values are `machine_extracted`. The 74 values that are unread, withheld or d
 
 Counts, shares and turnout as published, with the Commission named on every page. No party-favourable colours, no "winner" language beyond the published count, and no inference about how groups of people voted. Linking results to census profiles is ecological and is labelled as such. Not publishable until a lead decision on rights (proposed D-039).
 
+## In releases
+
+Since `v2026.11.16-preview.1` (private), releases carry `observations/election-results.parquet` and `.csv` (D-039, non-commercial, with attribution and notice) and the ED/PD code list `geographies/electoral-ec-2024.csv`. Candidates are in the `breakdown` column (ballot number, name, party). Because ED and PD are not in the geography spine (D-040), the release builder keeps this dataset out of place files, per-level files, spatial context and the website; the release QA summary says so under "Downloads only". A website view needs a neutral results design first (live-events §3).
+
 ## Reproduce
 
 ```bash
