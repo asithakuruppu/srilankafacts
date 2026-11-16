@@ -1,0 +1,17 @@
+id: votes_rejected_share
+name: Rejected votes as a share of votes polled
+short_name: Rejected (%)
+topic: [elections]
+measure_type: share
+unit: percent
+universe: votes
+numerator: votes_rejected
+denominator: votes_polled
+aggregation: recompute_from_components
+higher_is: neutral
+decimals: 2
+sensitivity: public
+definition: >
+  votes_rejected divided by votes_polled, times 100, computed from the counts on the result sheet.
+source_definition_ref: "Election Commission result sheet, lines 'Number of Rejected Votes' and 'Number of Votes Polled'"
+methodology_notes: docs/methods/election-results.md

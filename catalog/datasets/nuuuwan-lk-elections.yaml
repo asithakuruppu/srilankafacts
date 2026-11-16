@@ -1,0 +1,29 @@
+id: nuuuwan-lk-elections
+source: nuuuwan
+title: "lk_elections: Sri Lankan election results by ED and PD (community extraction)"
+landing_page: https://github.com/nuuuwan/lk_elections
+pipeline_module: slf.datasets.election_results
+schedule: manual
+geography_scheme: electoral
+geography_vintage: null
+reference_period: null
+rights: inherit
+spatial:
+  support: area
+  scheme: electoral
+  level: polling_division
+  vintage: null
+  coverage: LK
+  measured_in: null
+  positional_accuracy: null
+  crs_source: not_applicable
+  resolution: null
+  information_unit: null
+  information_count: null
+  derived_by: null
+indicators: []
+cross_checks: []
+status: active
+notes: >
+  Cross-check only for election-results; never published or used as authority. The repository has no
+  licence (GitHub metadata, 2026-11-15). Ids EC-NN (ED), EC-NNX (PD), EC-NNP (postal votes of ED NN).

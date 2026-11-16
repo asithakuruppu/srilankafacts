@@ -1,0 +1,18 @@
+id: votes_valid
+name: Valid votes
+short_name: Valid votes
+topic: [elections]
+measure_type: count
+unit: votes
+universe: votes
+numerator: null
+denominator: null
+aggregation: sum
+higher_is: neutral
+decimals: 0
+sensitivity: public
+definition: >
+  Total number of valid votes, as printed on the result sheet. For the 2024 presidential election these
+  are first-preference votes.
+source_definition_ref: "Election Commission result sheet, line 'Total Number of Valid Votes'"
+methodology_notes: docs/methods/election-results.md

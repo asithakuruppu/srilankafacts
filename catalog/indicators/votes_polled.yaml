@@ -1,0 +1,17 @@
+id: votes_polled
+name: Votes polled
+short_name: Votes polled
+topic: [elections]
+measure_type: count
+unit: votes
+universe: votes
+numerator: null
+denominator: null
+aggregation: sum
+higher_is: neutral
+decimals: 0
+sensitivity: public
+definition: >
+  Number of votes polled (valid plus rejected), as printed on the result sheet.
+source_definition_ref: "Election Commission result sheet, line 'Number of Votes Polled'"
+methodology_notes: docs/methods/election-results.md

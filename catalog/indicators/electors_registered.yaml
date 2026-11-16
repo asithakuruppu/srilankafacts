@@ -1,0 +1,19 @@
+id: electors_registered
+name: Registered electors
+short_name: Registered electors
+topic: [elections]
+measure_type: count
+unit: persons
+universe: registered_electors
+numerator: null
+denominator: null
+aggregation: sum
+higher_is: neutral
+decimals: 0
+sensitivity: public
+definition: >
+  Number of registered electors as printed on the Election Commission's result sheet ("Number of
+  Registered Electors"). For a postal-vote result (one per electoral district) it is the number printed on
+  that sheet for postal voters, which is not part of any polling division's figure.
+source_definition_ref: "Election Commission result sheet, line 'Number of Registered Electors'"
+methodology_notes: docs/methods/election-results.md

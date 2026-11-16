@@ -1,0 +1,186 @@
+geography_id,related_id,relation,vintage,weight,method,source,valid_from,valid_to,notes
+LK-ED-01,LK11,composed_of,ec-2024,1.0,manual,election-results,,,"ED conterminous with its administrative district (Wikipedia, secondary); checked against nuuuwan's GN-to-ED assignment in QA"
+LK-ED-02,LK12,composed_of,ec-2024,1.0,manual,election-results,,,"ED conterminous with its administrative district (Wikipedia, secondary); checked against nuuuwan's GN-to-ED assignment in QA"
+LK-ED-03,LK13,composed_of,ec-2024,1.0,manual,election-results,,,"ED conterminous with its administrative district (Wikipedia, secondary); checked against nuuuwan's GN-to-ED assignment in QA"
+LK-ED-04,LK21,composed_of,ec-2024,1.0,manual,election-results,,,"ED conterminous with its administrative district (Wikipedia, secondary); checked against nuuuwan's GN-to-ED assignment in QA"
+LK-ED-05,LK22,composed_of,ec-2024,1.0,manual,election-results,,,"ED conterminous with its administrative district (Wikipedia, secondary); checked against nuuuwan's GN-to-ED assignment in QA"
+LK-ED-06,LK23,composed_of,ec-2024,1.0,manual,election-results,,,"ED conterminous with its administrative district (Wikipedia, secondary); checked against nuuuwan's GN-to-ED assignment in QA"
+LK-ED-07,LK31,composed_of,ec-2024,1.0,manual,election-results,,,"ED conterminous with its administrative district (Wikipedia, secondary); checked against nuuuwan's GN-to-ED assignment in QA"
+LK-ED-08,LK32,composed_of,ec-2024,1.0,manual,election-results,,,"ED conterminous with its administrative district (Wikipedia, secondary); checked against nuuuwan's GN-to-ED assignment in QA"
+LK-ED-09,LK33,composed_of,ec-2024,1.0,manual,election-results,,,"ED conterminous with its administrative district (Wikipedia, secondary); checked against nuuuwan's GN-to-ED assignment in QA"
+LK-ED-10,LK41,composed_of,ec-2024,1.0,manual,election-results,,,"Jaffna ED = Jaffna + Kilinochchi districts (Wikipedia 'Electoral districts of Sri Lanka', secondary); the register lists PD K Kilinochchi under ED 10"
+LK-ED-10,LK45,composed_of,ec-2024,1.0,manual,election-results,,,"Jaffna ED = Jaffna + Kilinochchi districts (Wikipedia 'Electoral districts of Sri Lanka', secondary); the register lists PD K Kilinochchi under ED 10"
+LK-ED-11,LK42,composed_of,ec-2024,1.0,manual,election-results,,,"Vanni ED = Mannar + Vavuniya + Mullaitivu districts (Wikipedia, secondary); the register lists PDs Mannar, Vavuniya and Mullaitivu under ED 11"
+LK-ED-11,LK43,composed_of,ec-2024,1.0,manual,election-results,,,"Vanni ED = Mannar + Vavuniya + Mullaitivu districts (Wikipedia, secondary); the register lists PDs Mannar, Vavuniya and Mullaitivu under ED 11"
+LK-ED-11,LK44,composed_of,ec-2024,1.0,manual,election-results,,,"Vanni ED = Mannar + Vavuniya + Mullaitivu districts (Wikipedia, secondary); the register lists PDs Mannar, Vavuniya and Mullaitivu under ED 11"
+LK-ED-12,LK51,composed_of,ec-2024,1.0,manual,election-results,,,"ED conterminous with its administrative district (Wikipedia, secondary); checked against nuuuwan's GN-to-ED assignment in QA"
+LK-ED-13,LK52,composed_of,ec-2024,1.0,manual,election-results,,,"ED conterminous with its administrative district (Wikipedia, secondary); checked against nuuuwan's GN-to-ED assignment in QA"
+LK-ED-14,LK53,composed_of,ec-2024,1.0,manual,election-results,,,"ED conterminous with its administrative district (Wikipedia, secondary); checked against nuuuwan's GN-to-ED assignment in QA"
+LK-ED-15,LK61,composed_of,ec-2024,1.0,manual,election-results,,,"ED conterminous with its administrative district (Wikipedia, secondary); checked against nuuuwan's GN-to-ED assignment in QA"
+LK-ED-16,LK62,composed_of,ec-2024,1.0,manual,election-results,,,"ED conterminous with its administrative district (Wikipedia, secondary); checked against nuuuwan's GN-to-ED assignment in QA"
+LK-ED-17,LK71,composed_of,ec-2024,1.0,manual,election-results,,,"ED conterminous with its administrative district (Wikipedia, secondary); checked against nuuuwan's GN-to-ED assignment in QA"
+LK-ED-18,LK72,composed_of,ec-2024,1.0,manual,election-results,,,"ED conterminous with its administrative district (Wikipedia, secondary); checked against nuuuwan's GN-to-ED assignment in QA"
+LK-ED-19,LK81,composed_of,ec-2024,1.0,manual,election-results,,,"ED conterminous with its administrative district (Wikipedia, secondary); checked against nuuuwan's GN-to-ED assignment in QA"
+LK-ED-20,LK82,composed_of,ec-2024,1.0,manual,election-results,,,"ED conterminous with its administrative district (Wikipedia, secondary); checked against nuuuwan's GN-to-ED assignment in QA"
+LK-ED-21,LK91,composed_of,ec-2024,1.0,manual,election-results,,,"ED conterminous with its administrative district (Wikipedia, secondary); checked against nuuuwan's GN-to-ED assignment in QA"
+LK-ED-22,LK92,composed_of,ec-2024,1.0,manual,election-results,,,"ED conterminous with its administrative district (Wikipedia, secondary); checked against nuuuwan's GN-to-ED assignment in QA"
+LK-ED-01,LK-PD-01A,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 1
+LK-ED-01,LK-PD-01B,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 1
+LK-ED-01,LK-PD-01C,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 1
+LK-ED-01,LK-PD-01D,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 1
+LK-ED-01,LK-PD-01E,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 1
+LK-ED-01,LK-PD-01F,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 1
+LK-ED-01,LK-PD-01G,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 1
+LK-ED-01,LK-PD-01H,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 1
+LK-ED-01,LK-PD-01I,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 1
+LK-ED-01,LK-PD-01J,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 1
+LK-ED-01,LK-PD-01K,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 1
+LK-ED-01,LK-PD-01L,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 1
+LK-ED-01,LK-PD-01M,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 1
+LK-ED-01,LK-PD-01N,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 1
+LK-ED-01,LK-PD-01O,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 1
+LK-ED-02,LK-PD-02A,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 2
+LK-ED-02,LK-PD-02B,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 2
+LK-ED-02,LK-PD-02C,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 2
+LK-ED-02,LK-PD-02D,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 2
+LK-ED-02,LK-PD-02E,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 2
+LK-ED-02,LK-PD-02F,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 2
+LK-ED-02,LK-PD-02G,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 2
+LK-ED-02,LK-PD-02H,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 2
+LK-ED-02,LK-PD-02I,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 2
+LK-ED-02,LK-PD-02J,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 2
+LK-ED-02,LK-PD-02K,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 2
+LK-ED-02,LK-PD-02L,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 2
+LK-ED-02,LK-PD-02M,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 2
+LK-ED-03,LK-PD-03A,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 3
+LK-ED-03,LK-PD-03B,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 3
+LK-ED-03,LK-PD-03C,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 3
+LK-ED-03,LK-PD-03D,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 3
+LK-ED-03,LK-PD-03E,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 3
+LK-ED-03,LK-PD-03F,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 3
+LK-ED-03,LK-PD-03G,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 3
+LK-ED-03,LK-PD-03H,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 3
+LK-ED-04,LK-PD-04A,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 4
+LK-ED-04,LK-PD-04B,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 4
+LK-ED-04,LK-PD-04C,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 4
+LK-ED-04,LK-PD-04D,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 4
+LK-ED-04,LK-PD-04E,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 4
+LK-ED-04,LK-PD-04F,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 4
+LK-ED-04,LK-PD-04G,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 4
+LK-ED-04,LK-PD-04H,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 4
+LK-ED-04,LK-PD-04I,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 4
+LK-ED-04,LK-PD-04J,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 4
+LK-ED-04,LK-PD-04K,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 4
+LK-ED-04,LK-PD-04L,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 4
+LK-ED-04,LK-PD-04M,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 4
+LK-ED-05,LK-PD-05A,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 5
+LK-ED-05,LK-PD-05B,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 5
+LK-ED-05,LK-PD-05C,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 5
+LK-ED-05,LK-PD-05D,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 5
+LK-ED-06,LK-PD-06A,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 6
+LK-ED-06,LK-PD-06B,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 6
+LK-ED-06,LK-PD-06C,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 6
+LK-ED-06,LK-PD-06D,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 6
+LK-ED-07,LK-PD-07A,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 7
+LK-ED-07,LK-PD-07B,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 7
+LK-ED-07,LK-PD-07C,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 7
+LK-ED-07,LK-PD-07D,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 7
+LK-ED-07,LK-PD-07E,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 7
+LK-ED-07,LK-PD-07F,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 7
+LK-ED-07,LK-PD-07G,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 7
+LK-ED-07,LK-PD-07H,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 7
+LK-ED-07,LK-PD-07I,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 7
+LK-ED-07,LK-PD-07J,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 7
+LK-ED-08,LK-PD-08A,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 8
+LK-ED-08,LK-PD-08B,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 8
+LK-ED-08,LK-PD-08C,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 8
+LK-ED-08,LK-PD-08D,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 8
+LK-ED-08,LK-PD-08E,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 8
+LK-ED-08,LK-PD-08F,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 8
+LK-ED-08,LK-PD-08G,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 8
+LK-ED-09,LK-PD-09A,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 9
+LK-ED-09,LK-PD-09B,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 9
+LK-ED-09,LK-PD-09C,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 9
+LK-ED-09,LK-PD-09D,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 9
+LK-ED-10,LK-PD-10A,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 10
+LK-ED-10,LK-PD-10B,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 10
+LK-ED-10,LK-PD-10C,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 10
+LK-ED-10,LK-PD-10D,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 10
+LK-ED-10,LK-PD-10E,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 10
+LK-ED-10,LK-PD-10F,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 10
+LK-ED-10,LK-PD-10G,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 10
+LK-ED-10,LK-PD-10H,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 10
+LK-ED-10,LK-PD-10I,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 10
+LK-ED-10,LK-PD-10J,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 10
+LK-ED-10,LK-PD-10K,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 10
+LK-ED-11,LK-PD-11A,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 11
+LK-ED-11,LK-PD-11B,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 11
+LK-ED-11,LK-PD-11C,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 11
+LK-ED-12,LK-PD-12A,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 12
+LK-ED-12,LK-PD-12B,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 12
+LK-ED-12,LK-PD-12C,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 12
+LK-ED-13,LK-PD-13A,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 13
+LK-ED-13,LK-PD-13B,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 13
+LK-ED-13,LK-PD-13C,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 13
+LK-ED-13,LK-PD-13D,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 13
+LK-ED-14,LK-PD-14A,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 14
+LK-ED-14,LK-PD-14B,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 14
+LK-ED-14,LK-PD-14C,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 14
+LK-ED-15,LK-PD-15A,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 15
+LK-ED-15,LK-PD-15B,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 15
+LK-ED-15,LK-PD-15C,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 15
+LK-ED-15,LK-PD-15D,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 15
+LK-ED-15,LK-PD-15E,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 15
+LK-ED-15,LK-PD-15F,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 15
+LK-ED-15,LK-PD-15G,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 15
+LK-ED-15,LK-PD-15H,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 15
+LK-ED-15,LK-PD-15I,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 15
+LK-ED-15,LK-PD-15J,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 15
+LK-ED-15,LK-PD-15K,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 15
+LK-ED-15,LK-PD-15L,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 15
+LK-ED-15,LK-PD-15M,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 15
+LK-ED-15,LK-PD-15N,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 15
+LK-ED-16,LK-PD-16A,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 16
+LK-ED-16,LK-PD-16B,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 16
+LK-ED-16,LK-PD-16C,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 16
+LK-ED-16,LK-PD-16D,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 16
+LK-ED-16,LK-PD-16E,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 16
+LK-ED-17,LK-PD-17A,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 17
+LK-ED-17,LK-PD-17B,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 17
+LK-ED-17,LK-PD-17C,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 17
+LK-ED-17,LK-PD-17D,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 17
+LK-ED-17,LK-PD-17E,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 17
+LK-ED-17,LK-PD-17F,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 17
+LK-ED-17,LK-PD-17G,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 17
+LK-ED-18,LK-PD-18A,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 18
+LK-ED-18,LK-PD-18B,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 18
+LK-ED-18,LK-PD-18C,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 18
+LK-ED-19,LK-PD-19A,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 19
+LK-ED-19,LK-PD-19B,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 19
+LK-ED-19,LK-PD-19C,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 19
+LK-ED-19,LK-PD-19D,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 19
+LK-ED-19,LK-PD-19E,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 19
+LK-ED-19,LK-PD-19F,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 19
+LK-ED-19,LK-PD-19G,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 19
+LK-ED-19,LK-PD-19H,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 19
+LK-ED-19,LK-PD-19I,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 19
+LK-ED-20,LK-PD-20A,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 20
+LK-ED-20,LK-PD-20B,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 20
+LK-ED-20,LK-PD-20C,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 20
+LK-ED-21,LK-PD-21A,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 21
+LK-ED-21,LK-PD-21B,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 21
+LK-ED-21,LK-PD-21C,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 21
+LK-ED-21,LK-PD-21D,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 21
+LK-ED-21,LK-PD-21E,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 21
+LK-ED-21,LK-PD-21F,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 21
+LK-ED-21,LK-PD-21G,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 21
+LK-ED-21,LK-PD-21H,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 21
+LK-ED-22,LK-PD-22A,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 22
+LK-ED-22,LK-PD-22B,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 22
+LK-ED-22,LK-PD-22C,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 22
+LK-ED-22,LK-PD-22D,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 22
+LK-ED-22,LK-PD-22E,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 22
+LK-ED-22,LK-PD-22F,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 22
+LK-ED-22,LK-PD-22G,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 22
+LK-ED-22,LK-PD-22H,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 22
+LK-ED-22,LK-PD-22I,parent,ec-2024,,official_list,election-results,,,register of electors 2016-2025 page 22

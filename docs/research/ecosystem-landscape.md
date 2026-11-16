@@ -18,7 +18,7 @@ Researched 2026-11-07 · Builds on [lanka-data-layer-audit.md](../lanka-data-lay
 | **Open Data Portal**, data.gov.lk (ICTA) | About 136 datasets in 2023 against a 2,000 target 🟡. Many tagged "License Not Specified" 🟡. Described as poor quality by LIRNEasia 🟡. | Downloads | Per dataset, often missing | Global Data Barometer 2022: Sri Lanka 16 vs global average 33 🟡. |
 | **NSDI** (ICTA with Survey Department) | Geoportal and metadata catalogue. 130+ layers from 27+ organisations 🟡. ArcGIS REST boundaries service live, max 1,000 records per query ✅. | WMS / ArcGIS REST | **No licence text** on the service ✅. A national data-sharing policy was designed, with pricing and custodianship elements 🟡; adopted text not found ❓. | Useful cross-check. GN codes are empty for all 14,051 features ✅. |
 | **Survey Department** | Authoritative boundaries and 1:50k topographic data. Source of COD-AB 🟡. | On request; MOUs for government 🟡 | "Free with restrictions" 🟡 | Contact for boundary currency questions. |
-| **Election Commission** | Results by electoral district (22) and polling division (160) | PDF / web | Not checked | Already parsed in nuuuwan's `elections_lk` 🟡. |
+| **Election Commission** | Results by electoral district (22) and polling division (160) ✅ | PDF / web (many result sheets are scans) ✅ | No terms found ✅ ([memo](rights/election-results.md)) | 2024 presidential results ingested and checked ([dossier](sources/election-commission.md), [QA](../qa/election-results-pre-2024.md)). nuuuwan's `lk_elections` agrees on 7,593 of 7,593 values ✅. |
 | **Local government** | 341 local authorities; 339 elected on 6 May 2025 (28 MC, 36 UC, 275 PS) 🟡 | — | — | Local authority areas don't nest within DS divisions. The crosswalk is needed. |
 | **Epidemiology Unit / National Dengue Control Unit** | Weekly Epidemiological Reports; dengue by MOH area 🟡 | PDF / web | Not checked | MOH-level data is used by the academic Sri Lanka Dengue Atlas 🟡. |
 | Ministry of Finance / Treasury | Budget estimates, activity budgets, fiscal reports | PDF | Not checked | LDF and nuuuwan both archive these ✅. |
@@ -110,7 +110,7 @@ A starting list for `catalog/sources/` (prompt R01 creates one YAML file per sou
 | HDX COD-AB (Survey Dept) | Admin boundaries 0–4 | D | ✅ CC BY-IGO (HDX licence field, 2026-11-07) | **Stage 0** (spine v0 built) |
 | NSDI ArcGIS REST | Boundaries (cross-check) | A | ❌ empty copyright field; ask | Stage 0 (check only; compared in G02/G03) |
 | DCS Census 2012 / 2001 / 1981 / 1971 | Historical census tables. 2012 DS (Abstract 2024 T2.7) and district 1871–2012 (T2.1) held; 2012 GN file held via nuuuwan mirror only ([dossier](sources/dcs-census-2012-and-history.md), 2026-11-15) | P, D | ❌ no terms found (R02, 2026-11-15) | Stage 2 (G06 done for DS 2012↔2024) |
-| Election Commission | Results by ED/PD; LG 2025 | P, W | ❌ | Stage 2 |
+| Election Commission | Results by ED/PD; LG 2025 | P, W | ❌ (no terms, 2026-11-15) | Stage 2: presidential 2024 ingested (not published) |
 | Local-authority boundaries | 341 LAs | ❓ | ❓ | Stage 2 |
 | MOH area boundaries | ~330–350 areas | ❓ (nuuuwan holds 330) | ❓ | Stage 2 |
 | DCS HIES / poverty | Poverty by district; DS-level estimates if published | P | ❌ | Stage 3 |

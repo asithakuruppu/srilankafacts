@@ -1,16 +1,23 @@
-# Seed entry (F02). Status of rights is checked by R02; never invent licences or contacts.
+# R01/R02 checked 2026-11-15 (docs/research/sources/election-commission.md, docs/research/rights/election-results.md).
 id: election-commission
 name: Election Commission of Sri Lanka
 publisher_type: government
-homepage: null
+homepage: https://elections.gov.lk
 contact: null
 access_classes: [pdf, web_query]
 rights:
   status: unclear
   licence: null
   commercial_reuse: unknown
-  attribution: null
-  evidence: []
-  last_reviewed: 2026-11-07
+  attribution: "Source: Election Commission of Sri Lanka (elections.gov.lk)"
+  evidence:
+    - "https://elections.gov.lk/indexEn.html (no terms, copyright or licence text found, 2026-11-15)"
+    - "https://elections.gov.lk/si/elections/PRE_2024_Results.html (no terms found, 2026-11-15)"
+    - "Result PDFs 1_B.pdf and 1_PV.pdf and the register of electors 2016-2025: no copyright or reuse notice (2026-11-15)"
+  last_reviewed: 2026-11-15
 notes: >
-  Primary source for election results (Stage 2). Homepage not yet recorded.
+  Primary source for election results (Stage 2). No reuse terms found; letter drafted
+  (docs/outreach/2026-11-15-election-commission-results-and-gn-lists.md). Python's default CA store
+  rejects elections.gov.lk; the pipeline verifies it with the certifi bundle. results.elections.gov.lk
+  was unreachable on 2026-11-15. Contact page: https://elections.gov.lk/en/contactus/contactus_election_commission_E.html
+  (address to be chosen by the lead).

@@ -686,3 +686,70 @@ def profile_smoothing_experiment(
     out.write_text(json.dumps(results, indent=1) + "\n", encoding="utf-8")
     typer.echo(profile_smoothing.render(results))
     typer.echo(f"wrote {out}")
+
+
+electoral_app = typer.Typer(help="Electoral geography commands (G05, scheme electoral).")
+app.add_typer(electoral_app, name="electoral")
+
+
+@electoral_app.command("build")
+def electoral_build(
+    spine_dir: Annotated[Path, typer.Option(help="Geography spine build.")] = Path(
+        "./data/build/geography-spine"
+    ),
+    census_dir: Annotated[
+        list[Path], typer.Option(help="Census build folders with observations.parquet.")
+    ] = [  # noqa: B006
+        Path("./data/build/census-2024-gnd-tables"),
+        Path("./data/build/census-2024-topic-tables"),
+    ],
+    results: Annotated[Path, typer.Option(help="election-results observations.")] = Path(
+        "./data/build/election-results/observations.parquet"
+    ),
+    catalog: Annotated[Path, typer.Option(help="Catalogue folder.")] = Path("../catalog"),
+    out_dir: Annotated[Path, typer.Option(help="Where to write the build.")] = Path(
+        "./data/build/electoral"
+    ),
+) -> None:
+    """Write ED/PD codes and relations to the catalogue; run G05 checks and denominators.
+
+    Needs `slf snapshot election-results` (for the register) and its page text. Anything derived
+    from nuuuwan's gig-data stays in the build folder (no licence; internal QA only).
+    """
+    import pandas as pd
+
+    from slf.datasets import election_snapshot as snap
+    from slf.datasets import electoral_geography as eg
+    from slf.datasets.election_results import build_dir
+
+    storage = from_env()
+    register = snap.latest(storage, snap.REGISTER_FILE)
+    text_root = build_dir() / snap.DATASET_ID / "text"
+    problems = snap.extract_text([register], storage, text_root)
+    reg = eg.parse_register(snap.page_texts(snap.text_dir(text_root, register)))
+    for p in problems + reg.problems:
+        typer.echo(f"register: {p}", err=True)
+    if problems or reg.problems:
+        raise typer.Exit(1)
+    for path in eg.write_catalog(reg, register, catalog):
+        typer.echo(f"wrote {path}")
+    obs = pd.read_parquet(results)
+    electors = obs[(obs["indicator_id"] == "electors_registered") & obs["breakdown"].isna()]
+    result = eg.build(
+        storage,
+        reg,
+        spine_dir,
+        census_dir,
+        catalog,
+        {
+            str(g): float(v)
+            for g, v in zip(electors["geography_id"], electors["value"], strict=True)
+        },
+        out_dir,
+    )
+    for p in result.outputs:
+        typer.echo(f"wrote {p}")
+    for e in result.errors:
+        typer.echo(f"error: {e}", err=True)
+    if result.errors:
+        raise typer.Exit(1)
