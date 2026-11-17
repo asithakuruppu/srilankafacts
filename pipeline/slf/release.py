@@ -21,8 +21,10 @@ from pathlib import Path
 from typing import Any
 
 import geopandas as gpd
+import numpy as np
 import pandas as pd
 import pyogrio
+import shapely
 
 from slf import corrections, profile_release, sources
 from slf.catalog import (
@@ -45,6 +47,14 @@ LEVEL_NAMES = {
     4: "gn",
 }
 
+# Shared-edge simplification (D-043), in metres in EPSG:5235. GN divisions are simplified as
+# one coverage; DS divisions likewise, and districts, provinces and the country are dissolved
+# from the simplified DS divisions, so neighbours never overlap or leave gaps.
+COVERAGE_CRS = 5235
+COVERAGE_TOLERANCE_M = {3: 150.0, 4: 60.0}
+COVERAGE_DECIMALS = 6
+
+# Per-polygon fallback (degrees), used only for units the coverage cannot supply.
 SIMPLIFY_TOLERANCE = {
     0: 0.001,
     1: 0.01,
@@ -308,9 +318,62 @@ def _non_spine_code_files(catalog_root: Path) -> dict[str, set[str]]:
     return found
 
 
+def _coverage_geometries(
+    versions: gpd.GeoDataFrame, parent_by_id: dict[str, str | None], notes: list[str]
+) -> dict[int, dict[str, Any]]:
+    """Simplified geometry per level with identical shared edges, keyed by geography id.
+
+    Returns {} when the GN divisions are missing or are not a valid coverage; the caller then
+    falls back to simplifying each polygon on its own.
+    """
+    current = versions[versions["status"].isna() | (versions["status"] == "current")]
+    gn = gpd.GeoDataFrame(current[current["level"] == 4])
+    if len(gn) == 0 or gn.crs is None:
+        return {}
+    metric = gn.to_crs(COVERAGE_CRS)
+    gn_ids = [str(value) for value in metric["geography_id"]]
+    gn_geoms = np.asarray(metric.geometry.values, dtype=object)
+    if any(parent_by_id.get(g) is None for g in gn_ids):
+        return {}
+    if not bool(shapely.coverage_is_valid(gn_geoms)):
+        notes.append("boundaries: GN divisions are not a valid coverage; simplified per polygon")
+        return {}
+
+    def dissolve(geoms: Any, keys: list[str]) -> dict[str, Any]:
+        frame = gpd.GeoDataFrame({"key": keys}, geometry=list(geoms), crs=COVERAGE_CRS)
+        grouped = frame.dissolve(by="key")
+        return {str(k): g for k, g in zip(grouped.index, grouped.geometry, strict=True)}
+
+    def publish(items: dict[str, Any]) -> dict[str, Any]:
+        keys = sorted(items)
+        series = gpd.GeoSeries([items[k] for k in keys], crs=COVERAGE_CRS).to_crs(4326)
+        rounded = [
+            shapely.transform(g, lambda c: np.round(c, COVERAGE_DECIMALS)) for g in series.values
+        ]
+        return dict(zip(keys, rounded, strict=True))
+
+    levels: dict[int, dict[str, Any]] = {}
+    gn_simple = shapely.coverage_simplify(gn_geoms, COVERAGE_TOLERANCE_M[4])
+    levels[4] = dict(zip(gn_ids, gn_simple, strict=True))
+    ds_full = dissolve(gn_geoms, [str(parent_by_id[g]) for g in gn_ids])
+    ds_ids = sorted(ds_full)
+    ds_simple = shapely.coverage_simplify(
+        np.asarray([ds_full[k] for k in ds_ids], dtype=object), COVERAGE_TOLERANCE_M[3]
+    )
+    levels[3] = dict(zip(ds_ids, ds_simple, strict=True))
+    for level in (2, 1, 0):
+        below = levels[level + 1]
+        keys = [parent_by_id.get(k) for k in below]
+        if any(k is None for k in keys):
+            return {}
+        levels[level] = dissolve(list(below.values()), [str(k) for k in keys])
+    return {level: publish(items) for level, items in levels.items()}
+
+
 def _boundary_frames(
-    versions: gpd.GeoDataFrame, geographies: pd.DataFrame
+    versions: gpd.GeoDataFrame, geographies: pd.DataFrame, notes: list[str] | None = None
 ) -> dict[int, gpd.GeoDataFrame]:
+    notes = [] if notes is None else notes
     geo_records = _records(geographies)
     parent_by_id = {
         str(row["geography_id"]): (
@@ -322,11 +385,26 @@ def _boundary_frames(
     }
     name_by_id = {str(row["geography_id"]): row for row in geo_records}
     frames: dict[int, gpd.GeoDataFrame] = {}
+    coverage = _coverage_geometries(versions, parent_by_id, notes)
     for level in sorted({int(value) for value in versions["level"].tolist()}):
         frame = versions[versions["level"] == level].copy()
         tolerance = SIMPLIFY_TOLERANCE.get(level, 0.0)
-        if tolerance:
-            frame["geometry"] = frame.geometry.simplify(tolerance, preserve_topology=True)
+        shared = coverage.get(level, {})
+        fallback = (
+            frame.geometry.simplify(tolerance, preserve_topology=True)
+            if tolerance
+            else frame.geometry
+        )
+        frame["geometry"] = [
+            shared.get(str(geo), own)
+            for geo, own in zip(frame["geography_id"], fallback, strict=True)
+        ]
+        missing = [str(geo) for geo in frame["geography_id"] if str(geo) not in shared]
+        if shared and missing:
+            notes.append(
+                f"boundaries: level {level}: {len(missing)} units simplified on their own "
+                f"(not in the GN coverage): {', '.join(missing[:10])}"
+            )
         frame["name_en"] = [
             name_by_id.get(str(geo), {}).get("name_en") for geo in frame["geography_id"]
         ]
@@ -903,7 +981,7 @@ def build_release(
         rows.to_csv(csv_path, index=False, lineterminator="\n")
         observation_files.append(f"{rel_base}.csv")
 
-    boundary_frames = _boundary_frames(versions, geographies)
+    boundary_frames = _boundary_frames(versions, geographies, result.warnings)
     boundary_files = _boundary_files(boundary_frames, out)
     geopackage_file = _geopackage(boundary_frames, out, version)
     shutil.copyfile(spine_dir / "geographies.parquet", out / "geographies.parquet")

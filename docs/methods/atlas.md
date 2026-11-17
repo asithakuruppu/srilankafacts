@@ -135,3 +135,10 @@ uv run slf atlas export --release-dir data/build/releases-preview/<release> \
 ```
 
 Then `pnpm dev` or `pnpm build` in `web/` (the `predev`/`prebuild` step copies the bundle).
+
+## Additions, 2026-11-17 (Phase 1)
+
+- **Release boundaries (D-043).** The release builder now uses the same shared-edge method, so `/explore`, indicator and place-page maps and the GeoPackage have no seams. Before and after, by level, are in the decision entry.
+- **Small numbers (D-026).** `clusters/<indicator>.json` also lists, per level, the units whose denominator is under 100, with the denominator and the empirical Bayes smoothed value from the release's `stats/` tables. The panel shows the published figure first, a "small number" note, and the smoothed value labelled as modelled.
+- **Change totals.** `change.json` carries totals for districts, provinces and the country: sums of the DS rows, placed through the hierarchy by id (DCS district code → the parent of that district's DS rows; never by name). Rows with no map unit (Kalmunai, DCS 5224) are counted in the totals and named in the panel. Check: the 2012 national sum is 20,359,439.
+- **Report a problem.** The footer shows a link only when `NEXT_PUBLIC_REPORT_URL` is set; the lead chooses the channel.

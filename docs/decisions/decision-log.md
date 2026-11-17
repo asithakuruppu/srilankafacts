@@ -422,6 +422,16 @@ These were stated by you or are standing rules in [brainstorm-decisions.md](../b
 
 ---
 
+## D-043: Release boundaries are simplified as a coverage, so neighbours share identical edges
+- **Status:** Proposed · 2026-11-17 (agent proposal, acted on under the lead's instruction of 2026-11-17 to follow recommended decisions; follows D-042)
+- **Context:** The release builder simplified each polygon on its own. In `v2026.11.17-preview.2` that left overlaps between neighbours of 100 km² (provinces), 61 km² (districts), 130 km² (DS) and 458 km² (GN), and false gaps of similar size. D-042 fixed this for the atlas only.
+- **Decision:** `slf release` simplifies the GN divisions as one coverage (60 m, EPSG:5235) and the DS divisions as one coverage (150 m); districts, provinces and the country are dissolved from the simplified DS divisions. Coordinates are rounded to 6 decimals. Units outside the GN coverage (today only the provisional `LK-ADM3-P0001`) keep per-polygon simplification and are listed in the release warnings. Areas, adjacency and every statistic still come from the full-resolution spine.
+- **Alternatives:** keep per-polygon simplification (rejected: visible seams, wrong point-in-polygon answers near borders); publish full-resolution boundaries (rejected: about 60 MB for the web).
+- **Consequences:** every `boundaries/*.geojson` and `geographies.gpkg` checksum changes from `v2026.11.17-preview.3`. Measured there: 0 km² overlap at levels 0, 1, 2 and 4; 12.75 km² at level 3, all of it the provisional unit lying over its parent, as designed (D-022); remaining holes are the 83.7 km² already in COD-AB. `admin4` grows from 11.8 MB to 16.1 MB. Higher levels are now built from GN polygons, not from COD-AB's own higher-level polygons.
+- **Revisit when:** boundary vintages are added; PMTiles replace GeoJSON; the lead or a GIS reviewer objects to dissolved higher levels.
+
+---
+
 ## Template
 
 ```markdown

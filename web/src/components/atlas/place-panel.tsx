@@ -369,6 +369,10 @@ function GeographyLens(props: Props & { place: Place | null }) {
       clusters?.[subjectLevel]?.[name]?.includes(subject),
   );
   const observation = place?.values.find((value) => value.indicator_id === indicator.id) ?? null;
+  const small =
+    subjectLevel === "district" || subjectLevel === "ds" || subjectLevel === "gn"
+      ? (clusters?.[subjectLevel]?.small?.[subject] ?? null)
+      : null;
 
   const markers: Marker[] = [];
   if (own !== null) {
@@ -415,6 +419,16 @@ function GeographyLens(props: Props & { place: Place | null }) {
                 {ordinal(rank.rank)} highest of {formatNumber(rank.total)}{" "}
                 {LEVEL_PLURAL_TEXT[subjectLevel]} with a value. A position, not a
                 judgement.
+              </p>
+            ) : null}
+            {small ? (
+              <p className="atlas-note" data-testid="small-number-note">
+                <span className="tag">small number</span> This figure rests on{" "}
+                {small[0] === null ? "fewer than 100" : formatNumber(small[0])} people or
+                households, so it can swing widely by chance.
+                {small[1] !== null
+                  ? ` A smoothed estimate, which leans on the wider pattern, is ${format(small[1])}; it is modelled, not a census figure.`
+                  : ""}
               </p>
             ) : null}
           </>
@@ -1026,8 +1040,32 @@ function ChangeLens(props: Props) {
     );
   }
 
+  const total = change.areas?.find((item) => item.id === subject) ?? null;
+
   return (
     <>
+      {total ? (
+        <section className="atlas-section atlas-headline" data-testid="change-area-total">
+          <p className="atlas-kicker">Population, census 2012 to census 2024</p>
+          <p className="atlas-figure">
+            {total.growth_pct > 0 ? "+" : ""}
+            {total.growth_pct}%
+          </p>
+          <p className="atlas-rank">
+            {persons(total.pop_2012)} in 2012, {persons(total.pop_2024)} in 2024: the sum of{" "}
+            {total.ds_rows} DS divisions.
+            {total.approximate > 0
+              ? ` ${total.approximate} of them changed their GN lists, which moves people between divisions but not out of this total unless a GN crossed its border.`
+              : ""}
+          </p>
+          {change.not_mapped?.length ? (
+            <p className="atlas-note">
+              Counted in the totals but not drawn on the map, because the boundary source has no
+              unit for it: {change.not_mapped.join(", ")}.
+            </p>
+          ) : null}
+        </section>
+      ) : null}
       {subjectLevel === "country" ? (
         <section className="atlas-section">
           <p className="atlas-kicker">Sri Lanka at each census, {series[0]?.year} to {series[series.length - 1]?.year}</p>

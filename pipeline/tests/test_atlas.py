@@ -133,3 +133,29 @@ def test_adjacency_is_symmetric_and_keeps_the_kind(tmp_path: Path) -> None:
     assert graph["LK12"] == [["LK11", 0]]
     assert graph["LK13"] == [["LK11", 1]]
     assert summary["pairs"] == {"district": 2}
+
+
+def test_release_boundaries_share_edges(tmp_path: Path) -> None:
+    """Release boundaries are simplified as a coverage: neighbours never overlap (D-043)."""
+    import geopandas as gpd
+    import pandas as pd
+
+    from slf.release import _boundary_frames
+
+    spine = _spine(tmp_path)
+    geographies = pd.read_parquet(spine / "geographies.parquet")
+    versions = gpd.GeoDataFrame(gpd.read_parquet(spine / "geography_versions.geoparquet"))
+    versions["status"] = "current"
+    geographies["name_si"] = None
+    geographies["name_ta"] = None
+    notes: list[str] = []
+    frames = _boundary_frames(versions, geographies, notes)
+    assert notes == []
+    total = {
+        level: float(frame.to_crs(5235).geometry.area.sum()) for level, frame in frames.items()
+    }
+    for level, frame in frames.items():
+        union = frame.to_crs(5235).geometry.union_all()
+        # Rounding to 6 decimals moves vertices by centimetres; allow one part in 10,000.
+        assert abs(total[level] - union.area) < total[level] * 1e-4, level
+    assert abs(total[0] - total[4]) < total[4] * 1e-4

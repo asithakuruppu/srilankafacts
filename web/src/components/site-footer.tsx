@@ -4,6 +4,8 @@ import { getLatest } from "@/lib/release";
 
 export default function SiteFooter() {
   const latest = getLatest();
+  // The lead chooses the channel (an issue tracker or a mailto: address); unset hides the link.
+  const reportUrl = process.env.NEXT_PUBLIC_REPORT_URL || null;
   return (
     <footer className="site-footer">
       <div className="shell footer-grid">
@@ -35,6 +37,13 @@ export default function SiteFooter() {
             <li>
               <Link href="/corrections">Corrections</Link>
             </li>
+            {reportUrl ? (
+              <li>
+                <a href={reportUrl} rel="noopener">
+                  Report a problem
+                </a>
+              </li>
+            ) : null}
           </ul>
         </div>
         <div>

@@ -403,19 +403,35 @@ def build_adjacency(spine_dir: Path, out_dir: Path) -> dict[str, Any]:
 def build_clusters(release_dir: Path, out_dir: Path) -> dict[str, Any]:
     """Sparse local Moran classes (q <= 0.05 only) per indicator and level, from stats/."""
     stats = release_dir / "stats"
-    by_indicator: dict[str, dict[str, dict[str, list[str]]]] = {}
+    by_indicator: dict[str, dict[str, dict[str, Any]]] = {}
     files = 0
+    small_units = 0
     for path in sorted(stats.glob("local_*.parquet")):
         stem = path.stem.removeprefix("local_")
         indicator, _, level = stem.rpartition("_")
         if level not in ("gn", "ds", "district"):
             continue
-        table = pd.read_parquet(path, columns=["geography_id", "class"])
-        classes = {
+        table = pd.read_parquet(path)
+        classes: dict[str, Any] = {
             name: sorted(str(v) for v in table.loc[table["class"] == name, "geography_id"])
             for name in CLUSTER_CLASSES
         }
-        by_indicator.setdefault(indicator, {})[level] = {k: v for k, v in classes.items() if v}
+        entry: dict[str, Any] = {k: v for k, v in classes.items() if v}
+        if "small_denominator" in table.columns:
+            flagged = pd.DataFrame(table[table["small_denominator"].fillna(False).astype(bool)])
+            small = {
+                str(row["geography_id"]): [
+                    None if pd.isna(row["denominator"]) else float(row["denominator"]),
+                    None
+                    if pd.isna(row["smoothed_value"])
+                    else round(float(row["smoothed_value"]), 4),
+                ]
+                for row in _rows(flagged)
+            }
+            if small:
+                entry["small"] = dict(sorted(small.items()))
+                small_units += len(small)
+        by_indicator.setdefault(indicator, {})[level] = entry
         files += 1
     for indicator, payload in by_indicator.items():
         _dump(out_dir / "clusters" / f"{indicator}.json", payload)
@@ -423,8 +439,11 @@ def build_clusters(release_dir: Path, out_dir: Path) -> dict[str, Any]:
         "method": (
             "Local Moran's I classes from the release's stats/ tables (999 permutations, "
             "Benjamini-Hochberg q <= 0.05). Only significant units are listed. A class is a "
-            "spatial-association label, not a causal finding."
+            "spatial-association label, not a causal finding. `small` lists units whose "
+            "denominator is under the D-026 threshold as [denominator, empirical Bayes smoothed "
+            "value]; the smoothed value is a modelled estimate, shown beside the published one."
         ),
+        "small_denominator_units": small_units,
         "indicators": len(by_indicator),
         "stats_files_read": files,
     }
@@ -528,8 +547,42 @@ def build_change(history_dir: Path, spine_dir: Path, out_dir: Path) -> dict[str,
     series = history_dir / "district_census_series.csv"
     if not comparison.exists():
         return {"available": False, "reason": "no history build found"}
-    table = pd.read_csv(comparison, dtype={"geography_id": "string"})
-    valid = set(pd.read_parquet(spine_dir / "geographies.parquet")["geography_id"].astype(str))
+    table = pd.read_csv(comparison, dtype={"geography_id": "string", "district_code": "string"})
+    spine = pd.read_parquet(spine_dir / "geographies.parquet")
+    valid = set(spine["geography_id"].astype(str))
+    parent = {
+        str(row["geography_id"]): (None if pd.isna(row["parent_id"]) else str(row["parent_id"]))
+        for row in _rows(spine)
+    }
+    # DCS district code -> spine district, taken from the parents of the DS rows that have a
+    # spine id (an id join through the hierarchy, never a name join).
+    district_of_code: dict[str, set[str]] = {}
+    for row in _rows(table):
+        gid = None if pd.isna(row["geography_id"]) else str(row["geography_id"])
+        if gid is not None and gid in valid and parent.get(gid):
+            district_of_code.setdefault(str(row["district_code"]), set()).add(str(parent[gid]))
+    totals: dict[str, dict[str, Any]] = {}
+    unplaced: list[str] = []
+    for row in _rows(table):
+        districts = district_of_code.get(str(row["district_code"]), set())
+        if len(districts) != 1 or pd.isna(row["pop_2012"]) or pd.isna(row["pop_2024"]):
+            unplaced.append(str(row["ds_name"]))
+            continue
+        district = next(iter(districts))
+        for area in (district, parent.get(district), "LK"):
+            if area is None:
+                continue
+            item = totals.setdefault(
+                area, {"id": area, "pop_2012": 0, "pop_2024": 0, "ds_rows": 0, "approximate": 0}
+            )
+            item["pop_2012"] += int(row["pop_2012"])
+            item["pop_2024"] += int(row["pop_2024"])
+            item["ds_rows"] += 1
+            item["approximate"] += int(str(row["comparison"]) != "exact")
+    areas = []
+    for item in sorted(totals.values(), key=lambda v: v["id"]):
+        growth = (item["pop_2024"] - item["pop_2012"]) / item["pop_2012"] * 100
+        areas.append({**item, "growth_pct": round(growth, 2)})
     rows = []
     dropped = []
     for row in _rows(table):
@@ -578,6 +631,14 @@ def build_change(history_dir: Path, spine_dir: Path, out_dir: Path) -> dict[str,
                 "'approximate' means GNs were re-aggregated or could not all be matched."
             ),
             "ds": rows,
+            "areas": areas,
+            "areas_note": (
+                "District, province and national totals are sums of the DS division rows "
+                "(including divisions that have no map unit). `approximate` counts the DS rows "
+                "whose own comparison is approximate; the area total is not affected when "
+                "GNs moved between divisions of the same area."
+            ),
+            "not_mapped": dropped,
             "national": national,
             "sources": [
                 {
@@ -596,6 +657,8 @@ def build_change(history_dir: Path, spine_dir: Path, out_dir: Path) -> dict[str,
         "ds_rows": len(rows),
         "ds_rows_without_spine_id": dropped,
         "national_points": len(national),
+        "area_totals": len(areas),
+        "ds_rows_not_in_area_totals": unplaced,
         "district_series": "not exported: the series is keyed by district name only",
     }
 
