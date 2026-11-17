@@ -1,6 +1,6 @@
 # Method: landscape and feature roll-ups (open spatial layers by place)
 
-Status: **private build, 2026-11-17** · Decisions: D-044 (Proposed), D-044 (Proposed) · Builds on D-013, D-014, D-016, D-017, D-018 · QA: [landscape-2026-11-17.md](../qa/landscape-2026-11-17.md) · Sources and rights: [discovery catalogue](../research/spatial/discovery-catalogue.md)
+Status: **private build, 2026-11-17** · Decisions: D-044 (Proposed), D-045 (Proposed) · Builds on D-013, D-014, D-016, D-017, D-018 · QA: [landscape-2026-11-17.md](../qa/landscape-2026-11-17.md) · Sources and rights: [discovery catalogue](../research/spatial/discovery-catalogue.md)
 
 Legend: ✅ verified directly · 🟡 from a secondary source · ❌ not found · ❓ assumption.
 
@@ -58,7 +58,7 @@ The straight-line distances are not travel distances. They are published for GN 
 
 **A gap in the data model.** `data_nature` has no value for "a count of mapped features". These rows use `modelled_estimate` with universe `mapped_features` and say so in each definition. A new value is proposed under "Decisions needed" in the PR.
 
-## 4. The `landscape` space v0.1 (proposed, D-044)
+## 4. The `landscape` space v0.1 (proposed, D-045)
 
 Nine inputs in three equally weighted blocks (terrain: elevation, slope; cover: tree, cropland, grassland, built-up, water; change: built-up growth 1975 to 2020, tree cover loss 2001 to 2024), transformed as listed in [`catalog/spaces/landscape.yaml`](../../catalog/spaces/landscape.yaml), then the same standardisation, block weighting and PCA code as the `profile` space. Distances decompose exactly into the nine named inputs.
 

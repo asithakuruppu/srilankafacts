@@ -2,7 +2,7 @@
 
 Built from the landscape observations exactly as the `profile` space is built from the census
 (same standardisation, block weighting and PCA: :func:`slf.profile.fit`), so a distance here
-decomposes exactly into named indicators too. The recipe is a proposal (D-044) until the lead
+decomposes exactly into named indicators too. The recipe is a proposal (D-045) until the lead
 approves it; nothing here is published.
 
 It also answers the two-space questions of vector-space-model.md §6: which places share a

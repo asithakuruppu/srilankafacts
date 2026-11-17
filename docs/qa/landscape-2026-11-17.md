@@ -168,7 +168,7 @@ Points outside every GN polygon (in the sea, on unmapped islets, or wrongly plac
 | OpenStreetMap | 3,394,052 | 3,393,827 |
 | Microsoft ML Buildings | 814,911 | 814,841 |
 
-## 9. The `landscape` space v0.1 (proposed, D-044)
+## 9. The `landscape` space v0.1 (proposed, D-045)
 
 | Level | Places | Excluded | Axes kept | Axes D-029 would keep | Variance explained | Values clipped at ±5 |
 |---|---:|---:|---:|---:|---:|---|

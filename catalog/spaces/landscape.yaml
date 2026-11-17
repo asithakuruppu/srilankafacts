@@ -1,4 +1,4 @@
-# The `landscape` space: places by physical character (vector-space-model.md §4, D-044 Proposed).
+# The `landscape` space: places by physical character (vector-space-model.md §4, D-045 Proposed).
 #
 # PROPOSED RECIPE, written by an agent on 2026-11-17 for the lead to review. Nothing built from it
 # is published. vector-space-model.md reserved the name `landscape` for satellite embeddings
@@ -37,4 +37,4 @@ method_notes: >
   divisions with 4 axes (89.6%). Every input is a satellite-derived modelled estimate with an
   information floor of 10 m to 100 m; no input is a statistic about people. Axis labels are
   machine-generated drafts until the lead writes them. Similar-place lists from this space are
-  not published until the lead approves the recipe (D-044).
+  not published until the lead approves the recipe (D-045).

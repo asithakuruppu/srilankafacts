@@ -893,7 +893,7 @@ def spatial_space(
         Path | None, typer.Option(help="Profile build folder, for cross-space contrasts.")
     ] = None,
 ) -> None:
-    """Build the proposed `landscape` vector space and its similar-place lists (D-044)."""
+    """Build the proposed `landscape` vector space and its similar-place lists (D-045)."""
     import pandas as pd
 
     from slf.spatial import space
