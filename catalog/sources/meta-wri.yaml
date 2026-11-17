@@ -1,0 +1,17 @@
+# Reviewed 2026-11-17. Licence read at the evidence URL on that date.
+id: meta-wri
+name: 'Meta and World Resources Institute: High Resolution Canopy Height Maps'
+publisher_type: academic
+homepage: https://registry.opendata.aws/dataforgood-fb-forestsv2/
+contact: null
+access_classes:
+- download_table
+rights:
+  status: open
+  licence: CC BY 4.0
+  commercial_reuse: 'yes'
+  attribution: 'Meta and WRI, High Resolution Canopy Height Maps v2 (see registry for citation)'
+  evidence:
+  - https://registry.opendata.aws/dataforgood-fb-forestsv2/ (licence field CC BY 4.0, read 2026-11-17)
+  last_reviewed: '2026-11-17'
+notes: 'Modelled canopy height; 76 tiles covering Sri Lanka held (13.5 GB). Not ground truth.'

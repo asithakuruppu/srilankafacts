@@ -157,6 +157,11 @@ Two places extracts exist: the first dropped the category columns by mistake, so
 Held under `/Volumes/Earth for Air/srilankafacts-data/raw/` (✅ sha256 of each file re-computed and equal to its `.meta.json`):
 - Global Mangrove Watch v3.0 (CC BY 4.0, Zenodo 6894273): extent GeoTIFF zips for 1996, 2010, 2020 and the union, tiles index, README, country statistics. 7 files, 269.7 MB. Global 1 degree tiles; Sri Lanka tiles to be selected. Not yet integrated.
 - HydroRIVERS v10 Asia shapefile, 90.5 MB, and HydroBASINS v1c Asia levels 1-12, 376.4 MB (HydroSHEDS licence: commercial use allowed, redistribution restricted; agreement not yet read, so raw files are not to be republished). Not yet integrated.
-- ❌ Meta/WRI canopy height: the bucket name I tried (`dataforgood-fb-forests`) does not exist; location not verified, nothing downloaded.
-- ❌ CHIRPS: the directory URL I tried returned 404; nothing downloaded.
-- Not attempted: Stanford Ceylon map scans (public-domain statement only from an index record), NASA FIRMS (needs an API key).
+
+## Addendum: third round (searched again and downloaded)
+- ✅ Meta/WRI canopy height v2 (CC BY 4.0 per the AWS registry): correct bucket is `dataforgood-fb-data`, prefix `forests/v2/global/dinov3_global_chm_v2_ml3/`. 75 quadkey tiles intersecting Sri Lanka's bounding box plus `tiles.geojson`: 76 files, 13.5 GB. Some tiles are mostly sea, so not all carry land.
+- ✅ CHIRPS v3.0 annual global GeoTIFFs 1981-2025 plus README: 46 files, 1.07 GB. Public domain (CC0 waiver on chc.ucsb.edu). The server returned HTTP 429 on several years; they were retried until all were held.
+- ✅ Stanford Ceylon one-inch **index** (6 files, shapefile and geojson): public domain per the Stanford record. ❌ The individual sheet scans were not located; only the index is held.
+- ❌ NASA FIRMS: the archive download needs an Earthdata login or email code; creating an account is not something an agent should do, so nothing downloaded. Lead action if wanted.
+- ✅ All 128 new files re-hashed; each equals its `.meta.json` sha256.
+- Not yet integrated into indicators; CRS and imagery year of the canopy tiles unconfirmed.

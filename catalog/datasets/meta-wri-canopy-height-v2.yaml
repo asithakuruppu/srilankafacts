@@ -1,0 +1,27 @@
+id: meta-wri-canopy-height-v2
+source: meta-wri
+title: 'Meta/WRI canopy height v2, tiles covering Sri Lanka'
+landing_page: https://registry.opendata.aws/dataforgood-fb-forestsv2/
+pipeline_module: null
+schedule: manual
+geography_scheme: grid
+geography_vintage: null
+reference_period: '2025'
+rights: inherit
+spatial:
+  support: grid
+  scheme: grid
+  level: null
+  vintage: null
+  coverage: LK
+  measured_in: null
+  positional_accuracy: null
+  crs_source: unconfirmed
+  resolution: about 1 m
+  information_unit: grid-1m
+  information_count: null
+  derived_by: null
+indicators: []
+cross_checks: []
+status: proposed
+notes: 'Held, not integrated; CRS and the imagery reference year are not yet confirmed (period field is a placeholder).'
