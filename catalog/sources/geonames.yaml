@@ -1,0 +1,18 @@
+# Reviewed 2026-11-17 (docs/research/spatial/discovery-catalogue.md). Licence text read at the evidence URLs on that date.
+id: geonames
+name: GeoNames
+publisher_type: community
+homepage: https://www.geonames.org
+contact: null
+access_classes:
+- download_table
+- api
+rights:
+  status: open
+  licence: CC-BY-4.0
+  commercial_reuse: 'yes'
+  attribution: GeoNames (www.geonames.org)
+  evidence:
+  - https://www.geonames.org/export/ ('cc-by licence ... commercial usage is allowed', read 2026-11-17)
+  last_reviewed: '2026-11-17'
+notes: Gazetteer; 56,996 Sri Lanka records in the LK.zip dump held.

@@ -1,0 +1,19 @@
+id: places_listed_food_and_drink
+name: "Places listed: food and drink"
+short_name: "Places listed: food and drink"
+topic: [features]
+measure_type: count
+unit: places
+universe: mapped_features
+numerator: null
+denominator: null
+aggregation: sum
+higher_is: neutral
+distribution: api
+decimals: 0
+sensitivity: public
+definition: >
+  Overture Maps places in the top-level category 'food_and_drink' with confidence of 0.5 or more
+  that fall inside the place.
+source_definition_ref: "overture-places (catalog/datasets/overture-places.yaml)"
+methodology_notes: docs/methods/landscape.md

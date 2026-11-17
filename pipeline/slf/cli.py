@@ -790,3 +790,150 @@ def atlas_export(
     typer.echo(f"clusters: {manifest['clusters']['indicators']} indicators")
     typer.echo(f"profile: {manifest['profile']}")
     typer.echo(f"change: {manifest['change']}")
+
+
+spatial_app = typer.Typer(
+    help="Open spatial data: snapshots and place roll-ups (landscape lens).", no_args_is_help=True
+)
+app.add_typer(spatial_app, name="spatial")
+
+
+@spatial_app.command("snapshot")
+def spatial_snapshot(
+    manifest: Annotated[Path, typer.Option(help="Manifest of original files.")] = Path(
+        "../catalog/acquisition/spatial-manifest.csv"
+    ),
+    only: Annotated[str | None, typer.Option(help="Snapshot one dataset id only.")] = None,
+    refresh: Annotated[bool, typer.Option(help="Fetch again even if a snapshot is held.")] = False,
+    inventory: Annotated[Path | None, typer.Option(help="Write the inventory table here.")] = None,
+) -> None:
+    """Snapshot every original file in the manifest into raw/ (immutable, hashed, dated)."""
+    from slf.spatial import acquire
+
+    rows = acquire.read_manifest(manifest)
+    if only:
+        rows = [r for r in rows if r.dataset == only]
+    results = acquire.acquire(from_env(), rows, refresh=refresh)
+    failed = [r for r in results if r.ref is None]
+    held = [r for r in results if r.ref is not None]
+    total = sum(r.ref.size_bytes for r in held if r.ref is not None)
+    typer.echo(f"{len(held)} of {len(results)} files held, {total / 1e6:.1f} MB")
+    for r in failed:
+        typer.echo(f"FAILED {r.row.dataset} {r.row.filename}: {r.error}")
+    if inventory:
+        inventory.write_text(acquire.inventory_markdown(results), encoding="utf-8")
+    if failed:
+        raise typer.Exit(1)
+
+
+@spatial_app.command("overture")
+def spatial_overture(
+    theme: Annotated[str, typer.Argument(help="buildings or places")],
+    release: Annotated[str, typer.Option(help="Overture release id, e.g. 2026-10-21.0")],
+    data_root: Annotated[Path, typer.Option(help="Data root to write raw/overture/ under.")] = Path(
+        "./data"
+    ),
+) -> None:
+    """Extract Sri Lanka's rows of an Overture theme from the public release (large download)."""
+    from slf.spatial import overture
+
+    meta = overture.extract(theme, release, data_root)
+    typer.echo(json_dumps(meta))
+
+
+def json_dumps(value: object) -> str:
+    import json
+
+    return json.dumps(value, indent=2)
+
+
+@spatial_app.command("build")
+def spatial_build(
+    spine_dir: Annotated[Path, typer.Option(help="Spine build folder.")] = Path(
+        "./data/build/geography-spine"
+    ),
+    out_dir: Annotated[Path, typer.Option(help="Output folder.")] = Path("./data/build/landscape"),
+    data_root: Annotated[
+        list[Path] | None, typer.Option(help="Data roots holding raw/ (repeatable).")
+    ] = None,
+) -> None:
+    """Roll open raster and point layers up to every place (terrain, cover, water, built-up)."""
+    from slf.spatial import build
+
+    result = build.build(data_root or [Path("./data")], spine_dir, out_dir)
+    typer.echo(json_dumps(result))
+    typer.echo(f"report: {out_dir / 'qa.md'}")
+    if result["errors"]:
+        raise typer.Exit(1)
+
+
+@spatial_app.command("catalogue")
+def spatial_catalogue(
+    catalog: Annotated[Path, typer.Option(help="Catalogue root.")] = Path("../catalog"),
+) -> None:
+    """Write the landscape and feature indicator entries from the build's own specs."""
+    from slf.spatial import layers
+
+    for spec in layers.SPECS.values():
+        (catalog / "indicators" / f"{spec.id}.yaml").write_text(
+            layers.indicator_yaml(spec), encoding="utf-8"
+        )
+    typer.echo(f"wrote {len(layers.SPECS)} indicator entries")
+
+
+@spatial_app.command("space")
+def spatial_space(
+    landscape_dir: Annotated[Path, typer.Option(help="Landscape build folder.")] = Path(
+        "./data/build/landscape"
+    ),
+    spine_dir: Annotated[Path, typer.Option(help="Spine build folder.")] = Path(
+        "./data/build/geography-spine"
+    ),
+    profile_dir: Annotated[
+        Path | None, typer.Option(help="Profile build folder, for cross-space contrasts.")
+    ] = None,
+) -> None:
+    """Build the proposed `landscape` vector space and its similar-place lists (D-044)."""
+    import pandas as pd
+
+    from slf.spatial import space
+
+    summary = space.build(
+        pd.read_parquet(landscape_dir / "observations.parquet"),
+        pd.read_parquet(spine_dir / "geographies.parquet"),
+        landscape_dir,
+        profile_dir,
+    )
+    for level, info in summary["levels"].items():
+        typer.echo(
+            f"{level}: {info['places']} places, {info['axes_retained']} axes, "
+            f"{info['variance_explained_retained']:.1%} of variance"
+        )
+    typer.echo(f"wrote {landscape_dir / 'vectors'}")
+
+
+@spatial_app.command("findings")
+def spatial_findings(
+    landscape_dir: Annotated[Path, typer.Option(help="Landscape build folder.")] = Path(
+        "./data/build/landscape"
+    ),
+    spine_dir: Annotated[Path, typer.Option(help="Spine build folder.")] = Path(
+        "./data/build/geography-spine"
+    ),
+    census_gn: Annotated[Path, typer.Option(help="Census 2024 GN observations.")] = Path(
+        "./data/build/census-2024-gnd-tables/observations.parquet"
+    ),
+    census_topics: Annotated[Path, typer.Option(help="Census 2024 topic observations.")] = Path(
+        "./data/build/census-2024-topic-tables/observations.parquet"
+    ),
+    data_root: Annotated[
+        list[Path] | None, typer.Option(help="Data roots holding raw/ (repeatable).")
+    ] = None,
+) -> None:
+    """Join the landscape layers to Census 2024 by place and write findings.json (analysis only)."""
+    from slf.spatial import findings
+
+    out = findings.run(
+        data_root or [Path("./data")], spine_dir, landscape_dir, census_gn, census_topics
+    )
+    typer.echo(f"wrote {landscape_dir / 'findings.json'} ({', '.join(out)})")

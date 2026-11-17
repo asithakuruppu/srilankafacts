@@ -1,0 +1,29 @@
+id: unosat-ditwah-flood-2025
+source: unosat
+title: 'UNOSAT: satellite-detected flood water, Cyclone Ditwah, 26-30 November 2025'
+landing_page: https://data.humdata.org/dataset/unosat-live-web-map-cyclone-ditwah-and-floods-in-sri-lanka-november-2025
+pipeline_module: null
+schedule: manual
+geography_scheme: grid
+geography_vintage: null
+reference_period: 2025-11
+rights: inherit
+spatial:
+  support: grid
+  scheme: grid
+  level: null
+  vintage: null
+  coverage: LK
+  measured_in: null
+  positional_accuracy: null
+  crs_source: unconfirmed
+  resolution: polygons from satellite radar; pixel size not read
+  information_unit: null
+  information_count: null
+  derived_by: null
+indicators: []
+cross_checks: []
+status: proposed
+notes: 'File geodatabase and UNOSAT''s population-exposure workbook held (2026-11-17), not yet opened
+  or integrated. CC BY-SA: any derived layer must be share-alike, so it stays apart from CC BY outputs.
+  Candidate: share of each place under detected water in the 2025 floods.'

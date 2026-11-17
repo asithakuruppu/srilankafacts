@@ -1,0 +1,20 @@
+id: health_facilities_mapped
+name: "Health facilities mapped in OpenStreetMap"
+short_name: "Health facilities mapped in OpenStreetMap"
+topic: [features]
+measure_type: count
+unit: facilities
+universe: mapped_features
+numerator: null
+denominator: null
+aggregation: sum
+higher_is: neutral
+distribution: api
+decimals: 0
+sensitivity: public
+definition: >
+  Hospitals, clinics and doctors' practices mapped in OpenStreetMap (healthsites.io extract) that
+  fall inside the place. A count of what volunteers have mapped; completeness is not measured, so
+  a low count is not evidence of few facilities.
+source_definition_ref: "healthsites-lk (catalog/datasets/healthsites-lk.yaml)"
+methodology_notes: docs/methods/landscape.md

@@ -1,0 +1,29 @@
+id: heigit-accessibility
+source: heigit
+title: 'HeiGIT accessibility indicators: travel time to schools, hospitals and primary care'
+landing_page: https://data.humdata.org/dataset/sri-lanka-accessibility-indicators
+pipeline_module: null
+schedule: manual
+geography_scheme: admin
+geography_vintage: null
+reference_period: '2026'
+rights: inherit
+spatial:
+  support: area
+  scheme: admin
+  level: district
+  vintage: null
+  coverage: LK
+  measured_in: null
+  positional_accuracy: null
+  crs_source: not_applicable
+  resolution: null
+  information_unit: null
+  information_count: null
+  derived_by: null
+indicators: []
+cross_checks: []
+status: proposed
+notes: Six CSV tables held (2026-11-17), not integrated. Population shares within travel-time bands by
+  administrative unit, from OpenStreetMap roads and facilities and a modelled population grid. Share-alike.
+  Their unit ids are not p-codes, so joining needs a crosswalk (rule 5).

@@ -1,0 +1,36 @@
+id: wfp-chirps-rainfall-subnational
+source: wfp
+title: WFP/CHIRPS rainfall by province and district, every ten days since 1981
+landing_page: https://data.humdata.org/dataset/lka-rainfall-subnational
+pipeline_module: null
+schedule: manual
+geography_scheme: admin
+geography_vintage: null
+reference_period: null
+rights:
+  status: open
+  licence: CC-BY-4.0
+  commercial_reuse: 'yes'
+  attribution: Climate Hazards Center UC Santa Barbara and WFP
+  evidence:
+  - https://data.humdata.org/dataset/lka-rainfall-subnational (HDX licence field, API read 2026-11-17)
+  last_reviewed: '2026-11-17'
+spatial:
+  support: area
+  scheme: admin
+  level: district
+  vintage: null
+  coverage: LK
+  measured_in: null
+  positional_accuracy: null
+  crs_source: not_applicable
+  resolution: null
+  information_unit: null
+  information_count: null
+  derived_by: null
+indicators: []
+cross_checks: []
+status: proposed
+notes: '56,134 rows held (2026-11-17), keyed by p-code at admin levels 1 and 2, not integrated. Satellite-and-gauge
+  rainfall estimates (CHIRPS) summarised by WFP. Candidate: rainfall normals and anomalies for the 25
+  districts.'

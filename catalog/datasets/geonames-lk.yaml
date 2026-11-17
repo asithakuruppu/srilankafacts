@@ -1,0 +1,29 @@
+id: geonames-lk
+source: geonames
+title: 'GeoNames gazetteer: Sri Lanka'
+landing_page: https://download.geonames.org/export/dump/
+pipeline_module: null
+schedule: manual
+geography_scheme: null
+geography_vintage: null
+reference_period: null
+rights: inherit
+spatial:
+  support: point
+  scheme: null
+  level: null
+  vintage: null
+  coverage: LK
+  measured_in: null
+  positional_accuracy: varies; not stated
+  crs_source: EPSG:4326
+  resolution: null
+  information_unit: null
+  information_count: null
+  derived_by: null
+indicators: []
+cross_checks: []
+status: proposed
+notes: 'LK.zip held (2026-11-17): 56,996 records, 56,280 inside a GN polygon. Resolved to GN in the build
+  folder (features/geonames-lk.parquet); a candidate source for the trilingual gazetteer (OPP-13). Positional
+  accuracy varies and is not stated per record.'

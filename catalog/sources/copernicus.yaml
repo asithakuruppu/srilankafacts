@@ -1,0 +1,21 @@
+# Reviewed 2026-11-17 (docs/research/spatial/discovery-catalogue.md). Licence text read at the evidence URLs on that date.
+id: copernicus
+name: 'Copernicus Programme (European Union / ESA): Copernicus DEM'
+publisher_type: international
+homepage: https://dataspace.copernicus.eu
+contact: null
+access_classes:
+- download_table
+rights:
+  status: permitted_with_conditions
+  licence: Copernicus DEM GLO-30 Public licence
+  commercial_reuse: unknown
+  attribution: © DLR e.V. 2010-2014 and © Airbus Defence and Space GmbH 2014-2018 provided under COPERNICUS
+    by the European Union and ESA; all rights reserved.
+  evidence:
+  - https://registry.opendata.aws/copernicus-dem/ ('GLO-30 Public ... available on a free basis for the
+    general public under the terms and conditions of the Licence', read 2026-11-17)
+  last_reviewed: '2026-11-17'
+notes: The registry page was read; the licence PDF it links to was not read in full, so commercial reuse
+  stays 'unknown' until R02 reads it. Attribution text is the one the licence is commonly cited with and
+  must be checked against the PDF.

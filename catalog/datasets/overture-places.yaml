@@ -1,0 +1,44 @@
+id: overture-places
+source: overture
+title: 'Overture Maps Places: Sri Lanka extract'
+landing_page: https://docs.overturemaps.org/guides/places/
+pipeline_module: slf.spatial.build
+schedule: manual
+geography_scheme: null
+geography_vintage: null
+reference_period: '2026'
+rights: inherit
+spatial:
+  support: point
+  scheme: null
+  level: null
+  vintage: null
+  coverage: LK
+  measured_in: null
+  positional_accuracy: varies; not stated
+  crs_source: EPSG:4326
+  resolution: null
+  information_unit: null
+  information_count: null
+  derived_by: point_in_polygon_v1
+indicators:
+- places_listed
+- places_listed_services_and_business
+- places_listed_shopping
+- places_listed_lodging
+- places_listed_education
+- places_listed_food_and_drink
+- places_listed_travel_and_transportation
+- places_listed_cultural_and_historic
+- places_listed_lifestyle_services
+- places_listed_community_and_government
+- places_listed_sports_and_recreation
+- places_listed_health_care
+- places_listed_arts_and_entertainment
+- places_listed_geographic_entities
+cross_checks: []
+status: active
+notes: 'Extract of release 2026-10-21.0 by bounding box (139,056 rows), held on the external archive drive.
+  Addresses, phones, emails, websites and social links are dropped at extract. 136,556 rows come from
+  Meta: the list reflects online presence, not a business register. Counted per place for confidence >=
+  0.5.'

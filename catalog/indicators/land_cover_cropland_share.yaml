@@ -1,0 +1,18 @@
+id: land_cover_cropland_share
+name: "Land cover share: cropland"
+short_name: "Land cover share: cropland"
+topic: [landscape]
+measure_type: share
+unit: percent
+universe: land_area_measured
+numerator: land_cover_cropland_area
+denominator: land_cover_mapped_area
+aggregation: recompute_from_components
+higher_is: neutral
+distribution: api
+decimals: 2
+sensitivity: public
+definition: >
+  Share of the place's mapped area classified as 'Cropland' in ESA WorldCover 2021.
+source_definition_ref: "esa-worldcover-2021 (catalog/datasets/esa-worldcover-2021.yaml)"
+methodology_notes: docs/methods/landscape.md

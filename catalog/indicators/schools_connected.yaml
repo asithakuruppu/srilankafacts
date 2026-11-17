@@ -1,0 +1,19 @@
+id: schools_connected
+name: "Schools recorded as connected to the internet"
+short_name: "Schools recorded as connected to the internet"
+topic: [features]
+measure_type: count
+unit: schools
+universe: mapped_features
+numerator: null
+denominator: null
+aggregation: sum
+higher_is: neutral
+distribution: api
+decimals: 0
+sensitivity: public
+definition: >
+  Located schools whose Giga record says connectivity is available ('Yes'), from government data
+  and Giga's real-time mapping.
+source_definition_ref: "giga-school-locations (catalog/datasets/giga-school-locations.yaml)"
+methodology_notes: docs/methods/landscape.md

@@ -1,0 +1,19 @@
+# Reviewed 2026-11-17 (docs/research/spatial/discovery-catalogue.md). Licence text read at the evidence URLs on that date.
+id: kontur
+name: Kontur
+publisher_type: commercial
+homepage: https://www.kontur.io
+contact: null
+access_classes:
+- download_table
+rights:
+  status: open
+  licence: CC-BY-4.0
+  commercial_reuse: 'yes'
+  attribution: Kontur Population
+  evidence:
+  - 'https://data.humdata.org/dataset/kontur-population-sri-lanka (HDX licence field: ''CC-BY-4.0'', API
+    read 2026-11-17)'
+  last_reviewed: '2026-11-17'
+notes: Population on H3 hexagons (about 400 m), modelled from GHSL, Facebook HRSL, Microsoft and OSM buildings.
+  Version number 4.0 assumed ❓.

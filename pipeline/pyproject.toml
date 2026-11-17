@@ -18,6 +18,7 @@ dependencies = [
     "matplotlib>=3.11.2",
     "libpysal>=4.15.1",
     "esda>=2.10.0",
+    "rasterio>=1.5.2",
 ]
 
 [project.optional-dependencies]
@@ -63,3 +64,9 @@ addopts = "-q"
 "slf/datasets/cod_ab_admin.py" = ["E501"]
 "slf/datasets/electoral_geography.py" = ["E501"]
 "slf/datasets/election_results.py" = ["E501"]
+# Indicator definitions, source locators and QA tables are long prose lines.
+"slf/spatial/build.py" = ["E501"]
+"slf/spatial/layers.py" = ["E501"]
+"slf/spatial/points.py" = ["E501"]
+"slf/spatial/findings.py" = ["E501"]
+"slf/spatial/space.py" = ["E501"]

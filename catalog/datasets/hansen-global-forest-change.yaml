@@ -1,0 +1,36 @@
+id: hansen-global-forest-change
+source: umd-glad
+title: Global Forest Change 2000-2024 v1.12 (tree cover 2000 and yearly loss, 30 m)
+landing_page: https://storage.googleapis.com/earthenginepartners-hansen/GFC-2024-v1.12/download.html
+pipeline_module: slf.spatial.build
+schedule: manual
+geography_scheme: grid
+geography_vintage: null
+reference_period: '2024'
+rights: inherit
+spatial:
+  support: grid
+  scheme: grid
+  level: null
+  vintage: null
+  coverage: LK
+  measured_in: null
+  positional_accuracy: null
+  crs_source: EPSG:4326
+  resolution: 30 m
+  information_unit: grid-30m
+  information_count: null
+  derived_by: zonal_area_v1 (docs/methods/landscape.md)
+indicators:
+- forest_measured_area
+- tree_cover_2000_area
+- tree_cover_2000_share
+- tree_cover_loss_area
+- tree_cover_loss_total_area
+- tree_cover_loss_total_share
+cross_checks: []
+status: active
+notes: treecover2000 and lossyear held for tiles 10N_070E and 10N_080E (2026-11-17). CRS read from the
+  files. Tree cover includes plantations; loss is not deforestation and regrowth is not subtracted. Our
+  national total (233,807 ha lost inside the 30% canopy cover, 2001-2024) should be compared with Global
+  Forest Watch's published figure before publication ❓.

@@ -1,0 +1,19 @@
+id: land_cover_wetland_area
+name: "Land cover: herbaceous wetland"
+short_name: "Land cover: herbaceous wetland"
+topic: [landscape]
+measure_type: count
+unit: hectares
+universe: land_area_measured
+numerator: null
+denominator: null
+aggregation: sum
+higher_is: neutral
+distribution: api
+decimals: 1
+sensitivity: public
+definition: >
+  Ground area classified as 'Herbaceous wetland' in ESA WorldCover 2021 (10 m pixels, Sentinel-1
+  and Sentinel-2). A satellite classification, not a land-use survey.
+source_definition_ref: "esa-worldcover-2021 (catalog/datasets/esa-worldcover-2021.yaml)"
+methodology_notes: docs/methods/landscape.md

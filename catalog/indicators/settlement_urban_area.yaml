@@ -1,0 +1,20 @@
+id: settlement_urban_area
+name: "Area in an urban centre or urban cluster"
+short_name: "Area in an urban centre or urban cluster"
+topic: [landscape, settlement]
+measure_type: count
+unit: hectares
+universe: land_area_measured
+numerator: null
+denominator: null
+aggregation: sum
+higher_is: neutral
+distribution: api
+decimals: 1
+sensitivity: public
+definition: >
+  Ground area in 1 km cells classed as urban centre, dense urban cluster, semi-dense urban cluster
+  or suburban by the Degree of Urbanisation method (GHS-SMOD R2023A, 2020). A density rule on a
+  modelled population grid, not the administrative urban definition.
+source_definition_ref: "ghsl-settlement-model (catalog/datasets/ghsl-settlement-model.yaml)"
+methodology_notes: docs/methods/landscape.md

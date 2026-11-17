@@ -1,0 +1,28 @@
+id: ophi-mpi
+source: ophi
+title: OPHI Multidimensional Poverty Index by province (SLDHS 2016)
+landing_page: https://data.humdata.org/dataset/sri-lanka-mpi
+pipeline_module: null
+schedule: manual
+geography_scheme: admin
+geography_vintage: null
+reference_period: '2016'
+rights: inherit
+spatial:
+  support: area
+  scheme: admin
+  level: province
+  vintage: null
+  coverage: LK
+  measured_in: null
+  positional_accuracy: null
+  crs_source: not_applicable
+  resolution: null
+  information_unit: null
+  information_count: null
+  derived_by: null
+indicators: []
+cross_checks: []
+status: proposed
+notes: 'One CSV held (2026-11-17): national and nine provincial rows from the 2016 Demographic and Health
+  Survey. A survey estimate; not integrated.'

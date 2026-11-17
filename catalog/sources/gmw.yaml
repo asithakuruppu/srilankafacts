@@ -1,0 +1,17 @@
+# Reviewed 2026-11-17. Licence read from the Zenodo record metadata (api/records/6894273) on that date.
+id: gmw
+name: Global Mangrove Watch (JAXA, Aberystwyth University, Wetlands International, soloEO)
+publisher_type: academic
+homepage: https://www.globalmangrovewatch.org
+contact: null
+access_classes:
+- download_table
+rights:
+  status: open
+  licence: CC BY 4.0
+  commercial_reuse: 'yes'
+  attribution: 'Bunting, P. et al. 2022. Global Mangrove Extent Change 1996-2020: Global Mangrove Watch Version 3.0. Remote Sensing.'
+  evidence:
+  - https://zenodo.org/records/6894273 (licence field 'cc-by-4.0', read 2026-11-17)
+  last_reviewed: '2026-11-17'
+notes: Mangrove extent maps 1996-2020 as 1 degree GeoTIFF tiles worldwide. Zenodo version 3.0 held; newer versions may exist (not checked).

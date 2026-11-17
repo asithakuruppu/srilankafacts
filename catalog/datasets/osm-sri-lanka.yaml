@@ -1,7 +1,7 @@
 id: osm-sri-lanka
 source: osm
-title: "OpenStreetMap extract for Sri Lanka"
-landing_page: null
+title: OpenStreetMap extract for Sri Lanka (Geofabrik)
+landing_page: https://download.geofabrik.de/asia/sri-lanka.html
 pipeline_module: null
 schedule: manual
 geography_scheme: null
@@ -16,7 +16,7 @@ spatial:
   coverage: LK
   measured_in: null
   positional_accuracy: null
-  crs_source: unconfirmed
+  crs_source: EPSG:4326
   resolution: null
   information_unit: null
   information_count: null
@@ -24,5 +24,5 @@ spatial:
 indicators: []
 cross_checks: []
 status: proposed
-notes: >
-  Stage 1 basemap and Stage 2 features. Mixed points, lines and polygons; split into feature classes in G08.
+notes: 'sri-lanka-latest.osm.pbf held (2026-11-17, 144.6 MB). Mixed points, lines and polygons; not yet
+  split into feature classes (G08). ODbL: anything derived is kept apart from CC BY outputs.'

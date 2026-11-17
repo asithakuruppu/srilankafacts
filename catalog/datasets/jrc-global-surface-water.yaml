@@ -1,0 +1,34 @@
+id: jrc-global-surface-water
+source: jrc
+title: 'JRC Global Surface Water v1.4: occurrence 1984-2021 (30 m)'
+landing_page: https://global-surface-water.appspot.com/download
+pipeline_module: slf.spatial.build
+schedule: manual
+geography_scheme: grid
+geography_vintage: null
+reference_period: '2021'
+rights: inherit
+spatial:
+  support: grid
+  scheme: grid
+  level: null
+  vintage: null
+  coverage: LK
+  measured_in: null
+  positional_accuracy: null
+  crs_source: EPSG:4326
+  resolution: 30 m
+  information_unit: grid-30m
+  information_count: null
+  derived_by: zonal_area_v1 (docs/methods/landscape.md)
+indicators:
+- surface_water_measured_area
+- surface_water_permanent_area
+- surface_water_permanent_share
+- surface_water_ever_area
+- surface_water_ever_share
+cross_checks: []
+status: active
+notes: Occurrence tiles 70E_10N and 80E_10N held (2026-11-17). CRS read from the files. Share of valid
+  Landsat observations with open water; cloud and vegetation hide water, so small tanks under canopy are
+  missed.

@@ -1,0 +1,19 @@
+# Reviewed 2026-11-17 (docs/research/spatial/discovery-catalogue.md). Licence text read at the evidence URLs on that date.
+id: giga
+name: Giga (UNICEF and ITU)
+publisher_type: international
+homepage: https://giga.global
+contact: null
+access_classes:
+- download_table
+rights:
+  status: open
+  licence: CC-BY-4.0
+  commercial_reuse: 'yes'
+  attribution: 'Giga; source named by Giga: Sri Lanka Ministry of Education'
+  evidence:
+  - 'https://data.humdata.org/dataset/sri-lanka-school-geolocation-and-connectivity-status (HDX licence
+    field: ''CC-BY-4.0'', API read 2026-11-17)'
+  last_reviewed: '2026-11-17'
+notes: School locations and connectivity. HDX's licence field says 'Creative Commons Attribution International
+  (CC BY)'; the version number 4.0 is assumed ❓.

@@ -1,0 +1,17 @@
+# Reviewed 2026-11-17 (docs/research/spatial/discovery-catalogue.md). Licence text read at the evidence URLs on that date.
+id: climate-trace
+name: Climate TRACE
+publisher_type: civil_society
+homepage: https://climatetrace.org
+contact: null
+access_classes:
+- download_table
+rights:
+  status: open
+  licence: CC-BY-4.0
+  commercial_reuse: 'yes'
+  attribution: Climate TRACE
+  evidence:
+  - 'https://data.humdata.org/dataset/lka-climate-trace (HDX licence field: ''CC-BY-4.0'', API read 2026-11-17)'
+  last_reviewed: '2026-11-17'
+notes: Emission estimates by located source. Version number assumed ❓.

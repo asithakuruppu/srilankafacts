@@ -1,0 +1,18 @@
+id: steep_land_area
+name: "Steep land (slope over 15°)"
+short_name: "Steep land (slope over 15°)"
+topic: [landscape]
+measure_type: count
+unit: hectares
+universe: land_area_measured
+numerator: null
+denominator: null
+aggregation: sum
+higher_is: neutral
+distribution: api
+decimals: 1
+sensitivity: public
+definition: >
+  Ground area where the 30 m surface-model slope exceeds 15 degrees.
+source_definition_ref: "copernicus-dem-glo30 (catalog/datasets/copernicus-dem-glo30.yaml)"
+methodology_notes: docs/methods/landscape.md

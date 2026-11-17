@@ -1,0 +1,18 @@
+id: building_footprint_area
+name: "Building footprint area"
+short_name: "Building footprint area"
+topic: [features]
+measure_type: count
+unit: hectares
+universe: mapped_features
+numerator: null
+denominator: null
+aggregation: sum
+higher_is: neutral
+distribution: api
+decimals: 2
+sensitivity: public
+definition: >
+  Total ground area of the mapped building footprints in the place, computed in EPSG:5235.
+source_definition_ref: "overture-buildings (catalog/datasets/overture-buildings.yaml)"
+methodology_notes: docs/methods/landscape.md

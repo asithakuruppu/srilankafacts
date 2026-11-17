@@ -1,0 +1,18 @@
+id: tree_cover_2000_share
+name: "Tree cover share in 2000"
+short_name: "Tree cover share in 2000"
+topic: [landscape, change]
+measure_type: share
+unit: percent
+universe: land_area_measured
+numerator: tree_cover_2000_area
+denominator: forest_measured_area
+aggregation: recompute_from_components
+higher_is: neutral
+distribution: api
+decimals: 2
+sensitivity: public
+definition: >
+  Share of the place with tree canopy cover of 30% or more in 2000.
+source_definition_ref: "hansen-global-forest-change (catalog/datasets/hansen-global-forest-change.yaml)"
+methodology_notes: docs/methods/landscape.md

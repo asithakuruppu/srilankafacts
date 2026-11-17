@@ -1,0 +1,17 @@
+# Reviewed 2026-11-17. The full licence agreement is inside the HydroSHEDS Technical Documentation and has NOT been read.
+id: hydrosheds
+name: HydroSHEDS (HydroRIVERS, HydroBASINS), WWF and McGill University
+publisher_type: academic
+homepage: https://www.hydrosheds.org
+contact: null
+access_classes:
+- download_table
+rights:
+  status: restricted
+  licence: HydroSHEDS licence agreement (custom; not Creative Commons)
+  commercial_reuse: 'yes'
+  attribution: 'Lehner, B., Grill G. (2013). Global river hydrography and network routing. Hydrological Processes 27(15): 2171-2186.'
+  evidence:
+  - https://www.hydrosheds.org/products/hydrorivers ('freely available for scientific, educational and commercial use ... redistribution restrictions', read 2026-11-17)
+  last_reviewed: '2026-11-17'
+notes: Commercial use is stated as allowed; the redistribution restrictions are in the licence agreement, not yet read. Treat as download-and-derive only (do not republish the raw files) until the agreement is read.

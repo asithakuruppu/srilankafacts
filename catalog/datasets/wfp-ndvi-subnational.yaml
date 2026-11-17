@@ -1,0 +1,34 @@
+id: wfp-ndvi-subnational
+source: wfp
+title: WFP/MODIS vegetation index (NDVI) by province and district since 2002
+landing_page: https://data.humdata.org/dataset/lka-ndvi-subnational
+pipeline_module: null
+schedule: manual
+geography_scheme: admin
+geography_vintage: null
+reference_period: null
+rights:
+  status: open
+  licence: CC-BY-4.0
+  commercial_reuse: 'yes'
+  attribution: NASA and WFP
+  evidence:
+  - https://data.humdata.org/dataset/lka-ndvi-subnational (HDX licence field, API read 2026-11-17)
+  last_reviewed: '2026-11-17'
+spatial:
+  support: area
+  scheme: admin
+  level: district
+  vintage: null
+  coverage: LK
+  measured_in: null
+  positional_accuracy: null
+  crs_source: not_applicable
+  resolution: null
+  information_unit: null
+  information_count: null
+  derived_by: null
+indicators: []
+cross_checks: []
+status: proposed
+notes: 29,818 rows held (2026-11-17), keyed by p-code, not integrated.

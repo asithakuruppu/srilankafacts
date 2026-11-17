@@ -1,0 +1,19 @@
+id: built_up_measured_area
+name: "Area with built-up surface data"
+short_name: "Area with built-up surface data"
+topic: [landscape, change]
+measure_type: count
+unit: hectares
+universe: land_area_measured
+numerator: null
+denominator: null
+aggregation: sum
+higher_is: neutral
+distribution: api
+decimals: 1
+sensitivity: public
+definition: >
+  Ground area of the place covered by GHS-BUILT-S cells. The denominator for the built-up surface
+  share.
+source_definition_ref: "ghsl-built-up (catalog/datasets/ghsl-built-up.yaml)"
+methodology_notes: docs/methods/landscape.md

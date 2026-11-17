@@ -1,0 +1,31 @@
+id: healthsites-lk
+source: healthsites
+title: 'healthsites.io: health facilities in Sri Lanka (OpenStreetMap)'
+landing_page: https://data.humdata.org/dataset/sri-lanka-healthsites
+pipeline_module: slf.spatial.build
+schedule: manual
+geography_scheme: null
+geography_vintage: null
+reference_period: '2026'
+rights: inherit
+spatial:
+  support: point
+  scheme: null
+  level: null
+  vintage: null
+  coverage: LK
+  measured_in: null
+  positional_accuracy: not stated
+  crs_source: EPSG:4326
+  resolution: null
+  information_unit: null
+  information_count: null
+  derived_by: point_in_polygon_v1
+indicators:
+- health_facilities_mapped
+- nearest_health_facility_distance
+cross_checks: []
+status: active
+notes: '2,003 records held (2026-11-17); 1,378 hospitals, clinics and doctors are counted. Completeness
+  against the Ministry of Health''s facility list is not measured: counts show what is mapped, not what
+  exists.'

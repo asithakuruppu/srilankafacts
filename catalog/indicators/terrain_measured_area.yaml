@@ -1,0 +1,19 @@
+id: terrain_measured_area
+name: "Area with elevation data"
+short_name: "Area with elevation data"
+topic: [landscape]
+measure_type: count
+unit: hectares
+universe: land_area_measured
+numerator: null
+denominator: null
+aggregation: sum
+higher_is: neutral
+distribution: api
+decimals: 1
+sensitivity: public
+definition: >
+  Ground area of the place covered by Copernicus DEM GLO-30 pixels whose centre falls inside its
+  boundary. The denominator for terrain shares.
+source_definition_ref: "copernicus-dem-glo30 (catalog/datasets/copernicus-dem-glo30.yaml)"
+methodology_notes: docs/methods/landscape.md

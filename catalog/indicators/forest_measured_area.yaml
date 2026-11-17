@@ -1,0 +1,19 @@
+id: forest_measured_area
+name: "Area with tree-cover data"
+short_name: "Area with tree-cover data"
+topic: [landscape]
+measure_type: count
+unit: hectares
+universe: land_area_measured
+numerator: null
+denominator: null
+aggregation: sum
+higher_is: neutral
+distribution: api
+decimals: 1
+sensitivity: public
+definition: >
+  Ground area of the place covered by Global Forest Change pixels. The denominator for the
+  tree-cover share.
+source_definition_ref: "hansen-global-forest-change (catalog/datasets/hansen-global-forest-change.yaml)"
+methodology_notes: docs/methods/landscape.md

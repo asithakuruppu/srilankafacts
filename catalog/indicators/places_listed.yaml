@@ -1,0 +1,20 @@
+id: places_listed
+name: "Places listed in Overture Maps"
+short_name: "Places listed in Overture Maps"
+topic: [features]
+measure_type: count
+unit: places
+universe: mapped_features
+numerator: null
+denominator: null
+aggregation: sum
+higher_is: neutral
+distribution: api
+decimals: 0
+sensitivity: public
+definition: >
+  Businesses, institutions and points of interest in Overture Maps Places with confidence of 0.5
+  or more that fall inside the place. Most records come from Meta; the list reflects online
+  presence, not a business register.
+source_definition_ref: "overture-places (catalog/datasets/overture-places.yaml)"
+methodology_notes: docs/methods/landscape.md

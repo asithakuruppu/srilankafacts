@@ -1,0 +1,19 @@
+id: elevation_mean
+name: "Mean elevation"
+short_name: "Mean elevation"
+topic: [landscape]
+measure_type: mean
+unit: metres
+universe: land_area_measured
+numerator: null
+denominator: null
+aggregation: none
+higher_is: neutral
+distribution: api
+decimals: 1
+sensitivity: public
+definition: >
+  Area-weighted mean height above the EGM2008 geoid of the 30 m surface-model pixels inside the
+  place. A surface model includes buildings and tree canopy.
+source_definition_ref: "copernicus-dem-glo30 (catalog/datasets/copernicus-dem-glo30.yaml)"
+methodology_notes: docs/methods/landscape.md

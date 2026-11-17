@@ -1,0 +1,27 @@
+id: hydrosheds-rivers-basins
+source: hydrosheds
+title: HydroRIVERS v10 and HydroBASINS v1c levels 1-12 (Asia)
+landing_page: https://www.hydrosheds.org/products/hydrorivers
+pipeline_module: null
+schedule: manual
+geography_scheme: grid
+geography_vintage: null
+reference_period: '2013'
+rights: inherit
+spatial:
+  support: line
+  scheme: grid
+  level: null
+  vintage: null
+  coverage: LK
+  measured_in: null
+  positional_accuracy: null
+  crs_source: unconfirmed
+  resolution: 15 arc-second source
+  information_unit: river-reach
+  information_count: null
+  derived_by: null
+indicators: []
+cross_checks: []
+status: proposed
+notes: Held, not yet integrated. Restricted redistribution; see source entry.

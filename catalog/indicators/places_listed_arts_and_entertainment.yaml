@@ -1,0 +1,19 @@
+id: places_listed_arts_and_entertainment
+name: "Places listed: arts and entertainment"
+short_name: "Places listed: arts and entertainment"
+topic: [features]
+measure_type: count
+unit: places
+universe: mapped_features
+numerator: null
+denominator: null
+aggregation: sum
+higher_is: neutral
+distribution: api
+decimals: 0
+sensitivity: public
+definition: >
+  Overture Maps places in the top-level category 'arts_and_entertainment' with confidence of 0.5
+  or more that fall inside the place.
+source_definition_ref: "overture-places (catalog/datasets/overture-places.yaml)"
+methodology_notes: docs/methods/landscape.md

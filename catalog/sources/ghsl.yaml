@@ -1,16 +1,22 @@
-# Seed entry (F02). Status of rights is checked by R02; never invent licences or contacts.
+# Reviewed 2026-11-17 (docs/research/spatial/discovery-catalogue.md). Licence text read at the evidence URLs on that date.
 id: ghsl
 name: Global Human Settlement Layer (European Commission JRC)
 publisher_type: international
-homepage: null
+homepage: https://human-settlement.emergency.copernicus.eu
 contact: null
-access_classes: [download_table]
+access_classes:
+- download_table
 rights:
-  status: unclear
-  licence: null
-  commercial_reuse: unknown
-  attribution: null
-  evidence: []
-  last_reviewed: 2026-11-07
-notes: >
-  Built-up area and settlement grids (Stage 3+). Homepage and terms not yet recorded.
+  status: open
+  licence: CC-BY-4.0
+  commercial_reuse: 'yes'
+  attribution: 'GHSL Data Package 2023, European Commission, Joint Research Centre (cite the product:
+    GHS-BUILT-S, GHS-SMOD, GHS-BUILT-H R2023A)'
+  evidence:
+  - https://human-settlement.emergency.copernicus.eu/download.php ('Reuse of this data is authorised with
+    proper acknowledgment of the source', read 2026-11-17)
+  - https://data.humdata.org/dataset/lka-ghsl (HDX lists the JRC's Sri Lanka GHSL extract as CC BY, API
+    read 2026-11-17)
+  last_reviewed: '2026-11-17'
+notes: Built-up surface 1975-2030, settlement model (degree of urbanisation), building height, population
+  grid. Tiles in World Mollweide (ESRI:54009).

@@ -1,0 +1,20 @@
+# Reviewed 2026-11-17 (docs/research/spatial/discovery-catalogue.md). Licence text read at the evidence URLs on that date.
+id: jrc
+name: 'European Commission Joint Research Centre: Global Surface Water'
+publisher_type: international
+homepage: https://global-surface-water.appspot.com
+contact: null
+access_classes:
+- download_table
+rights:
+  status: open
+  licence: Copernicus Programme data policy (free, full and open)
+  commercial_reuse: 'yes'
+  attribution: 'Source: EC JRC/Google. Pekel, J.-F. et al. 2016. High-resolution mapping of global surface
+    water and its long-term changes. Nature 540: 418-422.'
+  evidence:
+  - https://global-surface-water.appspot.com/download ('produced under the Copernicus Programme and is
+    provided free of charge, without restriction of use', read 2026-11-17)
+  last_reviewed: '2026-11-17'
+notes: Surface water occurrence, change and seasonality from Landsat. The 1984-2021 release (v1.4) is
+  held; the page announces a 1984-2024 release.

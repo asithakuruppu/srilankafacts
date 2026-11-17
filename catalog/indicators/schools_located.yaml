@@ -1,0 +1,20 @@
+id: schools_located
+name: "Schools (located)"
+short_name: "Schools (located)"
+topic: [features]
+measure_type: count
+unit: schools
+universe: mapped_features
+numerator: null
+denominator: null
+aggregation: sum
+higher_is: neutral
+distribution: api
+decimals: 0
+sensitivity: public
+definition: >
+  Schools whose published coordinates fall inside the place, from the Giga school location list
+  (source named by Giga: Sri Lanka Ministry of Education). A count of listed locations, not an
+  official school census count for the place.
+source_definition_ref: "giga-school-locations (catalog/datasets/giga-school-locations.yaml)"
+methodology_notes: docs/methods/landscape.md

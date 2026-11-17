@@ -1,0 +1,28 @@
+id: ctrees-aboveground-biomass
+source: ctrees
+title: CTrees above-ground biomass, Sri Lanka
+landing_page: https://data.humdata.org/dataset/lka-ctrees-aboveground-biomass
+pipeline_module: null
+schedule: manual
+geography_scheme: grid
+geography_vintage: null
+reference_period: null
+rights: inherit
+spatial:
+  support: grid
+  scheme: grid
+  level: null
+  vintage: null
+  coverage: LK
+  measured_in: null
+  positional_accuracy: null
+  crs_source: EPSG:4326
+  resolution: about 100 m (0.00089 degrees)
+  information_unit: null
+  information_count: null
+  derived_by: null
+indicators: []
+cross_checks: []
+status: proposed
+notes: GeoTIFF held (2026-11-17); CRS and pixel size read from the file. Units and reference year not
+  yet read from CTrees' documentation, so it is not rolled up.

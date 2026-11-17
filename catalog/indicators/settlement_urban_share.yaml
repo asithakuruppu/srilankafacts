@@ -1,0 +1,18 @@
+id: settlement_urban_share
+name: "Share in an urban centre or urban cluster"
+short_name: "Share in an urban centre or urban cluster"
+topic: [landscape, settlement]
+measure_type: share
+unit: percent
+universe: land_area_measured
+numerator: settlement_urban_area
+denominator: settlement_measured_area
+aggregation: recompute_from_components
+higher_is: neutral
+distribution: api
+decimals: 2
+sensitivity: public
+definition: >
+  Share of the place's area in urban centre or urban cluster cells of GHS-SMOD 2020.
+source_definition_ref: "ghsl-settlement-model (catalog/datasets/ghsl-settlement-model.yaml)"
+methodology_notes: docs/methods/landscape.md

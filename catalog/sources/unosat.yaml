@@ -1,0 +1,19 @@
+# Reviewed 2026-11-17 (docs/research/spatial/discovery-catalogue.md). Licence text read at the evidence URLs on that date.
+id: unosat
+name: United Nations Satellite Centre (UNOSAT)
+publisher_type: international
+homepage: https://unosat.org
+contact: null
+access_classes:
+- download_table
+rights:
+  status: permitted_with_conditions
+  licence: CC-BY-SA
+  commercial_reuse: 'yes'
+  attribution: UNITAR-UNOSAT
+  evidence:
+  - 'https://data.humdata.org/dataset/unosat-live-web-map-cyclone-ditwah-and-floods-in-sri-lanka-november-2025
+    (HDX licence field: ''CC-BY-SA'', API read 2026-11-17)'
+  last_reviewed: '2026-11-17'
+notes: 'Satellite-detected flood extents. Share-alike: derived layers must carry the same licence, so
+  they are kept apart from CC BY outputs.'

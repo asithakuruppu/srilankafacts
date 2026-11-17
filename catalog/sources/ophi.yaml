@@ -1,0 +1,18 @@
+# Reviewed 2026-11-17 (docs/research/spatial/discovery-catalogue.md). Licence text read at the evidence URLs on that date.
+id: ophi
+name: Oxford Poverty and Human Development Initiative
+publisher_type: academic
+homepage: https://ophi.org.uk
+contact: null
+access_classes:
+- download_table
+rights:
+  status: open
+  licence: CC0-1.0
+  commercial_reuse: 'yes'
+  attribution: OPHI, University of Oxford
+  evidence:
+  - 'https://data.humdata.org/dataset/sri-lanka-mpi (HDX licence field: ''CC0-1.0'', API read 2026-11-17)'
+  last_reviewed: '2026-11-17'
+notes: Multidimensional Poverty Index with sub-national values. HDX lists it as 'Public Domain / No restrictions
+  (CC0)'.

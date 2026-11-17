@@ -1,0 +1,18 @@
+# Reviewed 2026-11-17 (docs/research/spatial/discovery-catalogue.md). Licence text read at the evidence URLs on that date.
+id: ctrees
+name: CTrees
+publisher_type: civil_society
+homepage: https://ctrees.org
+contact: null
+access_classes:
+- download_table
+rights:
+  status: open
+  licence: CC-BY-4.0
+  commercial_reuse: 'yes'
+  attribution: CTrees
+  evidence:
+  - 'https://data.humdata.org/dataset/lka-ctrees-aboveground-biomass (HDX licence field: ''CC-BY-4.0'',
+    API read 2026-11-17)'
+  last_reviewed: '2026-11-17'
+notes: Above-ground biomass raster for Sri Lanka. Version number assumed ❓.

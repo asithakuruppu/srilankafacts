@@ -1,0 +1,19 @@
+id: surface_water_measured_area
+name: "Area with surface-water data"
+short_name: "Area with surface-water data"
+topic: [landscape]
+measure_type: count
+unit: hectares
+universe: land_area_measured
+numerator: null
+denominator: null
+aggregation: sum
+higher_is: neutral
+distribution: api
+decimals: 1
+sensitivity: public
+definition: >
+  Ground area of the place with valid Global Surface Water observations. The denominator for
+  surface-water shares.
+source_definition_ref: "jrc-global-surface-water (catalog/datasets/jrc-global-surface-water.yaml)"
+methodology_notes: docs/methods/landscape.md

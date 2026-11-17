@@ -1,0 +1,20 @@
+# Reviewed 2026-11-17 (docs/research/spatial/discovery-catalogue.md). Licence text read at the evidence URLs on that date.
+id: umd-glad
+name: 'University of Maryland GLAD: Global Forest Change'
+publisher_type: academic
+homepage: https://glad.earthengine.app/view/global-forest-change
+contact: null
+access_classes:
+- download_table
+rights:
+  status: open
+  licence: CC-BY-4.0
+  commercial_reuse: 'yes'
+  attribution: 'Hansen, M. C. et al. 2013. High-Resolution Global Maps of 21st-Century Forest Cover Change.
+    Science 342: 850-53. Data: Hansen/UMD/Google/USGS/NASA.'
+  evidence:
+  - https://storage.googleapis.com/earthenginepartners-hansen/GFC-2024-v1.12/download.html ('licensed
+    under a Creative Commons Attribution 4.0 International License ... for any purpose, even commercially',
+    read 2026-11-17)
+  last_reviewed: '2026-11-17'
+notes: Tree cover 2000 and yearly loss 2001-2024, 30 m.

@@ -1,0 +1,19 @@
+id: land_cover_mapped_area
+name: "Area with land-cover data"
+short_name: "Area with land-cover data"
+topic: [landscape]
+measure_type: count
+unit: hectares
+universe: land_area_measured
+numerator: null
+denominator: null
+aggregation: sum
+higher_is: neutral
+distribution: api
+decimals: 1
+sensitivity: public
+definition: >
+  Ground area of the place covered by classified ESA WorldCover 2021 pixels. The denominator for
+  land-cover shares.
+source_definition_ref: "esa-worldcover-2021 (catalog/datasets/esa-worldcover-2021.yaml)"
+methodology_notes: docs/methods/landscape.md

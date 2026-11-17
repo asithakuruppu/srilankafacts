@@ -1,0 +1,40 @@
+# The `landscape` space: places by physical character (vector-space-model.md §4, D-044 Proposed).
+#
+# PROPOSED RECIPE, written by an agent on 2026-11-17 for the lead to review. Nothing built from it
+# is published. vector-space-model.md reserved the name `landscape` for satellite embeddings
+# (AlphaEarth); this v0.1 uses nine named, cited indicators instead, so every distance can be
+# explained from ledger values. A satellite-embedding space, if it is ever built, should take a
+# different id or a later version.
+id: landscape
+version: "0.1"
+title: Physical landscape (terrain, land cover, change)
+entity_types: [place]
+metric: euclidean
+inputs:
+  - { id: elevation_mean, kind: indicator, weight: 1.0 }
+  - { id: slope_mean, kind: indicator, weight: 1.0 }
+  - { id: land_cover_tree_share, kind: indicator, weight: 1.0 }
+  - { id: land_cover_cropland_share, kind: indicator, weight: 1.0 }
+  - { id: land_cover_grassland_share, kind: indicator, weight: 1.0 }
+  - { id: land_cover_built_up_share, kind: indicator, weight: 1.0 }
+  - { id: surface_water_ever_share, kind: indicator, weight: 1.0 }
+  - { id: built_up_surface_share, kind: indicator, weight: 1.0 }
+  - { id: tree_cover_loss_total_area, kind: indicator, weight: 1.0 }
+transformations:
+  - "elevation_mean (2013) -> log10(1 + metres); negative means set to 0"
+  - "slope_mean (2013) -> square root of degrees"
+  - "land_cover_tree_share, land_cover_cropland_share, land_cover_grassland_share, land_cover_built_up_share (2021) and surface_water_ever_share (1984-2021) -> square root of percent"
+  - "built_up_surface_share -> 2020 minus 1975, in percentage points; negative differences set to 0; square root"
+  - "tree_cover_loss_total_area (2001-2024) -> percent of the place's measured area (forest_measured_area), square root; defined even where there was no tree cover in 2000"
+  - "standardise each transformed input to mean 0 and standard deviation 1 across places, separately at GN and at DS level; winsorise at ±5"
+  - "blocks: terrain = elevation, slope (2 inputs); cover = tree, cropland, grassland, built-up, water (5 inputs); change = built-up growth, tree cover loss (2 inputs); each block's columns scaled by 1/sqrt(inputs in the block), so each block carries total variance 1"
+  - "PCA by SVD (the same code as the profile space, slf.profile.fit); retain the fewest axes that explain 85% of the variance, at most 6. D-029's rule keeps 2 axes at GN level and 1 at DS level here, which collapses the DS space to 'highland or lowland'; the QA report shows both counts"
+  - "distance = Euclidean over the retained axes; squared distance decomposes exactly into axis contributions and into the nine named inputs"
+status: proposed
+method_notes: >
+  Built by `slf spatial space` from the landscape observations (docs/methods/landscape.md).
+  First build 2026-11-17: 14,043 GN divisions with 5 axes (90.1% of variance) and 340 DS
+  divisions with 4 axes (89.6%). Every input is a satellite-derived modelled estimate with an
+  information floor of 10 m to 100 m; no input is a statistic about people. Axis labels are
+  machine-generated drafts until the lead writes them. Similar-place lists from this space are
+  not published until the lead approves the recipe (D-044).

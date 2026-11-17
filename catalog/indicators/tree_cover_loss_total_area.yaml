@@ -1,0 +1,19 @@
+id: tree_cover_loss_total_area
+name: "Tree cover loss, 2001 to 2024"
+short_name: "Tree cover loss, 2001 to 2024"
+topic: [landscape, change]
+measure_type: count
+unit: hectares
+universe: tree_cover_2000
+numerator: null
+denominator: null
+aggregation: sum
+higher_is: neutral
+distribution: api
+decimals: 1
+sensitivity: public
+definition: >
+  Sum of yearly tree cover loss from 2001 to 2024 inside the year-2000 tree cover. Each pixel is
+  counted once, in its first year of loss.
+source_definition_ref: "hansen-global-forest-change (catalog/datasets/hansen-global-forest-change.yaml)"
+methodology_notes: docs/methods/landscape.md

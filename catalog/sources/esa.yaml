@@ -1,0 +1,19 @@
+# Reviewed 2026-11-17 (docs/research/spatial/discovery-catalogue.md). Licence text read at the evidence URLs on that date.
+id: esa
+name: 'European Space Agency: WorldCover'
+publisher_type: international
+homepage: https://esa-worldcover.org
+contact: null
+access_classes:
+- download_table
+rights:
+  status: open
+  licence: CC-BY-4.0
+  commercial_reuse: 'yes'
+  attribution: © ESA WorldCover project 2021 / Contains modified Copernicus Sentinel data (2021) processed
+    by ESA WorldCover consortium
+  evidence:
+  - https://esa-worldcover.org/en/data-access ('provided free of charge, without restriction of use ...
+    Creative Commons Attribution 4.0 International License', read 2026-11-17)
+  last_reviewed: '2026-11-17'
+notes: 10 m global land cover for 2020 (v100) and 2021 (v200). Public S3 bucket, no account.

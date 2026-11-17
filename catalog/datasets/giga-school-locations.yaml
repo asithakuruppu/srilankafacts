@@ -1,0 +1,33 @@
+id: giga-school-locations
+source: giga
+title: 'Giga: school locations and connectivity, Sri Lanka'
+landing_page: https://data.humdata.org/dataset/sri-lanka-school-geolocation-and-connectivity-status
+pipeline_module: slf.spatial.build
+schedule: manual
+geography_scheme: null
+geography_vintage: null
+reference_period: '2024'
+rights: inherit
+spatial:
+  support: point
+  scheme: null
+  level: null
+  vintage: null
+  coverage: LK
+  measured_in: null
+  positional_accuracy: not stated
+  crs_source: unconfirmed
+  resolution: null
+  information_unit: null
+  information_count: null
+  derived_by: point_in_polygon_v1
+indicators:
+- schools_located
+- schools_connected
+- schools_connected_share
+- nearest_school_distance
+cross_checks: []
+status: active
+notes: 10,146 schools held (2026-11-17); 10,111 fall inside a GN polygon. The CSV has no CRS statement;
+  coordinates are longitude and latitude in degrees and plot inside Sri Lanka, so WGS 84 is assumed ❓.
+  The reference year is HDX's dataset date (2024) 🟡.
