@@ -29,3 +29,5 @@ notes: >
   hold 160 PD and 22 ED geometries. No licence and no stated origin for the PD membership or geometry
   (2026-11-15), so nothing derived from it is committed to catalog/ or put in a release; it is read only
   inside the local build to exercise G05's checks until an official GN list per PD is obtained.
+  2026-11-17 (D-046): its lg_id and moh_id per GN, ents/lg.tsv, ents/moh.tsv and geo/lg, geo/moh shapes are read
+  the same way for internal LA and MOH runs (slf composition build --gig-internal); nothing derived is committed.

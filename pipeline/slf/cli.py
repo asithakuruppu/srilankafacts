@@ -755,6 +755,118 @@ def electoral_build(
         raise typer.Exit(1)
 
 
+composition_app = typer.Typer(
+    help="GN-composed geographies (G05, schemes la and health).", no_args_is_help=True
+)
+app.add_typer(composition_app, name="composition")
+
+
+@composition_app.command("build")
+def composition_build(
+    scheme: Annotated[str, typer.Option(help="la (local authorities) or health (MOH areas).")],
+    vintage: Annotated[str, typer.Option(help="Vintage label, for example mopa-2025.")] = "",
+    units: Annotated[
+        Path | None, typer.Option(help="Unit list CSV: unit_code,name[,kind].")
+    ] = None,
+    membership: Annotated[
+        Path | None, typer.Option(help="Membership CSV: gn_code,unit_code[,weight].")
+    ] = None,
+    source_dataset: Annotated[
+        str | None, typer.Option(help="Catalogue dataset id of the membership list.")
+    ] = None,
+    code_system: Annotated[
+        str, typer.Option(help="Crosswalk for gn_code: a file in codes/, or 'pcode'.")
+    ] = "pcode",
+    method: Annotated[
+        str, typer.Option(help="Relation method: official_list, attribute, overlay_area ...")
+    ] = "official_list",
+    gig_internal: Annotated[
+        bool,
+        typer.Option(help="Internal run on nuuuwan gig-data (no licence; nothing committed)."),
+    ] = False,
+    with_geometry: Annotated[
+        bool, typer.Option(help="With --gig-internal: also fetch unit shapes for the IoU check.")
+    ] = False,
+    spine_dir: Annotated[Path, typer.Option(help="Geography spine build.")] = Path(
+        "./data/build/geography-spine"
+    ),
+    census_dir: Annotated[
+        list[Path], typer.Option(help="Census build folders with observations.parquet.")
+    ] = [  # noqa: B006
+        Path("./data/build/census-2024-gnd-tables"),
+        Path("./data/build/census-2024-topic-tables"),
+    ],
+    catalog: Annotated[Path, typer.Option(help="Catalogue folder.")] = Path("../catalog"),
+    out_dir: Annotated[
+        Path | None, typer.Option(help="Where to write the build (default data/build/<scheme>).")
+    ] = None,
+) -> None:
+    """Compose a non-nesting scheme from GN divisions; run G05 checks and denominators.
+
+    Codes and relations go to the catalogue only if the membership dataset's recorded rights
+    allow it. Otherwise the run is internal: files carry `internal` in their names and stay in
+    the build folder.
+    """
+    from slf.datasets import composed_geography as cg
+
+    if scheme not in cg.SCHEMES:
+        typer.echo(f"unknown scheme {scheme!r}; known: {sorted(cg.SCHEMES)}", err=True)
+        raise typer.Exit(2)
+    spec = cg.SCHEMES[scheme]
+    geoms: dict[str, object] = {}
+    totals: dict[str, float] | None = None
+    if gig_internal:
+        unit_rows, member_rows, geoms, totals = cg.gig_inputs(
+            from_env(), spec, with_geometry=with_geometry
+        )
+        source_dataset, code_system, method = cg.GIG_SOURCE_DATASET, "nuuuwan", "attribute"
+        vintage = vintage or "gig-2026-11"
+    else:
+        if units is None or membership is None or source_dataset is None or not vintage:
+            typer.echo(
+                "need --units, --membership, --source-dataset and --vintage (or --gig-internal)",
+                err=True,
+            )
+            raise typer.Exit(2)
+        unit_rows, member_rows = cg.read_units(units), cg.read_membership(membership)
+    publishable, rights_note = cg.rights_allow_catalog(catalog, source_dataset)
+    if gig_internal:
+        publishable = False
+    composed = cg.compose(
+        spec,
+        unit_rows,
+        member_rows,
+        cg.read_crosswalk(catalog, code_system),
+        cg.spine_gn_ids(spine_dir),
+        method=f"{method} ({source_dataset})",
+        source=source_dataset,
+    )
+    result = cg.build(
+        composed,
+        vintage=vintage,
+        code_system=source_dataset,
+        relation_method=method,
+        spine_dir=spine_dir,
+        census_dirs=census_dir,
+        catalog=catalog,
+        out_dir=out_dir or Path(DEFAULT_BUILD_DIR) / scheme,
+        publishable=publishable,
+        rights_note=rights_note,
+        unit_geoms=geoms or None,
+        published_totals=totals,
+        published_label="nuuuwan's own unit populations (unlicensed, comparison only)"
+        if gig_internal
+        else "published totals",
+    )
+    typer.echo(f"{scheme}: {rights_note}")
+    for miss in cg.missing_shapes:
+        typer.echo(f"  shape not fetched: {miss}", err=True)
+    for key, value in result.summary.items():
+        typer.echo(f"  {key}: {value}")
+    for p in result.outputs:
+        typer.echo(f"wrote {p}")
+
+
 atlas_app = typer.Typer(
     help="Web atlas bundle: display geometry, neighbours, profile and change files.",
     no_args_is_help=True,
@@ -774,12 +886,15 @@ def atlas_export(
     history_dir: Annotated[
         Path | None, typer.Option(help="History build folder (`slf history build`).")
     ] = None,
+    catalog: Annotated[
+        Path | None, typer.Option(help="Catalogue folder (ED grouping, election source).")
+    ] = Path("../catalog"),
     out_dir: Annotated[Path, typer.Option(help="Output folder.")] = Path("./data/build/atlas"),
 ) -> None:
     """Write the derived files the map-first website reads (local, never part of a release)."""
     from slf.atlas import export
 
-    manifest = export(release_dir, spine_dir, out_dir, profile_dir, history_dir)
+    manifest = export(release_dir, spine_dir, out_dir, profile_dir, history_dir, catalog)
     geometry = manifest["geometry"]
     typer.echo(f"atlas bundle for {manifest['release']} -> {out_dir / manifest['release']}")
     typer.echo(
@@ -790,6 +905,7 @@ def atlas_export(
     typer.echo(f"clusters: {manifest['clusters']['indicators']} indicators")
     typer.echo(f"profile: {manifest['profile']}")
     typer.echo(f"change: {manifest['change']}")
+    typer.echo(f"electoral: {manifest['electoral']}")
 
 
 spatial_app = typer.Typer(

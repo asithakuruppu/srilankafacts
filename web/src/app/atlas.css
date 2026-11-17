@@ -1240,3 +1240,46 @@ body:has(.atlas) .preview-banner .shell {
     width: 140px;
   }
 }
+
+/* Elections lens (D-039, D-040) */
+.atlas-scale-sep {
+  width: 1px;
+  align-self: stretch;
+  margin: 0.25rem 0.15rem;
+  background: var(--rule);
+  opacity: 0.25;
+}
+
+.election-totals {
+  width: 100%;
+  font-size: 0.82rem;
+}
+
+.election-totals th {
+  text-align: left;
+  font-weight: 500;
+}
+
+.election-totals td {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.election-candidates,
+.election-pds {
+  font-size: 0.78rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.election-candidates caption {
+  text-align: left;
+  font-size: 0.74rem;
+  padding-bottom: 0.3rem;
+}
+
+.election-measure {
+  display: grid;
+  gap: 0.25rem;
+  margin-top: 0.6rem;
+  font-size: 0.78rem;
+}

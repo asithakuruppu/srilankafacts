@@ -5,16 +5,19 @@ import { useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import AtlasMap, { type AtlasMapHandle } from "@/components/atlas/atlas-map";
+import ElectionPanel from "@/components/atlas/election-panel";
 import PlacePanel from "@/components/atlas/place-panel";
 import { classIndex, divergingBreaks, quantileBreaks, type ValueMap } from "@/lib/atlas/context";
 import {
   loadAdjacency,
   loadChange,
+  loadElectoral,
   loadJson,
   loadLevelValues,
   loadProfile,
   loadUnits,
 } from "@/lib/atlas/data";
+import { ELECTION_MEASURES, formatTotal, indexElectoral, measureValues } from "@/lib/atlas/elections";
 import { distancesFrom, indexProfile, nearest } from "@/lib/atlas/profile";
 import {
   DETAIL_ZOOM,
@@ -22,11 +25,13 @@ import {
   LEVEL_MIN_ZOOM,
   MAP_LEVELS,
   PROXIMITY,
+  SCHEMES,
   SEQUENTIAL,
   childLevel,
   levelForZoom,
   rampFor,
   zoomBand,
+  type AdminMapLevel,
   type MapLevel,
 } from "@/lib/atlas/scale";
 import {
@@ -37,6 +42,7 @@ import {
   LEVEL_SHORT,
   type AtlasIndicator,
   type AtlasMeta,
+  type ElectionTotals,
   type Lens,
   type LevelName,
 } from "@/lib/atlas/types";
@@ -106,9 +112,12 @@ export default function Atlas({
     indicator: indicators.some((item) => item.id === params.get("ind"))
       ? (params.get("ind") as string)
       : defaultIndicator,
-    level: MAP_LEVELS.includes(params.get("level") as MapLevel)
+    level: MAP_LEVELS.includes(params.get("level") as AdminMapLevel)
       ? (params.get("level") as MapLevel)
       : null,
+    measure: ELECTION_MEASURES.some((m) => m.id === params.get("m"))
+      ? (params.get("m") as keyof ElectionTotals)
+      : ("turnout" as keyof ElectionTotals),
     compare: params.get("cmp"),
   }));
 
@@ -117,6 +126,7 @@ export default function Atlas({
   const [indicatorId, setIndicatorId] = useState(initial.indicator);
   const [pinned, setPinned] = useState<MapLevel | null>(initial.level);
   const [compareId, setCompareId] = useState<string | null>(initial.compare);
+  const [measure, setMeasure] = useState<keyof ElectionTotals>(initial.measure);
   const [zoom, setZoom] = useState(6.5);
   const [pickerOpen, setPickerOpen] = useState(false);
   const [pickerQuery, setPickerQuery] = useState("");
@@ -138,13 +148,36 @@ export default function Atlas({
   const hierarchy = useMemo(() => (hierarchyRows ? buildHierarchy(hierarchyRows) : null), [hierarchyRows]);
   const profileFile = useLoaded(meta.profile ? loadProfile : null, "profile");
   const profile = useMemo(() => (profileFile ? indexProfile(profileFile) : null), [profileFile]);
-  const change = useLoaded(meta.change && lens === "change" ? loadChange : null, "change");
+  // Keep a file once loaded: the key changes only when the lens first needs it.
+  const [wanted, setWanted] = useState<Set<Lens>>(() => new Set([initial.lens]));
+  if (!wanted.has(lens)) {
+    setWanted(new Set([...wanted, lens]));
+  }
+  const wantChange = Boolean(meta.change) && (wanted.has("change") || lens === "change");
+  const wantElectoral = Boolean(meta.electoral) && (wanted.has("elections") || lens === "elections");
+  const change = useLoaded(wantChange ? loadChange : null, `change|${wantChange}`);
+  const electoralFile = useLoaded(
+    wantElectoral ? loadElectoral : null,
+    `electoral|${wantElectoral}`,
+  );
+  const election = useMemo(
+    () => (electoralFile ? indexElectoral(electoralFile) : null),
+    [electoralFile],
+  );
+  const edLabels = useMemo(
+    () =>
+      election
+        ? Object.fromEntries(election.file.eds.map((ed) => [ed.id, ed.c ?? null]))
+        : null,
+    [election],
+  );
 
   const indicator = indicators.find((item) => item.id === indicatorId) ?? indicators[0];
 
   const nameOf = useCallback(
-    (id: string) => units?.[id]?.n ?? hierarchy?.nodes.get(id)?.name ?? id,
-    [hierarchy, units],
+    (id: string) =>
+      units?.[id]?.n ?? hierarchy?.nodes.get(id)?.name ?? election?.byId.get(id)?.name ?? id,
+    [election, hierarchy, units],
   );
   const parentOf = useCallback(
     (id: string) => units?.[id]?.p ?? hierarchy?.nodes.get(id)?.parentId ?? null,
@@ -152,6 +185,9 @@ export default function Atlas({
   );
   const levelOf = useCallback(
     (id: string): LevelName => {
+      if (id.startsWith("LK-ED-")) {
+        return "ed";
+      }
       const unit = units?.[id];
       if (unit) {
         return LEVELS[unit.l] ?? "gn";
@@ -163,12 +199,17 @@ export default function Atlas({
 
   const subject = selectedId ?? "LK";
   const subjectLevel = levelOf(subject);
-  const known = selectedId === null || Boolean(units?.[subject] ?? hierarchy?.nodes.get(subject));
+  const known =
+    selectedId === null ||
+    Boolean(units?.[subject] ?? hierarchy?.nodes.get(subject) ?? election?.byId.get(subject));
 
   // Levels the map can show for this lens.
   const available = useMemo<MapLevel[]>(() => {
     if (lens === "profile" || lens === "change") {
       return ["ds"];
+    }
+    if (lens === "elections") {
+      return ["ed"];
     }
     if (lens === "landscape") {
       return MAP_LEVELS;
@@ -361,6 +402,49 @@ export default function Atlas({
         },
       };
     }
+    if (lens === "elections") {
+      const chosen = ELECTION_MEASURES.find((m) => m.id === measure) ?? ELECTION_MEASURES[0];
+      if (!election) {
+        return {
+          colors: null,
+          legend: {
+            title: chosen.label,
+            note: meta.electoral
+              ? "Loading election results…"
+              : "No election results in this build.",
+            entries: [],
+          },
+        };
+      }
+      const map = measureValues(election, chosen.id);
+      const ramp = rampFor(SEQUENTIAL, theme);
+      const breaks = quantileBreaks([...map.values()], 5);
+      const palette =
+        breaks.length === 4 ? ramp : ramp.filter((_, i) => i % 2 === 0).slice(0, breaks.length + 1);
+      const colours = new Map<string, string>();
+      for (const [id, value] of map) {
+        colours.set(id, palette[Math.min(classIndex(value, breaks), palette.length - 1)]);
+      }
+      const fmt = (value: number) => formatTotal(chosen.id, value);
+      return {
+        colors: colours,
+        legend: {
+          title: `${chosen.label}, ${election.file.election.name}`,
+          note: `${map.size} electoral districts · ${chosen.definition} Election Commission, machine-read, not yet checked by a person. Classes are fifths of the values; colour is not a judgement.`,
+          entries: palette.slice(0, breaks.length + 1).map((color, i) => ({
+            color,
+            label:
+              breaks.length === 0
+                ? "all equal"
+                : i === 0
+                  ? `under ${fmt(breaks[0])}`
+                  : i === breaks.length
+                    ? `${fmt(breaks[i - 1])} and over`
+                    : `${fmt(breaks[i - 1])} – ${fmt(breaks[i])}`,
+          })),
+        },
+      };
+    }
     return {
       colors: null,
       legend: {
@@ -369,7 +453,7 @@ export default function Atlas({
         entries: [],
       },
     };
-  }, [change, indicator, lens, level, meta.change, meta.profile, nameOf, profile, profileSubject, theme, values]);
+  }, [change, election, indicator, lens, level, measure, meta.change, meta.electoral, meta.profile, nameOf, profile, profileSubject, theme, values]);
 
   const flyTo = useCallback(
     (id: string) => {
@@ -377,8 +461,8 @@ export default function Atlas({
         return;
       }
       const placeLevel = levelOf(id);
-      if (lens === "profile" || lens === "change") {
-        // These lenses compare DS divisions across the country: keep the whole island in view.
+      if (lens === "profile" || lens === "change" || lens === "elections") {
+        // These lenses compare units across the country: keep the whole island in view.
         const whole = units.LK?.b;
         if (whole) {
           mapRef.current?.fit(whole);
@@ -446,6 +530,9 @@ export default function Atlas({
     if (indicatorId !== defaultIndicator) {
       query.set("ind", indicatorId);
     }
+    if (lens === "elections" && measure !== "turnout") {
+      query.set("m", measure);
+    }
     if (pinned) {
       query.set("level", pinned);
     }
@@ -454,7 +541,7 @@ export default function Atlas({
     }
     const text = query.toString();
     window.history.replaceState(null, "", text ? `/?${text}` : "/");
-  }, [compareId, defaultIndicator, indicatorId, lens, pinned, selectedId]);
+  }, [compareId, defaultIndicator, indicatorId, lens, measure, pinned, selectedId]);
 
   const tooltip = useCallback(
     (id: string) => {
@@ -467,6 +554,13 @@ export default function Atlas({
             value === undefined
               ? "no value"
               : formatValue(value, indicator.unit, indicator.decimals),
+        };
+      }
+      if (lens === "elections") {
+        const ed = election?.byId.get(id);
+        return {
+          title,
+          detail: ed ? formatTotal(measure, ed.values[measure]) : "no result",
         };
       }
       if (lens === "change") {
@@ -491,7 +585,7 @@ export default function Atlas({
       }
       return { title, detail: LEVEL_SHORT[level] };
     },
-    [changeById, indicator, lens, level, nameOf, profile, profileSubject, values],
+    [changeById, election, indicator, lens, level, measure, nameOf, profile, profileSubject, values],
   );
 
   const highlight = useMemo(() => {
@@ -538,6 +632,26 @@ export default function Atlas({
     return [...groups.entries()];
   }, [indicators, pickerQuery]);
 
+  /** Change lens; a selection moves between the admin and ED schemes only through composition. */
+  const switchLens = (next: Lens) => {
+    setLens(next);
+    setCompareId(null);
+    if (selectedId && next !== "elections" && levelOf(selectedId) === "ed") {
+      setSelectedId(null);
+    }
+  };
+
+  // In the Elections lens an admin selection becomes the ED made of its district, once the
+  // results have loaded (adjusting state during render, as for the URL place above).
+  if (lens === "elections" && electoralFile && selectedId && levelOf(selectedId) !== "ed") {
+    let id: string | null = selectedId;
+    while (id && levelOf(id) !== "district") {
+      id = parentOf(id);
+    }
+    const ed = id ? electoralFile.eds.find((item) => item.districts?.includes(id as string)) : null;
+    setSelectedId(ed ? ed.id : null);
+  }
+
   const pinLevel = (next: MapLevel | null) => {
     setPinned(next);
     if (next === "gn" && zoom < LEVEL_MIN_ZOOM.gn) {
@@ -556,6 +670,7 @@ export default function Atlas({
         dimOutside={dimOutside}
         highlight={highlight}
         units={units}
+        edLabels={lens === "elections" ? edLabels : null}
         nameOf={nameOf}
         parentOf={parentOf}
         tooltip={tooltip}
@@ -586,10 +701,7 @@ export default function Atlas({
               aria-selected={lens === item.id}
               title={item.hint}
               className={lens === item.id ? "is-active" : ""}
-              onClick={() => {
-                setLens(item.id);
-                setCompareId(null);
-              }}
+              onClick={() => switchLens(item.id)}
             >
               {item.label}
             </button>
@@ -703,6 +815,29 @@ export default function Atlas({
               {LEVEL_SHORT[item].replace(" division", "")}
             </button>
           ))}
+          <span className="atlas-scale-sep" aria-hidden="true" />
+          {SCHEMES.map((scheme) => {
+            const drawable = scheme.drawable && (scheme.id !== "ed" || Boolean(meta.electoral));
+            return (
+              <button
+                key={scheme.id}
+                type="button"
+                disabled={!drawable}
+                aria-pressed={drawable && level === scheme.id}
+                className={level === scheme.id ? "is-current is-active" : ""}
+                title={
+                  drawable
+                    ? `${scheme.title}. Shown with the Elections lens.`
+                    : scheme.id === "ed"
+                      ? "Electoral districts: not in this build"
+                      : scheme.title
+                }
+                onClick={() => switchLens(lens === "elections" ? "geography" : "elections")}
+              >
+                {scheme.label}
+              </button>
+            );
+          })}
           <span className="atlas-scale-floor" title="Buildings, trees and landmarks are not in this release. The finest unit with data is the GN division.">
             Features: none yet
           </span>
@@ -726,6 +861,19 @@ export default function Atlas({
         </div>
       </div>
 
+      {lens === "elections" ? (
+        <ElectionPanel
+          available={Boolean(meta.electoral)}
+          election={election}
+          subject={selectedId && levelOf(selectedId) === "ed" ? selectedId : selectedId ? "__none__" : null}
+          measure={measure}
+          onMeasure={setMeasure}
+          onSelect={(id) => select(id)}
+          nameOf={nameOf}
+          sheetOpen={sheetOpen}
+          onSheet={setSheetOpen}
+        />
+      ) : (
       <PlacePanel
         release={release}
         meta={meta}
@@ -749,10 +897,11 @@ export default function Atlas({
         levelOf={levelOf}
         onSelect={(id) => select(id, { fly: lens === "geography" || lens === "landscape" })}
         onCompare={setCompareId}
-        onLens={setLens}
+        onLens={switchLens}
         sheetOpen={sheetOpen}
         onSheet={setSheetOpen}
       />
+      )}
     </div>
   );
 }

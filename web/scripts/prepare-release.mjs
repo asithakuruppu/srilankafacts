@@ -109,6 +109,7 @@ for (const candidate of atlasCandidates) {
   atlas = {
     profile: Boolean(manifest.profile?.available),
     change: Boolean(manifest.change?.available),
+    electoral: Boolean(manifest.electoral?.available),
     clusters: manifest.clusters?.indicators ?? 0,
     detail_tolerance_m: manifest.geometry?.detail_tolerance_m ?? null,
     overview_tolerance_m: manifest.geometry?.overview_tolerance_m ?? null,

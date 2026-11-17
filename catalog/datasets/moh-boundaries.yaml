@@ -26,3 +26,6 @@ cross_checks: []
 status: proposed
 notes: >
   Stage 2. ~330-350 areas; nuuuwan holds a 330-area version (ecosystem-landscape.md §6). Authoritative source to be found.
+  2026-11-17 (G05 health, D-046): no official unit list, GN list or boundary is held. `slf composition build
+  --scheme health` is ready; an internal run on nuuuwan gig-data (333 units, 986 spine GNs with no MOH area) is
+  reported in docs/qa/la-moh-composition-2026-11-17.md and nothing is committed.

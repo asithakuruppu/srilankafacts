@@ -5,11 +5,20 @@ import "maplibre-gl/dist/maplibre-gl.css";
 import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from "react";
 import type { GeoJSONSource, Map as MapLibreMap } from "maplibre-gl";
 
-import { loadDetail, loadFine, loadMesh, loadOutlines, loadOverview } from "@/lib/atlas/data";
+import {
+  loadDetail,
+  loadEdMesh,
+  loadEdOutlines,
+  loadFine,
+  loadMesh,
+  loadOutlines,
+  loadOverview,
+} from "@/lib/atlas/data";
 import { DETAIL_ZOOM, LEVEL_MIN_ZOOM, LEVEL_RANK, type MapLevel } from "@/lib/atlas/scale";
 import type {
   AreaProps,
   Collection,
+  EdOutlines,
   Feature,
   FineFile,
   GnUnit,
@@ -72,6 +81,8 @@ type Props = {
   /** DS ids to ring, for example the places most like the selected one. */
   highlight: string[];
   units: Record<string, Unit> | null;
+  /** Electoral district label points, when the ED scheme is in the bundle. */
+  edLabels: Record<string, [number, number] | null> | null;
   nameOf: (id: string) => string;
   parentOf: (id: string) => string | null;
   tooltip: (id: string) => { title: string; detail: string | null } | null;
@@ -142,6 +153,8 @@ const AtlasMap = forwardRef<AtlasMapHandle, Props>(function AtlasMap(props, ref)
     gnUnits: new Map<string, GnUnit>(),
     hover: null as string | null,
     labelFrame: 0,
+    edOutlines: null as EdOutlines | null,
+    edRequested: false,
   });
 
   useEffect(() => {
@@ -289,7 +302,13 @@ const AtlasMap = forwardRef<AtlasMapHandle, Props>(function AtlasMap(props, ref)
       const bounds = map.getBounds();
       const depth = LEVEL_RANK[level];
       const candidates: { id: string; c: [number, number]; a: number }[] = [];
-      if (level === "gn") {
+      if (level === "ed") {
+        for (const [id, c] of Object.entries(latest.current.edLabels ?? {})) {
+          if (c && bounds.contains(c)) {
+            candidates.push({ id, c, a: 0 });
+          }
+        }
+      } else if (level === "gn") {
         for (const [id, unit] of state.gnUnits) {
           if (unit.c && bounds.contains(unit.c)) {
             candidates.push({ id, c: unit.c, a: unit.a ?? 0 });
@@ -453,6 +472,7 @@ const AtlasMap = forwardRef<AtlasMapHandle, Props>(function AtlasMap(props, ref)
             "mesh",
             "mesh-fine",
             "mesh-detail",
+            "ed-mesh",
             "sel-coarse",
             "sel-fine",
             "hl-coarse",
@@ -512,6 +532,15 @@ const AtlasMap = forwardRef<AtlasMapHandle, Props>(function AtlasMap(props, ref)
             source: "mesh-fine",
             minzoom: DETAIL_ZOOM,
             layout: line,
+            paint: stroke,
+          });
+          // Electoral districts: their own border mesh (district borders inside an ED, such as
+          // Jaffna and Kilinochchi, are not ED borders), shown only at the ED scale.
+          map.addLayer({
+            id: "ed-mesh",
+            type: "line",
+            source: "ed-mesh",
+            layout: { ...line, visibility: "none" },
             paint: stroke,
           });
           for (const [id, src, zoom] of [
@@ -638,7 +667,7 @@ const AtlasMap = forwardRef<AtlasMapHandle, Props>(function AtlasMap(props, ref)
     }
     const tokens = MAP_TOKENS[theme];
     map.setPaintProperty("sea", "background-color", tokens.sea);
-    for (const id of ["mesh", "mesh-detail", "mesh-fine"]) {
+    for (const id of ["mesh", "mesh-detail", "mesh-fine", "ed-mesh"]) {
       map.setPaintProperty(id, "line-color", [
         "case",
         ["==", ["get", "rank"], 0],
@@ -670,9 +699,26 @@ const AtlasMap = forwardRef<AtlasMapHandle, Props>(function AtlasMap(props, ref)
       map.setPaintProperty(id, "fill-color", expression as never);
       map.setPaintProperty(id, "fill-opacity", focus as never);
     }
-    const borders = ["any", ["==", ["get", "rank"], 0], ["<=", ["get", "rank"], LEVEL_RANK[level]]];
+    const borders =
+      level === "ed"
+        ? ["==", ["get", "rank"], 0]
+        : ["any", ["==", ["get", "rank"], 0], ["<=", ["get", "rank"], LEVEL_RANK[level]]];
     for (const id of ["mesh", "mesh-detail", "mesh-fine"]) {
       map.setFilter(id, borders as never);
+    }
+    map.setLayoutProperty("ed-mesh", "visibility", level === "ed" ? "visible" : "none");
+    const state = store.current;
+    if (level === "ed" && !state.edRequested) {
+      state.edRequested = true;
+      Promise.all([loadEdMesh(), loadEdOutlines()])
+        .then(([mesh, outlines]) => {
+          (map.getSource("ed-mesh") as GeoJSONSource | undefined)?.setData(mesh);
+          state.edOutlines = outlines;
+          setDataVersion((value) => value + 1);
+        })
+        .catch(() => {
+          state.edRequested = false;
+        });
     }
     internals.current?.scheduleLabels();
   }, [colors, dimOutside, level, ready, selected, theme]);
@@ -685,6 +731,11 @@ const AtlasMap = forwardRef<AtlasMapHandle, Props>(function AtlasMap(props, ref)
       return;
     }
     function geometry(id: string, unitLevel: LevelName): { coarse: unknown[]; fine: unknown[] } {
+      if (unitLevel === "ed") {
+        const coarse = state.edOutlines?.coarse.features.find((f) => f.properties.id === id);
+        const fine = state.edOutlines?.fine.features.find((f) => f.properties.id === id) ?? coarse;
+        return { coarse: coarse ? [coarse] : [], fine: fine ? [fine] : [] };
+      }
       if (unitLevel === "gn") {
         const feature = state.gnById.get(id);
         return { coarse: feature ? [feature] : [], fine: feature ? [feature] : [] };
