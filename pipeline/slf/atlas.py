@@ -118,7 +118,9 @@ def _mesh_features(ranked: list[BaseGeometry], first_rank: int = 0) -> list[dict
     ]
 
 
-def build_geometry(spine_dir: Path, out_dir: Path) -> dict[str, Any]:
+def build_geometry(
+    spine_dir: Path, out_dir: Path, ed_of_district: dict[str, str] | None = None
+) -> dict[str, Any]:
     geographies = pd.read_parquet(spine_dir / "geographies.parquet")
     versions = gpd.GeoDataFrame(gpd.read_parquet(spine_dir / "geography_versions.geoparquet"))
     parent = {
@@ -180,6 +182,9 @@ def build_geometry(spine_dir: Path, out_dir: Path) -> dict[str, Any]:
                         "district": district_of_ds[ds],
                         "province": province_of_district[district_of_ds[ds]],
                         "country": "LK",
+                        **(
+                            {"ed": ed_of_district.get(district_of_ds[ds])} if ed_of_district else {}
+                        ),
                     },
                 )
                 for ds, geom in ds_published.items()
@@ -275,6 +280,7 @@ def build_geometry(spine_dir: Path, out_dir: Path) -> dict[str, Any]:
                             "district": district,
                             "province": province_of_district[district],
                             "country": "LK",
+                            **({"ed": ed_of_district.get(district)} if ed_of_district else {}),
                         },
                     )
                     for i in index
@@ -332,7 +338,14 @@ def build_geometry(spine_dir: Path, out_dir: Path) -> dict[str, Any]:
         }
     _dump(out_dir / "units.json", units)
 
+    electoral = (
+        build_ed_geometry(district_coarse, district_fine, country_fine, ed_of_district, out_dir)
+        if ed_of_district
+        else {"available": False}
+    )
+
     return {
+        "electoral": electoral,
         "method": (
             "GN polygons (COD-AB v03, from the spine) simplified as a coverage in EPSG:5235, "
             "then dissolved to DS, district, province and country; borders written once as a "
@@ -348,6 +361,237 @@ def build_geometry(spine_dir: Path, out_dir: Path) -> dict[str, Any]:
         "detail_bytes": detail_bytes,
         "source": "geography_versions.geoparquet",
         "source_sha256": _sha256(spine_dir / "geography_versions.geoparquet"),
+    }
+
+
+def _split_lines(geom: BaseGeometry, max_points: int = 20_000) -> list[BaseGeometry]:
+    """Split long line runs into pieces of at most ``max_points`` vertices (sharing end points),
+    because the map library refuses single line buckets above 65,535 vertices."""
+    pieces: list[BaseGeometry] = []
+    for part in shapely.get_parts(geom):
+        coords = shapely.get_coordinates(part)
+        if len(coords) <= max_points:
+            pieces.append(part)
+            continue
+        for start in range(0, len(coords) - 1, max_points - 1):
+            pieces.append(shapely.LineString(coords[start : start + max_points]))
+    return pieces
+
+
+def build_ed_geometry(
+    district_coarse: dict[str, BaseGeometry],
+    district_fine: dict[str, BaseGeometry],
+    country_fine: BaseGeometry,
+    ed_of_district: dict[str, str],
+    out_dir: Path,
+) -> dict[str, Any]:
+    """Electoral districts dissolved from the simplified district coverage (EDs are whole
+    districts, ``composed_of`` weight 1), so ED borders are district borders, drawn once."""
+    missing = sorted(d for d in district_fine if d not in ed_of_district)
+    eds = sorted(set(ed_of_district.values()))
+
+    def by_ed(districts: dict[str, BaseGeometry]) -> dict[str, BaseGeometry]:
+        keys = [d for d in sorted(districts) if d in ed_of_district]
+        return _dissolve(
+            np.asarray([districts[d] for d in keys], dtype=object),
+            [ed_of_district[d] for d in keys],
+        )
+
+    coarse, fine = by_ed(district_coarse), by_ed(district_fine)
+    ranked = _ranked_mesh([[country_fine], [fine[e] for e in eds]])
+    published = _publish(ranked)
+    _dump(
+        out_dir / "ed-mesh.geojson",
+        _collection(
+            [
+                _feature(part, {"rank": rank})
+                for rank, geom in zip((0, 2), published, strict=True)
+                if not geom.is_empty
+                for part in _split_lines(geom)
+            ]
+        ),
+    )
+    coarse_pub = _publish([coarse[e] for e in eds])
+    fine_pub = _publish([fine[e] for e in eds])
+    _dump(
+        out_dir / "ed-outlines.json",
+        {
+            "coarse": _collection(
+                [_feature(g, {"id": e, "level": 2}) for e, g in zip(eds, coarse_pub, strict=True)]
+            ),
+            "fine": _collection(
+                [_feature(g, {"id": e, "level": 2}) for e, g in zip(eds, fine_pub, strict=True)]
+            ),
+        },
+    )
+    labels = _publish([coarse[e].representative_point() for e in eds])
+    units = {
+        e: {
+            "c": [round(float(v), 5) for v in shapely.get_coordinates(pt)[0]],
+            "b": [round(float(v), 4) for v in g.bounds],
+            "districts": sorted(d for d, x in ed_of_district.items() if x == e),
+        }
+        for e, pt, g in zip(eds, labels, coarse_pub, strict=True)
+    }
+    return {
+        "available": True,
+        "method": (
+            "Electoral districts dissolved from the coverage-simplified districts, using the "
+            "catalogue's ED composed_of district relations (weight 1); display geometry only."
+        ),
+        "units": units,
+        "districts_without_ed": missing,
+    }
+
+
+def ed_of_district_from_catalog(catalog_dir: Path) -> dict[str, str]:
+    """District p-code -> ED id from ``relations/electoral_ec-2024.csv`` (composed_of, weight 1)."""
+    path = catalog_dir / "geographies" / "relations" / "electoral_ec-2024.csv"
+    if not path.exists():
+        return {}
+    rel = pd.read_csv(path, dtype=str)
+    rel = rel[(rel["relation"] == "composed_of") & (rel["weight"].astype(float) == 1.0)]
+    return dict(zip(rel["related_id"], rel["geography_id"], strict=True))
+
+
+ELECTION_TOTALS = (
+    "electors_registered",
+    "votes_polled",
+    "votes_valid",
+    "votes_rejected",
+    "turnout",
+    "votes_rejected_share",
+)
+
+
+def _num(value: Any) -> float | None:
+    return None if value is None or pd.isna(value) else float(value)
+
+
+def build_electoral(
+    release_dir: Path, catalog_dir: Path, out_dir: Path, ed_units: dict[str, Any]
+) -> dict[str, Any]:
+    """Election results by ED and PD from the release's election-results observations.
+
+    Every number is a release value (D-039, machine_extracted). Polling divisions go to tables
+    only (D-040: no GN composition, no geometry). Candidates keep ballot order; nothing is
+    ranked.
+    """
+    obs_path = release_dir / "observations" / "election-results.parquet"
+    codes_path = release_dir / "geographies" / "electoral-ec-2024.csv"
+    rel_path = catalog_dir / "geographies" / "relations" / "electoral_ec-2024.csv"
+    if not obs_path.exists() or not codes_path.exists():
+        return {"available": False, "reason": "no election-results in this release"}
+    obs = pd.read_parquet(obs_path)
+    codes = pd.read_csv(codes_path, dtype=str)
+    codes = codes[codes["code_system"] == "election-commission"]
+    names = dict(zip(codes["geography_id"], codes["external_name"], strict=True))
+    ec_code = dict(zip(codes["geography_id"], codes["external_code"], strict=True))
+    rel = pd.read_csv(rel_path, dtype=str)
+    rel = rel[rel["relation"] == "parent"]
+    pd_parent = dict(zip(rel["related_id"], rel["geography_id"], strict=True))
+
+    def kind(b: Any) -> str:
+        if b is None or (isinstance(b, float) and pd.isna(b)):
+            return "total"
+        b = cast(dict[str, Any], b)
+        postal = b.get("vote_type") == "postal"
+        cand = b.get("ballot_number") is not None
+        return ("postal_" if postal else "") + ("candidate" if cand else "total")
+
+    obs = obs.assign(kind=[kind(b) for b in obs["breakdown"]])
+    candidates: dict[int, dict[str, str]] = {}
+    for b in obs.loc[obs["kind"] == "candidate", "breakdown"]:
+        b = cast(dict[str, Any], b)
+        candidates.setdefault(
+            int(b["ballot_number"]), {"name": str(b["candidate"]), "party": str(b["party"])}
+        )
+    places: dict[str, dict[str, Any]] = {}
+    for gid, group in obs.groupby("geography_id", sort=True):
+        gid = str(gid)
+        totals = group[group["kind"] == "total"].set_index("indicator_id")
+        postal = group[group["kind"] == "postal_total"].set_index("indicator_id")
+        votes: dict[int, list[float | None]] = {}
+        for row in _rows(pd.DataFrame(group[group["kind"] == "candidate"])):
+            ballot = int(cast(dict[str, Any], row["breakdown"])["ballot_number"])
+            slot = votes.setdefault(ballot, [None, None])
+            slot[0 if row["indicator_id"] == "votes_candidate" else 1] = _num(row["value"])
+        valid = totals.loc["votes_valid"] if "votes_valid" in totals.index else None
+        level = "country" if gid == "LK" else "ed" if gid.startswith("LK-ED-") else "pd"
+        places[gid] = {
+            "id": gid,
+            "level": level,
+            "name": "Sri Lanka" if gid == "LK" else names.get(gid),
+            "ec_code": ec_code.get(gid),
+            "parent": pd_parent.get(gid) if level == "pd" else None,
+            "values": {
+                k: _num(totals.loc[k, "value"]) if k in totals.index else None
+                for k in ELECTION_TOTALS
+            },
+            "postal": {
+                k: _num(postal.loc[k, "value"]) if k in postal.index else None
+                for k in ELECTION_TOTALS
+            }
+            if not postal.empty
+            else None,
+            "votes": [[b, *votes[b]] for b in sorted(votes)],
+            "not_available": int((group["value_status"] == "not_available").to_numpy().sum()),
+            "source": {
+                "locator": None if valid is None else str(valid["source_locator"]),
+                "sha256": None if valid is None else str(valid["snapshot_sha256"]),
+                "verification": sorted(set(group["verification"].astype(str))),
+            },
+        }
+    eds = sorted(k for k, v in places.items() if v["level"] == "ed")
+    pds = sorted(
+        (k for k, v in places.items() if v["level"] == "pd"),
+        key=lambda k: (places[k]["parent"] or "", k),
+    )
+    for e in eds:
+        places[e].update(ed_units.get(e, {"c": None, "b": None, "districts": []}))
+    first = obs.iloc[0]
+    from slf.catalog import CatalogReport, load_catalog
+
+    cat = load_catalog(catalog_dir, None, CatalogReport())
+    ds = cat.datasets.get("election-results")
+    pub = ds.publication if ds else None
+    payload = {
+        "status": "release_values",
+        "election": {
+            "id": "presidential-2024",
+            "name": "Presidential Election 2024",
+            "date": str(first["period"]),
+        },
+        "dataset_id": "election-results",
+        "release": str(first["release"]),
+        "landing_page": str(ds.landing_page) if ds and ds.landing_page else None,
+        "publication": {
+            "decision": pub.decision,
+            "attribution": pub.attribution,
+            "notice": pub.notice,
+        }
+        if pub
+        else None,
+        "verification_note": (
+            "Values were read from the Election Commission's PDFs by machine (some by on-device "
+            "OCR, D-041), checked by arithmetic, and are not yet verified by a person."
+        ),
+        "candidates": [
+            {"ballot": b, "name": c["name"], "party": c["party"]}
+            for b, c in sorted(candidates.items())
+        ],
+        "country": places.get("LK"),
+        "eds": [places[e] for e in eds],
+        "pds": [places[p] for p in pds],
+    }
+    _dump(out_dir / "electoral.json", payload)
+    return {
+        "available": True,
+        "eds": len(eds),
+        "pds": len(pds),
+        "candidates": len(candidates),
+        "eds_without_geometry": sorted(e for e in eds if e not in ed_units),
+        "source_sha256": _sha256(obs_path),
     }
 
 
@@ -669,14 +913,23 @@ def export(
     out_dir: Path,
     profile_dir: Path | None = None,
     history_dir: Path | None = None,
+    catalog_dir: Path | None = None,
 ) -> dict[str, Any]:
     latest = json.loads((release_dir / "api/v1/releases/latest.json").read_text())
     target = out_dir / str(latest["release"])
     target.mkdir(parents=True, exist_ok=True)
+    ed_of_district = ed_of_district_from_catalog(catalog_dir) if catalog_dir else {}
+    geometry = build_geometry(spine_dir, target, ed_of_district or None)
+    ed_units = cast(dict[str, Any], geometry["electoral"].get("units", {}))
     manifest: dict[str, Any] = {
         "release": latest["release"],
         "kind": "web atlas bundle (derived, for display)",
-        "geometry": build_geometry(spine_dir, target),
+        "geometry": geometry,
+        "electoral": (
+            build_electoral(release_dir, catalog_dir, target, ed_units)
+            if catalog_dir is not None
+            else {"available": False, "reason": "no --catalog-dir given"}
+        ),
         "adjacency": build_adjacency(spine_dir, target),
         "clusters": build_clusters(release_dir, target),
         "profile": (

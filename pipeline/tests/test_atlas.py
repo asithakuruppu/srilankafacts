@@ -159,3 +159,99 @@ def test_release_boundaries_share_edges(tmp_path: Path) -> None:
         # Rounding to 6 decimals moves vertices by centimetres; allow one part in 10,000.
         assert abs(total[level] - union.area) < total[level] * 1e-4, level
     assert abs(total[0] - total[4]) < total[4] * 1e-4
+
+
+def test_ed_geometry_is_dissolved_from_districts_and_borders_drawn_once(tmp_path: Path) -> None:
+    (tmp_path / "spine").mkdir()
+    spine = _spine(tmp_path / "spine")
+    out = tmp_path / "out"
+    # Both districts form one ED (as Jaffna ED = Jaffna + Kilinochchi): no internal ED border.
+    one = build_geometry(spine, out, {"LK11": "LK-ED-01", "LK12": "LK-ED-01"})["electoral"]
+    assert one["units"]["LK-ED-01"]["districts"] == ["LK11", "LK12"]
+    mesh = json.loads((out / "ed-mesh.geojson").read_text())
+    assert [f["properties"]["rank"] for f in mesh["features"]] == [0]
+    # Two EDs: the district border becomes the ED border, rank 2.
+    two = build_geometry(spine, out, {"LK11": "LK-ED-01", "LK12": "LK-ED-02"})["electoral"]
+    assert sorted(two["units"]) == ["LK-ED-01", "LK-ED-02"]
+    mesh = json.loads((out / "ed-mesh.geojson").read_text())
+    assert [f["properties"]["rank"] for f in mesh["features"]] == [0, 2]
+    overview = json.loads((out / "overview.geojson").read_text())
+    assert {f["properties"]["ed"] for f in overview["features"]} == {"LK-ED-01", "LK-ED-02"}
+    detail = json.loads((out / "detail" / "LK12.json").read_text())
+    assert {f["properties"]["ed"] for f in detail["gn"]["features"]} == {"LK-ED-02"}
+
+
+def test_electoral_bundle_keeps_release_values_and_ballot_order(tmp_path: Path) -> None:
+    from slf.atlas import build_electoral
+
+    release = tmp_path / "release"
+    (release / "observations").mkdir(parents=True)
+    (release / "geographies").mkdir()
+    catalog = tmp_path / "catalog"
+    (catalog / "geographies" / "relations").mkdir(parents=True)
+
+    def obs(gid, ind, value, breakdown=None, status="normal"):
+        return {
+            "geography_id": gid,
+            "indicator_id": ind,
+            "value": value,
+            "breakdown": breakdown,
+            "value_status": status,
+            "verification": "machine_extracted",
+            "source_locator": f"{gid} sheet",
+            "snapshot_sha256": "ab" * 32,
+            "period": "2024-09-21",
+            "release": "vtest",
+        }
+
+    def cand(ballot, postal=False):
+        return {
+            "ballot_number": str(ballot),
+            "candidate": f"C{ballot}",
+            "party": f"P{ballot}",
+            "vote_type": "postal" if postal else None,
+        }
+
+    rows = [
+        obs("LK-ED-01", "votes_valid", 100.0),
+        obs("LK-ED-01", "turnout", 80.0),
+        obs("LK-ED-01", "votes_candidate", 60.0, cand(2)),
+        obs("LK-ED-01", "votes_candidate", 40.0, cand(1)),
+        obs("LK-ED-01", "votes_candidate", None, cand(1, postal=True), "not_available"),
+        obs("LK-ED-01", "votes_valid", 5.0, {"vote_type": "postal", "ballot_number": None}),
+        obs("LK-PD-01A", "votes_valid", 95.0),
+    ]
+    pd.DataFrame(rows).to_parquet(release / "observations" / "election-results.parquet")
+    pd.DataFrame(
+        [
+            {"geography_id": "LK-ED-01", "code_system": "election-commission",
+             "external_code": "1", "external_name": "Colombo"},
+            {"geography_id": "LK-PD-01A", "code_system": "election-commission",
+             "external_code": "1-A", "external_name": "Colombo North"},
+        ]
+    ).to_csv(release / "geographies" / "electoral-ec-2024.csv", index=False)  # fmt: skip
+    pd.DataFrame(
+        [{"geography_id": "LK-ED-01", "related_id": "LK-PD-01A", "relation": "parent"}]
+    ).to_csv(catalog / "geographies" / "relations" / "electoral_ec-2024.csv", index=False)
+
+    summary = build_electoral(release, catalog, tmp_path, {"LK-ED-01": {"c": [80, 7]}})
+    assert (summary["eds"], summary["pds"], summary["candidates"]) == (1, 1, 2)
+    data = json.loads((tmp_path / "electoral.json").read_text())
+    ed = data["eds"][0]
+    assert ed["name"] == "Colombo" and ed["c"] == [80, 7]
+    assert ed["values"]["votes_valid"] == 100.0 and ed["postal"]["votes_valid"] == 5.0
+    # Ballot order, not vote order; a postal unread cell never leaks into the total.
+    assert [v[0] for v in ed["votes"]] == [1, 2]
+    assert ed["votes"][0][1] == 40.0
+    assert ed["not_available"] == 1
+    assert data["pds"][0]["parent"] == "LK-ED-01"
+    assert [c["ballot"] for c in data["candidates"]] == [1, 2]
+
+
+def test_split_lines_keeps_every_vertex_and_joins_the_pieces() -> None:
+    from slf.atlas import _split_lines
+
+    line = shapely.LineString([(float(i), 0.0) for i in range(50)])
+    pieces = _split_lines(line, max_points=20)
+    assert [len(shapely.get_coordinates(p)) for p in pieces] == [20, 20, 12]
+    assert shapely.length(shapely.union_all(pieces)) == shapely.length(line)

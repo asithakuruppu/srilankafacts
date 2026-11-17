@@ -25,6 +25,7 @@ export default function SiteHeader() {
             <Link href="/">Atlas</Link>
             <Link href="/explore">Tables</Link>
             <Link href="/indicators">Indicators</Link>
+            <Link href="/elections">Elections</Link>
             <Link href="/data">Data</Link>
             <Link href="/methods">Methods</Link>
             <Link href="/about">About</Link>

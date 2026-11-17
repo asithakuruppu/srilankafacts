@@ -280,3 +280,48 @@ test("DS profile compares on 25 values and names ethnic group or religion among 
   await page.goto("/place/LK1103005");
   await expect(page.locator("#profile")).toContainText("nine census values");
 });
+
+async function hasElections(page: import("@playwright/test").Page): Promise<boolean> {
+  if (!(await hasAtlas(page))) {
+    return false;
+  }
+  const response = await page.request.get("/release/meta.json");
+  const meta = (await response.json()) as { atlas?: { electoral?: boolean } | null };
+  return Boolean(meta.atlas?.electoral);
+}
+
+test("elections lens: a district becomes its electoral district, results keep ballot order", async ({
+  page,
+}) => {
+  test.skip(!(await hasElections(page)), "no election results in this atlas bundle");
+  await page.goto("/?place=LK45");
+  const panel = page.getByRole("complementary", { name: "Selected place" });
+  await expect(panel.getByRole("heading", { level: 2 })).toHaveText("Kilinochchi");
+  await page.getByRole("tab", { name: "Elections" }).click();
+  await expect(panel.getByRole("heading", { level: 2 })).toHaveText("Jaffna");
+  await expect(page).toHaveURL(/place=LK-ED-10/);
+  await expect(panel.getByText(/made of the districts Jaffna, Kilinochchi/)).toBeVisible();
+  await expect(panel.getByText(/Polling divisions are in tables only/)).toBeVisible();
+  await panel.getByText(/Votes for all \d+ candidates, in ballot-paper order/).click();
+  const ballots = await panel.locator(".election-candidates tbody td:first-child").allTextContents();
+  expect(ballots.map(Number)).toEqual([...ballots.map(Number)].sort((a, b) => a - b));
+  // The ED scale exists; LA and MOH say why they are not drawn.
+  const scale = page.getByRole("group", { name: "Geographic scale" });
+  await expect(scale.getByRole("button", { name: "LA", exact: true })).toBeDisabled();
+  await expect(scale.getByRole("button", { name: "MOH", exact: true })).toBeDisabled();
+  await expect(scale.getByRole("button", { name: "ED", exact: true })).toBeEnabled();
+  // Leaving the lens drops the ED selection rather than showing a "place not found".
+  await page.getByRole("tab", { name: "Geography" }).click();
+  await expect(panel.getByRole("heading", { level: 2 })).toHaveText("Sri Lanka");
+});
+
+test("election results page lists every electoral district with its source", async ({ page }) => {
+  await page.goto("/elections/presidential-2024");
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Presidential Election 2024");
+  if (await page.getByText("No election results in this build yet.").count()) {
+    return;
+  }
+  await expect(page.getByRole("heading", { name: "By electoral district" })).toBeVisible();
+  await expect(page.locator("section.election-ed")).toHaveCount(22);
+  await expect(page.getByText(/not yet verified by a person/).first()).toBeVisible();
+});

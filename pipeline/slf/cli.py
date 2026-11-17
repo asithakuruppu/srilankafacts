@@ -886,12 +886,15 @@ def atlas_export(
     history_dir: Annotated[
         Path | None, typer.Option(help="History build folder (`slf history build`).")
     ] = None,
+    catalog: Annotated[
+        Path | None, typer.Option(help="Catalogue folder (ED grouping, election source).")
+    ] = Path("../catalog"),
     out_dir: Annotated[Path, typer.Option(help="Output folder.")] = Path("./data/build/atlas"),
 ) -> None:
     """Write the derived files the map-first website reads (local, never part of a release)."""
     from slf.atlas import export
 
-    manifest = export(release_dir, spine_dir, out_dir, profile_dir, history_dir)
+    manifest = export(release_dir, spine_dir, out_dir, profile_dir, history_dir, catalog)
     geometry = manifest["geometry"]
     typer.echo(f"atlas bundle for {manifest['release']} -> {out_dir / manifest['release']}")
     typer.echo(
@@ -902,6 +905,7 @@ def atlas_export(
     typer.echo(f"clusters: {manifest['clusters']['indicators']} indicators")
     typer.echo(f"profile: {manifest['profile']}")
     typer.echo(f"change: {manifest['change']}")
+    typer.echo(f"electoral: {manifest['electoral']}")
 
 
 spatial_app = typer.Typer(

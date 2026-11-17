@@ -1,7 +1,9 @@
 /** Types for the atlas bundle written by `slf atlas export` (pipeline/slf/atlas.py). */
 
-export type LevelName = "country" | "province" | "district" | "ds" | "gn";
+/** Admin levels, plus "ed" (electoral district, a non-admin scheme made of whole districts). */
+export type LevelName = "country" | "province" | "district" | "ds" | "gn" | "ed";
 
+/** Admin levels by depth (units.json `l`). Non-admin schemes are not in this list. */
 export const LEVELS: LevelName[] = ["country", "province", "district", "ds", "gn"];
 
 export const LEVEL_SHORT: Record<LevelName, string> = {
@@ -10,6 +12,7 @@ export const LEVEL_SHORT: Record<LevelName, string> = {
   district: "District",
   ds: "DS division",
   gn: "GN division",
+  ed: "Electoral district",
 };
 
 export const LEVEL_PLURAL: Record<LevelName, string> = {
@@ -18,6 +21,7 @@ export const LEVEL_PLURAL: Record<LevelName, string> = {
   district: "Districts",
   ds: "DS divisions",
   gn: "GN divisions",
+  ed: "Electoral districts",
 };
 
 /** Plural level names for running text ("of 339 DS divisions"). */
@@ -27,14 +31,16 @@ export const LEVEL_PLURAL_TEXT: Record<LevelName, string> = {
   district: "districts",
   ds: "DS divisions",
   gn: "GN divisions",
+  ed: "electoral districts",
 };
 
-export type Lens = "geography" | "profile" | "change" | "landscape";
+export type Lens = "geography" | "profile" | "change" | "elections" | "landscape";
 
 export const LENSES: { id: Lens; label: string; hint: string }[] = [
   { id: "geography", label: "Geography", hint: "Where it is, and one number in context" },
   { id: "profile", label: "Profile", hint: "What a place is like, and places like it" },
   { id: "change", label: "Change", hint: "How places changed between censuses" },
+  { id: "elections", label: "Elections", hint: "Official results by electoral district" },
   { id: "landscape", label: "Landscape", hint: "Terrain, land cover and physical features" },
 ];
 
@@ -184,6 +190,8 @@ export type ClusterFile = Partial<
 export type AtlasMeta = {
   profile: boolean;
   change: boolean;
+  /** electoral.json and ED geometry are in the bundle (older bundles: undefined). */
+  electoral?: boolean;
   clusters: number;
   detail_tolerance_m: number | null;
   overview_tolerance_m: number | null;
@@ -203,9 +211,56 @@ export type AtlasIndicator = {
 };
 
 export function levelOfId(id: string, units: Record<string, Unit>): LevelName {
+  if (id.startsWith("LK-ED-")) {
+    return "ed";
+  }
   const unit = units[id];
   if (unit) {
     return LEVELS[unit.l] ?? "gn";
   }
   return "gn";
 }
+
+/** The six totals the Election Commission's sheets give for each unit. */
+export type ElectionTotals = {
+  electors_registered: number | null;
+  votes_polled: number | null;
+  votes_valid: number | null;
+  votes_rejected: number | null;
+  turnout: number | null;
+  votes_rejected_share: number | null;
+};
+
+/** One unit's results: [ballot number, votes (null = not read), share of valid votes]. */
+export type ElectionPlace = {
+  id: string;
+  level: "country" | "ed" | "pd";
+  name: string | null;
+  ec_code: string | null;
+  parent: string | null;
+  values: ElectionTotals;
+  postal: ElectionTotals | null;
+  votes: [number, number | null, number | null][];
+  not_available: number;
+  source: { locator: string | null; sha256: string | null; verification: string[] };
+  /** EDs only: label point, bounding box and the districts the ED is made of. */
+  c?: [number, number] | null;
+  b?: [number, number, number, number] | null;
+  districts?: string[];
+};
+
+export type ElectoralFile = {
+  status: string;
+  election: { id: string; name: string; date: string };
+  dataset_id: string;
+  release: string;
+  landing_page: string | null;
+  publication: { decision: string; attribution: string; notice: string } | null;
+  verification_note: string;
+  candidates: { ballot: number; name: string; party: string }[];
+  country: ElectionPlace | null;
+  eds: ElectionPlace[];
+  pds: ElectionPlace[];
+};
+
+export type EdOutlines = { coarse: Collection<OutlineProps>; fine: Collection<OutlineProps> };

@@ -332,7 +332,7 @@ function useNeighbours(props: Props): NeighbourRef[] | null {
   if (subjectLevel === "gn") {
     return gnGraph ? (gnGraph[subject] ?? []) : null;
   }
-  if (!adjacency) {
+  if (!adjacency || subjectLevel === "ed") {
     return null;
   }
   return adjacency[subjectLevel]?.[subject] ?? [];
@@ -366,6 +366,7 @@ function GeographyLens(props: Props & { place: Place | null }) {
     (name) =>
       subjectLevel !== "country" &&
       subjectLevel !== "province" &&
+      subjectLevel !== "ed" &&
       clusters?.[subjectLevel]?.[name]?.includes(subject),
   );
   const observation = place?.values.find((value) => value.indicator_id === indicator.id) ?? null;
