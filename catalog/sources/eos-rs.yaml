@@ -1,0 +1,18 @@
+# Reviewed 2026-11-17 (docs/research/spatial/discovery-catalogue.md). Licence text read at the evidence URLs on that date.
+id: eos-rs
+name: Earth Observatory of Singapore Remote Sensing Lab
+publisher_type: academic
+homepage: https://eos-rs-products.earthobservatory.sg
+contact: null
+access_classes:
+- download_table
+rights:
+  status: open
+  licence: CC-BY-4.0
+  commercial_reuse: 'yes'
+  attribution: Earth Observatory of Singapore Remote Sensing Lab (EOS-RS)
+  evidence:
+  - 'https://data.humdata.org/dataset/eos-rs-sri-lanka-cyclone-ditwah-dec-2025 (HDX licence field: ''CC-BY-4.0'',
+    API read 2026-11-17)'
+  last_reviewed: '2026-11-17'
+notes: Flood and damage proxy maps from Sentinel-1 radar for Cyclone Ditwah. Version number assumed ❓.

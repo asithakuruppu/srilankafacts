@@ -1,0 +1,18 @@
+id: settlement_measured_area
+name: "Area with settlement-type data"
+short_name: "Area with settlement-type data"
+topic: [landscape, settlement]
+measure_type: count
+unit: hectares
+universe: land_area_measured
+numerator: null
+denominator: null
+aggregation: sum
+higher_is: neutral
+distribution: api
+decimals: 1
+sensitivity: public
+definition: >
+  Ground area of the place covered by GHS-SMOD cells. The denominator for settlement-type shares.
+source_definition_ref: "ghsl-settlement-model (catalog/datasets/ghsl-settlement-model.yaml)"
+methodology_notes: docs/methods/landscape.md

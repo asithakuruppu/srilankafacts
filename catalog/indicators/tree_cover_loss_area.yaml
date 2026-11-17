@@ -1,0 +1,20 @@
+id: tree_cover_loss_area
+name: "Tree cover loss in the year"
+short_name: "Tree cover loss in the year"
+topic: [landscape, change]
+measure_type: count
+unit: hectares
+universe: tree_cover_2000
+numerator: null
+denominator: null
+aggregation: sum
+higher_is: neutral
+distribution: api
+decimals: 1
+sensitivity: public
+definition: >
+  Ground area inside the year-2000 tree cover (canopy 30% or more) where a stand-replacement
+  disturbance was detected in the year. Loss is not the same as deforestation: it includes
+  plantation harvest and replanting, fire and storm damage. Regrowth is not subtracted.
+source_definition_ref: "hansen-global-forest-change (catalog/datasets/hansen-global-forest-change.yaml)"
+methodology_notes: docs/methods/landscape.md

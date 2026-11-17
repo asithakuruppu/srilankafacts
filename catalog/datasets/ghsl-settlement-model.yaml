@@ -1,0 +1,34 @@
+id: ghsl-settlement-model
+source: ghsl
+title: 'GHS-SMOD R2023A 2020: degree of urbanisation (1 km)'
+landing_page: https://human-settlement.emergency.copernicus.eu/download.php?ds=smod
+pipeline_module: slf.spatial.build
+schedule: manual
+geography_scheme: grid
+geography_vintage: null
+reference_period: '2020'
+rights: inherit
+spatial:
+  support: grid
+  scheme: grid
+  level: null
+  vintage: null
+  coverage: LK
+  measured_in: null
+  positional_accuracy: null
+  crs_source: ESRI:54009
+  resolution: 1 km
+  information_unit: grid-1km
+  information_count: null
+  derived_by: zonal_area_v1 (docs/methods/landscape.md)
+indicators:
+- settlement_measured_area
+- settlement_urban_centre_area
+- settlement_urban_centre_share
+- settlement_urban_area
+- settlement_urban_share
+cross_checks: []
+status: active
+notes: 4 tiles held (2026-11-17). Classes follow the UN-endorsed Degree of Urbanisation method applied
+  to GHSL's modelled population grid; it is not Sri Lanka's administrative urban definition, and GHSL's
+  Sri Lanka census input was not confirmed ❓.

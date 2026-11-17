@@ -1,0 +1,28 @@
+id: wfp-food-prices
+source: wfp
+title: WFP food prices and market locations, Sri Lanka
+landing_page: https://data.humdata.org/dataset/wfp-food-prices-for-sri-lanka
+pipeline_module: null
+schedule: manual
+geography_scheme: null
+geography_vintage: null
+reference_period: null
+rights: inherit
+spatial:
+  support: point
+  scheme: null
+  level: null
+  vintage: null
+  coverage: LK
+  measured_in: null
+  positional_accuracy: about 1 km (coordinates to two decimals)
+  crs_source: unconfirmed
+  resolution: null
+  information_unit: null
+  information_count: null
+  derived_by: null
+indicators: []
+cross_checks: []
+status: proposed
+notes: 34,262 price rows since 2004 and 150 markets with coordinates held (2026-11-17), not yet integrated
+  (OPP-24). Market coordinates are given to two decimals (about 1 km).

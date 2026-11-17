@@ -1,0 +1,19 @@
+id: built_up_surface_area
+name: "Built-up surface"
+short_name: "Built-up surface"
+topic: [landscape, change]
+measure_type: count
+unit: hectares
+universe: land_area_measured
+numerator: null
+denominator: null
+aggregation: sum
+higher_is: neutral
+distribution: api
+decimals: 1
+sensitivity: public
+definition: >
+  Building footprint surface estimated by the Global Human Settlement Layer (GHS-BUILT-S R2023A)
+  from Landsat and Sentinel-2 imagery, for the epoch. 100 m cells shared between places by area.
+source_definition_ref: "ghsl-built-up (catalog/datasets/ghsl-built-up.yaml)"
+methodology_notes: docs/methods/landscape.md

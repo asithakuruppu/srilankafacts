@@ -1,0 +1,21 @@
+id: buildings_mapped
+name: "Building footprints mapped"
+short_name: "Building footprints mapped"
+topic: [features]
+measure_type: count
+unit: buildings
+universe: mapped_features
+numerator: null
+denominator: null
+aggregation: sum
+higher_is: neutral
+distribution: api
+decimals: 0
+sensitivity: public
+definition: >
+  Building footprints in Overture Maps (OpenStreetMap, Microsoft and Google footprints, merged by
+  Overture) whose inside point falls in the place. Machine-detected footprints include sheds,
+  outbuildings and some false detections, and miss some buildings under tree cover; this is not a
+  count of houses or households.
+source_definition_ref: "overture-buildings (catalog/datasets/overture-buildings.yaml)"
+methodology_notes: docs/methods/landscape.md

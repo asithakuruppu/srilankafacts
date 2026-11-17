@@ -1,0 +1,19 @@
+id: nearest_school_distance
+name: "Straight-line distance to the nearest located school"
+short_name: "Straight-line distance to the nearest located school"
+topic: [features, access]
+measure_type: mean
+unit: kilometres
+universe: mapped_features
+numerator: null
+denominator: null
+aggregation: none
+higher_is: neutral
+distribution: api
+decimals: 2
+sensitivity: public
+definition: >
+  Straight-line distance from the GN division's label point to the nearest school in the Giga
+  list, computed in EPSG:5235. Not a travel distance or travel time.
+source_definition_ref: "giga-school-locations (catalog/datasets/giga-school-locations.yaml)"
+methodology_notes: docs/methods/landscape.md

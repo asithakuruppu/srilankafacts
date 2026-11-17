@@ -1,0 +1,19 @@
+id: wikidata_items
+name: "Wikidata items with coordinates"
+short_name: "Wikidata items with coordinates"
+topic: [features]
+measure_type: count
+unit: items
+universe: mapped_features
+numerator: null
+denominator: null
+aggregation: sum
+higher_is: neutral
+distribution: api
+decimals: 0
+sensitivity: public
+definition: >
+  Wikidata items located in Sri Lanka whose coordinates fall inside the place (settlements,
+  landmarks, natural features, institutions).
+source_definition_ref: "wikidata-places-lk (catalog/datasets/wikidata-places-lk.yaml)"
+methodology_notes: docs/methods/landscape.md

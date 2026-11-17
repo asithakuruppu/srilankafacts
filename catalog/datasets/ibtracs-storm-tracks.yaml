@@ -1,0 +1,28 @@
+id: ibtracs-storm-tracks
+source: noaa-ncei
+title: IBTrACS tropical storm tracks near Sri Lanka, 1842 onwards
+landing_page: https://data.humdata.org/dataset/lka-ibtracs-tropical-storm-tracks
+pipeline_module: null
+schedule: manual
+geography_scheme: null
+geography_vintage: null
+reference_period: null
+rights: inherit
+spatial:
+  support: line
+  scheme: null
+  level: null
+  vintage: null
+  coverage: LK
+  measured_in: null
+  positional_accuracy: null
+  crs_source: unconfirmed
+  resolution: null
+  information_unit: null
+  information_count: null
+  derived_by: null
+indicators: []
+cross_checks: []
+status: proposed
+notes: 'CSV of track points held (2026-11-17), not yet integrated. Candidate: cyclone passes within a
+  distance of each place, by decade.'

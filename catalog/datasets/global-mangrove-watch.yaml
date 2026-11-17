@@ -1,0 +1,27 @@
+id: global-mangrove-watch
+source: gmw
+title: Global Mangrove Watch v3.0 extent 1996, 2010, 2020 and union (1 degree GeoTIFF tiles, global)
+landing_page: https://zenodo.org/records/6894273
+pipeline_module: null
+schedule: manual
+geography_scheme: grid
+geography_vintage: null
+reference_period: '2020'
+rights: inherit
+spatial:
+  support: grid
+  scheme: grid
+  level: null
+  vintage: null
+  coverage: LK
+  measured_in: null
+  positional_accuracy: null
+  crs_source: unconfirmed
+  resolution: about 25 m
+  information_unit: grid-25m
+  information_count: null
+  derived_by: null
+indicators: []
+cross_checks: []
+status: proposed
+notes: Held, not yet integrated. Files are global zips; the Sri Lanka tiles must be selected with gmw_v3_tiles.geojson. CRS and resolution not yet read from the files.

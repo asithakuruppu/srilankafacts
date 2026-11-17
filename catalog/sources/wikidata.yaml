@@ -1,0 +1,19 @@
+# Reviewed 2026-11-17 (docs/research/spatial/discovery-catalogue.md). Licence text read at the evidence URLs on that date.
+id: wikidata
+name: Wikidata (Wikimedia Foundation)
+publisher_type: community
+homepage: https://www.wikidata.org
+contact: null
+access_classes:
+- api
+rights:
+  status: open
+  licence: CC0-1.0
+  commercial_reuse: 'yes'
+  attribution: null
+  evidence:
+  - https://www.wikidata.org/wiki/Wikidata:Licensing ('All structured data ... is released into the public
+    domain under Creative Commons Zero', read 2026-11-17)
+  last_reviewed: '2026-11-17'
+notes: Items with coordinates in Sri Lanka, with English, Sinhala and Tamil labels where they exist, fetched
+  by one SPARQL query.

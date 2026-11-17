@@ -1,0 +1,18 @@
+# Reviewed 2026-11-17 (docs/research/spatial/discovery-catalogue.md). Licence text read at the evidence URLs on that date.
+id: healthsites
+name: healthsites.io (Open Healthsite Consulting)
+publisher_type: civil_society
+homepage: https://healthsites.io
+contact: null
+access_classes:
+- download_table
+rights:
+  status: permitted_with_conditions
+  licence: ODbL-1.0
+  commercial_reuse: 'yes'
+  attribution: © OpenStreetMap contributors, healthsites.io
+  evidence:
+  - 'https://data.humdata.org/dataset/sri-lanka-healthsites (HDX licence field: ''ODbL-1.0'', API read
+    2026-11-17)'
+  last_reviewed: '2026-11-17'
+notes: OpenStreetMap health facilities; share-alike.

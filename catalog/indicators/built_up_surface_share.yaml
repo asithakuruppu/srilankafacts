@@ -1,0 +1,19 @@
+id: built_up_surface_share
+name: "Built-up surface share"
+short_name: "Built-up surface share"
+topic: [landscape, change]
+measure_type: share
+unit: percent
+universe: land_area_measured
+numerator: built_up_surface_area
+denominator: built_up_measured_area
+aggregation: recompute_from_components
+higher_is: neutral
+distribution: api
+decimals: 2
+sensitivity: public
+definition: >
+  Share of the place's area covered by building footprints, as estimated by GHS-BUILT-S R2023A for
+  the epoch.
+source_definition_ref: "ghsl-built-up (catalog/datasets/ghsl-built-up.yaml)"
+methodology_notes: docs/methods/landscape.md

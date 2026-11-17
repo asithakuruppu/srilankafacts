@@ -157,10 +157,11 @@ class Spatial(Strict):
         if self.support == "grid" and not self.resolution:
             raise ValueError("spatial.support 'grid' needs resolution")
         if self.crs_source is not None and not re.match(
-            r"^(EPSG:\d+|unconfirmed|not_applicable)$", self.crs_source
+            r"^((EPSG|ESRI):\d+|unconfirmed|not_applicable)$", self.crs_source
         ):
             raise ValueError(
-                "spatial.crs_source must be 'EPSG:<code>', 'unconfirmed', 'not_applicable' or null"
+                "spatial.crs_source must be 'EPSG:<code>', 'ESRI:<code>', 'unconfirmed', "
+                "'not_applicable' or null"
             )
         return self
 

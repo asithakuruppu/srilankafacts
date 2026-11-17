@@ -1,0 +1,28 @@
+id: kontur-population-h3
+source: kontur
+title: 'Kontur Population: Sri Lanka (H3 hexagons, about 400 m)'
+landing_page: https://data.humdata.org/dataset/kontur-population-sri-lanka
+pipeline_module: null
+schedule: manual
+geography_scheme: grid
+geography_vintage: null
+reference_period: '2023'
+rights: inherit
+spatial:
+  support: grid
+  scheme: grid
+  level: null
+  vintage: null
+  coverage: LK
+  measured_in: null
+  positional_accuracy: null
+  crs_source: unconfirmed
+  resolution: h3:8
+  information_unit: null
+  information_count: null
+  derived_by: null
+indicators: []
+cross_checks: []
+status: proposed
+notes: Release 20231101 held (2026-11-17), not yet opened. A modelled population grid already on H3; a
+  candidate bridge to the H3 analytic grid (D-014).

@@ -1,12 +1,12 @@
 id: ghsl-built-up
 source: ghsl
-title: "GHSL built-up surface grid"
-landing_page: null
-pipeline_module: null
+title: 'GHS-BUILT-S R2023A: built-up surface 1975-2020 (100 m)'
+landing_page: https://human-settlement.emergency.copernicus.eu/download.php?ds=bu
+pipeline_module: slf.spatial.build
 schedule: manual
 geography_scheme: grid
 geography_vintage: null
-reference_period: null
+reference_period: '2020'
 rights: inherit
 spatial:
   support: grid
@@ -16,13 +16,18 @@ spatial:
   coverage: LK
   measured_in: null
   positional_accuracy: null
-  crs_source: unconfirmed
-  resolution: unconfirmed
-  information_unit: null
+  crs_source: ESRI:54009
+  resolution: 100 m
+  information_unit: grid-100m
   information_count: null
-  derived_by: null
-indicators: []
+  derived_by: zonal_area_v1 (docs/methods/landscape.md)
+indicators:
+- built_up_measured_area
+- built_up_surface_area
+- built_up_surface_share
 cross_checks: []
-status: proposed
-notes: >
-  Stage 3+. Product and resolution to be chosen.
+status: active
+notes: 10 epochs (1975-2020, every 5 years) x 4 tiles held (2026-11-17). CRS read from the files (World
+  Mollweide). Cells are shared between places by 20 m sub-cells; ground areas are corrected for the projection's
+  spherical formulas (docs/methods/landscape.md). Early epochs are modelled back from later imagery, so
+  growth is an estimate, not a measurement.

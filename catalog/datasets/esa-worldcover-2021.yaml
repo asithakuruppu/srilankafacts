@@ -1,0 +1,48 @@
+id: esa-worldcover-2021
+source: esa
+title: ESA WorldCover 2021 v200 (10 m land cover)
+landing_page: https://esa-worldcover.org/en/data-access
+pipeline_module: slf.spatial.build
+schedule: manual
+geography_scheme: grid
+geography_vintage: null
+reference_period: '2021'
+rights: inherit
+spatial:
+  support: grid
+  scheme: grid
+  level: null
+  vintage: null
+  coverage: LK
+  measured_in: null
+  positional_accuracy: null
+  crs_source: EPSG:4326
+  resolution: 10 m
+  information_unit: grid-10m
+  information_count: null
+  derived_by: zonal_area_v1 (docs/methods/landscape.md)
+indicators:
+- land_cover_mapped_area
+- land_cover_tree_area
+- land_cover_tree_share
+- land_cover_shrubland_area
+- land_cover_shrubland_share
+- land_cover_grassland_area
+- land_cover_grassland_share
+- land_cover_cropland_area
+- land_cover_cropland_share
+- land_cover_built_up_area
+- land_cover_built_up_share
+- land_cover_bare_area
+- land_cover_bare_share
+- land_cover_water_area
+- land_cover_water_share
+- land_cover_wetland_area
+- land_cover_wetland_share
+- land_cover_mangrove_area
+- land_cover_mangrove_share
+cross_checks: []
+status: active
+notes: 4 three-degree tiles held (2026-11-17). CRS read from the files. A classification of Sentinel-1
+  and Sentinel-2 imagery; paddy and other crops are often classed as grassland or cropland depending on
+  season. Rolled up to places as class areas and shares.

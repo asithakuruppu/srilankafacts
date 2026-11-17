@@ -1,0 +1,29 @@
+id: wikidata-places-lk
+source: wikidata
+title: Wikidata items with coordinates in Sri Lanka
+landing_page: https://www.wikidata.org/wiki/Wikidata:Data_access
+pipeline_module: slf.spatial.build
+schedule: manual
+geography_scheme: null
+geography_vintage: null
+reference_period: '2026'
+rights: inherit
+spatial:
+  support: point
+  scheme: null
+  level: null
+  vintage: null
+  coverage: LK
+  measured_in: null
+  positional_accuracy: varies; not stated
+  crs_source: EPSG:4326
+  resolution: null
+  information_unit: null
+  information_count: null
+  derived_by: point_in_polygon_v1
+indicators:
+- wikidata_items
+cross_checks: []
+status: active
+notes: 'One SPARQL result held (2026-11-17): 12,071 items, 1,392 with a Sinhala label and 1,560 with a
+  Tamil label. Counted per place; the resolved table is in the build folder.'

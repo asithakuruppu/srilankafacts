@@ -1,0 +1,19 @@
+# Reviewed 2026-11-17 (docs/research/spatial/discovery-catalogue.md). Licence text read at the evidence URLs on that date.
+id: wfp
+name: World Food Programme
+publisher_type: international
+homepage: https://www.wfp.org
+contact: null
+access_classes:
+- download_table
+rights:
+  status: open
+  licence: CC-BY-3.0-IGO
+  commercial_reuse: 'yes'
+  attribution: WFP
+  evidence:
+  - 'https://data.humdata.org/dataset/wfp-food-prices-for-sri-lanka (HDX licence field: ''CC-BY-3.0-IGO'',
+    API read 2026-11-17)'
+  last_reviewed: '2026-11-17'
+notes: Food prices and market locations (CC BY-IGO). Other WFP datasets carry their own rights in their
+  dataset entries (ADAM flood is CC BY-SA; CHIRPS and NDVI summaries are CC BY).

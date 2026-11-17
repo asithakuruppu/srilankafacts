@@ -1,0 +1,27 @@
+id: ghsl-building-height
+source: ghsl
+title: 'GHS-BUILT-H R2023A 2018: average net building height (100 m)'
+landing_page: https://human-settlement.emergency.copernicus.eu/download.php?ds=builtH
+pipeline_module: null
+schedule: manual
+geography_scheme: grid
+geography_vintage: null
+reference_period: '2018'
+rights: inherit
+spatial:
+  support: grid
+  scheme: grid
+  level: null
+  vintage: null
+  coverage: LK
+  measured_in: null
+  positional_accuracy: null
+  crs_source: ESRI:54009
+  resolution: 100 m
+  information_unit: grid-100m
+  information_count: null
+  derived_by: null
+indicators: []
+cross_checks: []
+status: proposed
+notes: 4 tiles held (2026-11-17), not yet rolled up. Candidate for a 'building height' landscape indicator.

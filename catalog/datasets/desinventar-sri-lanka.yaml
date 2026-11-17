@@ -1,0 +1,30 @@
+id: desinventar-sri-lanka
+source: undrr-desinventar
+title: 'DesInventar disaster loss and damage records for Sri Lanka (source: Disaster Management Centre)'
+landing_page: https://data.humdata.org/dataset/disaster-loss-and-damage-dataset-for-sri-lanka
+pipeline_module: null
+schedule: manual
+geography_scheme: admin
+geography_vintage: null
+reference_period: null
+rights: inherit
+spatial:
+  support: area
+  scheme: admin
+  level: ds
+  vintage: null
+  coverage: LK
+  measured_in: null
+  positional_accuracy: null
+  crs_source: unconfirmed
+  resolution: null
+  information_unit: null
+  information_count: null
+  derived_by: null
+indicators: []
+cross_checks: []
+status: proposed
+notes: 'Report workbook, data dictionary and a boundary shapefile set (province, district, DS division)
+  held (2026-11-17), not yet opened beyond the file list. Event records by administrative unit; their
+  boundary vintage is unknown, so joining needs a crosswalk (rule 5). Supersedes nothing: dmc-situation-reports
+  stays the entry for the DMC''s own PDFs.'

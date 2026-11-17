@@ -1,0 +1,18 @@
+id: elevation_max
+name: "Highest elevation"
+short_name: "Highest elevation"
+topic: [landscape]
+measure_type: mean
+unit: metres
+universe: land_area_measured
+numerator: null
+denominator: null
+aggregation: none
+higher_is: neutral
+distribution: api
+decimals: 1
+sensitivity: public
+definition: >
+  Highest 30 m surface-model pixel inside the place.
+source_definition_ref: "copernicus-dem-glo30 (catalog/datasets/copernicus-dem-glo30.yaml)"
+methodology_notes: docs/methods/landscape.md

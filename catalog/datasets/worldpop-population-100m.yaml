@@ -1,12 +1,12 @@
 id: worldpop-population-100m
 source: worldpop
-title: "WorldPop 100 m population grid for Sri Lanka"
-landing_page: null
+title: 'WorldPop Global2 R2025A: constrained population 2025, Sri Lanka (100 m)'
+landing_page: https://hub.worldpop.org/geodata/listing?id=135
 pipeline_module: null
 schedule: manual
 geography_scheme: grid
 geography_vintage: null
-reference_period: null
+reference_period: '2025'
 rights: inherit
 spatial:
   support: grid
@@ -16,13 +16,16 @@ spatial:
   coverage: LK
   measured_in: null
   positional_accuracy: null
-  crs_source: unconfirmed
-  resolution: "100 m"
-  information_unit: gn-2012
-  information_count: 13938
+  crs_source: EPSG:4326
+  resolution: 100 m
+  information_unit: null
+  information_count: null
   derived_by: null
 indicators: []
 cross_checks: []
 status: proposed
-notes: >
-  Stage 3+. Population information comes from 13,938 GN totals of the 2012 Census (multi-scale-features.md, verified).
+notes: 'The 2025 constrained grid and the R2025A release statement are held (2026-11-17). Used only for
+  a comparison with Census 2024 GN counts (docs/research/spatial/findings-2026-11-17.md): it is a modelled
+  estimate and is not published as an indicator. WorldPop labels R2025A an alpha release. The census input
+  for Sri Lanka in R2025A was not confirmed ❓; the 2000-2020 release used 13,938 GN totals of the 2012
+  Census (multi-scale-features.md §2.1).'

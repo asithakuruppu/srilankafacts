@@ -1,0 +1,28 @@
+id: eos-rs-ditwah-flood-proxy
+source: eos-rs
+title: EOS-RS flood proxy map, Cyclone Ditwah, 2 December 2025 (Sentinel-1)
+landing_page: https://data.humdata.org/dataset/eos-rs-sri-lanka-cyclone-ditwah-dec-2025
+pipeline_module: null
+schedule: manual
+geography_scheme: grid
+geography_vintage: null
+reference_period: '2025-12-02'
+rights: inherit
+spatial:
+  support: grid
+  scheme: grid
+  level: null
+  vintage: null
+  coverage: LK
+  measured_in: null
+  positional_accuracy: null
+  crs_source: unconfirmed
+  resolution: not read
+  information_unit: null
+  information_count: null
+  derived_by: null
+indicators: []
+cross_checks: []
+status: proposed
+notes: Flood proxy map v0.9 held (2026-11-17), not yet opened or integrated. A proxy from radar change
+  detection, labelled preliminary by its version number.

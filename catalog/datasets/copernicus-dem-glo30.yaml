@@ -1,0 +1,36 @@
+id: copernicus-dem-glo30
+source: copernicus
+title: Copernicus DEM GLO-30 (30 m digital surface model)
+landing_page: https://registry.opendata.aws/copernicus-dem/
+pipeline_module: slf.spatial.build
+schedule: manual
+geography_scheme: grid
+geography_vintage: null
+reference_period: '2013'
+rights: inherit
+spatial:
+  support: grid
+  scheme: grid
+  level: null
+  vintage: null
+  coverage: LK
+  measured_in: null
+  positional_accuracy: null
+  crs_source: EPSG:4326
+  resolution: 30 m
+  information_unit: grid-30m
+  information_count: null
+  derived_by: zonal_area_v1 (docs/methods/landscape.md)
+indicators:
+- terrain_measured_area
+- elevation_mean
+- elevation_min
+- elevation_max
+- slope_mean
+- steep_land_area
+- steep_land_share
+cross_checks: []
+status: active
+notes: '12 one-degree tiles held (2026-11-17). CRS read from the files. A surface model: heights include
+  buildings and canopy. Acquired by TanDEM-X between December 2010 and January 2015 🟡 (product documentation,
+  not re-read). Rolled up to places as elevation, slope and steep-land share.'

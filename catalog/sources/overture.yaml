@@ -1,0 +1,21 @@
+# Reviewed 2026-11-17 (docs/research/spatial/discovery-catalogue.md). Licence text read at the evidence URLs on that date.
+id: overture
+name: Overture Maps Foundation
+publisher_type: civil_society
+homepage: https://overturemaps.org
+contact: null
+access_classes:
+- download_table
+rights:
+  status: permitted_with_conditions
+  licence: CDLA-Permissive-2.0 (places); ODbL-1.0 (buildings)
+  commercial_reuse: 'yes'
+  attribution: © OpenStreetMap contributors, Overture Maps Foundation; per-theme attribution at docs.overturemaps.org/attribution
+  evidence:
+  - https://docs.overturemaps.org/attribution/ (page fetched 2026-11-17)
+  - 'Places extract 2026-10-21.0: every row''s sources[].license reads ''CDLA-Permissive-2.0'' (read from
+    the data, 2026-11-17)'
+  last_reviewed: '2026-11-17'
+notes: Buildings merge OpenStreetMap, Microsoft and Google footprints and are ODbL (stated in multi-scale-features.md
+  as 🟡; the buildings licence line was not re-read on 2026-11-17). Anything derived from the buildings
+  is kept apart from CC BY outputs (D-005).

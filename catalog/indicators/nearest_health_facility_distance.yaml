@@ -1,0 +1,20 @@
+id: nearest_health_facility_distance
+name: "Straight-line distance to the nearest mapped health facility"
+short_name: "Straight-line distance to the nearest mapped health facility"
+topic: [features, access]
+measure_type: mean
+unit: kilometres
+universe: mapped_features
+numerator: null
+denominator: null
+aggregation: none
+higher_is: neutral
+distribution: api
+decimals: 2
+sensitivity: public
+definition: >
+  Straight-line distance from the GN division's label point to the nearest hospital, clinic or
+  doctors' practice mapped in OpenStreetMap, computed in EPSG:5235. Not a travel distance;
+  unmapped facilities are not seen.
+source_definition_ref: "healthsites-lk (catalog/datasets/healthsites-lk.yaml)"
+methodology_notes: docs/methods/landscape.md

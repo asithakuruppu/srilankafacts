@@ -1,0 +1,19 @@
+# Reviewed 2026-11-17 (docs/research/spatial/discovery-catalogue.md). Licence text read at the evidence URLs on that date.
+id: heigit
+name: HeiGIT (Heidelberg Institute for Geoinformation Technology)
+publisher_type: academic
+homepage: https://heigit.org
+contact: null
+access_classes:
+- download_table
+rights:
+  status: permitted_with_conditions
+  licence: CC-BY-SA
+  commercial_reuse: 'yes'
+  attribution: HeiGIT; © OpenStreetMap contributors
+  evidence:
+  - 'https://data.humdata.org/dataset/sri-lanka-accessibility-indicators (HDX licence field: ''CC-BY-SA'',
+    API read 2026-11-17)'
+  last_reviewed: '2026-11-17'
+notes: Travel-time accessibility to schools, hospitals and primary care by district; risk indicators.
+  Share-alike.

@@ -432,6 +432,26 @@ These were stated by you or are standing rules in [brainstorm-decisions.md](../b
 
 ---
 
+## D-044: Open spatial layers are rolled up onto GN divisions as modelled estimates; raw files may live on an external root
+- **Status:** Proposed · 2026-11-17 (agent proposal; builds on D-013, D-016, D-017, D-018)
+- **Context:** The brief asked for the open spatial layers (terrain, land cover, tree cover, surface water, built-up history, buildings, schools, health sites, places) to become indicators without a new backend.
+- **Decision (proposed):** `slf spatial build` computes zonal statistics on each source's own grid and stores only additive components per GN division (areas, counts, sums); shares and means are recomputed at every level. Rows are `data_nature: modelled_estimate`, `verification: machine_extracted`, and carry their information floor. ODbL-derived outputs (Overture buildings, OSM) stay apart from CC BY outputs (D-005). Raw snapshots may be held on an external root (`SLF_DATA_DIR`, `--data-root`); the layout and immutability rules are unchanged. Sources with restricted redistribution (HydroSHEDS, WDPA, Ookla, Meta RWI, DHS on HDX) are held or listed but not republished.
+- **Alternatives:** publish raster tiles (needs hosting and a tile stack); sample points instead of zones (loses area-weighting).
+- **Consequences:** 69 new indicator definitions; builds need the external drive for Overture extracts.
+- **Revisit when:** the lead reviews the indicator list and licences, or hosting is chosen.
+
+---
+
+## D-045: Landscape space v0.1 recipe (profile method, 85% variance retention)
+- **Status:** Proposed · 2026-11-17 (agent proposal; builds on D-014, D-029)
+- **Context:** The landscape space reuses `slf.profile.fit`. D-029's retention rule kept one axis at DS level, giving nonsense neighbours (for example Kaduwela similar to Kuchchaweli).
+- **Decision (proposed):** nine inputs in three blocks (terrain, cover, change), transformed as in `docs/methods/landscape.md`; keep the fewest axes that explain 85% of the variance, at most 6. Axis labels are machine-generated drafts until the lead names them.
+- **Alternatives:** keep D-029's rule (collapses the space); fixed number of axes (arbitrary).
+- **Consequences:** landscape neighbours and the cross-space comparison with profile v0.3 are available locally; nothing is published.
+- **Revisit when:** the lead approves or changes the inputs, or more layers join the space.
+
+---
+
 ## Template
 
 ```markdown

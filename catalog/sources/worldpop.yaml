@@ -1,16 +1,20 @@
-# Seed entry (F02). Status of rights is checked by R02; never invent licences or contacts.
+# Reviewed 2026-11-17 (docs/research/spatial/discovery-catalogue.md). Licence text read at the evidence URLs on that date.
 id: worldpop
 name: WorldPop
 publisher_type: academic
 homepage: https://www.worldpop.org
 contact: null
-access_classes: [download_table]
+access_classes:
+- download_table
 rights:
-  status: unclear
-  licence: null
-  commercial_reuse: unknown
-  attribution: null
-  evidence: []
-  last_reviewed: 2026-11-07
-notes: >
-  Modelled 100 m population grids. Licence id to be confirmed in R02 before use.
+  status: open
+  licence: CC-BY-4.0
+  commercial_reuse: 'yes'
+  attribution: WorldPop (www.worldpop.org), University of Southampton
+  evidence:
+  - 'https://hub.worldpop.org/geodata/listing?id=135 (page footer: ''WorldPop datasets are licensed under
+    the Creative Commons Attribution 4.0 International License'', read 2026-11-17)'
+  last_reviewed: '2026-11-17'
+notes: Modelled 100 m population grids. The Global2 R2025A release is labelled alpha by WorldPop. Its
+  Sri Lanka census input was not confirmed for R2025A; the older release used 2012 GN counts (multi-scale-features.md
+  §2.1).

@@ -1,0 +1,19 @@
+# Reviewed 2026-11-17 (docs/research/spatial/discovery-catalogue.md). Licence text read at the evidence URLs on that date.
+id: undrr-desinventar
+name: UNDRR DesInventar Sendai
+publisher_type: international
+homepage: https://www.desinventar.net
+contact: null
+access_classes:
+- download_table
+rights:
+  status: open
+  licence: CC-BY-4.0
+  commercial_reuse: 'yes'
+  attribution: 'UNDRR DesInventar; source: Disaster Management Centre, Sri Lanka'
+  evidence:
+  - 'https://data.humdata.org/dataset/disaster-loss-and-damage-dataset-for-sri-lanka (HDX licence field:
+    ''CC-BY-4.0'', API read 2026-11-17)'
+  last_reviewed: '2026-11-17'
+notes: Disaster loss and damage records compiled by the Disaster Management Centre. Version number assumed
+  ❓.

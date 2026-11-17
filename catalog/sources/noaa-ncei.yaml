@@ -1,0 +1,18 @@
+# Reviewed 2026-11-17 (docs/research/spatial/discovery-catalogue.md). Licence text read at the evidence URLs on that date.
+id: noaa-ncei
+name: 'NOAA National Centers for Environmental Information: IBTrACS'
+publisher_type: government
+homepage: https://www.ncei.noaa.gov/products/international-best-track-archive
+contact: null
+access_classes:
+- download_table
+rights:
+  status: open
+  licence: CC-BY-3.0-IGO
+  commercial_reuse: 'yes'
+  attribution: IBTrACS v04r01, NOAA NCEI
+  evidence:
+  - 'https://data.humdata.org/dataset/lka-ibtracs-tropical-storm-tracks (HDX licence field: ''CC-BY-3.0-IGO'',
+    API read 2026-11-17)'
+  last_reviewed: '2026-11-17'
+notes: Tropical storm tracks near Sri Lanka since 1842, as packaged by HDX. Licence as listed on HDX.

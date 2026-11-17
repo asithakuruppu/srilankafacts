@@ -1,0 +1,18 @@
+id: surface_water_ever_share
+name: "Share where water was ever detected"
+short_name: "Share where water was ever detected"
+topic: [landscape]
+measure_type: share
+unit: percent
+universe: land_area_measured
+numerator: surface_water_ever_area
+denominator: surface_water_measured_area
+aggregation: recompute_from_components
+higher_is: neutral
+distribution: api
+decimals: 2
+sensitivity: public
+definition: >
+  Share of the place where open water was detected at least once by Landsat, 1984 to 2021.
+source_definition_ref: "jrc-global-surface-water (catalog/datasets/jrc-global-surface-water.yaml)"
+methodology_notes: docs/methods/landscape.md

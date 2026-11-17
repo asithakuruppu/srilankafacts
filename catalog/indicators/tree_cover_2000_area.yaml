@@ -1,0 +1,20 @@
+id: tree_cover_2000_area
+name: "Tree cover in 2000 (canopy 30% or more)"
+short_name: "Tree cover in 2000 (canopy 30% or more)"
+topic: [landscape, change]
+measure_type: count
+unit: hectares
+universe: land_area_measured
+numerator: null
+denominator: null
+aggregation: sum
+higher_is: neutral
+distribution: api
+decimals: 1
+sensitivity: public
+definition: >
+  Ground area of 30 m pixels with tree canopy cover of 30% or more in the year 2000 (vegetation
+  taller than 5 m). Includes plantations such as rubber, coconut and shade trees; it is not a map
+  of natural forest.
+source_definition_ref: "hansen-global-forest-change (catalog/datasets/hansen-global-forest-change.yaml)"
+methodology_notes: docs/methods/landscape.md

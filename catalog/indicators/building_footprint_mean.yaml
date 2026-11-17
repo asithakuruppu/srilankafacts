@@ -1,0 +1,18 @@
+id: building_footprint_mean
+name: "Mean building footprint"
+short_name: "Mean building footprint"
+topic: [features]
+measure_type: ratio
+unit: square metres
+universe: mapped_features
+numerator: building_footprint_area
+denominator: buildings_mapped
+aggregation: recompute_from_components
+higher_is: neutral
+distribution: api
+decimals: 1
+sensitivity: public
+definition: >
+  Building footprint area divided by the number of mapped footprints.
+source_definition_ref: "overture-buildings (catalog/datasets/overture-buildings.yaml)"
+methodology_notes: docs/methods/landscape.md

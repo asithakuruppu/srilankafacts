@@ -1,0 +1,19 @@
+id: surface_water_permanent_area
+name: "Surface water present most of the time"
+short_name: "Surface water present most of the time"
+topic: [landscape]
+measure_type: count
+unit: hectares
+universe: land_area_measured
+numerator: null
+denominator: null
+aggregation: sum
+higher_is: neutral
+distribution: api
+decimals: 1
+sensitivity: public
+definition: >
+  Ground area of 30 m pixels where Landsat detected open water in 75% or more of valid
+  observations, 1984 to 2021.
+source_definition_ref: "jrc-global-surface-water (catalog/datasets/jrc-global-surface-water.yaml)"
+methodology_notes: docs/methods/landscape.md

@@ -1,0 +1,18 @@
+id: steep_land_share
+name: "Steep land share (slope over 15°)"
+short_name: "Steep land share (slope over 15°)"
+topic: [landscape]
+measure_type: share
+unit: percent
+universe: land_area_measured
+numerator: steep_land_area
+denominator: terrain_measured_area
+aggregation: recompute_from_components
+higher_is: neutral
+distribution: api
+decimals: 2
+sensitivity: public
+definition: >
+  Share of the place's measured area where the 30 m surface-model slope exceeds 15 degrees.
+source_definition_ref: "copernicus-dem-glo30 (catalog/datasets/copernicus-dem-glo30.yaml)"
+methodology_notes: docs/methods/landscape.md
