@@ -15,6 +15,10 @@ const eslintConfig = defineConfig([
     // Copied from the release by scripts/prepare-release.mjs at build time.
     "public/release/**",
     "public/search-index.json",
+    // Local prebuilt output (`vercel build`) and test artefacts: generated, never source.
+    ".vercel/**",
+    "test-results/**",
+    "playwright-report/**",
   ]),
 ]);
 

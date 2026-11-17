@@ -86,6 +86,35 @@ const hierarchy = admin.geographies
   ])
   .sort((a, b) => a[0].localeCompare(b[0]));
 fs.writeFileSync(path.join(out, "hierarchy.json"), JSON.stringify(hierarchy));
+
+// Atlas bundle (`slf atlas export`): display geometry with shared borders, the neighbour
+// graph, the DS profile space and census change. Optional: without it the home page falls
+// back to the plain boundary map. It must match the release, or it is ignored.
+const atlasCandidates = [
+  process.env.SLF_ATLAS_DIR ? path.resolve(process.env.SLF_ATLAS_DIR) : null,
+  path.resolve(process.cwd(), "../pipeline/data/build/atlas", latest.release),
+].filter(Boolean);
+let atlas = null;
+for (const candidate of atlasCandidates) {
+  const manifestFile = path.join(candidate, "manifest.json");
+  if (!fs.existsSync(manifestFile)) {
+    continue;
+  }
+  const manifest = JSON.parse(fs.readFileSync(manifestFile, "utf8"));
+  if (manifest.release !== latest.release) {
+    console.warn(`atlas bundle at ${candidate} is for ${manifest.release}; ignored`);
+    continue;
+  }
+  fs.cpSync(candidate, path.join(out, "atlas"), { recursive: true });
+  atlas = {
+    profile: Boolean(manifest.profile?.available),
+    change: Boolean(manifest.change?.available),
+    clusters: manifest.clusters?.indicators ?? 0,
+    detail_tolerance_m: manifest.geometry?.detail_tolerance_m ?? null,
+    overview_tolerance_m: manifest.geometry?.overview_tolerance_m ?? null,
+  };
+  break;
+}
 fs.writeFileSync(
   path.join(out, "meta.json"),
   JSON.stringify(
@@ -98,6 +127,7 @@ fs.writeFileSync(
       geography_count: latest.geography_count,
       observation_count: latest.observation_count,
       fixture: Boolean(latest.fixture),
+      atlas,
     },
     null,
     2,
@@ -107,6 +137,7 @@ fs.writeFileSync(
 const size = (file) => `${(fs.statSync(file).size / 1024 / 1024).toFixed(2)} MB`;
 console.log(`release ${latest.release} from ${root}`);
 console.log(`boundaries: ${boundaries.length} files`);
+console.log(atlas ? "atlas bundle: copied" : "atlas bundle: none (plain boundary map)");
 console.log(
   `search index: ${searchIndex.length} places, ${size(path.resolve(process.cwd(), "public/search-index.json"))}`,
 );

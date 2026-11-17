@@ -18,7 +18,10 @@ export default function SiteFooter() {
           <p className="footer-heading">The atlas</p>
           <ul>
             <li>
-              <Link href="/explore">Explore the map</Link>
+              <Link href="/">The atlas map</Link>
+            </li>
+            <li>
+              <Link href="/explore">Tables</Link>
             </li>
             <li>
               <Link href="/indicators">Indicators</Link>

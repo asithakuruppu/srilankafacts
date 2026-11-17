@@ -753,3 +753,40 @@ def electoral_build(
         typer.echo(f"error: {e}", err=True)
     if result.errors:
         raise typer.Exit(1)
+
+
+atlas_app = typer.Typer(
+    help="Web atlas bundle: display geometry, neighbours, profile and change files.",
+    no_args_is_help=True,
+)
+app.add_typer(atlas_app, name="atlas")
+
+
+@atlas_app.command("export")
+def atlas_export(
+    release_dir: Annotated[Path, typer.Option(help="Release folder to read.")],
+    spine_dir: Annotated[Path, typer.Option(help="Geography spine build folder.")] = Path(
+        "./data/build/geography-spine"
+    ),
+    profile_dir: Annotated[
+        Path | None, typer.Option(help="Profile build folder (`slf profile build`).")
+    ] = None,
+    history_dir: Annotated[
+        Path | None, typer.Option(help="History build folder (`slf history build`).")
+    ] = None,
+    out_dir: Annotated[Path, typer.Option(help="Output folder.")] = Path("./data/build/atlas"),
+) -> None:
+    """Write the derived files the map-first website reads (local, never part of a release)."""
+    from slf.atlas import export
+
+    manifest = export(release_dir, spine_dir, out_dir, profile_dir, history_dir)
+    geometry = manifest["geometry"]
+    typer.echo(f"atlas bundle for {manifest['release']} -> {out_dir / manifest['release']}")
+    typer.echo(
+        f"geometry: {geometry['gn_polygons']} GN, {geometry['ds_polygons']} DS, "
+        f"{geometry['detail_bytes'] / 1e6:.1f} MB detail"
+    )
+    typer.echo(f"adjacency pairs: {manifest['adjacency']['pairs']}")
+    typer.echo(f"clusters: {manifest['clusters']['indicators']} indicators")
+    typer.echo(f"profile: {manifest['profile']}")
+    typer.echo(f"change: {manifest['change']}")

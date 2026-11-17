@@ -406,6 +406,22 @@ These were stated by you or are standing rules in [brainstorm-decisions.md](../b
 
 ---
 
+## D-042: The home page is the map-first atlas, fed by a derived "atlas bundle" outside the release
+- **Status:** Accepted · 2026-11-17 (agent proposal; the lead said on 2026-11-17 to follow the recommended decisions; builds on D-002, D-003, D-013 to D-016, D-031, D-035)
+- **Context:** The lead asked for the site to open on an immersive map with four lenses (Geography, Profile, Change, Landscape), contextual comparisons and clean shared borders. The release boundaries are simplified per polygon, which leaves 130 km² of overlaps and about 84 km² of false gaps in the DS layer ([QA](../qa/atlas-2026-11-17.md)). The website also had no neighbour graph or profile vectors in a browser-readable form.
+- **Decision (proposed):**
+  - `/` is the atlas. The former home page moves to `/about`. Place, indicator, table, data and methods pages keep their URLs and server rendering (D-002); `/` has a readable no-JavaScript summary.
+  - A new pipeline command, `slf atlas export`, writes a **derived bundle** (display geometry simplified as a coverage with a ranked border mesh, the spine's neighbour graph, significant cluster lists, the DS profile space, census change) to `pipeline/data/build/atlas/<release>/`. It is not part of the release, changes no release file or checksum, and is copied into the site only when it names the same release.
+  - Similarity in the browser is distance in the pipeline's `profile` space, nothing else. Similar-place lists stay DS-only (D-031).
+  - The Change lens reads the local history build and says so. **It must not ship in a public build until the lead extends D-030 to the history datasets** (D-038 covers local use only).
+  - The Landscape lens states that no dataset exists; it shows no estimate.
+  - No new runtime dependency: MapLibre and hand-written SVG as before (D-035).
+- **Alternatives:** fix simplification in the release builder (better long term, but it changes every release's boundary files and checksums; proposed as a follow-up); PMTiles for geometry (needs Tippecanoe and a tile reader; revisit if GN detail files prove too heavy); keep the hero home page and put the atlas at `/explore` (does not meet the map-first brief).
+- **Consequences:** the atlas needs the bundle; CI's fixture has none and shows the summary. The bundle is 44 MB uncompressed, which matters for the hosting decision. `/explore`, indicator and place-page maps still use the release boundaries.
+- **Revisit when:** hosting is chosen (bundle size, compression); the release builder adopts coverage simplification; a landscape or feature dataset is admitted; the lead reviews the axis names and the Change lens rights.
+
+---
+
 ## Template
 
 ```markdown
