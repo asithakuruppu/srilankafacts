@@ -2,7 +2,7 @@
 
 | Stage | Workstream | Version | Last revised | Status |
 |---|---|---|---|---|
-| 2 | Web | 1 | 2026-11-07 | draft |
+| 2 | Web | 1 | 2026-11-17 | done (v1, D-047): `/explore/space`; PCA layout only (no UMAP), composite sliders, trajectory as a second space |
 
 ## When to use
 Stage 2, once the `profile` space (A03) is in a release and the map shell (W02) is stable.

@@ -271,6 +271,44 @@ export default function MethodsPage() {
         </section>
       </div>
 
+      <section className="section" id="similarity">
+        <h2>Similarity, types and search</h2>
+        <p>
+          <Link href="/explore/space">Places like this</Link> shows every DS division twice: on the
+          map, and placed by how alike their census profiles are. Pick a place in either view; the
+          other view highlights it, and a table lists the answer to one of four questions (places
+          like this; near here, unlike here; far away, like here; how unusual). &ldquo;Explain&rdquo;
+          splits the distance between two places exactly into the parts each block of inputs and
+          each axis contributes.
+        </p>
+        <ul>
+          <li>
+            <strong>Profile and composite.</strong> The profile space (v0.3) places DS divisions by
+            age, sex ratio, housing, density, and ethnic group and religion. The sliders weight
+            those three blocks; equal weights are the profile space itself. Distances always use
+            every axis, never positions on the screen.
+          </li>
+          <li>
+            <strong>Types.</strong> Five groups of DS divisions that are close in the profile space
+            (k-means, chosen for stability). The names are machine drafts awaiting review. A type
+            is a grouping, not a ranking.
+          </li>
+          <li>
+            <strong>Trajectory.</strong> How divisions changed between the 2012 and 2024 censuses
+            (population growth and sex ratio). It uses a 2012 document from a mirror (D-038), so it
+            appears only in local previews, never in a public build.
+          </li>
+          <li>
+            <strong>Search.</strong> Place search also compares names by short letter sequences,
+            in English, Sinhala and Tamil, so a misspelt name still finds its place. No language
+            model is used.
+          </li>
+        </ul>
+        <p className="small muted">
+          A distance is a similarity statement, never a fact or a judgement.
+        </p>
+      </section>
+
       <section className="section citation-block">
         <h2>Verification tags used in reports</h2>
         <p>

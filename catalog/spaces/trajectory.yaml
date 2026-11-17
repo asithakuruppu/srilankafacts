@@ -1,0 +1,24 @@
+# The `trajectory` space v0.1: how DS divisions changed, 2012 -> 2024 (Phase 3, D-047 Proposed).
+# PRIVATE under D-038: built from the local history build; local preview only, never released.
+id: trajectory
+version: "0.1"
+title: DS change between the 2012 and 2024 censuses
+entity_types: [place_period]
+dimensions: 2
+metric: euclidean
+inputs:
+  - { id: population_total, kind: indicator, weight: 1.0 }
+  - { id: sex_ratio, kind: indicator, weight: 1.0 }
+transformations:
+  - "growth: annual population growth 2012-2024 in %, from the history build's DS comparison (exact or approximate, carried per unit)"
+  - "sex_ratio_change: males per 100 females in 2024 (Census 2024) minus the same in 2012 (DCS 2012 DS list, male and female)"
+  - "only DS divisions with exactly one 2012 predecessor that is unchanged or renamed; split and boundary-adjusted units are listed as excluded with the reason (no imputation)"
+  - "each axis standardised to mean 0 and SD 1 across the units in the space; distance Euclidean; each axis's share of a squared distance is exact"
+excludes: [ethnicity, religion]
+status: proposed
+method_notes: >
+  Derived from census counts two censuses apart. The 2012 DS list comes from a DCS document found
+  only in a mirror (D-038, Accepted for local use); D-030 has not been extended to it, so this
+  space must not appear in a release or a public build. Only two dimensions exist because the
+  held 2012 DS data has population by sex only. Method: docs/methods/trajectory-space.md; QA:
+  docs/qa/trajectory-v0.1.md (counts only, no values).

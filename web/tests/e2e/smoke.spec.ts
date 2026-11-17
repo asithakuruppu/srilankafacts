@@ -325,3 +325,53 @@ test("election results page lists every electoral district with its source", asy
   await expect(page.locator("section.election-ed")).toHaveCount(22);
   await expect(page.getByText(/not yet verified by a person/).first()).toBeVisible();
 });
+
+async function hasSpaces(page: import("@playwright/test").Page): Promise<boolean> {
+  const response = await page.request.get("/release/meta.json");
+  const meta = (await response.json()) as { atlas?: { spaces?: { composite?: boolean } | null } | null };
+  return Boolean(meta.atlas?.spaces?.composite);
+}
+
+test("two-map explorer: selection is linked both ways and weights recompute distances", async ({
+  page,
+}) => {
+  test.skip(!(await hasSpaces(page)), "no vector spaces in this atlas bundle");
+  await page.goto("/explore/space?place=LK1127");
+  const answer = page.getByRole("region", { name: "Answer" });
+  await expect(answer.getByRole("heading", { level: 2 })).toContainText("Thimbirigasyaya");
+  const rows = answer.locator(".space-table tbody tr");
+  await expect(rows).toHaveCount(10);
+  const before = await rows.locator("th").allTextContents();
+  // Similarity view -> selection (and so the map's selected ring).
+  const dot = page.locator(".space-dot:not(.is-selected):not(.is-near)").first();
+  const id = await dot.getAttribute("data-id");
+  await dot.dispatchEvent("click");
+  await expect(page).toHaveURL(new RegExp(`place=${id}`));
+  await expect(page.locator(`.space-dot.is-selected[data-id="${id}"]`)).toHaveCount(1);
+  // Map -> similarity view: a click on the map selects a division and rings its dot.
+  const box = await page.locator(".space-map-box").boundingBox();
+  if (box) {
+    await page.waitForTimeout(1500);
+    await page.mouse.click(box.x + box.width * 0.45, box.y + box.height * 0.55);
+    await expect(page.locator(".space-dot.is-selected")).toHaveCount(1);
+    const chosen = await page.locator(".space-dot.is-selected").getAttribute("data-id");
+    await expect(page).toHaveURL(new RegExp(`place=${chosen}`));
+  }
+  // Weights: removing the identity block changes the neighbours and the URL.
+  await page.goto("/explore/space?place=LK1127&w=1,1,0");
+  await expect(rows).toHaveCount(10);
+  const after = await rows.locator("th").allTextContents();
+  expect(after).not.toEqual(before);
+  // Explanations are exact shares that sum to 100%.
+  await rows.first().getByRole("button", { name: "Explain" }).click();
+  const shares = await page.locator(".space-reasons > ul:first-of-type li").allTextContents();
+  const total = shares.reduce((sum, text) => sum + Number(text.replace(/.*: (-?\d+)%$/, "$1")), 0);
+  expect(Math.abs(total - 100)).toBeLessThanOrEqual(2);
+});
+
+test("search finds a misspelt place through the text space", async ({ page }) => {
+  await page.goto("/about");
+  const box = page.getByRole("combobox").first();
+  await box.fill("Colmbo");
+  await expect(page.getByRole("option").first()).toContainText("Colombo");
+});

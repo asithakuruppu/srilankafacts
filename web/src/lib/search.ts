@@ -58,17 +58,27 @@ function scoreName(query: string, name: string, weight: number): number {
   return 0;
 }
 
+/** Minimum text-space cosine for a place to match without any substring match (typos). */
+export const FUZZY_MIN = 0.45;
+
+/**
+ * Rank places for a query. Exact, prefix, word and substring matches keep their tiers; within a
+ * tier, and for misspellings that match no substring, the `text` space cosine (character
+ * n-grams, `text-space.ts`) decides, worth up to 100 points.
+ */
 export function searchPlaces(
   entries: SearchEntry[],
   query: string,
   limit = 8,
+  text?: { scores: (query: string) => Map<number, number> },
 ): SearchResult[] {
   const folded = normalise(query);
   if (folded.length === 0) {
     return [];
   }
+  const cosine = text ? text.scores(query) : null;
   const results: SearchResult[] = [];
-  for (const entry of entries) {
+  for (const [index, entry] of entries.entries()) {
     const candidates: Array<[string, number]> = [
       [entry.n ?? "", 1],
       [entry.s ?? "", 1.05],
@@ -81,8 +91,11 @@ export function searchPlaces(
       }
       best = Math.max(best, scoreName(folded, normalise(name), weight));
     }
+    const similarity = cosine?.get(index) ?? 0;
     if (best > 0) {
-      results.push({ ...entry, score: best });
+      results.push({ ...entry, score: best + 100 * similarity });
+    } else if (similarity >= FUZZY_MIN) {
+      results.push({ ...entry, score: 100 * similarity });
     }
   }
   results.sort((a, b) => {

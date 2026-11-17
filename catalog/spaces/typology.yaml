@@ -1,0 +1,28 @@
+# The `typology` space v1.0: types of DS division (Phase 3, D-047 Proposed).
+# A partition of the DS `profile` v0.3 vectors; each place's coordinate is its type and its
+# distance to the type centre. Built by `slf profile spaces` (pipeline/slf/spaces.py).
+id: typology
+version: "1.0"
+title: Types of DS division (k-means on the profile space)
+entity_types: [place]
+dimensions: 5
+metric: euclidean
+inputs:
+  - { id: profile@0.3, kind: derived, weight: 1.0 }
+transformations:
+  - "input: the DS profile v0.3 place vectors (5 retained axes), rebuilt from the census and checked against the stored profile build (max difference 1.2e-7, the float32 storage precision)"
+  - "k-means (Lloyd), k-means++ starts, best of 25 runs by inertia, seed 20261117"
+  - "k from 3 to 10: bootstrap stability = mean adjusted Rand index over 50 resamples (fit on the resample, assign every place to its nearest centre, compare with the full-data partition)"
+  - "choice: the highest silhouette among k with stability >= 0.75; if none, the most stable k"
+  - "types numbered by size, largest first (a neutral order, not a ranking)"
+  - "draft name: the centre back-projected to the inputs (in standard deviations from the national average, through the retained axes); up to two inputs at least 0.5 SD above and two at least 0.5 SD below"
+  - "per place: type, distance to the type centre, and agreement = mean Jaccard overlap of its type mates across bootstrap runs"
+excludes: []
+status: proposed
+method_notes: >
+  Derived, not observed. A type is a similarity grouping of DS divisions in the profile space,
+  never a fact about a place and never a ranking. It inherits the profile space's inputs,
+  including ethnic group and religion at DS level (D-037), so excludes is empty; type names can
+  therefore mention those inputs and are machine drafts (label_status machine_generated_draft)
+  until the lead reviews them. GN-level types are not built (D-031). Method:
+  docs/methods/typology.md; QA: docs/qa/typology-v1.0.md.

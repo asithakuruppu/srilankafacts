@@ -182,3 +182,12 @@ ED made of that district; an ED selected in the Elections lens is cleared when l
 
 **Fixed in passing:** the Change and Elections lenses now load their file when first opened by
 a tab click (before, the Change file loaded only when the page was opened with `lens=change`).
+
+## Additions, 2026-11-17 (Phase 3): vector spaces v2
+
+Decision: D-047 (Proposed). `slf atlas export --spaces-dir data/build/spaces` copies the files of
+`slf profile spaces` into the bundle unchanged, under `spaces/`: `typology.json`,
+`composite.json`, `trajectory.json` (private, D-038, local bundle only) and `text.json` (metadata;
+the browser builds the text index from `search-index.json`). The two-map explorer at
+`/explore/space` reads them; method notes: [typology](typology.md), [trajectory](trajectory-space.md),
+[composite](composite-space.md), [text](text-space.md).

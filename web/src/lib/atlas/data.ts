@@ -59,6 +59,9 @@ export const loadElectoral = () => loadJson<ElectoralFile>(atlas("electoral.json
 export const loadEdMesh = () => loadJson<Collection<MeshProps>>(atlas("ed-mesh.geojson"));
 export const loadEdOutlines = () => loadJson<EdOutlines>(atlas("ed-outlines.json"));
 
+export const loadSpace = <T,>(name: "typology" | "composite" | "trajectory") =>
+  loadJson<T>(atlas(`spaces/${name}.json`));
+
 export const loadPlace = (id: string) => loadJson<Place>(`/api/v1/places/${id}.json`);
 
 type LevelFile = { values: { geography_id: string; value: number | null }[] };

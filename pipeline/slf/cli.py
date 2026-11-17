@@ -493,6 +493,56 @@ def profile_build(
         raise typer.Exit(1)
 
 
+@profile_app.command("spaces")
+def profile_spaces(
+    observations: Annotated[Path, typer.Option(help="Census observations parquet.")] = Path(
+        "./data/build/census-2024-gnd-tables/observations.parquet"
+    ),
+    identity_observations: Annotated[
+        Path, typer.Option(help="Topic-table observations parquet (ethnic group and religion).")
+    ] = Path("./data/build/census-2024-topic-tables/observations.parquet"),
+    spine_dir: Annotated[Path, typer.Option(help="Spine build folder.")] = Path(
+        "./data/build/geography-spine"
+    ),
+    profile_dir: Annotated[Path, typer.Option(help="Profile build (`slf profile build`).")] = Path(
+        "./data/build/profile-v03"
+    ),
+    history_dir: Annotated[
+        Path | None, typer.Option(help="History build (`slf history build`); private, D-038.")
+    ] = Path("./data/build/history"),
+    release_dir: Annotated[
+        Path | None, typer.Option(help="Release whose admin.json names the text space indexes.")
+    ] = None,
+    runs: Annotated[int, typer.Option(help="Bootstrap runs per k for the typology.")] = 50,
+    out_dir: Annotated[Path, typer.Option(help="Output folder.")] = Path("./data/build/spaces"),
+) -> None:
+    """Build vector spaces v2: typology, trajectory (private), composite and text."""
+    import json
+
+    import pandas as pd
+
+    from slf import profile, spaces
+
+    geos = pd.read_parquet(spine_dir / "geographies.parquet")
+    frames = [pd.read_parquet(observations)]
+    if identity_observations.exists():
+        identity = pd.read_parquet(identity_observations)
+        frames.append(identity.loc[identity["indicator_id"].astype(str).isin(profile.IDENTITY)])
+    if release_dir is not None:
+        admin = json.loads((release_dir / "api/v1/geographies/admin.json").read_text())[
+            "geographies"
+        ]
+    else:
+        admin = geos.to_dict("records")
+    summary = spaces.build_all(
+        pd.concat(frames), geos, profile_dir, history_dir, admin, out_dir, runs
+    )
+    typer.echo(json.dumps(summary, indent=1, default=str))
+    if summary["refit_max_difference"] > 1e-6:  # stored profile vectors are float32
+        typer.echo("error: rebuilt DS profile differs from the stored profile build", err=True)
+        raise typer.Exit(1)
+
+
 audit_app = typer.Typer(help="Quality audits (Q01).", no_args_is_help=True)
 app.add_typer(audit_app, name="audit")
 
@@ -889,12 +939,17 @@ def atlas_export(
     catalog: Annotated[
         Path | None, typer.Option(help="Catalogue folder (ED grouping, election source).")
     ] = Path("../catalog"),
+    spaces_dir: Annotated[
+        Path | None, typer.Option(help="Vector spaces v2 folder (`slf profile spaces`).")
+    ] = None,
     out_dir: Annotated[Path, typer.Option(help="Output folder.")] = Path("./data/build/atlas"),
 ) -> None:
     """Write the derived files the map-first website reads (local, never part of a release)."""
     from slf.atlas import export
 
-    manifest = export(release_dir, spine_dir, out_dir, profile_dir, history_dir, catalog)
+    manifest = export(
+        release_dir, spine_dir, out_dir, profile_dir, history_dir, catalog, spaces_dir
+    )
     geometry = manifest["geometry"]
     typer.echo(f"atlas bundle for {manifest['release']} -> {out_dir / manifest['release']}")
     typer.echo(
@@ -906,6 +961,7 @@ def atlas_export(
     typer.echo(f"profile: {manifest['profile']}")
     typer.echo(f"change: {manifest['change']}")
     typer.echo(f"electoral: {manifest['electoral']}")
+    typer.echo(f"spaces: {manifest['spaces']}")
 
 
 spatial_app = typer.Typer(

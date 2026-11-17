@@ -1,0 +1,24 @@
+# The `text` space v0.1: place names as character n-gram vectors, for search
+# (Phase 3, D-047 Proposed). No model download.
+id: text
+version: "0.1"
+title: Place names (character n-grams, English, Sinhala, Tamil)
+entity_types: [place]
+metric: cosine
+inputs:
+  - { id: name_en, kind: derived, weight: 1.0 }
+  - { id: name_si, kind: derived, weight: 1.0 }
+  - { id: name_ta, kind: derived, weight: 1.0 }
+transformations:
+  - "fold each name as the website's search does: NFC, lower case; Latin script also loses accents and punctuation and folds romanisation variants (oo/ou->u, th->t, ph->f, dh->d, bh->b, gh->g, w->v, doubled letters); Sinhala and Tamil are kept as written"
+  - "pad with one space; character 2- and 3-grams by Unicode code point"
+  - "weight = count x idf, idf = ln((N+1)/(df+1)) + 1 over all name documents (one per non-empty name); vectors normalised to length 1"
+  - "query scored by cosine; a place scores its best name; ties by level (coarser first), then id"
+  - "aliases: none held (alt_names is empty in the spine)"
+excludes: [ethnicity, religion]
+status: proposed
+method_notes: >
+  Derived from names in the release's admin.json. Used only to rank search results: exact,
+  prefix, word and substring matches keep their tiers; the cosine (worth up to 100 points) orders
+  results within a tier and lets misspellings with cosine >= 0.45 match. Method:
+  docs/methods/text-space.md; QA: docs/qa/text-v0.1.md.

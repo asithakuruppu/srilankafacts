@@ -1283,3 +1283,152 @@ body:has(.atlas) .preview-banner .shell {
   margin-top: 0.6rem;
   font-size: 0.78rem;
 }
+
+/* W08 two-map explorer (/explore/space) */
+.space-explorer {
+  display: grid;
+  gap: 1rem;
+}
+
+.space-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem 1rem;
+  align-items: end;
+}
+
+.space-controls label,
+.space-weights label {
+  display: grid;
+  gap: 0.2rem;
+  font-size: 0.8rem;
+}
+
+.space-questions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+}
+
+.space-questions button {
+  border: var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: inherit;
+  padding: 0.35rem 0.6rem;
+  font: inherit;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.space-questions button.is-active {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.space-weights {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem 1.2rem;
+  align-items: end;
+  border: var(--border);
+  border-radius: var(--radius);
+  padding: 0.6rem 0.8rem;
+}
+
+.space-weights legend {
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0 0.3rem;
+}
+
+.space-weights output {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+}
+
+.space-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 1rem;
+}
+
+@media (max-width: 860px) {
+  .space-split {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.space-map-box {
+  position: relative;
+  height: 460px;
+  border: var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--map-bg);
+}
+
+.space-view {
+  display: block;
+  width: 100%;
+  height: auto;
+  background: var(--surface-2);
+  border: var(--border);
+  border-radius: var(--radius);
+  touch-action: none;
+  user-select: none;
+}
+
+.space-dot {
+  stroke: var(--surface);
+  stroke-width: 0.6;
+  opacity: 0.85;
+  cursor: pointer;
+}
+
+.space-dot.is-near,
+.space-dot.is-brushed {
+  stroke: var(--ink);
+  stroke-width: 1.4;
+  opacity: 1;
+}
+
+.space-dot.is-selected {
+  stroke: #f2b400;
+  stroke-width: 2.4;
+  opacity: 1;
+}
+
+.space-brush {
+  fill: currentColor;
+  fill-opacity: 0.08;
+  stroke: currentColor;
+  stroke-dasharray: 3 2;
+}
+
+.space-type-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 0.35rem;
+  font-size: 0.85rem;
+}
+
+.space-swatch {
+  display: inline-block;
+  width: 0.8rem;
+  height: 0.8rem;
+  border-radius: 50%;
+  margin-right: 0.4rem;
+  vertical-align: -0.1rem;
+}
+
+.space-table {
+  font-size: 0.82rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.space-table tr.is-active {
+  background: var(--surface-2);
+}
