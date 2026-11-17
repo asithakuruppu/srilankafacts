@@ -452,6 +452,18 @@ These were stated by you or are standing rules in [brainstorm-decisions.md](../b
 
 ---
 
+## D-046: Elections in the atlas at electoral-district level; local authorities and MOH areas wait for an official GN list
+- **Status:** Proposed · 2026-11-17 (agent proposal, acted on under the lead's autonomous instruction of 2026-11-17; builds on D-004, D-021, D-039, D-040, D-042)
+- **Context:** Stage 2 asks for election pages and an atlas view, and for local authorities (LA) and MOH areas as GN compositions with denominators (G05). The 2024 presidential results are in the release (D-039). No LA or MOH unit list, GN list or boundary with recorded rights is held; the only source with per-GN LA and MOH ids is nuuuwan `gig-data`, which has no licence.
+- **Decision (proposed):**
+  - The atlas gets an **Elections lens** at electoral-district (ED) level and pages at `/elections`. ED geometry is dissolved from the districts (EDs are whole districts). The map shows only whole-election measures (turnout, rejected ballots, electors, valid votes), never a candidate's share; candidates keep ballot order; unread values say "not read". Polling divisions stay in tables (D-040).
+  - A generic `slf composition build` composes any GN-based scheme from a unit list and a membership list, with G05's checks, and writes to `catalog/` **only** when the membership dataset's rights allow publication. Until then LA and MOH are built internally from gig-data for QA, nothing is committed, and the atlas shows LA and MOH as unavailable with the reason.
+- **Alternatives:** map candidate shares (rejected: invites a partisan reading and adds nothing a table does not give); publish gig-data LA/MOH (rejected: no licence, and the QA finds gaps and mismatches); area overlays from an unlicensed shape (rejected: same rights problem).
+- **Consequences:** the atlas bundle grows by about 2.4 MB (ED mesh, outlines, results). LA- and MOH-level indicators (for example dengue by MOH) cannot be published until an official list is obtained.
+- **Revisit when:** an official GN list per local authority or MOH area is held with rights recorded; more elections are ingested; the lead reviews whether turnout maps are acceptable under D-039.
+
+---
+
 ## Template
 
 ```markdown

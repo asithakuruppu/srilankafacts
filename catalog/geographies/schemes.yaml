@@ -21,6 +21,10 @@ schemes:
       - {level: 0, id: local_authority, name: Local authority}
     nests_in_admin: "no"     # made of GNs, not of DS divisions
     stage: "2"
+    notes: >
+      No official unit list or GN list with recorded rights is held (2026-11-17). `slf composition build
+      --scheme la` composes units from GN membership; it writes codes/relations only when the membership
+      dataset's rights allow (D-046).
   - id: electoral
     name: Electoral geography
     authority: Election Commission
@@ -43,6 +47,9 @@ schemes:
       - {level: 1, id: moh, name: Medical Officer of Health area}
     nests_in_admin: unknown  # roughly DS-aligned, not verified
     stage: "2"
+    notes: >
+      No official MOH list, GN list or boundary with recorded rights is held (2026-11-17). `slf composition
+      build --scheme health` is ready (D-046).
   - id: education
     name: Education geography
     authority: Ministry of Education

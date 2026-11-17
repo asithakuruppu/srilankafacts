@@ -142,3 +142,43 @@ Then `pnpm dev` or `pnpm build` in `web/` (the `predev`/`prebuild` step copies t
 - **Small numbers (D-026).** `clusters/<indicator>.json` also lists, per level, the units whose denominator is under 100, with the denominator and the empirical Bayes smoothed value from the release's `stats/` tables. The panel shows the published figure first, a "small number" note, and the smoothed value labelled as modelled.
 - **Change totals.** `change.json` carries totals for districts, provinces and the country: sums of the DS rows, placed through the hierarchy by id (DCS district code → the parent of that district's DS rows; never by name). Rows with no map unit (Kalmunai, DCS 5224) are counted in the totals and named in the panel. Check: the 2012 national sum is 20,359,439.
 - **Report a problem.** The footer shows a link only when `NEXT_PUBLIC_REPORT_URL` is set; the lead chooses the channel.
+
+## Additions, 2026-11-17 (Phase 2): Elections lens and non-admin scales
+
+Decision: D-046 (Proposed). Code: `build_ed_geometry` and `build_electoral` in
+`pipeline/slf/atlas.py`; `web/src/components/atlas/election-panel.tsx`,
+`web/src/lib/atlas/elections.ts`; pages `/elections` and `/elections/presidential-2024`.
+
+**New bundle files** (written only when `--catalog` is given, which is the default):
+
+| File | Contents | Source |
+|---|---|---|
+| `ed-mesh.geojson` | electoral-district borders, each once (rank 0 coast, rank 2 ED border), split into pieces of at most 20,000 vertices | the coverage-simplified districts, dissolved by `relations/electoral_ec-2024.csv` (`composed_of`, weight 1) |
+| `ed-outlines.json` | ED outlines at both tolerances, for the selection ring | same |
+| `electoral.json` | totals, postal votes, votes by candidate and the source locator of every ED, PD and the country; candidate list in ballot order; D-039 attribution and notice | release `observations/election-results.parquet` and `geographies/electoral-ec-2024.csv` |
+
+Overview DS polygons and GN detail polygons also carry an `ed` property, so the map fills EDs
+without new polygons. Because EDs are whole districts, ED borders are district borders and stay
+shared exactly; the internal Jaffna–Kilinochchi and Mannar–Vavuniya–Mullaitivu borders are not
+drawn at the ED scale ✅ (screenshot check).
+
+**Presentation rules (rule 12, D-039, D-040):**
+- The map colours EDs only by measures about the election as a whole: turnout, rejected
+  ballots, registered electors, valid votes. It never maps a candidate's share or a "winner".
+- Candidates are listed in ballot-paper order everywhere, never sorted by votes.
+- A value the pipeline could not read is "not read", never zero (196 such cells, all in
+  candidate rows).
+- Postal votes stay on the ED; they are never assigned to polling divisions.
+- Polling divisions appear in tables only (no GN list, no boundary with rights, D-040).
+- Every view carries the D-039 notice and the "machine-read, not yet checked by a person" label.
+
+**Scale switcher:** after the admin levels it lists the non-admin schemes. **ED** is enabled
+when the bundle has electoral geometry and switches to the Elections lens. **LA** and **MOH**
+are disabled and say why: no boundary or GN list with recorded rights is held (G05,
+[denominators-la-moh.md](denominators-la-moh.md)).
+
+**Switching lenses:** a district (or anything inside it) selected in another lens becomes the
+ED made of that district; an ED selected in the Elections lens is cleared when leaving it.
+
+**Fixed in passing:** the Change and Elections lenses now load their file when first opened by
+a tab click (before, the Change file loaded only when the page was opened with `lens=change`).
