@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 
+import type { AtlasMeta } from "@/lib/atlas/types";
 import type {
   CorrectionsLog,
   DataPackage,
@@ -92,6 +93,22 @@ export function getLatest(): LatestRelease {
 /** Corrections log published with the release; null for releases built before it existed. */
 export function getCorrections(): CorrectionsLog | null {
   return readOptionalJson<CorrectionsLog>("api/v1/corrections.json");
+}
+
+/**
+ * Summary of the atlas bundle that `scripts/prepare-release.mjs` copied for this release,
+ * or null when there is none (the home page then shows the plain boundary map).
+ */
+export function getAtlasMeta(): AtlasMeta | null {
+  const file = path.resolve(process.cwd(), "public/release/meta.json");
+  if (!fs.existsSync(file)) {
+    return null;
+  }
+  const meta = JSON.parse(fs.readFileSync(file, "utf8")) as {
+    release?: string;
+    atlas?: AtlasMeta | null;
+  };
+  return meta.release === getLatest().release ? (meta.atlas ?? null) : null;
 }
 
 export function getIndicators(): IndicatorMeta[] {

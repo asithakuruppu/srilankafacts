@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import SearchBox from "@/components/search-box";
+import ThemeToggle from "@/components/theme-toggle";
 import { getLatest } from "@/lib/release";
 
 export default function SiteHeader() {
@@ -21,12 +22,15 @@ export default function SiteHeader() {
             </span>
           </Link>
           <nav className="site-nav" aria-label="Main">
-            <Link href="/explore">Explore</Link>
+            <Link href="/">Atlas</Link>
+            <Link href="/explore">Tables</Link>
             <Link href="/indicators">Indicators</Link>
             <Link href="/data">Data</Link>
             <Link href="/methods">Methods</Link>
+            <Link href="/about">About</Link>
           </nav>
           <SearchBox compact />
+          <ThemeToggle />
         </div>
       </header>
       {!latest.publishable ? (

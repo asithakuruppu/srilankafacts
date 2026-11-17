@@ -21,13 +21,27 @@
   --font-serif: var(--font-display);
   --font-mono: var(--font-plex-mono), ui-monospace, "SFMono-Regular", Menlo, monospace;
   --font-script: "Noto Sans Sinhala", "Iskoola Pota", "Noto Sans Tamil", "Latha", sans-serif;
+  /* Borders, dividers and radii: one set of tokens for every container and control. */
   --radius: 0;
-  --map-bg: #e9ecf2;
-  --map-nodata: #cfd3dc;
+  --border: 1px solid var(--line);
+  --border-rule: 1px solid var(--rule);
+  --border-strong: 2px solid var(--rule);
+  --float-shadow: 0 1px 0 rgb(10 14 26 / 4%), 0 10px 28px rgb(10 14 26 / 10%);
+  /* Map surfaces. Vector stroke widths and colours live in MAP_TOKENS (atlas-map.tsx). */
+  --map-bg: #eef0f4;
+  --map-nodata: #d3d6de;
+  --map-label: #0a0e1a;
+  --map-halo: #f7f8fa;
+  /* Comparison marks: neighbours, parent, similar places, country. */
+  --mark-neighbours: #1c3fae;
+  --mark-parent: #a8430f;
+  --mark-similar: #c98a00;
+  --mark-country: #474e61;
 }
 
+/* Dark theme: follows the system unless the reader chose a theme (data-theme on <html>). */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
     color-scheme: dark;
     --paper: #090c14;
     --surface: #10141f;
@@ -44,9 +58,48 @@
     --warm: #f2b400;
     --warm-soft: #2b2200;
     --danger: #ff9a8a;
-    --map-bg: #141a28;
-    --map-nodata: #2b3247;
+    --float-shadow: 0 0 0 1px rgb(0 0 0 / 30%), 0 12px 32px rgb(0 0 0 / 45%);
+    --map-bg: #090c14;
+    --map-nodata: #232a3b;
+    --map-label: #eef0f6;
+    --map-halo: #090c14;
+    --mark-neighbours: #8da6ff;
+    --mark-parent: #e58c52;
+    --mark-similar: #f2b400;
+    --mark-country: #a3abbd;
   }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #090c14;
+  --surface: #10141f;
+  --surface-2: #1a2030;
+  --ink: #eef0f6;
+  --muted: #a3abbd;
+  --line: #2b3247;
+  --rule: #eef0f6;
+  --accent: #8da6ff;
+  --accent-strong: #b9c8ff;
+  --accent-soft: #19234a;
+  --on-accent: #090c14;
+  --gamboge: #f2b400;
+  --warm: #f2b400;
+  --warm-soft: #2b2200;
+  --danger: #ff9a8a;
+  --float-shadow: 0 0 0 1px rgb(0 0 0 / 30%), 0 12px 32px rgb(0 0 0 / 45%);
+  --map-bg: #090c14;
+  --map-nodata: #232a3b;
+  --map-label: #eef0f6;
+  --map-halo: #090c14;
+  --mark-neighbours: #8da6ff;
+  --mark-parent: #e58c52;
+  --mark-similar: #f2b400;
+  --mark-country: #a3abbd;
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
 }
 
 *,
@@ -133,7 +186,7 @@ code {
   font-size: 0.84em;
   background: var(--surface-2);
   padding: 0.1em 0.32em;
-  border-radius: 0;
+  border-radius: var(--radius);
   overflow-wrap: anywhere;
 }
 
@@ -182,7 +235,7 @@ pre code {
 
 .site-header {
   background: var(--paper);
-  border-bottom: 2px solid var(--rule);
+  border-bottom: var(--border-strong);
   position: sticky;
   top: 0;
   z-index: 40;
@@ -258,7 +311,7 @@ pre code {
 
 .preview-banner {
   background: var(--warm-soft);
-  border-bottom: 1px solid var(--rule);
+  border-bottom: var(--border-rule);
   font-family: var(--font-mono);
   color: var(--ink);
   font-size: 0.82rem;
@@ -282,8 +335,8 @@ pre code {
 .search input {
   width: 100%;
   padding: 0.48rem 0.7rem;
-  border: 1px solid var(--rule);
-  border-radius: 0;
+  border: var(--border-rule);
+  border-radius: var(--radius);
   background: var(--surface);
   color: var(--ink);
   font: inherit;
@@ -306,8 +359,8 @@ pre code {
   padding: 0.3rem;
   list-style: none;
   background: var(--surface);
-  border: 1px solid var(--rule);
-  border-radius: 0;
+  border: var(--border-rule);
+  border-radius: var(--radius);
   box-shadow: 4px 4px 0 var(--rule);
   z-index: 60;
 }
@@ -315,7 +368,7 @@ pre code {
 .search-result a {
   display: block;
   padding: 0.5rem 0.6rem;
-  border-radius: 0;
+  border-radius: var(--radius);
   text-decoration: none;
   color: var(--ink);
 }
@@ -413,8 +466,8 @@ pre code {
   background: var(--accent);
   color: var(--on-accent);
   padding: 0.7rem 1.2rem;
-  border: 2px solid var(--rule);
-  border-radius: 0;
+  border: var(--border-strong);
+  border-radius: var(--radius);
   text-decoration: none;
   font-weight: 700;
   font-size: 0.86rem;
@@ -449,7 +502,7 @@ pre code {
 
 .hero {
   padding: clamp(2.2rem, 5vw, 4.6rem) 0 clamp(2rem, 4vw, 3.4rem);
-  border-bottom: 2px solid var(--rule);
+  border-bottom: var(--border-strong);
 }
 
 .hero-grid {
@@ -472,7 +525,7 @@ pre code {
 .hero-panel {
   background: var(--surface);
   color: var(--ink);
-  border: 2px solid var(--rule);
+  border: var(--border-strong);
   box-shadow: 8px 8px 0 var(--accent);
   padding: 1.2rem 1.3rem 1rem;
   position: relative;
@@ -564,7 +617,7 @@ pre code {
   gap: 2rem;
   margin-bottom: 1.3rem;
   padding-top: 0.9rem;
-  border-top: 2px solid var(--rule);
+  border-top: var(--border-strong);
 }
 
 .section-note {
@@ -578,8 +631,8 @@ pre code {
 
 .map {
   position: relative;
-  border: 2px solid var(--rule);
-  border-radius: 0;
+  border: var(--border-strong);
+  border-radius: var(--radius);
   overflow: hidden;
   background: var(--map-bg);
 }
@@ -619,8 +672,8 @@ pre code {
   gap: 0.35rem 0.7rem;
   max-width: calc(100% - 1.6rem);
   background: var(--surface);
-  border: 1px solid var(--rule);
-  border-radius: 0;
+  border: var(--border-rule);
+  border-radius: var(--radius);
   padding: 0.45rem 0.6rem;
   font-family: var(--font-mono);
   font-size: 0.68rem;
@@ -635,7 +688,7 @@ pre code {
 .legend-swatch {
   width: 14px;
   height: 10px;
-  border-radius: 0;
+  border-radius: var(--radius);
   display: inline-block;
   border: 1px solid rgb(0 0 0 / 25%);
 }
@@ -650,7 +703,7 @@ pre code {
   color: var(--ink);
   background: var(--surface);
   padding: 0.3rem 0.45rem;
-  border-radius: 0;
+  border-radius: var(--radius);
   opacity: 0.88;
 }
 
@@ -661,8 +714,8 @@ pre code {
   left: 0.8rem;
   margin: 0;
   background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: 0;
+  border: var(--border);
+  border-radius: var(--radius);
   padding: 0.25rem 0.7rem;
   font-size: 0.76rem;
 }
@@ -670,7 +723,7 @@ pre code {
 .maplibregl-popup-content {
   font-family: var(--font-sans);
   font-size: 0.8rem;
-  border-radius: 0;
+  border-radius: var(--radius);
   padding: 0.45rem 0.6rem;
   color: #0a0e1a;
 }
@@ -692,8 +745,8 @@ pre code {
   gap: 0.1rem;
   min-width: 132px;
   padding: 0.55rem 0.7rem;
-  border: 1px solid var(--rule);
-  border-radius: 0;
+  border: var(--border-rule);
+  border-radius: var(--radius);
   background: var(--surface);
   text-decoration: none;
   color: var(--ink);
@@ -724,8 +777,8 @@ pre code {
   flex-direction: column;
   gap: 0.15rem;
   background: var(--surface);
-  border: 1px solid var(--rule);
-  border-radius: 0;
+  border: var(--border-rule);
+  border-radius: var(--radius);
   padding: 0.85rem 1rem;
   text-decoration: none;
   color: var(--ink);
@@ -803,8 +856,8 @@ a.stat:hover {
 
 .panel {
   background: var(--surface);
-  border: 1px solid var(--rule);
-  border-radius: 0;
+  border: var(--border-rule);
+  border-radius: var(--radius);
   padding: 1.1rem 1.2rem;
 }
 
@@ -837,7 +890,7 @@ a.stat:hover {
 .bar-track {
   height: 12px;
   background: var(--surface-2);
-  border-radius: 0;
+  border-radius: var(--radius);
   overflow: hidden;
 }
 
@@ -845,7 +898,7 @@ a.stat:hover {
   display: block;
   height: 100%;
   background: var(--accent);
-  border-radius: 0;
+  border-radius: var(--radius);
 }
 
 .bar-value {
@@ -865,7 +918,7 @@ a.stat:hover {
 .sex-bar {
   display: flex;
   height: 16px;
-  border-radius: 0;
+  border-radius: var(--radius);
   overflow: hidden;
   margin-top: 0.4rem;
   background: var(--surface-2);
@@ -891,8 +944,8 @@ a.stat:hover {
 
 .table-scroll {
   overflow-x: auto;
-  border: 2px solid var(--rule);
-  border-radius: 0;
+  border: var(--border-strong);
+  border-radius: var(--radius);
   background: var(--surface);
 }
 
@@ -905,7 +958,7 @@ table {
 th,
 td {
   padding: 0.55rem 0.7rem;
-  border-bottom: 1px solid var(--line);
+  border-bottom: var(--border);
   text-align: left;
   vertical-align: top;
 }
@@ -916,7 +969,7 @@ thead th {
   letter-spacing: 0.07em;
   color: var(--ink);
   background: var(--surface-2);
-  border-bottom: 2px solid var(--rule);
+  border-bottom: var(--border-strong);
   position: sticky;
   top: 0;
 }
@@ -946,7 +999,7 @@ th.numeric {
   display: inline-block;
   margin-left: 0.4rem;
   padding: 0.05rem 0.4rem;
-  border-radius: 0;
+  border-radius: var(--radius);
   background: var(--warm-soft);
   color: var(--warm);
   border: 1px solid var(--warm);
@@ -1008,8 +1061,8 @@ th.numeric {
   flex-direction: column;
   gap: 0.25rem;
   padding: 0.8rem 0.9rem;
-  border: 1px solid var(--rule);
-  border-radius: 0;
+  border: var(--border-rule);
+  border-radius: var(--radius);
   background: var(--surface);
   text-decoration: none;
   color: var(--ink);
@@ -1036,8 +1089,8 @@ th.numeric {
 }
 
 .indicator-group {
-  border: 1px solid var(--line);
-  border-radius: 0;
+  border: var(--border);
+  border-radius: var(--radius);
   background: var(--surface);
 }
 
@@ -1092,8 +1145,8 @@ th.numeric {
   grid-template-columns: auto 1fr auto;
   align-items: baseline;
   gap: 0.5rem;
-  border: 1px solid var(--line);
-  border-radius: 0;
+  border: var(--border);
+  border-radius: var(--radius);
   background: var(--surface);
   padding: 0.8rem 0.9rem;
   text-decoration: none;
@@ -1156,8 +1209,8 @@ th.numeric {
   gap: 0.6rem;
   align-items: baseline;
   padding: 0.5rem 0.7rem;
-  border: 1px solid var(--rule);
-  border-radius: 0;
+  border: var(--border-rule);
+  border-radius: var(--radius);
   background: var(--surface);
   text-decoration: none;
   color: var(--ink);
@@ -1209,7 +1262,7 @@ th.numeric {
 .rank-track {
   height: 10px;
   background: var(--surface-2);
-  border-radius: 0;
+  border-radius: var(--radius);
   overflow: hidden;
 }
 
@@ -1248,8 +1301,8 @@ th.numeric {
   gap: 1.4rem;
   align-items: baseline;
   padding: 0.8rem 0.9rem;
-  border: 1px solid var(--rule);
-  border-radius: 0;
+  border: var(--border-rule);
+  border-radius: var(--radius);
   background: var(--surface);
   text-decoration: none;
   color: var(--ink);
@@ -1296,8 +1349,8 @@ th.numeric {
   gap: 0.6rem;
   padding: 0.9rem;
   background: var(--surface);
-  border: 1px solid var(--rule);
-  border-radius: 0;
+  border: var(--border-rule);
+  border-radius: var(--radius);
 }
 
 .explore-controls label {
@@ -1314,8 +1367,8 @@ th.numeric {
 .explore-controls select {
   width: 100%;
   padding: 0.42rem 0.5rem;
-  border: 1px solid var(--line);
-  border-radius: 0;
+  border: var(--border);
+  border-radius: var(--radius);
   background: var(--paper);
   color: var(--ink);
   font: inherit;
@@ -1351,8 +1404,8 @@ th.numeric {
 
 .explore-panel {
   background: var(--surface);
-  border: 1px solid var(--rule);
-  border-radius: 0;
+  border: var(--border-rule);
+  border-radius: var(--radius);
   padding: 1rem;
   position: sticky;
   top: 84px;
@@ -1363,8 +1416,8 @@ th.numeric {
 }
 
 .table-details {
-  border: 1px solid var(--rule);
-  border-radius: 0;
+  border: var(--border-rule);
+  border-radius: var(--radius);
   background: var(--surface);
   padding: 0.7rem 0.9rem;
 }
@@ -1382,10 +1435,10 @@ th.numeric {
 /* Notices */
 
 .notice {
-  border: 1px solid var(--rule);
+  border: var(--border-rule);
   border-left: 8px solid var(--accent);
   background: var(--surface);
-  border-radius: 0;
+  border-radius: var(--radius);
   padding: 0.8rem 1rem;
   font-size: 0.88rem;
 }
@@ -1408,8 +1461,8 @@ th.numeric {
 }
 
 .endpoint {
-  border: 1px solid var(--line);
-  border-radius: 0;
+  border: var(--border);
+  border-radius: var(--radius);
   background: var(--surface);
   padding: 0.7rem 0.9rem;
 }
@@ -1452,7 +1505,7 @@ blockquote {
 }
 
 .method-grid section {
-  border-top: 1px solid var(--line);
+  border-top: var(--border);
   padding-top: 0.9rem;
 }
 
@@ -1474,13 +1527,13 @@ blockquote {
 }
 
 .citation-block {
-  border-top: 1px solid var(--line);
+  border-top: var(--border);
 }
 
 /* Footer */
 
 .site-footer {
-  border-top: 2px solid var(--rule);
+  border-top: var(--border-strong);
   background: var(--surface);
   padding: 2rem 0 1.4rem;
   margin-top: 2rem;
@@ -1522,7 +1575,7 @@ blockquote {
 }
 
 .footer-note {
-  border-top: 1px solid var(--line);
+  border-top: var(--border);
   margin-top: 1.5rem;
   padding-top: 0.9rem;
   font-size: 0.74rem;
@@ -1612,7 +1665,7 @@ blockquote {
   }
 
   .search input {
-    border-radius: 0;
+    border-radius: var(--radius);
   }
 
   .map-canvas,
@@ -1731,7 +1784,7 @@ blockquote {
   height: 6px;
   margin-top: 0.3rem;
   min-width: 5rem;
-  border-radius: 0;
+  border-radius: var(--radius);
   background: var(--surface-2);
 }
 
@@ -1749,7 +1802,7 @@ blockquote {
   position: absolute;
   top: 0;
   bottom: 0;
-  border-radius: 0;
+  border-radius: var(--radius);
   background: var(--accent);
 }
 
@@ -1851,7 +1904,7 @@ main:focus {
 .chart-scroll {
   max-height: 560px;
   overflow: auto;
-  border: 1px solid var(--line);
+  border: var(--border);
   background: var(--surface);
 }
 .chart-svg {
@@ -1896,7 +1949,7 @@ main:focus {
 .ix-table td {
   text-align: left;
   padding: 0.25rem 0.5rem;
-  border-bottom: 1px solid var(--line);
+  border-bottom: var(--border);
 }
 
 .pie {
@@ -1947,4 +2000,29 @@ main:focus {
 }
 .pie-legend .link-button {
   text-align: left;
+}
+
+/* Theme switch in the header. */
+
+.theme-toggle {
+  flex: none;
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: var(--border-rule);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.theme-toggle:hover {
+  background: var(--surface-2);
+}
+
+.theme-toggle svg {
+  width: 16px;
+  height: 16px;
 }

@@ -27,7 +27,7 @@ type MapViewProps = {
   preloaded?: AreaDataset | null;
 };
 
-const NO_DATA = "#cfd3dc";
+const NO_DATA = "#d3d6de";
 const EMPTY_VALUES = new Map<string, ValueRow>();
 const SEQUENTIAL = ["#e4e9fa", "#b3c0f0", "#7388dc", "#3250bd", "#142a80"];
 const DIVERGING = ["#9c3d12", "#e2a06f", "#f0f0f2", "#8fa2e6", "#1c3fae"];
@@ -159,7 +159,7 @@ export default function MapView({
               {
                 id: "background",
                 type: "background",
-                paint: { "background-color": "#e9ecf2" },
+                paint: { "background-color": cssColor("--map-bg", "#eef0f4") },
               },
             ],
           },
@@ -271,23 +271,39 @@ export default function MapView({
         id: "areas-fill",
         type: "fill",
         source: "areas",
-        paint: { "fill-color": colors.expression, "fill-opacity": 0.9 },
+        // No antialiased fill edge: the outline layer below is the only border drawn.
+        paint: { "fill-color": colors.expression, "fill-antialias": false },
       });
       map.addLayer({
         id: "areas-line",
         type: "line",
         source: "areas",
-        paint: { "line-color": "#4a5163", "line-width": 0.4, "line-opacity": 0.55 },
+        layout: { "line-join": "round", "line-cap": "round" },
+        paint: { "line-color": cssColor("--map-halo", "#f7f8fa"), "line-width": 0.6 },
+      });
+      map.addLayer({
+        id: "areas-selected-casing",
+        type: "line",
+        source: "areas",
+        layout: { "line-join": "round" },
+        paint: { "line-color": cssColor("--ink", "#0a0e1a"), "line-width": 5 },
+        filter: ["==", ["get", "geography_id"], selectedId ?? "__none__"],
       });
       map.addLayer({
         id: "areas-selected",
         type: "line",
         source: "areas",
-        paint: { "line-color": "#f2b400", "line-width": 3 },
+        layout: { "line-join": "round" },
+        paint: { "line-color": "#f2b400", "line-width": 2.6 },
         filter: ["==", ["get", "geography_id"], selectedId ?? "__none__"],
       });
     } else {
       map.setPaintProperty("areas-fill", "fill-color", colors.expression);
+      map.setFilter("areas-selected-casing", [
+        "==",
+        ["get", "geography_id"],
+        selectedId ?? "__none__",
+      ]);
       map.setFilter("areas-selected", [
         "==",
         ["get", "geography_id"],
@@ -296,7 +312,7 @@ export default function MapView({
     }
 
     const maxLevel = boundaryLevel;
-    map.setPaintProperty("areas-line", "line-width", maxLevel >= 4 ? 0.2 : 0.6);
+    map.setPaintProperty("areas-line", "line-width", maxLevel >= 4 ? 0.3 : 0.6);
 
     if (!fitted.current) {
       const coordinates: [number, number][] = [];
@@ -422,6 +438,12 @@ export default function MapView({
       </p>
     </div>
   );
+}
+
+/** A colour token from the stylesheet, so the map follows the light or dark theme. */
+function cssColor(token: string, fallback: string): string {
+  const value = getComputedStyle(document.documentElement).getPropertyValue(token).trim();
+  return value || fallback;
 }
 
 function escapeHtml(value: string): string {

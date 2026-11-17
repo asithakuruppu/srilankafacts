@@ -5,11 +5,11 @@ vi.mock("next/navigation", () => ({
   useRouter: () => ({ push: vi.fn(), replace: vi.fn() }),
 }));
 
-import Home from "@/app/page";
+import About from "@/app/about/page";
 
-describe("home page", () => {
+describe("about page", () => {
   it("states the promise and the national population from the release", () => {
-    render(<Home />);
+    render(<About />);
     expect(
       screen.getByRole("heading", {
         name: /Every place in Sri Lanka, every number about it, with its source/i,

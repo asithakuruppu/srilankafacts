@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useDeferredValue, useEffect, useId, useMemo, useRef, useState } from "react";
 
 import { levelLabel } from "@/lib/format";
@@ -9,6 +9,13 @@ import { searchPlaces, type SearchEntry, type SearchResult } from "@/lib/search"
 
 export default function SearchBox({ compact = false }: { compact?: boolean }) {
   const router = useRouter();
+  // On the atlas the result is selected on the map; elsewhere it opens the place page.
+  const pathname = usePathname();
+  const [onAtlas, setOnAtlas] = useState(false);
+  // Checked when the reader starts searching: the atlas mounts after the header does.
+  const detectAtlas = () =>
+    setOnAtlas(pathname === "/" && document.querySelector(".atlas") !== null);
+  const hrefFor = (id: string) => (onAtlas ? `/?place=${id}` : `/place/${id}`);
   const [entries, setEntries] = useState<SearchEntry[] | null>(null);
   const [query, setQuery] = useState("");
   const [open, setOpen] = useState(false);
@@ -67,7 +74,9 @@ export default function SearchBox({ compact = false }: { compact?: boolean }) {
     }
     if (event.key === "Enter" && results[active]) {
       event.preventDefault();
-      router.push(`/place/${results[active].i}`);
+      router.push(hrefFor(results[active].i));
+      setOpen(false);
+      setQuery("");
     }
   }
 
@@ -90,6 +99,7 @@ export default function SearchBox({ compact = false }: { compact?: boolean }) {
         placeholder="Search a place…"
         value={query}
         onFocus={() => {
+          detectAtlas();
           void loadIndex();
           setOpen(true);
         }}
@@ -97,6 +107,7 @@ export default function SearchBox({ compact = false }: { compact?: boolean }) {
           setQuery(event.target.value);
           setActive(0);
           setOpen(true);
+          detectAtlas();
           void loadIndex();
         }}
         onKeyDown={onKeyDown}
@@ -120,7 +131,7 @@ export default function SearchBox({ compact = false }: { compact?: boolean }) {
                 onMouseEnter={() => setActive(index)}
               >
                 <Link
-                  href={`/place/${result.i}`}
+                  href={hrefFor(result.i)}
                   onClick={() => {
                     setOpen(false);
                     setQuery("");

@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test";
 
-test("home page states the promise and shows the national total", async ({ page }) => {
-  await page.goto("/");
+test("about page states the promise and shows the national total", async ({ page }) => {
+  await page.goto("/about");
   await expect(
     page.getByRole("heading", {
       name: /Every place in Sri Lanka, every number about it, with its source/i,
@@ -11,8 +11,78 @@ test("home page states the promise and shows the national total", async ({ page 
   await expect(page.getByText(/Private preview, not for publication/i)).toBeVisible();
 });
 
-test("search finds a district and opens its place page", async ({ page }) => {
+// The atlas needs the bundle from `slf atlas export`; the CI fixture has none and shows the
+// plain summary instead. Each atlas test checks which one it got.
+async function hasAtlas(page: import("@playwright/test").Page): Promise<boolean> {
   await page.goto("/");
+  return (await page.locator(".atlas").count()) > 0;
+}
+
+test("home opens on the map, or on the readable summary without the atlas bundle", async ({
+  page,
+}) => {
+  if (await hasAtlas(page)) {
+    await expect(page.getByRole("tab", { name: "Geography" })).toHaveAttribute(
+      "aria-selected",
+      "true",
+    );
+    await expect(page.getByRole("heading", { level: 2, name: "Sri Lanka" })).toBeVisible();
+    await expect(page.getByText(/Contains 9 provinces/i)).toBeVisible();
+  } else {
+    await expect(page.getByText("21,781,800")).toBeVisible();
+  }
+  await expect(page.getByText(/Private preview, not for publication/i)).toBeVisible();
+});
+
+test("atlas: a district shows its value against neighbours, parent and country", async ({
+  page,
+}) => {
+  test.skip(!(await hasAtlas(page)), "no atlas bundle for this release");
+  await page.goto("/?place=LK11");
+  const panel = page.getByRole("complementary", { name: "Selected place" });
+  await expect(panel.getByRole("heading", { level: 2 })).toHaveText("Colombo");
+  await expect(panel.getByText("Compared to where?")).toBeVisible();
+  await expect(panel.getByText(/median of 4/)).toBeVisible();
+  await expect(panel.getByText(/1st highest of 25 districts/)).toBeVisible();
+  // Hierarchy: up through the trail, down through the list of DS divisions.
+  await expect(panel.getByRole("button", { name: "Western" })).toBeVisible();
+  await panel.getByRole("button", { name: /^Dehiwala/ }).click();
+  await expect(panel.getByRole("heading", { level: 2 })).toHaveText("Dehiwala");
+  await expect(page).toHaveURL(/place=LK11\d\d/);
+  // Every fact opens to its source.
+  await panel.getByText("Sources for these numbers").click();
+  await expect(panel.getByText(/sha256 [0-9a-f]{16}/).first()).toBeVisible();
+});
+
+test("atlas: similar places are explained, and a pair's distance splits into axis shares", async ({
+  page,
+}) => {
+  test.skip(!(await hasAtlas(page)), "no atlas bundle for this release");
+  await page.goto("/?place=LK1127&lens=profile");
+  const panel = page.getByRole("complementary", { name: "Selected place" });
+  await expect(panel.getByText("Places like this")).toBeVisible();
+  const first = panel.locator(".place-list-similar li").first();
+  await expect(first).toContainText(/Alike in .+; differs most in/);
+  await first.getByRole("button").click();
+  await expect(panel.getByText("Where the distance comes from, axis by axis")).toBeVisible();
+  const shares = await panel.locator(".axis-table tbody td:last-child").allTextContents();
+  const total = shares.reduce((sum, text) => sum + Number(text.replace("%", "")), 0);
+  expect(Math.abs(total - 100)).toBeLessThanOrEqual(3);
+});
+
+test("atlas: the change and landscape lenses say what they have and what they lack", async ({
+  page,
+}) => {
+  test.skip(!(await hasAtlas(page)), "no atlas bundle for this release");
+  await page.goto("/?place=LK1103&lens=change");
+  const panel = page.getByRole("complementary", { name: "Selected place" });
+  await expect(panel.getByText(/comparison\./i)).toBeVisible();
+  await page.getByRole("tab", { name: "Landscape" }).click();
+  await expect(panel.getByText(/No landscape dataset is in this release/)).toBeVisible();
+});
+
+test("search finds a district and opens its place page", async ({ page }) => {
+  await page.goto("/about");
   const search = page.getByRole("combobox", { name: "Search for a place" });
   await search.fill("Colombo");
   const result = page.getByRole("option").first();
@@ -21,6 +91,17 @@ test("search finds a district and opens its place page", async ({ page }) => {
   await expect(page).toHaveURL(/\/place\/LK11$/);
   await expect(page.getByRole("heading", { level: 1 })).toContainText("Colombo");
   await expect(page.getByText("2,375,415").first()).toBeVisible();
+});
+
+test("atlas: search selects the place on the map", async ({ page }) => {
+  test.skip(!(await hasAtlas(page)), "no atlas bundle for this release");
+  const search = page.getByRole("combobox", { name: "Search for a place" });
+  await search.fill("Kandy");
+  await page.getByRole("option").first().getByRole("link").click();
+  await expect(page).toHaveURL(/place=LK21/);
+  await expect(
+    page.getByRole("complementary", { name: "Selected place" }).getByRole("heading", { level: 2 }),
+  ).toHaveText("Kandy");
 });
 
 test("explore page has a table that works without the map", async ({ page }) => {

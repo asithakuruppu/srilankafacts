@@ -42,7 +42,16 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   const latest = getLatest();
   return (
-    <html lang="en" className={`${archivo.variable} ${plexMono.variable}`}>
+    <html lang="en" className={`${archivo.variable} ${plexMono.variable}`} suppressHydrationWarning>
+      <head>
+        {/* Apply a saved theme before first paint, so the page does not flash. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              'try{var t=localStorage.getItem("slf-theme");if(t==="dark"||t==="light")document.documentElement.dataset.theme=t}catch(e){}',
+          }}
+        />
+      </head>
       <body data-release={latest.release}>
         <SiteHeader />
         <main id="main" tabIndex={-1}>{children}</main>

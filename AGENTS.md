@@ -62,6 +62,7 @@ Prerequisites: `uv` (Python 3.12 is fetched by uv), Node.js 20+ and pnpm 12 (`np
 | Code crosswalk (needs the spine build and snapshots; `snapshot-nsdi` fetches NSDI attributes politely) | `uv run slf crosswalk snapshot-nsdi` · `uv run slf crosswalk build` |
 | Geometry QA and NSDI shape comparison (`snapshot-nsdi` takes ~5 minutes, paced) | `uv run slf geometry-qa snapshot-nsdi` · `uv run slf geometry-qa build` |
 | Profile vectors, similar places and QA (needs the spine and census builds) | `uv run slf profile build` |
+| Web atlas bundle for the map-first home page (needs a release; profile and history builds are optional) | `uv run slf atlas export --release-dir <release> --profile-dir data/build/profile-v03 --history-dir data/build/history` |
 | Q01 accuracy audit of a release (macOS: `swift scripts/pdf_pages.swift <Final Report pdf> data/build/audit/pdf-pages 68 202` first, for the Final Report check) | `uv run slf audit q01 --release-dir <release>` |
 | Independent cross-checks of a release against DCS's DS tables and Final Report (pages from `swift scripts/pdf_pages.swift <Final Report pdf> data/build/audit/pdf-pages 72 104 115 124 205 208 211 212` first) | `uv run slf audit crosschecks --release-dir <release>` |
 | Run a dataset end to end (local) | `uv run slf build <dataset> --out-dir ./data/build` |
