@@ -143,6 +143,18 @@ export type ChangeFile = {
   status: string;
   note: string;
   ds: ChangeRow[];
+  /** Totals for districts, provinces and the country: sums of DS rows. Absent in older bundles. */
+  areas?: {
+    id: string;
+    pop_2012: number;
+    pop_2024: number;
+    growth_pct: number;
+    ds_rows: number;
+    approximate: number;
+  }[];
+  areas_note?: string;
+  /** DS rows that have no map unit (named, with their figures only in the totals). */
+  not_mapped?: string[];
   national: {
     year: number;
     population: number | null;
@@ -161,8 +173,12 @@ export type ChangeFile = {
 };
 
 export type ClusterClass = "high_high" | "low_low" | "high_low" | "low_high";
+/** `small`: id → [denominator, empirical Bayes smoothed value] for units under the D-026 threshold. */
 export type ClusterFile = Partial<
-  Record<"district" | "ds" | "gn", Partial<Record<ClusterClass, string[]>>>
+  Record<
+    "district" | "ds" | "gn",
+    Partial<Record<ClusterClass, string[]>> & { small?: Record<string, [number | null, number | null]> }
+  >
 >;
 
 export type AtlasMeta = {

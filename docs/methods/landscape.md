@@ -1,6 +1,6 @@
 # Method: landscape and feature roll-ups (open spatial layers by place)
 
-Status: **private build, 2026-11-17** · Decisions: D-043 (Proposed), D-044 (Proposed) · Builds on D-013, D-014, D-016, D-017, D-018 · QA: [landscape-2026-11-17.md](../qa/landscape-2026-11-17.md) · Sources and rights: [discovery catalogue](../research/spatial/discovery-catalogue.md)
+Status: **private build, 2026-11-17** · Decisions: D-044 (Proposed), D-044 (Proposed) · Builds on D-013, D-014, D-016, D-017, D-018 · QA: [landscape-2026-11-17.md](../qa/landscape-2026-11-17.md) · Sources and rights: [discovery catalogue](../research/spatial/discovery-catalogue.md)
 
 Legend: ✅ verified directly · 🟡 from a secondary source · ❌ not found · ❓ assumption.
 

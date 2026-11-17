@@ -70,6 +70,18 @@ test("atlas: similar places are explained, and a pair's distance splits into axi
   expect(Math.abs(total - 100)).toBeLessThanOrEqual(3);
 });
 
+test("atlas: a district shows its 2012 to 2024 total as the sum of its DS divisions", async ({
+  page,
+}) => {
+  test.skip(!(await hasAtlas(page)), "no atlas bundle for this release");
+  await page.goto("/?place=LK11&lens=change");
+  const history = await page.request.get("/release/atlas/change.json");
+  test.skip(!history.ok(), "this bundle has no census history");
+  const total = page.getByTestId("change-area-total");
+  await expect(total).toContainText("the sum of");
+  await expect(total).toContainText("DS divisions");
+});
+
 test("atlas: the change and landscape lenses say what they have and what they lack", async ({
   page,
 }) => {
