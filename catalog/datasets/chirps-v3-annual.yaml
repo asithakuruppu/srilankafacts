@@ -1,0 +1,27 @@
+id: chirps-v3-annual
+source: chc
+title: 'CHIRPS v3.0 annual rainfall, global, 1981-2025'
+landing_page: https://chc.ucsb.edu/data/chirps
+pipeline_module: null
+schedule: manual
+geography_scheme: grid
+geography_vintage: null
+reference_period: '2025'
+rights: inherit
+spatial:
+  support: grid
+  scheme: grid
+  level: null
+  vintage: null
+  coverage: LK
+  measured_in: null
+  positional_accuracy: null
+  crs_source: unconfirmed
+  resolution: 0.05 degree
+  information_unit: grid-5km
+  information_count: null
+  derived_by: null
+indicators: []
+cross_checks: []
+status: proposed
+notes: 'Held, not integrated; CRS not yet read.'

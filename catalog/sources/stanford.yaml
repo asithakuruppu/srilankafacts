@@ -1,0 +1,17 @@
+# Reviewed 2026-11-17. Licence read at the evidence URL on that date.
+id: stanford
+name: 'Stanford University Libraries (Survey Department of Ceylon index)'
+publisher_type: academic
+homepage: https://purl.stanford.edu/yk696bp5456
+contact: null
+access_classes:
+- download_table
+rights:
+  status: open
+  licence: Public domain (stated by Stanford record)
+  commercial_reuse: 'yes'
+  attribution: 'Survey Department of Ceylon; Stanford Digital Repository yk696bp5456'
+  evidence:
+  - https://purl.stanford.edu/yk696bp5456 (public domain, no restrictions on use, read 2026-11-17)
+  last_reviewed: '2026-11-17'
+notes: 'Index of the 1:63,360 Ceylon one-inch series only; sheet scans not located or downloaded.'

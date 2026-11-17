@@ -1,0 +1,17 @@
+# Reviewed 2026-11-17. Licence read at the evidence URL on that date.
+id: chc
+name: 'UC Santa Barbara Climate Hazards Center: CHIRPS'
+publisher_type: academic
+homepage: https://chc.ucsb.edu/data/chirps
+contact: null
+access_classes:
+- download_table
+rights:
+  status: open
+  licence: Public domain (CC0 waiver)
+  commercial_reuse: 'yes'
+  attribution: 'Funk, C. et al. CHIRPS; cite per CHC guidance'
+  evidence:
+  - https://chc.ucsb.edu/data/chirps (copyright waived, public domain, read 2026-11-17)
+  last_reviewed: '2026-11-17'
+notes: 'CHIRPS v3.0 annual global rainfall, 1981-2025.'

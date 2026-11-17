@@ -1,0 +1,27 @@
+id: ceylon-one-inch-index
+source: stanford
+title: 'Ceylon one-inch map series index (1958-1976 sheets)'
+landing_page: https://purl.stanford.edu/yk696bp5456
+pipeline_module: null
+schedule: manual
+geography_scheme: grid
+geography_vintage: null
+reference_period: '1958'
+rights: inherit
+spatial:
+  support: grid
+  scheme: grid
+  level: null
+  vintage: null
+  coverage: LK
+  measured_in: null
+  positional_accuracy: null
+  crs_source: unconfirmed
+  resolution: vector index
+  information_unit: map-sheet
+  information_count: null
+  derived_by: null
+indicators: []
+cross_checks: []
+status: proposed
+notes: 'Index only (shapefile, geojson, metadata). Sheet scans not located.'
