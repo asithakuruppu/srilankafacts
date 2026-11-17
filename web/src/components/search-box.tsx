@@ -6,6 +6,7 @@ import { useDeferredValue, useEffect, useId, useMemo, useRef, useState } from "r
 
 import { levelLabel } from "@/lib/format";
 import { searchPlaces, type SearchEntry, type SearchResult } from "@/lib/search";
+import { buildTextIndex, textScores } from "@/lib/text-space";
 
 export default function SearchBox({ compact = false }: { compact?: boolean }) {
   const router = useRouter();
@@ -51,9 +52,19 @@ export default function SearchBox({ compact = false }: { compact?: boolean }) {
     }
   }
 
+  // The text space is built once, on the first search, from the same index (no model).
+  const textIndex = useMemo(() => (entries ? buildTextIndex(entries) : null), [entries]);
   const results: SearchResult[] = useMemo(
-    () => (entries ? searchPlaces(entries, deferredQuery) : []),
-    [deferredQuery, entries],
+    () =>
+      entries
+        ? searchPlaces(
+            entries,
+            deferredQuery,
+            8,
+            textIndex ? { scores: (q) => textScores(textIndex, q) } : undefined,
+          )
+        : [],
+    [deferredQuery, entries, textIndex],
   );
 
   function onKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {

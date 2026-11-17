@@ -464,6 +464,22 @@ These were stated by you or are standing rules in [brainstorm-decisions.md](../b
 
 ---
 
+## D-047: Vector spaces v2: typology, trajectory (private), composite weights, text search, and the two-map explorer
+- **Status:** Proposed · 2026-11-17 (agent proposal, acted on under the lead's autonomous instruction of 2026-11-17; builds on D-015, D-016, D-031, D-037, D-038, D-042)
+- **Context:** Stage 2 asks for more vector spaces next to `profile` (vector-space-model.md) and the W08 two-map explorer. Inputs held: the DS profile v0.3, the history build (2012 DS population by sex, D-038) and the release's place names. No GN-level similar lists may be published (D-031).
+- **Decision (proposed):**
+  - `typology` v1.0: k-means on the DS profile vectors, k from 3 to 10, chosen as the highest silhouette among k with bootstrap stability (mean ARI) ≥ 0.75; result k = 5. Names are machine drafts from each type's back-projected inputs, tagged and awaiting review. Numbered by size, never ranked.
+  - `trajectory` v0.1: DS change vectors (annual growth, change in the sex ratio) on the 320 divisions with a one-to-one 2012 predecessor, carrying exact/approximate. **Private under D-038**: local build and local bundle only, counts only in public docs.
+  - `composite` v0.1: the profile space with a weight per block, applied in the browser to exact per-block contributions to each axis score, so equal weights are profile v0.3 and every distance still splits exactly by axis and by block.
+  - `text` v0.1: character 2/3-gram TF-IDF vectors of English, Sinhala and Tamil names, cosine, used to order search results within the existing tiers and to let misspellings match (cosine ≥ 0.45). No model.
+  - `/explore/space` (W08): the map beside a 2-D view of the first two axes, linked selection both ways, drag to select a group, four preset questions, sliders, exact explanations and a table that works without WebGL.
+  - No new dependency: k-means, silhouette and ARI are plain NumPy.
+- **Alternatives:** UMAP layout for the 2-D view (needs a new dependency and distorts distances; PCA axes are what the space is); hierarchical clustering (no stability advantage at this size); an embedding model for search (download, cost, opaque); GN-level types (D-031).
+- **Consequences:** the atlas bundle grows by about 150 KB (`spaces/`). Three of the five type names lead with ethnic group or religion, because those inputs separate the groups most (D-037); this is sensitive and is the main item for review.
+- **Revisit when:** the lead reviews the type names; more 2012 DS topics are held (a richer trajectory); D-030 is extended to the history datasets; aliases are added to the spine.
+
+---
+
 ## Template
 
 ```markdown

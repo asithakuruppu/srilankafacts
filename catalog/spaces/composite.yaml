@@ -1,0 +1,22 @@
+# The `composite` space v0.1: the profile space with reader-chosen block weights
+# (Phase 3, D-047 Proposed). Weights are applied in the browser.
+id: composite
+version: "0.1"
+title: Profile with block weights
+entity_types: [place]
+dimensions: 5
+metric: euclidean
+inputs:
+  - { id: profile@0.3, kind: derived, weight: 1.0 }
+transformations:
+  - "each DS place's profile axis score is split exactly into block contributions: contribution[block][axis] = z[block inputs] x basis[block inputs, axis]; the contributions sum to the score (max error 8.9e-16)"
+  - "for weights w (one per block: demography, housing, identity; 0 to 2), the composite score on each axis is the sum over blocks of w x contribution"
+  - "weights all 1 reproduce profile v0.3 exactly; weight 0 removes a block"
+  - "distance Euclidean over all retained axes; the squared distance splits exactly by axis, and each axis's squared difference splits exactly (signed) by block"
+  - "contributions rounded to 6 decimals in the browser file; the pipeline computes its check lists from the same rounded values"
+excludes: []
+status: proposed
+method_notes: >
+  Derived. The weights change what "alike" means; they never change a ledger value. Distances
+  come from the full vectors, never from screen positions. Method: docs/methods/composite-space.md;
+  QA: docs/qa/composite-v0.1.md.

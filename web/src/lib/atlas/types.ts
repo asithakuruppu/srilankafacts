@@ -192,6 +192,8 @@ export type AtlasMeta = {
   change: boolean;
   /** electoral.json and ED geometry are in the bundle (older bundles: undefined). */
   electoral?: boolean;
+  /** Vector spaces v2 in the bundle (`spaces/*.json`); trajectory is private (D-038). */
+  spaces?: { typology: boolean; composite: boolean; trajectory: boolean; text: boolean };
   clusters: number;
   detail_tolerance_m: number | null;
   overview_tolerance_m: number | null;

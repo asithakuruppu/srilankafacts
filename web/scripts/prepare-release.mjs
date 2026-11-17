@@ -110,6 +110,14 @@ for (const candidate of atlasCandidates) {
     profile: Boolean(manifest.profile?.available),
     change: Boolean(manifest.change?.available),
     electoral: Boolean(manifest.electoral?.available),
+    spaces: manifest.spaces?.available
+      ? {
+          typology: Boolean(manifest.spaces.spaces?.typology),
+          composite: Boolean(manifest.spaces.spaces?.composite),
+          trajectory: Boolean(manifest.spaces.spaces?.trajectory),
+          text: Boolean(manifest.spaces.spaces?.text),
+        }
+      : null,
     clusters: manifest.clusters?.indicators ?? 0,
     detail_tolerance_m: manifest.geometry?.detail_tolerance_m ?? null,
     overview_tolerance_m: manifest.geometry?.overview_tolerance_m ?? null,

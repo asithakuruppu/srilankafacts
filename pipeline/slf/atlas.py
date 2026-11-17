@@ -907,6 +907,30 @@ def build_change(history_dir: Path, spine_dir: Path, out_dir: Path) -> dict[str,
     }
 
 
+SPACE_FILES = ("typology.json", "composite.json", "trajectory.json", "text.json")
+
+
+def build_spaces(spaces_dir: Path, out_dir: Path) -> dict[str, Any]:
+    """Copy the vector-space files of `slf profile spaces` into the bundle, unchanged.
+
+    trajectory.json is private under D-038 (local preview only), like change.json.
+    """
+    copied: dict[str, Any] = {}
+    for name in SPACE_FILES:
+        source = spaces_dir / name
+        if not source.exists():
+            continue
+        payload = json.loads(source.read_text())
+        _dump(out_dir / "spaces" / name, payload)
+        copied[name.removesuffix(".json")] = {
+            "space_id": payload.get("space_id"),
+            "space_version": payload.get("space_version"),
+            "source_sha256": _sha256(source),
+            **({"status": payload["status"]} if "status" in payload else {}),
+        }
+    return {"available": bool(copied), "spaces": copied}
+
+
 def export(
     release_dir: Path,
     spine_dir: Path,
@@ -914,6 +938,7 @@ def export(
     profile_dir: Path | None = None,
     history_dir: Path | None = None,
     catalog_dir: Path | None = None,
+    spaces_dir: Path | None = None,
 ) -> dict[str, Any]:
     latest = json.loads((release_dir / "api/v1/releases/latest.json").read_text())
     target = out_dir / str(latest["release"])
@@ -941,6 +966,11 @@ def export(
             build_change(history_dir, spine_dir, target)
             if history_dir is not None
             else {"available": False, "reason": "no --history-dir given"}
+        ),
+        "spaces": (
+            build_spaces(spaces_dir, target)
+            if spaces_dir is not None
+            else {"available": False, "reason": "no --spaces-dir given"}
         ),
     }
     _dump(target / "manifest.json", manifest)
