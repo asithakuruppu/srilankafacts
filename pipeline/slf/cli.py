@@ -662,6 +662,22 @@ def history_snapshot() -> None:
         typer.echo(f"{'reused' if ref.reused else 'stored'} {ref.key} sha256={ref.sha256[:12]}")
 
 
+@history_app.command("estimates")
+def history_estimates(
+    raw_root: Annotated[Path, typer.Option(help="Folder holding raw/ (a data root).")] = Path(
+        "./data/raw"
+    ),
+    catalog: Annotated[Path, typer.Option(help="Catalogue root.")] = Path("../catalog"),
+    out_dir: Annotated[Path, typer.Option(help="Output folder.")] = Path(
+        "./data/build/population-estimates"
+    ),
+) -> None:
+    """National annual population estimates 1891-1946, checked against DCS census totals."""
+    from slf import population_estimates
+
+    typer.echo(json_dumps(population_estimates.build(raw_root, catalog, out_dir)))
+
+
 @history_app.command("build")
 def history_build(
     pages: Annotated[

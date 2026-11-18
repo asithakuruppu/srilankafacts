@@ -1,27 +1,35 @@
 id: population-trajectory-1891-1946
 source: harvard-dataverse
-title: 'Population trajectory of Sri Lanka (Ceylon), districts, 1891 to 1946 (tab and xlsx)'
+title: 'Population trajectory of Sri Lanka (Ceylon), national annual estimates, 1891 to 1946 (tab and xlsx)'
 landing_page: https://doi.org/10.7910/DVN/29209
-pipeline_module: null
+pipeline_module: slf.population_estimates
 schedule: manual
 geography_scheme: admin
 geography_vintage: null
 reference_period: '1946'
 rights: inherit
 spatial:
-  support: area
+  support: national
   scheme: admin
-  level: district
+  level: country
   vintage: null
   coverage: LK
   measured_in: null
   positional_accuracy: null
   crs_source: not_applicable
-  resolution: district tables
-  information_unit: district-table
-  information_count: null
+  resolution: national annual series
+  information_unit: national-estimate
+  information_count: 57
   derived_by: null
-indicators: []
+indicators:
+- population_estimated_all_districts
+- population_estimated_nonplantation
 cross_checks: []
-status: proposed
-notes: 'Held, not integrated. District boundaries of the period are not in our spine; joining needs a crosswalk (AGENTS rule 5).'
+status: active
+notes: >-
+  Integrated 2026-11-18 as national (LK) rows only. Correction: an earlier note here called this a
+  district table; the held file (tab and xlsx, 57 rows) has no districts. Values come from Chandra and
+  Sarathchandra (2014) and follow one constant growth rate, so they are a smooth reconstruction, not counts.
+  The year 1918 appears twice with different values and the file does not say why; both rows are kept.
+  Checked against DCS Table 2.1 census totals for 1891, 1901, 1911, 1921, 1931 and 1946: within 0.9%.
+  The underlying census sources were not checked, and the tab and xlsx copies were not compared with each other.
