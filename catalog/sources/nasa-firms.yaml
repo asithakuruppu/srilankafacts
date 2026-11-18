@@ -1,0 +1,17 @@
+# Reviewed 2026-11-17. Policy page linked from the FIRMS site; its text was not fetched, so the rights below are what the FIRMS download page links to.
+id: nasa-firms
+name: NASA FIRMS (Fire Information for Resource Management System, LANCE)
+publisher_type: international
+homepage: https://firms.modaps.eosdis.nasa.gov
+contact: null
+access_classes:
+- download_table
+rights:
+  status: open
+  licence: NASA data and information policy (full and open access)
+  commercial_reuse: 'yes'
+  attribution: 'Cite LANCE FIRMS per https://www.earthdata.nasa.gov/data/projects/lance#ed-firms-citation'
+  evidence:
+  - https://science.nasa.gov/earth-science/earth-science-data/data-information-policy/ (linked from the FIRMS download page; NOT read, status is an assumption until read)
+  last_reviewed: '2026-11-17'
+notes: Archive requests need a free Earthdata login (done by the lead). Processed requests download without login.
