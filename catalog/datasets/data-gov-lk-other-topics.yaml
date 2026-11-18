@@ -1,0 +1,27 @@
+id: data-gov-lk-other-topics
+source: data-gov-lk
+title: 'data.gov.lk other topics: 126 datasets (agriculture, economy, employment, industry, IT, infrastructure, security, tourism, transport, travel) as csv, xls/xlsx and pdf'
+landing_page: https://data.gov.lk/search/field_topic/demography-20
+pipeline_module: null
+schedule: manual
+geography_scheme: admin
+geography_vintage: null
+reference_period: '2013'
+rights: inherit
+spatial:
+  support: area
+  scheme: admin
+  level: district
+  vintage: null
+  coverage: LK
+  measured_in: null
+  positional_accuracy: null
+  crs_source: not_applicable
+  resolution: mixed (district, national, series)
+  information_unit: district-table
+  information_count: 126
+  derived_by: null
+indicators: []
+cross_checks: []
+status: proposed
+notes: '126 datasets, 316 files (csv, xls, xlsx, pdf; site thumbnails excluded). Periods and geographies vary by table and have not been reviewed; many are national series. Original publishers, units and definitions unchecked; district names need the crosswalk before any join. Held only, not integrated.'
