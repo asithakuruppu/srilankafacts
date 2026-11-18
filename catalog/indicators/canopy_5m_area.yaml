@@ -1,0 +1,19 @@
+id: canopy_5m_area
+name: "Area with canopy 5 m or taller"
+short_name: "Area with canopy 5 m or taller"
+topic: [landscape, forest]
+measure_type: count
+unit: hectares
+universe: land_area_measured
+numerator: null
+denominator: null
+aggregation: sum
+higher_is: neutral
+distribution: api
+decimals: 1
+sensitivity: public
+definition: >
+  Ground area of pixels whose modelled canopy height is 5 m or more (Meta/WRI canopy height v2). A
+  machine-learning estimate; it includes plantations, orchards and trees outside forests.
+source_definition_ref: "meta-wri-canopy-height-v2 (catalog/datasets/meta-wri-canopy-height-v2.yaml)"
+methodology_notes: docs/methods/landscape.md
