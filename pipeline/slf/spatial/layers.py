@@ -749,7 +749,44 @@ def point_specs() -> list[IndicatorSpec]:
     return s
 
 
-SPECS: dict[str, IndicatorSpec] = {spec.id: spec for spec in [*indicator_specs(), *point_specs()]}
+def sheet_specs() -> list[IndicatorSpec]:
+    ds = "ceylon-one-inch-index"
+
+    def sheets(id_: str, name: str, definition: str) -> IndicatorSpec:
+        return IndicatorSpec(
+            id_,
+            name,
+            ds,
+            "count",
+            "sheets",
+            0,
+            definition,
+            topic=("landscape", "history"),
+            universe="mapped_features",
+            aggregation="none",
+        )
+
+    return [
+        sheets(
+            "map_sheets_one_inch",
+            "Historical one-inch map sheets covering the place",
+            "Number of sheets of the Survey Department of Ceylon one-inch map series (1:63,360, "
+            "1958-1976) whose footprint overlaps at least 1% of the place's area. For a district "
+            "or province it counts distinct sheets, not the sum over its divisions. From a sheet "
+            "index, not from the maps.",
+        ),
+        sheets(
+            "map_sheets_one_inch_scanned",
+            "Of these, sheets with a scan listed by Stanford",
+            "Number of those sheets that the Stanford Libraries index marks as available as a "
+            "digital scan. Whether a scan is complete or usable is not checked.",
+        ),
+    ]
+
+
+SPECS: dict[str, IndicatorSpec] = {
+    spec.id: spec for spec in [*indicator_specs(), *point_specs(), *sheet_specs()]
+}
 
 
 def indicator_yaml(spec: IndicatorSpec) -> str:
