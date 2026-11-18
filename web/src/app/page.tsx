@@ -27,13 +27,14 @@ export const metadata: Metadata = {
 };
 
 /** Readable without JavaScript or WebGL (D-002): the national figures and the way in. */
-function Summary({ withMap }: { withMap: boolean }) {
+function Summary({ withMap, heading = "h1" }: { withMap: boolean; heading?: "h1" | "h2" }) {
+  const Heading = heading;
   const country = getPlace("LK");
   const observation = country ? getObservationFor(country, "population_total") : null;
   return (
     <section className="atlas-summary shell">
       <p className="eyebrow">Census Atlas 2024 · private preview</p>
-      <h1>Every place in Sri Lanka, every number about it, with its source.</h1>
+      <Heading>Every place in Sri Lanka, every number about it, with its source.</Heading>
       <p className="hero-number">{formatValue(placeValue(country, "population_total"), "persons")}</p>
       <p className="muted">persons enumerated on 19 December 2024</p>
       {observation ? (
@@ -98,11 +99,11 @@ export default function HomePage() {
   return (
     <>
       <h1 className="visually-hidden">Sri Lanka Facts: the atlas</h1>
-      <Suspense fallback={<Summary withMap={false} />}>
+      <Suspense fallback={<Summary withMap={false} heading="h2" />}>
         <Atlas indicators={indicators} meta={meta} release={latest.release} />
       </Suspense>
       <noscript>
-        <Summary withMap={false} />
+        <Summary withMap={false} heading="h2" />
       </noscript>
     </>
   );
