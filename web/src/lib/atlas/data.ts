@@ -10,7 +10,11 @@ import type {
   DetailFile,
   EdOutlines,
   ElectoralFile,
+  FeatureFile,
+  FeatureIndex,
   FineFile,
+  LandscapeIndicator,
+  LandscapeSimilar,
   LevelName,
   MeshProps,
   OutlineProps,
@@ -61,6 +65,25 @@ export const loadEdOutlines = () => loadJson<EdOutlines>(atlas("ed-outlines.json
 
 export const loadSpace = <T,>(name: "typology" | "composite" | "trajectory") =>
   loadJson<T>(atlas(`spaces/${name}.json`));
+
+export const loadLandscapeIndex = () =>
+  loadJson<{ indicators: LandscapeIndicator[] }>(atlas("landscape/index.json"));
+export const loadLandscapeSimilar = () =>
+  loadJson<LandscapeSimilar>(atlas("landscape/similar_ds.json"));
+
+/** Landscape values of one indicator at one level, as id → value. */
+export async function loadLandscapeValues(indicator: string, level: LevelName): Promise<ValueMap> {
+  const file = await loadJson<Partial<Record<LevelName, Record<string, number>>>>(
+    atlas(`landscape/values/${indicator}.json`),
+  );
+  return new Map(Object.entries(file[level] ?? {}));
+}
+
+export const loadFeatureIndex = () => loadJson<FeatureIndex>(atlas("features/index.json"));
+export const loadFeatures = (district: string) =>
+  loadJson<FeatureFile>(atlas(`features/${district}.json`)).catch(
+    () => ({ district, points: [] }) as FeatureFile,
+  );
 
 export const loadPlace = (id: string) => loadJson<Place>(`/api/v1/places/${id}.json`);
 

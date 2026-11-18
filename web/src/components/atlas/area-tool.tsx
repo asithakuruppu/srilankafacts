@@ -1,6 +1,7 @@
 "use client";
 
 import type { GeoJSONSource, Map as MapLibreMap, MapMouseEvent } from "maplibre-gl";
+import { useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
 
 import { MAP_TOKENS } from "@/components/atlas/atlas-map";
@@ -49,8 +50,7 @@ function shapeFeatures(shape: AreaShape | null, draft: LonLat[], point: LonLat |
   return { type: "FeatureCollection" as const, features };
 }
 
-function readUrl(): { shape: AreaShape | null; indicator: string | null } {
-  const params = new URLSearchParams(window.location.search);
+function readParams(params: URLSearchParams): { shape: AreaShape | null; indicator: string | null } {
   const lon = Number(params.get("lon"));
   const lat = Number(params.get("lat"));
   const r = Number(params.get("r"));
@@ -67,7 +67,8 @@ export default function AreaTool({ indicators }: { indicators: CountIndicator[] 
   const mapRef = useRef<MapLibreMap | null>(null);
   const [ready, setReady] = useState(false);
   const [mode, setMode] = useState<Mode>("circle");
-  const [initial] = useState(() => (typeof window === "undefined" ? { shape: null, indicator: null } : readUrl()));
+  const searchParams = useSearchParams();
+  const [initial] = useState(() => readParams(new URLSearchParams(searchParams.toString())));
   const [radius, setRadius] = useState(initial.shape?.kind === "circle" ? initial.shape.radiusKm : 5);
   const [shape, setShape] = useState<AreaShape | null>(initial.shape);
   const [draft, setDraft] = useState<LonLat[]>([]);
@@ -77,6 +78,7 @@ export default function AreaTool({ indicators }: { indicators: CountIndicator[] 
   const [result, setResult] = useState<{ key: string; value: AreaEstimate } | null>(null);
   const [resolved, setResolved] = useState<Resolved | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const initialShape = useRef(initial.shape);
   const modeRef = useRef(mode);
   const radiusRef = useRef(radius);
   useEffect(() => {
@@ -133,7 +135,7 @@ export default function AreaTool({ indicators }: { indicators: CountIndicator[] 
         map.addLayer({ id: "shape-fill", type: "fill", source: "shape", filter: ["==", "$type", "Polygon"], paint: { "fill-color": tokens.select, "fill-opacity": 0.22 } });
         map.addLayer({ id: "shape-line", type: "line", source: "shape", filter: ["!=", "$type", "Point"], paint: { "line-color": tokens.highlight, "line-width": 1.6 } });
         map.addLayer({ id: "shape-vertex", type: "circle", source: "shape", filter: ["==", "$type", "Point"], paint: { "circle-radius": 4, "circle-color": tokens.select, "circle-stroke-color": tokens.highlight, "circle-stroke-width": 1.2 } });
-        const start = readUrl().shape;
+        const start = initialShape.current;
         if (start?.kind === "circle") {
           const box = circleBox(start.centre, start.radiusKm * 2.5);
           map.fitBounds([box[0], box[1], box[2], box[3]], { padding: 24, duration: 0 });

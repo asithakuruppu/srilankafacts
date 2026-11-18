@@ -28,6 +28,17 @@ const UNIT_SUFFIX: Record<string, string> = {
   "persons per housing unit": " per occupied unit",
   "males per 100 females": " males per 100 females",
   housing_units: " units",
+  // Landscape layers (slf spatial build).
+  metres: " m",
+  degrees: "°",
+  hectares: " ha",
+  kilometres: " km",
+  "square metres": " m²",
+  buildings: " buildings",
+  facilities: " facilities",
+  schools: " schools",
+  places: " places",
+  items: " items",
 };
 
 export function decimalsFor(unit: string): number {

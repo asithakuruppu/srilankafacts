@@ -20,6 +20,7 @@ import type {
   Collection,
   EdOutlines,
   Feature,
+  FeaturePoint,
   FineFile,
   GnUnit,
   LevelName,
@@ -91,9 +92,24 @@ type Props = {
   onZoom: (zoom: number) => void;
   onSelect: (id: string | null) => void;
   onError: (message: string) => void;
+  /** Named public features of the district in view, drawn from zoom 11. */
+  points?: FeaturePoint[] | null;
 };
 
 const EMPTY = { type: "FeatureCollection" as const, features: [] };
+
+export const POINT_COLORS: Record<string, string> = {
+  school: "#1c3fae",
+  health: "#c0362c",
+  heritage: "#c98a00",
+  place: "#5b6274",
+};
+export const POINT_LABELS: Record<string, string> = {
+  school: "School",
+  health: "Health facility",
+  heritage: "Wikidata place",
+  place: "Place name (GeoNames)",
+};
 const FILL_LAYERS = ["ov-fill", "ov-fill-pending", "gn-fill"] as const;
 const MAX_LABELS = 70;
 
@@ -473,6 +489,7 @@ const AtlasMap = forwardRef<AtlasMapHandle, Props>(function AtlasMap(props, ref)
             "mesh-fine",
             "mesh-detail",
             "ed-mesh",
+            "points",
             "sel-coarse",
             "sel-fine",
             "hl-coarse",
@@ -543,6 +560,28 @@ const AtlasMap = forwardRef<AtlasMapHandle, Props>(function AtlasMap(props, ref)
             layout: { ...line, visibility: "none" },
             paint: stroke,
           });
+          map.addLayer({
+            id: "points",
+            type: "circle",
+            source: "points",
+            minzoom: 11,
+            paint: {
+              "circle-radius": ["interpolate", ["linear"], ["zoom"], 11, 2.5, 15, 5],
+              "circle-color": [
+                "match",
+                ["get", "k"],
+                "school",
+                POINT_COLORS.school,
+                "health",
+                POINT_COLORS.health,
+                "heritage",
+                POINT_COLORS.heritage,
+                POINT_COLORS.place,
+              ],
+              "circle-stroke-color": tokens.border,
+              "circle-stroke-width": 1,
+            } as never,
+          });
           for (const [id, src, zoom] of [
             ["hl-coarse", "hl-coarse", { maxzoom: DETAIL_ZOOM }],
             ["hl-fine", "hl-fine", { minzoom: DETAIL_ZOOM }],
@@ -608,6 +647,17 @@ const AtlasMap = forwardRef<AtlasMapHandle, Props>(function AtlasMap(props, ref)
           scheduleLabels();
         });
         map.on("mousemove", (event) => {
+          const point = map.getLayer("points")
+            ? map.queryRenderedFeatures(event.point, { layers: ["points"] })[0]
+            : undefined;
+          if (point && tip.current) {
+            const node = tip.current;
+            (node.firstChild as HTMLElement).textContent = String(point.properties?.n ?? "");
+            (node.lastChild as HTMLElement).textContent = POINT_LABELS[String(point.properties?.k)] ?? "";
+            node.style.transform = `translate(${event.point.x + 14}px, ${event.point.y + 14}px)`;
+            node.hidden = false;
+            return;
+          }
           const id = unitAt(event.point);
           setHover(id);
           const node = tip.current;
@@ -657,7 +707,24 @@ const AtlasMap = forwardRef<AtlasMapHandle, Props>(function AtlasMap(props, ref)
     };
   }, []);
 
-  const { theme, level, colors, selected, dimOutside, highlight, units } = props;
+  const { theme, level, colors, selected, dimOutside, highlight, units, points } = props;
+
+  // Named public features of the district in view.
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map || !ready) {
+      return;
+    }
+    const target = map.getSource("points") as GeoJSONSource | undefined;
+    target?.setData({
+      type: "FeatureCollection",
+      features: (points ?? []).map(([lon, lat, k, n]) => ({
+        type: "Feature",
+        properties: { k, n },
+        geometry: { type: "Point", coordinates: [lon, lat] },
+      })),
+    });
+  }, [points, ready]);
 
   // Theme: surfaces and strokes.
   useEffect(() => {

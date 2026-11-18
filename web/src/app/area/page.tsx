@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Suspense } from "react";
 
 import AreaTool from "@/components/atlas/area-tool";
 import { getAtlasMeta, getIndicators } from "@/lib/release";
@@ -29,7 +30,9 @@ export default function AreaPage() {
         </p>
       </header>
       {meta?.grid ? (
-        <AreaTool indicators={indicators} />
+        <Suspense fallback={<p className="shell muted">Loading the map…</p>}>
+          <AreaTool indicators={indicators} />
+        </Suspense>
       ) : (
         <p className="shell muted">
           This build has no analytic grid, so areas cannot be estimated. It comes from{" "}

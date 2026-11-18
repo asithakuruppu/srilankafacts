@@ -70,6 +70,19 @@ test("atlas: similar places are explained, and a pair's distance splits into axi
   expect(Math.abs(total - 100)).toBeLessThanOrEqual(3);
 });
 
+test("landscape: a layer is mapped with its floor, and a GN lists what is here", async ({ page }) => {
+  const index = await page.request.get("/release/atlas/landscape/index.json");
+  test.skip(!index.ok(), "this build has no landscape layers");
+  await page.goto("/?place=LK2130120&lens=landscape");
+  await expect(page.getByText("Measured from satellite and open map data")).toBeVisible();
+  await expect(page.locator(".atlas-legend")).toContainText("modelled estimate");
+  const features = await page.request.get("/release/atlas/features/LK21.json");
+  if (features.ok()) {
+    await expect(page.getByTestId("whats-here")).toContainText("What is here");
+    await expect(page.getByTestId("whats-here")).not.toContainText("bombing");
+  }
+});
+
 test("areas: a radius around Colombo gives a labelled estimate, and a point resolves to its places", async ({
   page,
 }) => {
@@ -110,7 +123,9 @@ test("atlas: the change and landscape lenses say what they have and what they la
   const panel = page.getByRole("complementary", { name: "Selected place" });
   await expect(panel.getByText(/comparison\./i)).toBeVisible();
   await page.getByRole("tab", { name: "Landscape" }).click();
-  await expect(panel.getByText(/No landscape dataset is in this release/)).toBeVisible();
+  await expect(
+    panel.getByText(/This build has no landscape layers|Measured from satellite and open map data/),
+  ).toBeVisible();
 });
 
 test("search finds a district and opens its place page", async ({ page }) => {
