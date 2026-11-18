@@ -521,6 +521,20 @@ These were stated by you or are standing rules in [brainstorm-decisions.md](../b
 
 ---
 
+## D-051: Distribution: a local MCP server, an evaluation set kept private, embeddable maps and SQL in the browser
+- **Status:** Proposed · 2026-11-18 (agent proposal, acted on under the lead's instruction of 2026-11-17 to follow recommended decisions; builds on D-011, D-030, D-034)
+- **Context:** Stage 2 asks for an MCP server and `llms.txt` (A01), a public AI evaluation set (A02), embeddable maps and charts, and a DuckDB-WASM or Datasette explorer.
+- **Decision:**
+  - `mcp/` is a read-only MCP server over the static API, run locally over stdio (`@modelcontextprotocol/sdk` 1.32.2, `zod` 3.25.76). Six tools; every value comes with unit, period, verification, dataset, source locator and citation; missing data is answered "not available". No hosted endpoint (hosting is undecided).
+  - `slf evalset` generates questions with expected answers copied from a release; `mcp/eval/run.mjs` scores the server. **The generated set stays in `pipeline/data/build/evals/`, not in Git**: A02 asks for CC BY 4.0, but its answers are DCS values that D-030 allows only non-commercially. Only the generator, harness and results are committed.
+  - `/embed/map` is a chrome-free map of one indicator with a credit line naming the source, the release and non-commercial use. Embeddable charts are not built.
+  - `/query` runs SQL over the release's Parquet files with `@duckdb/duckdb-wasm` 1.32.0 in the browser; the engine (33 MB) and the Parquet files (13 MB) are copied into the site, not loaded from a third-party host.
+- **Alternatives:** a hosted MCP endpoint (waits for hosting); Datasette (needs a server); loading DuckDB from a CDN (smaller site, but a third-party request on every use).
+- **Consequences:** three new runtime dependencies. The site grows by about 46 MB, which matters for the hosting decision. The 150 of 150 score measures the tools, not an assistant.
+- **Revisit when:** hosting is chosen; DCS publishes reuse terms (the evaluation set could then be published); outlets ask for chart embeds.
+
+---
+
 ## Template
 
 ```markdown

@@ -439,3 +439,25 @@ test("Stage 3 indicators say they are not from the census", async ({ page }) => 
   await expect(page.getByText("not from the census")).toBeVisible();
   await expect(page.getByText(/survey estimate/i).first()).toBeVisible();
 });
+
+test("llms.txt states the citation rules", async ({ page }) => {
+  const response = await page.request.get("/llms.txt");
+  expect(response.ok()).toBe(true);
+  expect(await response.text()).toContain("not available");
+});
+
+test("the embed map shows its legend and credit", async ({ page }) => {
+  test.skip(!(await hasAtlas(page)), "no atlas bundle for this release");
+  await page.goto("/embed/map?ind=population_density&level=district");
+  await expect(page.getByTestId("embed-legend")).toContainText("Sri Lanka Facts");
+  await expect(page.getByTestId("embed-legend")).toContainText("Non-commercial");
+});
+
+test("SQL in the browser returns rows with their source", async ({ page }) => {
+  const engine = await page.request.head("/release/duckdb/duckdb-eh.wasm");
+  test.skip(!engine.ok(), "this build has no DuckDB engine");
+  await page.goto("/query");
+  await page.getByRole("button", { name: "Run query" }).click();
+  await expect(page.getByTestId("query-summary")).toContainText("rows", { timeout: 60_000 });
+  await expect(page.getByTestId("query-result")).toContainText("source_locator");
+});

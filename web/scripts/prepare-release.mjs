@@ -87,6 +87,32 @@ const hierarchy = admin.geographies
   .sort((a, b) => a[0].localeCompare(b[0]));
 fs.writeFileSync(path.join(out, "hierarchy.json"), JSON.stringify(hierarchy));
 
+// SQL explorer (/query): the release's Parquet files and DuckDB's browser engine, served
+// from this site so the page needs no third-party host.
+const parquetOut = path.join(out, "observations");
+fs.rmSync(parquetOut, { recursive: true, force: true });
+const observationsDir = path.join(root, "observations");
+const parquetFiles = fs.existsSync(observationsDir)
+  ? fs.readdirSync(observationsDir).filter((name) => name.endsWith(".parquet")).sort()
+  : [];
+if (parquetFiles.length) {
+  fs.mkdirSync(parquetOut, { recursive: true });
+  for (const name of parquetFiles) {
+    fs.copyFileSync(path.join(observationsDir, name), path.join(parquetOut, name));
+  }
+}
+if (fs.existsSync(path.join(root, "geographies.parquet"))) {
+  fs.copyFileSync(path.join(root, "geographies.parquet"), path.join(out, "geographies.parquet"));
+}
+const duckdbDist = path.resolve(process.cwd(), "node_modules/@duckdb/duckdb-wasm/dist");
+const duckdbOut = path.join(out, "duckdb");
+if (fs.existsSync(path.join(duckdbDist, "duckdb-eh.wasm"))) {
+  fs.mkdirSync(duckdbOut, { recursive: true });
+  for (const name of ["duckdb-eh.wasm", "duckdb-browser-eh.worker.js"]) {
+    fs.copyFileSync(path.join(duckdbDist, name), path.join(duckdbOut, name));
+  }
+}
+
 // Atlas bundle (`slf atlas export`): display geometry with shared borders, the neighbour
 // graph, the DS profile space and census change. Optional: without it the home page falls
 // back to the plain boundary map. It must match the release, or it is ignored.
@@ -141,6 +167,7 @@ fs.writeFileSync(
       observation_count: latest.observation_count,
       fixture: Boolean(latest.fixture),
       atlas,
+      parquet: parquetFiles,
     },
     null,
     2,
