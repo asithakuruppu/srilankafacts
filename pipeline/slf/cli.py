@@ -942,13 +942,16 @@ def atlas_export(
     spaces_dir: Annotated[
         Path | None, typer.Option(help="Vector spaces v2 folder (`slf profile spaces`).")
     ] = None,
+    grid_dir: Annotated[
+        Path | None, typer.Option(help="Grid build folder (`slf grid build`).")
+    ] = None,
     out_dir: Annotated[Path, typer.Option(help="Output folder.")] = Path("./data/build/atlas"),
 ) -> None:
     """Write the derived files the map-first website reads (local, never part of a release)."""
     from slf.atlas import export
 
     manifest = export(
-        release_dir, spine_dir, out_dir, profile_dir, history_dir, catalog, spaces_dir
+        release_dir, spine_dir, out_dir, profile_dir, history_dir, catalog, spaces_dir, grid_dir
     )
     geometry = manifest["geometry"]
     typer.echo(f"atlas bundle for {manifest['release']} -> {out_dir / manifest['release']}")
@@ -962,6 +965,7 @@ def atlas_export(
     typer.echo(f"change: {manifest['change']}")
     typer.echo(f"electoral: {manifest['electoral']}")
     typer.echo(f"spaces: {manifest['spaces']}")
+    typer.echo(f"grid: {manifest['grid']}")
 
 
 spatial_app = typer.Typer(
@@ -1109,3 +1113,40 @@ def spatial_findings(
         data_root or [Path("./data")], spine_dir, landscape_dir, census_gn, census_topics
     )
     typer.echo(f"wrote {landscape_dir / 'findings.json'} ({', '.join(out)})")
+
+
+grid_app = typer.Typer(help="Analytic grid (H3) and GN-to-hex weights.", no_args_is_help=True)
+app.add_typer(grid_app, name="grid")
+
+
+@grid_app.command("build")
+def grid_build(
+    spine_dir: Annotated[Path, typer.Option(help="Geography spine build folder.")] = Path(
+        "./data/build/geography-spine"
+    ),
+    out_dir: Annotated[Path, typer.Option(help="Output folder.")] = Path("./data/build/grid"),
+    resolution: Annotated[int, typer.Option(help="H3 resolution.")] = 9,
+) -> None:
+    """Build H3 cells over the GN divisions and equal-share GN-to-hex weights (D-014)."""
+    from slf import grid
+
+    summary = grid.build(spine_dir, out_dir, resolution)
+    for key, value in summary.items():
+        typer.echo(f"{key}: {value}")
+
+
+@app.command("resolve")
+def resolve(
+    lon: Annotated[float, typer.Option(help="Longitude (EPSG:4326).")],
+    lat: Annotated[float, typer.Option(help="Latitude (EPSG:4326).")],
+    spine_dir: Annotated[Path, typer.Option(help="Geography spine build folder.")] = Path(
+        "./data/build/geography-spine"
+    ),
+    relations_dir: Annotated[Path, typer.Option(help="Relations folder.")] = Path(
+        "../catalog/geographies/relations"
+    ),
+) -> None:
+    """Which GN, DS, district, province and electoral district contain a point."""
+    from slf import resolver
+
+    typer.echo(resolver.as_json(resolver.Resolver(spine_dir, relations_dir).resolve(lon, lat)))

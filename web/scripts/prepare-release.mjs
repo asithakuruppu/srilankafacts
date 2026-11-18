@@ -118,6 +118,7 @@ for (const candidate of atlasCandidates) {
           text: Boolean(manifest.spaces.spaces?.text),
         }
       : null,
+    grid: Boolean(manifest.grid?.available),
     clusters: manifest.clusters?.indicators ?? 0,
     detail_tolerance_m: manifest.geometry?.detail_tolerance_m ?? null,
     overview_tolerance_m: manifest.geometry?.overview_tolerance_m ?? null,

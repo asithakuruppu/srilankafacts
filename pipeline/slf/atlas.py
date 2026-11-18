@@ -939,6 +939,7 @@ def export(
     history_dir: Path | None = None,
     catalog_dir: Path | None = None,
     spaces_dir: Path | None = None,
+    grid_dir: Path | None = None,
 ) -> dict[str, Any]:
     latest = json.loads((release_dir / "api/v1/releases/latest.json").read_text())
     target = out_dir / str(latest["release"])
@@ -973,5 +974,18 @@ def export(
             else {"available": False, "reason": "no --spaces-dir given"}
         ),
     }
+    weights = sorted(grid_dir.glob("gn_h3r*_weights_*.parquet")) if grid_dir else []
+    if weights:
+        from slf import grid
+
+        manifest["grid"] = grid.web_files(spine_dir, weights[-1], target)
+    if catalog_dir is not None and (catalog_dir / "geographies" / "relations").exists():
+        from slf import resolver
+
+        eds = resolver.district_to_ed(catalog_dir / "geographies" / "relations")
+        _dump(target / "resolver.json", {"district_to_ed": eds})
+        manifest["resolver"] = {"available": True, "district_to_ed": len(eds)}
+    else:
+        manifest["grid"] = {"available": False, "reason": "no grid build given (`slf grid build`)"}
     _dump(target / "manifest.json", manifest)
     return manifest
