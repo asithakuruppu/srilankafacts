@@ -66,6 +66,7 @@ Prerequisites: `uv` (Python 3.12 is fetched by uv), Node.js 20+ and pnpm 12 (`np
 | Analytic grid (H3 r9, equal-share GN weights) and point resolver | `uv run slf grid build` · `uv run slf resolve --lon 79.86 --lat 6.93` |
 | Stage 3 sub-national indicators (OPHI, WFP rainfall and NDVI, HeiGIT access) | `uv run slf subnational build` |
 | Release calendar (add `--probe` for polite landing-page checks) | `uv run slf freshness` |
+| AI evaluation set (A02) from a release; score the MCP server with `node eval/run.mjs <set> <release> <report>` in `mcp/` | `uv run slf evalset --release-dir <release>` |
 | Q01 accuracy audit of a release (macOS: `swift scripts/pdf_pages.swift <Final Report pdf> data/build/audit/pdf-pages 68 202` first, for the Final Report check) | `uv run slf audit q01 --release-dir <release>` |
 | Independent cross-checks of a release against DCS's DS tables and Final Report (pages from `swift scripts/pdf_pages.swift <Final Report pdf> data/build/audit/pdf-pages 72 104 115 124 205 208 211 212` first) | `uv run slf audit crosschecks --release-dir <release>` |
 | Run a dataset end to end (local) | `uv run slf build <dataset> --out-dir ./data/build` |
@@ -85,6 +86,8 @@ Storage: local `./data/` by default; `SLF_STORAGE=s3` with `SLF_S3_BUCKET`, `SLF
 | Unit tests | `pnpm test` |
 | Build | `pnpm build` |
 | Browser smoke test | `pnpm exec playwright install chromium` once, then `pnpm test:e2e` |
+
+**MCP server** (run in `mcp/`): `pnpm install` · `pnpm build` · `pnpm typecheck` · `pnpm test`; run it with `SLF_API_ROOT=<release dir> node dist/index.js`.
 
 CI (`.github/workflows/ci.yml`) runs all of the above, but only when started manually (`workflow_dispatch`); it no longer runs on every pull request, to avoid Actions cost. Run these commands locally before finishing a task.
 

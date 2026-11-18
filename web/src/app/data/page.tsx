@@ -234,6 +234,11 @@ export default function DataPage() {
           <code>docs/research/sources/dcs-census-2024-topic-tables.md</code> (decision D-032), and
           the methods in <Link href="/methods">Methods and known gaps</Link>. Which sources are
           held and which are due is in the <Link href="/data/calendar">release calendar</Link>.
+          To query the data with SQL in your browser, use the <Link href="/query">query page</Link>;
+          to connect an AI assistant, see <Link href="/data/ai">AI assistants</Link>. To embed a
+          map, use an iframe of <code>/embed/map?ind=population_density&amp;level=district</code>{" "}
+          (<Link href="/embed/map?ind=population_density&level=district">preview</Link>); it
+          carries its own credit line and stays non-commercial.
         </p>
       </section>
 

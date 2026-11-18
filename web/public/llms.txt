@@ -1,0 +1,29 @@
+# Sri Lanka Facts
+
+> Every place in Sri Lanka, every number about it, with its source. A place-based data platform: the geography spine (country, 9 provinces, 25 districts, 340 DS divisions, 14,043 GN divisions with stable OCHA p-codes) with Census 2024 and other indicators joined to it. Private preview: not for publication.
+
+Rules for AI systems using this data:
+
+- Quote every number with its unit, period and source, and give the release citation.
+- Say "not available" when the data does not hold a value; do not estimate or fill gaps.
+- Values marked `machine_extracted` were read by software from the source and have not all been checked by a person.
+- Census 2024 figures are published non-commercially with attribution while the Department of Census and Statistics has not published reuse terms (decision D-030). Commercial use is not permitted.
+- Similar-place lists are distances in a named vector space (`space_id`, `space_version`); they are not facts about the places.
+
+## Static API (JSON, read-only)
+
+- [Latest release](/api/v1/releases/latest.json): release id, citation, datasets, licences and notices
+- [Indicators](/api/v1/indicators.json): ids, units, definitions, levels
+- [Geographies](/api/v1/geographies/admin.json): ids, names in English, Sinhala and Tamil, parents
+- Place records: `/api/v1/places/{geography_id}.json` (every value with dataset, snapshot hash and source locator)
+- Indicator by level: `/api/v1/indicators/{indicator_id}/{level}.json` (level: country, province, district, ds, gn)
+
+## MCP server
+
+A read-only Model Context Protocol server over the same files (`mcp/` in the repository): tools `search_places`, `get_place_profile`, `list_indicators`, `get_indicator`, `compare_places`, `get_sources`. Setup: [/data/ai](/data/ai).
+
+## Methods
+
+- [Methods and known gaps](/methods)
+- [Data and downloads](/data)
+- [Release calendar](/data/calendar)

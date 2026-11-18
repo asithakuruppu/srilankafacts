@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 import os
 from pathlib import Path
 from typing import Annotated
@@ -1219,3 +1220,16 @@ def freshness_check(
         if row["state"] == "overdue" or row["page_changed"]:
             typer.echo(f"  {row['state']}: {row['dataset_id']} (last {row['last_snapshot']})")
     typer.echo(f"wrote {out_dir / 'calendar.json'}")
+
+
+@app.command("evalset")
+def evalset(
+    release_dir: Annotated[Path, typer.Option(help="Release folder to draw answers from.")],
+    out_dir: Annotated[Path, typer.Option(help="Output folder.")] = Path("./data/build/evals"),
+    size: Annotated[int, typer.Option(help="Number of questions.")] = 150,
+) -> None:
+    """AI evaluation set (A02): questions with expected answers copied from the release."""
+    from slf import evalset as module
+
+    summary = module.build(release_dir, out_dir, size)
+    typer.echo(json.dumps(summary, indent=2))

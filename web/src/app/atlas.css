@@ -1535,3 +1535,46 @@ body:has(.atlas) .preview-banner .shell {
     max-height: none;
   }
 }
+
+/* Embeddable map (/embed/map): covers the site chrome so only the map and its credit show. */
+.embed-frame {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: var(--map-bg);
+}
+.embed-legend {
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  bottom: 8px;
+  background: var(--surface);
+  border: var(--border);
+  box-shadow: var(--float-shadow);
+  padding: 0.4rem 0.6rem;
+  font-size: 0.74rem;
+}
+.embed-legend p {
+  margin: 0.1rem 0;
+}
+.embed-legend ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.2rem 0.8rem;
+  list-style: none;
+  margin: 0.2rem 0;
+  padding: 0;
+}
+.embed-legend li {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+.embed-legend i {
+  display: inline-block;
+  width: 12px;
+  height: 10px;
+}
+.embed-credit {
+  color: var(--muted);
+}
