@@ -49,29 +49,11 @@ import {
 import { useLoaded } from "@/lib/atlas/use-loaded";
 import { formatValue } from "@/lib/format";
 import { buildHierarchy, type HierarchyRow } from "@/lib/hierarchy";
+import { useTheme } from "@/lib/atlas/use-theme";
 
 export type LegendEntry = { color: string; label: string };
 export type Legend = { title: string; note: string; entries: LegendEntry[] };
 
-function useTheme(): "light" | "dark" {
-  const [theme, setTheme] = useState<"light" | "dark">("light");
-  useEffect(() => {
-    const media = window.matchMedia("(prefers-color-scheme: dark)");
-    const read = () => {
-      const chosen = document.documentElement.dataset.theme;
-      setTheme(chosen === "dark" || chosen === "light" ? chosen : media.matches ? "dark" : "light");
-    };
-    read();
-    media.addEventListener("change", read);
-    const observer = new MutationObserver(read);
-    observer.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
-    return () => {
-      media.removeEventListener("change", read);
-      observer.disconnect();
-    };
-  }, []);
-  return theme;
-}
 
 function useViewport(): { wide: boolean; height: number } {
   // Read at first render in the browser: the map needs the right insets when it is created.

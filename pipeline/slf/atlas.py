@@ -979,6 +979,12 @@ def export(
         from slf import grid
 
         manifest["grid"] = grid.web_files(spine_dir, weights[-1], target)
+    if catalog_dir is not None and (catalog_dir / "geographies" / "relations").exists():
+        from slf import resolver
+
+        eds = resolver.district_to_ed(catalog_dir / "geographies" / "relations")
+        _dump(target / "resolver.json", {"district_to_ed": eds})
+        manifest["resolver"] = {"available": True, "district_to_ed": len(eds)}
     else:
         manifest["grid"] = {"available": False, "reason": "no grid build given (`slf grid build`)"}
     _dump(target / "manifest.json", manifest)

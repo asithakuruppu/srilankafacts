@@ -191,3 +191,10 @@ Decision: D-047 (Proposed). `slf atlas export --spaces-dir data/build/spaces` co
 the browser builds the text index from `search-index.json`). The two-map explorer at
 `/explore/space` reads them; method notes: [typology](typology.md), [trajectory](trajectory-space.md),
 [composite](composite-space.md), [text](text-space.md).
+
+## Areas and points (Phase 4, 2026-11-18, D-048)
+
+- **Grid.** `uv run slf grid build` writes `data/build/grid/gn_h3r9_weights_2024.parquet` (`geography_id`, `h3`, `weight`, `method`, `weight_source`) and a QA table. `slf atlas export --grid-dir data/build/grid` writes `grid/<district>.json`: cell centres as `[lon, lat, index of GN]`.
+- **Estimates.** For a circle or a drawn shape, a cell counts if its centre is inside. Each GN's count is multiplied by the share of its cells inside. GNs wholly inside contribute their exact count; GNs cut by the edge contribute a modelled share. GNs with no published value are listed, not counted as zero. The sum of all GN values is 21,710,113, below the national 21,781,800, because some DCS GNs have no spine match (see the census QA); an area estimate inherits that gap.
+- **Point resolver.** `uv run slf resolve --lon … --lat …` uses the full-resolution spine polygons; a point on a shared border goes to the first GN by id. The browser looks the point up in the display geometry; on 2,000 random land points it agreed with the exact answer 1,998 times. The electoral district comes from `catalog/geographies/relations/electoral_ec-2024.csv` through `resolver.json` (district id → ED id).
+- **Not done:** population- or building-weighted cells (G07 steps 1 to 4), resolution 10, multi-unit selections, cell covers for LA, MOH and polling divisions (no compositions held, D-046).

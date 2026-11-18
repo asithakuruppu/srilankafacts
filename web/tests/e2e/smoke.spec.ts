@@ -70,6 +70,26 @@ test("atlas: similar places are explained, and a pair's distance splits into axi
   expect(Math.abs(total - 100)).toBeLessThanOrEqual(3);
 });
 
+test("areas: a radius around Colombo gives a labelled estimate, and a point resolves to its places", async ({
+  page,
+}) => {
+  const grid = await page.request.get("/release/atlas/grid/LK11.json");
+  test.skip(!grid.ok(), "this build has no analytic grid");
+  await page.goto("/area?lon=79.86120&lat=6.92710&r=3&ind=population_total");
+  await expect(page.getByTestId("area-estimate")).toContainText("≈");
+  await expect(page.getByText("modelled estimate", { exact: true })).toBeVisible();
+  await page.getByRole("radio", { name: "What is here" }).click();
+  const map = page.locator(".area-map");
+  const box = await map.boundingBox();
+  if (!box) {
+    throw new Error("no map");
+  }
+  // The map is fitted to the circle, so its centre is in Colombo.
+  await page.mouse.click(box.x + box.width / 2, box.y + box.height / 2);
+  await expect(page.getByTestId("resolver-table")).toContainText("LK11");
+  await expect(page.getByTestId("resolver-table")).toContainText("LK-ED-01");
+});
+
 test("atlas: a district shows its 2012 to 2024 total as the sum of its DS divisions", async ({
   page,
 }) => {

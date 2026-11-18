@@ -194,6 +194,8 @@ export type AtlasMeta = {
   electoral?: boolean;
   /** Vector spaces v2 in the bundle (`spaces/*.json`); trajectory is private (D-038). */
   spaces?: { typology: boolean; composite: boolean; trajectory: boolean; text: boolean };
+  /** Analytic grid files (`grid/<district>.json`) for the area tool (older bundles: undefined). */
+  grid?: boolean;
   clusters: number;
   detail_tolerance_m: number | null;
   overview_tolerance_m: number | null;

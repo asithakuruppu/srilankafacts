@@ -480,6 +480,20 @@ These were stated by you or are standing rules in [brainstorm-decisions.md](../b
 
 ---
 
+## D-048: Analytic grid v1 is H3 resolution 9 with equal-share GN weights; drawn areas and the point resolver use it
+- **Status:** Proposed · 2026-11-18 (agent proposal, acted on under the lead's instruction of 2026-11-17 to follow recommended decisions; implements D-014, G07 in part)
+- **Context:** Stage 2 asks for drawn, radius and multi-unit areas and a point resolver. G07 asks for a weight source chosen on evidence (buildings or a population grid) and the lead's approval of it; that comparison is not done yet.
+- **Decision:**
+  - `slf grid build` makes H3 resolution 9 cells (about 0.105 km²) and assigns each to the GN division containing its centre; a GN too small to hold a cell centre gets the cell under its label point (63 GNs). Weights are **equal shares by area** (`weight_source: area_equal_share`). Adds the `h3` Python package (named in D-014 and G07).
+  - The `/area` page estimates GN counts inside a circle or a drawn shape from these weights. Every estimate is labelled `modelled estimate` with its information floor (GN division), lists the divisions it cut and the share of each, and names divisions with no value instead of counting them as zero.
+  - `slf resolve` answers point → GN, DS, district, province, electoral district from the full-resolution spine; the browser answers from the 30 m display geometry and says so.
+  - Resolution 10 (the D-017 atom) is deferred: about 4 million cells, too heavy for the browser bundle; resolution 9 is a derived view and can be rebuilt.
+- **Alternatives:** population-weighted cells from WorldPop, Kontur or buildings (better inside mixed GNs; waits for the G07 completeness report and rights checks); area-weighted polygon intersection (exact by area, but needs full polygons in the browser).
+- **Consequences:** inside GNs where people cluster (a town beside paddy), equal shares misplace people; totals for whole GNs are exact. The grid files add 13.2 MB to the atlas bundle. Measured: weights sum to 1 for all 14,043 GNs (max error 7e-14); browser and exact lookups give the same GN for 1,998 of 2,000 random land points.
+- **Revisit when:** a population or building weight source passes G07 steps 1 to 4; resolution 10 is needed; drawn areas move server-side.
+
+---
+
 ## Template
 
 ```markdown

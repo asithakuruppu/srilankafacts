@@ -1133,3 +1133,20 @@ def grid_build(
     summary = grid.build(spine_dir, out_dir, resolution)
     for key, value in summary.items():
         typer.echo(f"{key}: {value}")
+
+
+@app.command("resolve")
+def resolve(
+    lon: Annotated[float, typer.Option(help="Longitude (EPSG:4326).")],
+    lat: Annotated[float, typer.Option(help="Latitude (EPSG:4326).")],
+    spine_dir: Annotated[Path, typer.Option(help="Geography spine build folder.")] = Path(
+        "./data/build/geography-spine"
+    ),
+    relations_dir: Annotated[Path, typer.Option(help="Relations folder.")] = Path(
+        "../catalog/geographies/relations"
+    ),
+) -> None:
+    """Which GN, DS, district, province and electoral district contain a point."""
+    from slf import resolver
+
+    typer.echo(resolver.as_json(resolver.Resolver(spine_dir, relations_dir).resolve(lon, lat)))
