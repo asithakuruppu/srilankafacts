@@ -71,11 +71,13 @@ Vector doc naming: [vector-space-model.md](../architecture/vector-space-model.md
 - **Rainfall** (CHIRPS v3.0 annual totals, 1981-2025): each 0.05 degree cell is split into 400 sub-cells that go to the GN division containing their centre; a place's value is the area-weighted mean of the valid sub-cells. The 1991-2020 normal is the mean of the 30 annual means. CHIRPS has no ocean cells, so small coastal GN divisions can have no valid cell and are `not_available` (35 of 14,418).
 - **Mangrove extent** (Global Mangrove Watch v3.0, 1996, 2010, 2020): pixels equal to 1 are summed per GN division on the 25 m grid. A place outside every GMW tile has no mangrove mapped. GMW tile names give the north-west corner of the tile.
 
+- **Canopy height** (Meta/WRI v2, 75 tiles, about 1.2 m, EPSG:3857, CC BY 4.0): every pixel inside a GN division is read at full resolution; ground area comes from the pixel's Web Mercator size corrected to the ellipsoid. A place's mean height counts bare, built and water pixels as zero. Shares are of the place's area at 5, 15 and 30 m or taller. The period 2026 is the publication year; the imagery years are not stated ❓.
+
 ## 5. Licences of the outputs
 
 | Derived from | Output licence |
 |---|---|
-| Copernicus DEM, WorldCover, Global Forest Change, Global Surface Water, GHSL, Giga, Wikidata, CHIRPS (public domain), Global Mangrove Watch (CC BY 4.0) | Compatible with CC BY 4.0 with the source attributions (the Copernicus DEM licence still needs a full read: R02) |
+| Copernicus DEM, WorldCover, Global Forest Change, Global Surface Water, GHSL, Giga, Wikidata, CHIRPS (public domain), Global Mangrove Watch (CC BY 4.0), Meta/WRI canopy height (CC BY 4.0) | Compatible with CC BY 4.0 with the source attributions (the Copernicus DEM licence still needs a full read: R02) |
 | Overture Places | CDLA-Permissive-2.0 source; counts can be CC BY with attribution ❓ (confirm in R02) |
 | healthsites.io, Overture Buildings | **ODbL.** Kept apart from CC BY outputs (D-005); whether per-place counts are a derivative database is the open legal question already listed in multi-scale-features.md §6 |
 

@@ -1,0 +1,18 @@
+id: canopy_5m_share
+name: "Share with canopy 5 m or taller"
+short_name: "Share with canopy 5 m or taller"
+topic: [landscape, forest]
+measure_type: share
+unit: percent
+universe: land_area_measured
+numerator: canopy_5m_area
+denominator: canopy_measured_area
+aggregation: recompute_from_components
+higher_is: neutral
+distribution: api
+decimals: 2
+sensitivity: public
+definition: >
+  Share of the place's area whose modelled canopy height is 5 m or more.
+source_definition_ref: "meta-wri-canopy-height-v2 (catalog/datasets/meta-wri-canopy-height-v2.yaml)"
+methodology_notes: docs/methods/landscape.md

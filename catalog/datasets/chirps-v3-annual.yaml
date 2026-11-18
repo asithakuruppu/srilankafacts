@@ -23,7 +23,7 @@ spatial:
   derived_by: zonal_mean_v1 (docs/methods/landscape.md)
 indicators:
 - rainfall_annual_mean
-- rainfall_annual_normal
+- rainfall_normal_1991_2020
 cross_checks: []
 status: active
 notes: >-

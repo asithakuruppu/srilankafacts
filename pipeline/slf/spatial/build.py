@@ -29,6 +29,7 @@ import rasterio
 
 from slf.spatial import zonal
 from slf.spatial.layers import (
+    CANOPY_CLASSES,
     GHSL_EPOCHS,
     GMW_YEARS,
     HA,
@@ -336,6 +337,36 @@ def mangrove(roots: list[Path], zones: zonal.Zones) -> Layer:
     return layer
 
 
+def canopy_height(roots: list[Path], zones: zonal.Zones) -> Layer:
+    files = [
+        f
+        for f in held_files(roots, "meta-wri", "meta-wri-canopy-height-v2")
+        if f.path.suffix == ".tif"
+    ]
+    layer = Layer(
+        "meta-wri-canopy-height-v2",
+        files,
+        "grid-1m",
+        f"Meta/WRI canopy height v2, {len(files)} quadkey GeoTIFF tiles in EPSG:3857 (about 1.2 m "
+        "pixels, uint8 metres, 255 = no data); pixels whose centre is inside the place, ground "
+        "area corrected from Web Mercator",
+    )
+    reducer = zonal.Moments(
+        len(zones),
+        valid=lambda a: a < 255,
+        thresholds=tuple(cut for _, cut in CANOPY_CLASSES),
+    )
+    layer.blocks = _run(files, zones, reducer)
+    layer.sums = {
+        "canopy_area": reducer.area[1:],
+        "canopy_wsum": reducer.weighted[1:],
+        "canopy_nodata": reducer.invalid_area[1:],
+    }
+    for k, (metres, _) in enumerate(CANOPY_CLASSES):
+        layer.sums[f"canopy_{metres}m"] = reducer.above[k][1:]
+    return layer
+
+
 class _Int16Classes(zonal.ClassAreas):
     """ClassAreas for signed 16-bit class rasters (negative no-data becomes a high index)."""
 
@@ -576,7 +607,7 @@ def emit_all(layers: dict[str, Layer], h: Hierarchy) -> pd.DataFrame:
         )
     out.add(
         r,
-        "rainfall_annual_normal",
+        "rainfall_normal_1991_2020",
         _ratio(normal_wsum, normal_area),
         period="2020",
         start=f"{RAIN_NORMAL[0]}-01-01",
@@ -601,6 +632,24 @@ def emit_all(layers: dict[str, Layer], h: Hierarchy) -> pd.DataFrame:
             locator=f"{m.locator}; year {year}",
         )
 
+    c = layers["canopy_height"]
+    obs = dict(period="2026", start="2026-01-01", end="2026-12-31", time_support="observed_around")
+    where = f"{c.locator}; period is the map's publication year, imagery capture years not stated"
+    measured = h.total(c.sums["canopy_area"])
+    out.add(c, "canopy_measured_area", measured / HA, locator=where, **obs)
+    out.add(
+        c,
+        "canopy_height_mean",
+        _ratio(h.total(c.sums["canopy_wsum"]), measured),
+        locator=where,
+        how="area-weighted mean over GN divisions",
+        **obs,
+    )
+    for metres, _ in CANOPY_CLASSES:
+        tall = h.total(c.sums[f"canopy_{metres}m"])
+        out.add(c, f"canopy_{metres}m_area", tall / HA, locator=where, **obs)
+        out.add(c, f"canopy_{metres}m_share", _ratio(tall, measured, 100), locator=where, **obs)
+
     frame = pd.concat(out.frames, ignore_index=True)
     frame["note_ids"] = [[] for _ in range(len(frame))]
     frame["release"] = None
@@ -616,6 +665,7 @@ LAYER_BUILDERS = {
     "settlement": settlement,
     "rainfall": rainfall,
     "mangrove": mangrove,
+    "canopy_height": canopy_height,
 }
 
 
@@ -654,6 +704,7 @@ LAYER_SOURCES = {
     "settlement": ("ghsl", "ghsl-settlement-model"),
     "rainfall": ("chc", "chirps-v3-annual"),
     "mangrove": ("gmw", "global-mangrove-watch"),
+    "canopy_height": ("meta-wri", "meta-wri-canopy-height-v2"),
 }
 
 MEASURED = {
@@ -664,6 +715,7 @@ MEASURED = {
     "built_up": "built_measured_2020",
     "settlement": "smod_measured",
     "rainfall": "rain_area_2020",
+    "canopy_height": "canopy_area",
 }
 
 WIDE = [
@@ -686,8 +738,10 @@ WIDE = [
     ("built_up_surface_share", "2020"),
     ("settlement_urban_share", "2020"),
     ("settlement_urban_centre_share", "2020"),
-    ("rainfall_annual_normal", "2020"),
+    ("rainfall_normal_1991_2020", "2020"),
     ("mangrove_extent_area", "2020"),
+    ("canopy_height_mean", "2026"),
+    ("canopy_15m_share", "2026"),
 ]
 
 

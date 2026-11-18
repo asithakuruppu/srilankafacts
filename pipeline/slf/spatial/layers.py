@@ -40,6 +40,8 @@ LOSS_YEARS = tuple(range(2001, 2025))
 RAIN_YEARS = tuple(range(1981, 2026))
 RAIN_NORMAL = (1991, 2020)
 GMW_YEARS = (1996, 2010, 2020)
+# canopy height thresholds in whole metres: (label metres, 'taller than' cut on integer values)
+CANOPY_CLASSES = ((5, 4), (15, 14), (30, 29))
 
 
 @dataclass(frozen=True)
@@ -380,7 +382,7 @@ def indicator_specs() -> list[IndicatorSpec]:
             aggregation="none",
         ),
         IndicatorSpec(
-            "rainfall_annual_normal",
+            "rainfall_normal_1991_2020",
             "Annual rainfall, 1991-2020 average",
             rain,
             "mean",
@@ -398,6 +400,86 @@ def indicator_specs() -> list[IndicatorSpec]:
             "Ground area of 25 m pixels mapped as mangrove in Global Mangrove Watch v3.0 for the "
             "year (1996, 2010 or 2020), from radar and optical satellite data. Independent of the "
             "WorldCover mangrove class; the two are not expected to agree.",
+            topic=("landscape", "forest"),
+        ),
+    ]
+    canopy = "meta-wri-canopy-height-v2"
+    s += [
+        _area(
+            "canopy_measured_area",
+            "Area with canopy height data",
+            canopy,
+            "Ground area of the place covered by Meta/WRI canopy height pixels (about 1.2 m, "
+            "Web Mercator) whose centre falls inside its boundary and that carry a value. The "
+            "denominator for canopy height shares.",
+            topic=("landscape", "forest"),
+        ),
+        IndicatorSpec(
+            "canopy_height_mean",
+            "Mean canopy height",
+            canopy,
+            "mean",
+            "metres",
+            2,
+            "Area-weighted mean of the modelled height of vegetation above ground, over all land "
+            "pixels of the place, bare and built ground counting as zero. A machine-learning "
+            "estimate from satellite imagery of unstated capture years, not a field measurement; "
+            "heights are whole metres.",
+            topic=("landscape", "forest"),
+            aggregation="none",
+        ),
+        _area(
+            "canopy_5m_area",
+            "Area with canopy 5 m or taller",
+            canopy,
+            "Ground area of pixels whose modelled canopy height is 5 m or more (Meta/WRI "
+            "canopy height v2). A machine-learning estimate; it includes plantations, orchards "
+            "and trees outside forests.",
+            topic=("landscape", "forest"),
+        ),
+        _share(
+            "canopy_5m_share",
+            "Share with canopy 5 m or taller",
+            canopy,
+            "canopy_5m_area",
+            "canopy_measured_area",
+            "Share of the place's area whose modelled canopy height is 5 m or more.",
+            topic=("landscape", "forest"),
+        ),
+        _area(
+            "canopy_15m_area",
+            "Area with canopy 15 m or taller",
+            canopy,
+            "Ground area of pixels whose modelled canopy height is 15 m or more (Meta/WRI "
+            "canopy height v2). A machine-learning estimate; it includes plantations, orchards "
+            "and trees outside forests.",
+            topic=("landscape", "forest"),
+        ),
+        _share(
+            "canopy_15m_share",
+            "Share with canopy 15 m or taller",
+            canopy,
+            "canopy_15m_area",
+            "canopy_measured_area",
+            "Share of the place's area whose modelled canopy height is 15 m or more.",
+            topic=("landscape", "forest"),
+        ),
+        _area(
+            "canopy_30m_area",
+            "Area with canopy 30 m or taller",
+            canopy,
+            "Ground area of pixels whose modelled canopy height is 30 m or more (Meta/WRI "
+            "canopy height v2). A machine-learning estimate; it includes plantations, orchards "
+            "and trees outside forests.",
+            topic=("landscape", "forest"),
+        ),
+        _share(
+            "canopy_30m_share",
+            "Share with canopy 30 m or taller",
+            canopy,
+            "canopy_30m_area",
+            "canopy_measured_area",
+            "Share of the place's area whose modelled canopy height is 30 m or more.",
             topic=("landscape", "forest"),
         ),
     ]

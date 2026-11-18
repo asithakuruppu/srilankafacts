@@ -1,0 +1,20 @@
+id: canopy_height_mean
+name: "Mean canopy height"
+short_name: "Mean canopy height"
+topic: [landscape, forest]
+measure_type: mean
+unit: metres
+universe: land_area_measured
+numerator: null
+denominator: null
+aggregation: none
+higher_is: neutral
+distribution: api
+decimals: 2
+sensitivity: public
+definition: >
+  Area-weighted mean of the modelled height of vegetation above ground, over all land pixels of
+  the place, bare and built ground counting as zero. A machine-learning estimate from satellite
+  imagery of unstated capture years, not a field measurement; heights are whole metres.
+source_definition_ref: "meta-wri-canopy-height-v2 (catalog/datasets/meta-wri-canopy-height-v2.yaml)"
+methodology_notes: docs/methods/landscape.md

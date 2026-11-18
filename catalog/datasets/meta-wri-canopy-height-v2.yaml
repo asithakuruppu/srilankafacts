@@ -2,11 +2,11 @@ id: meta-wri-canopy-height-v2
 source: meta-wri
 title: 'Meta/WRI canopy height v2, tiles covering Sri Lanka'
 landing_page: https://registry.opendata.aws/dataforgood-fb-forestsv2/
-pipeline_module: null
+pipeline_module: slf.spatial.build
 schedule: manual
 geography_scheme: grid
 geography_vintage: null
-reference_period: '2025'
+reference_period: '2026'
 rights: inherit
 spatial:
   support: grid
@@ -16,12 +16,31 @@ spatial:
   coverage: LK
   measured_in: null
   positional_accuracy: null
-  crs_source: unconfirmed
-  resolution: about 1 m
+  crs_source: EPSG:3857
+  resolution: about 1.2 m
   information_unit: grid-1m
-  information_count: null
-  derived_by: null
-indicators: []
+  information_count: 75
+  derived_by: zonal_mean_v1 (docs/methods/landscape.md)
+indicators:
+- canopy_measured_area
+- canopy_height_mean
+- canopy_5m_area
+- canopy_5m_share
+- canopy_15m_area
+- canopy_15m_share
+- canopy_30m_area
+- canopy_30m_share
 cross_checks: []
-status: proposed
-notes: 'Held, not integrated; CRS and the imagery reference year are not yet confirmed (period field is a placeholder).'
+status: active
+notes: >-
+  Integrated 2026-11-18 from the 75 tiles that carry data (the 76th file is tiles.geojson). Read from the
+  files: EPSG:3857, 1.194 m pixels, uint8 metres, no nodata flag; 255 occurs once in the coarse overviews and
+  is treated as no data. Ground area is corrected from Web Mercator per block. Read at full resolution (all
+  11,830 blocks), 25 minutes. The imagery capture years are NOT stated in the files, tiles.geojson or the
+  AWS registry page (it says only Vantor imagery, (c) 2016, and a separate observation-date file that is not
+  in the bucket path held), so the period 2026 is the map's publication year and not an observation date ❓.
+  A pixel value of 0 means no height above ground (bare, built, open water and sea alike); the place's mean
+  therefore includes zeros. National results: mean 6.24 m; 49.1% of land at 5 m or taller, 14.9% at 15 m or
+  taller, 0.27% at 30 m or taller. Not comparable with Hansen tree cover 2000 (59.8%, canopy cover not height)
+  or WorldCover tree class (72.1%). No comparison with field inventories or the Forest Department ❓.
+  Model output: tall plantation, orchards and trees outside forests count as canopy.
