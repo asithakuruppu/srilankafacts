@@ -209,6 +209,22 @@ def test_hierarchy_sums_gn_values_to_every_level(tmp_path):
     assert h.ids[:2] == ["LK1103005", "LK1103010"]
 
 
+def test_gmw_tile_name_gives_the_north_west_corner():
+    assert build.gmw_tile_box("gmw_v3_2020/GMW_N10E080_2020_v3.tif") == (80, 9, 81, 10)
+    assert build.gmw_tile_box("GMW_S08E140_1996_v3.tif") == (140, -9, 141, -8)
+    assert build.gmw_tile_box("README.txt") is None
+
+
+def test_rainfall_mean_ignores_no_data_cells(tmp_path):
+    data = np.full((1, 2), 2000.0, dtype=np.float32)
+    data[0, 0] = -9999.0  # western zone: no data
+    reducer = zonal.Moments(2, valid=lambda a: a >= 0)
+    with _raster(tmp_path / "r.tif", data, west=80.0, north=7.1, pixel=0.1) as dataset:
+        zonal.walk([dataset], _zones(), reducer, upsample=10)
+    assert reducer.mean()[1] == pytest.approx(2000.0)
+    assert reducer.area[1] == 0 and reducer.invalid_area[1] > 0
+
+
 def test_every_share_names_components_that_exist():
     for spec in layers.SPECS.values():
         if spec.aggregation == "recompute_from_components":

@@ -14,6 +14,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import re
 import zipfile
 from collections.abc import Iterator
 from contextlib import ExitStack, contextmanager
@@ -29,8 +30,11 @@ import rasterio
 from slf.spatial import zonal
 from slf.spatial.layers import (
     GHSL_EPOCHS,
+    GMW_YEARS,
     HA,
     LOSS_YEARS,
+    RAIN_NORMAL,
+    RAIN_YEARS,
     SMOD_GROUPS,
     SPECS,
     WORLDCOVER_CLASSES,
@@ -257,6 +261,81 @@ def settlement(roots: list[Path], zones: zonal.Zones) -> Layer:
     return layer
 
 
+def rainfall(roots: list[Path], zones: zonal.Zones) -> Layer:
+    files = held_files(roots, "chc", "chirps-v3-annual")
+    layer = Layer(
+        "chirps-v3-annual",
+        files,
+        "grid-5km",
+        "CHIRPS v3.0 annual total (mm), global 0.05 degree GeoTIFF, band 1 (negative = no data); "
+        "each cell split into 400 sub-cells of 0.0025 degrees and shared between places by "
+        "sub-cell centre",
+    )
+    by_name = {f.path.name: f for f in files}
+    for year in RAIN_YEARS:
+        held = by_name.get(f"chirps-v3.0.{year}.tif")
+        if held is None:
+            layer.notes.append(f"rainfall {year}: file not held; year skipped")
+            continue
+        reducer = zonal.Moments(len(zones), valid=lambda a: a >= 0)
+        layer.blocks += _run([held], zones, reducer, upsample=20)
+        layer.sums[f"rain_wsum_{year}"] = reducer.weighted[1:]
+        layer.sums[f"rain_area_{year}"] = reducer.area[1:]
+        layer.sums[f"rain_nodata_{year}"] = reducer.invalid_area[1:]
+    return layer
+
+
+def gmw_tile_box(name: str) -> tuple[float, float, float, float] | None:
+    """(west, south, east, north) of a GMW tile from its file name.
+
+    The name gives the north-west corner: N08E079 covers 7-8 N and 79-80 E.
+    """
+    m = re.search(r"_([NS])(\d{2})([EW])(\d{3})_", name)
+    if m is None:
+        return None
+    lat = int(m.group(2)) * (1 if m.group(1) == "N" else -1)
+    lon = int(m.group(4)) * (1 if m.group(3) == "E" else -1)
+    return (lon, lat - 1, lon + 1, lat)
+
+
+def mangrove(roots: list[Path], zones: zonal.Zones) -> Layer:
+    files = held_files(roots, "gmw", "global-mangrove-watch")
+    layer = Layer(
+        "global-mangrove-watch",
+        files,
+        "grid-25m",
+        "Global Mangrove Watch v3.0 extent, 1 degree GeoTIFF tiles (1 = mangrove), tiles "
+        "touching Sri Lanka; pixels whose centre is inside the place",
+    )
+    west, south, east, north = zones.frame.to_crs(4326).total_bounds
+    by_name = {f.path.name: f for f in files}
+    for year in GMW_YEARS:
+        held = by_name.get(f"gmw_v3_{year}_gtiff.zip")
+        if held is None:
+            layer.notes.append(f"mangrove {year}: zip not held; year skipped")
+            continue
+        reducer = zonal.Moments(len(zones), valid=lambda a: a == 1)
+        with zipfile.ZipFile(held.path) as archive:
+            names = sorted(n for n in archive.namelist() if n.endswith(".tif"))
+        used = 0
+        for name in names:
+            tile = gmw_tile_box(name)
+            if tile is None:
+                continue
+            t_west, t_south, t_east, t_north = tile
+            if t_east < west or t_west > east or t_north < south or t_south > north:
+                continue
+            with rasterio.open(f"zip://{held.path}!{name}") as dataset:
+                layer.blocks += zonal.walk([dataset], zones, reducer)
+            used += 1
+        layer.sums[f"gmw_{year}"] = reducer.area[1:]
+        layer.notes.append(
+            f"mangrove {year}: {used} tiles read; places outside every tile have no mangrove "
+            "mapped (a tile exists only where mangrove was mapped)"
+        )
+    return layer
+
+
 class _Int16Classes(zonal.ClassAreas):
     """ClassAreas for signed 16-bit class rasters (negative no-data becomes a high index)."""
 
@@ -473,6 +552,55 @@ def emit_all(layers: dict[str, Layer], h: Hierarchy) -> pd.DataFrame:
         out.add(s, f"settlement_{key}_area", a / HA, **obs)
         out.add(s, f"settlement_{key}_share", _ratio(a, measured, 100), **obs)
 
+    r = layers["rainfall"]
+    normal_wsum = np.zeros(len(h.ids))
+    normal_area = np.zeros(len(h.ids))
+    for year in RAIN_YEARS:
+        if f"rain_wsum_{year}" not in r.sums:
+            continue
+        wsum = h.total(r.sums[f"rain_wsum_{year}"])
+        rain_area = h.total(r.sums[f"rain_area_{year}"])
+        if RAIN_NORMAL[0] <= year <= RAIN_NORMAL[1]:
+            normal_wsum += wsum
+            normal_area += rain_area
+        out.add(
+            r,
+            "rainfall_annual_mean",
+            _ratio(wsum, rain_area),
+            period=str(year),
+            start=f"{year}-01-01",
+            end=f"{year}-12-31",
+            time_support="interval_total",
+            locator=f"{r.locator}; file chirps-v3.0.{year}.tif",
+            how="area-weighted mean over GN divisions",
+        )
+    out.add(
+        r,
+        "rainfall_annual_normal",
+        _ratio(normal_wsum, normal_area),
+        period="2020",
+        start=f"{RAIN_NORMAL[0]}-01-01",
+        end=f"{RAIN_NORMAL[1]}-12-31",
+        time_support="interval_mean",
+        locator=f"{r.locator}; mean of the {RAIN_NORMAL[0]}-{RAIN_NORMAL[1]} annual totals",
+        how="area-weighted mean over GN divisions",
+    )
+
+    m = layers["mangrove"]
+    for year in GMW_YEARS:
+        if f"gmw_{year}" not in m.sums:
+            continue
+        out.add(
+            m,
+            "mangrove_extent_area",
+            h.total(m.sums[f"gmw_{year}"]) / HA,
+            period=str(year),
+            start=f"{year}-01-01",
+            end=f"{year}-12-31",
+            time_support="observed_around",
+            locator=f"{m.locator}; year {year}",
+        )
+
     frame = pd.concat(out.frames, ignore_index=True)
     frame["note_ids"] = [[] for _ in range(len(frame))]
     frame["release"] = None
@@ -486,6 +614,8 @@ LAYER_BUILDERS = {
     "surface_water": surface_water,
     "built_up": built_up,
     "settlement": settlement,
+    "rainfall": rainfall,
+    "mangrove": mangrove,
 }
 
 
@@ -522,6 +652,8 @@ LAYER_SOURCES = {
     "surface_water": ("jrc", "jrc-global-surface-water"),
     "built_up": ("ghsl", "ghsl-built-up"),
     "settlement": ("ghsl", "ghsl-settlement-model"),
+    "rainfall": ("chc", "chirps-v3-annual"),
+    "mangrove": ("gmw", "global-mangrove-watch"),
 }
 
 MEASURED = {
@@ -531,6 +663,7 @@ MEASURED = {
     "surface_water": "gsw_measured",
     "built_up": "built_measured_2020",
     "settlement": "smod_measured",
+    "rainfall": "rain_area_2020",
 }
 
 WIDE = [
@@ -553,6 +686,8 @@ WIDE = [
     ("built_up_surface_share", "2020"),
     ("settlement_urban_share", "2020"),
     ("settlement_urban_centre_share", "2020"),
+    ("rainfall_annual_normal", "2020"),
+    ("mangrove_extent_area", "2020"),
 ]
 
 
@@ -797,6 +932,8 @@ def render_qa(
         "|---|---:|---:|---:|---:|---:|---:|---:|---:|",
     ]
     for name, layer in layers.items():
+        if name not in MEASURED:
+            continue
         measured = layer.sums[MEASURED[name]]
         ratio = measured / spine_area
         p1, p50, p99 = np.percentile(ratio, [1, 50, 99])

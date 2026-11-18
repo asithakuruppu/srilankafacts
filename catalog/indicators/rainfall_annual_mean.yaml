@@ -1,0 +1,20 @@
+id: rainfall_annual_mean
+name: "Annual rainfall"
+short_name: "Annual rainfall"
+topic: [landscape, climate]
+measure_type: mean
+unit: millimetres
+universe: land_area_measured
+numerator: null
+denominator: null
+aggregation: none
+higher_is: neutral
+distribution: api
+decimals: 0
+sensitivity: public
+definition: >
+  Area-weighted mean of the calendar-year rainfall total over the 0.05 degree (about 5 km) CHIRPS
+  v3.0 cells whose area falls inside the place. A satellite-and-gauge estimate; a cell is shared
+  between the places it overlaps, so small places carry the information of the cell around them.
+source_definition_ref: "chirps-v3-annual (catalog/datasets/chirps-v3-annual.yaml)"
+methodology_notes: docs/methods/landscape.md

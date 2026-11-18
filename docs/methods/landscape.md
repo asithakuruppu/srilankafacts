@@ -66,11 +66,16 @@ One recipe difference from `profile`: axes are kept until they explain 85% of th
 
 Vector doc naming: [vector-space-model.md](../architecture/vector-space-model.md) reserved `landscape` for satellite embeddings. This version uses named indicators so that every distance can be explained.
 
+### Rainfall and mangrove extent (added 2026-11-18)
+
+- **Rainfall** (CHIRPS v3.0 annual totals, 1981-2025): each 0.05 degree cell is split into 400 sub-cells that go to the GN division containing their centre; a place's value is the area-weighted mean of the valid sub-cells. The 1991-2020 normal is the mean of the 30 annual means. CHIRPS has no ocean cells, so small coastal GN divisions can have no valid cell and are `not_available` (35 of 14,418).
+- **Mangrove extent** (Global Mangrove Watch v3.0, 1996, 2010, 2020): pixels equal to 1 are summed per GN division on the 25 m grid. A place outside every GMW tile has no mangrove mapped. GMW tile names give the north-west corner of the tile.
+
 ## 5. Licences of the outputs
 
 | Derived from | Output licence |
 |---|---|
-| Copernicus DEM, WorldCover, Global Forest Change, Global Surface Water, GHSL, Giga, Wikidata | Compatible with CC BY 4.0 with the source attributions (the Copernicus DEM licence still needs a full read: R02) |
+| Copernicus DEM, WorldCover, Global Forest Change, Global Surface Water, GHSL, Giga, Wikidata, CHIRPS (public domain), Global Mangrove Watch (CC BY 4.0) | Compatible with CC BY 4.0 with the source attributions (the Copernicus DEM licence still needs a full read: R02) |
 | Overture Places | CDLA-Permissive-2.0 source; counts can be CC BY with attribution ❓ (confirm in R02) |
 | healthsites.io, Overture Buildings | **ODbL.** Kept apart from CC BY outputs (D-005); whether per-place counts are a derivative database is the open legal question already listed in multi-scale-features.md §6 |
 
@@ -82,4 +87,5 @@ Nothing here is in a release. The catalogue marks rights per dataset; the releas
 - GHSL's early epochs are modelled back from later imagery; treat growth since 1975 as an estimate.
 - WorldCover often classes paddy as grassland or cropland depending on season; class shares are not land-use statistics.
 - The lowest pixel in the country is −21.4 m. Negative heights occur in the surface model (pits, noise over water); they are reported as read.
-- Values were not compared with any published national total in this run (see QA §"Not checked").
+- Values were not compared with any published national total in this run (see QA §"Not checked"), except mangroves: our GMW sum is 5-13% below GMW's own Sri Lanka table (24,543 against 25,861 ha in 1996; 17,333 against 19,874 ha in 2020), unexplained ❓.
+- Rainfall is a 5 km satellite-and-gauge estimate; district means can differ from station-based values, and no station comparison has been made.
