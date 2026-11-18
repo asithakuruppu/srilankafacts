@@ -1,0 +1,27 @@
+id: nasa-firms-active-fire-lk
+source: nasa-firms
+title: 'NASA FIRMS active fire detections, Sri Lanka: MODIS C6.1, VIIRS S-NPP, NOAA-20, NOAA-21'
+landing_page: https://firms.modaps.eosdis.nasa.gov/download/
+pipeline_module: null
+schedule: manual
+geography_scheme: grid
+geography_vintage: null
+reference_period: '2000-2026'
+rights: inherit
+spatial:
+  support: point
+  scheme: grid
+  level: null
+  vintage: null
+  coverage: LK
+  measured_in: null
+  positional_accuracy: null
+  crs_source: EPSG:4326
+  resolution: 375 m (VIIRS), 1 km (MODIS)
+  information_unit: fire-detection
+  information_count: 201555
+  derived_by: null
+indicators: []
+cross_checks: []
+status: proposed
+notes: 'Held, not integrated. Archive (standard quality) rows: MODIS 2000-12-01 to 2026-08-30, S-NPP 2012-01-20, NOAA-20 2018-04-01, NOAA-21 2023-03-01, all to 2026-07-31; later detections are near-real-time files. Thermal detections, not confirmed fires; includes non-vegetation heat sources. CRS EPSG:4326 assumed from lat/lon columns, not confirmed.'

@@ -165,3 +165,9 @@ Held under `/Volumes/Earth for Air/srilankafacts-data/raw/` (✅ sha256 of each 
 - ❌ NASA FIRMS: the archive download needs an Earthdata login or email code; creating an account is not something an agent should do, so nothing downloaded. Lead action if wanted.
 - ✅ All 128 new files re-hashed; each equals its `.meta.json` sha256.
 - Not yet integrated into indicators; CRS and imagery year of the canopy tiles unconfirmed.
+
+## Addendum: NASA FIRMS (2026-11-17/18)
+- ✅ The lead signed in to Earthdata; four archive requests (852564 MODIS C6.1, 852565 NOAA-20, 852566 NOAA-21, 852567 S-NPP) for Sri Lanka, 2000-11-11 to 2026-11-16, CSV, were submitted and processed within minutes. The agent entered no credentials.
+- ✅ 4 zips (3.9 MB) held under the laptop `pipeline/data/raw/nasa-firms/`; sha256 equals meta. Archive rows: MODIS 28,808; S-NPP 102,841; NOAA-20 49,928; NOAA-21 19,978. Archive files end 2026-07/08; recent detections are in the `fire_nrt_*` files.
+- ❓ The NASA policy page was not read; rights status is assumed open until read.
+- ❌ Not on the external drive: on 2026-11-18 `raw/` on the drive returned "Operation not permitted" (macOS volume permission), so the laptop root was used. Earlier rounds on the drive (canopy, CHIRPS etc.) were hash-verified before this. The files can be moved with a new snapshot once access returns.
