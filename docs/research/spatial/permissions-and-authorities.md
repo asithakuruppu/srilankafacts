@@ -67,3 +67,8 @@ The custodians marked ❓ are inferred from names. The NSDI metadata catalogue (
 - [ICTA: NSDI project page](https://www.icta.lk/projects/digital-government/national-spatial-data-infrastructure-nsdi), [ICTA scope of services, 2016](https://www.icta.lk/icta-assets/uploads/2016/06/Brief-of-the-Scope-of-Services1.pdf), [data.gov.lk: about data sharing](https://data.gov.lk/about-data-sharing) (search results; pages not opened or unreachable)
 - [UN-GGIM Sri Lanka country report 2019](https://ggim.un.org/country-reports/documents/SriLanka-2019-country-report.pdf) (search result)
 - [WDPA data licence](https://www.unep-wcmc.org/en/wdpa-data-license) (read)
+
+## Added 2026-11-18: items held pending permission
+- **Survey Department tanks and reservoirs (HDX "Other" licence):** lead to request written permission; record the reply in `catalog/sources/survey-dept-hdx.yaml`.
+- **data.gov.lk (ICTA):** lead to request reuse permission; the portal's TLS certificate currently fails, so nothing was downloaded. Ask which datasets are covered and under what licence.
+- **National Archives scans:** terms on the host page are non-commercial research and education; the 600 dpi originals need a request to the Department of National Archives.

@@ -1,0 +1,17 @@
+# Reviewed 2026-11-18. Non-commercial use only, as stated on the host page.
+id: lakdiva-ratnatunga
+name: 'Ratnatunga collection of 16th-19th century maps of Ceylon (scanned at the Department of National Archives)'
+publisher_type: civil_society
+homepage: https://maps.lakdiva.org.lk/
+contact: null
+access_classes:
+- download_table
+rights:
+  status: permitted_with_conditions
+  licence: 'Host page: originals available at the Sri Lanka National Archives for non commercial research and educational use'
+  commercial_reuse: 'no'
+  attribution: 'Collection of P. U. Ratnatunga; scanned at the Department of National Archives, Colombo, Nov 2018; web copies via maps.lakdiva.org.lk'
+  evidence:
+  - https://maps.lakdiva.org.lk/ (page text read 2026-11-18)
+  last_reviewed: '2026-11-18'
+notes: 'Non-commercial research use only; no commercial use. Do not republish scans in a release. The copies are 100 dpi medium-quality web JPGs, not the 600 dpi originals. Terms of the scan owner were taken from the page, not from a licence document.'
