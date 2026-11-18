@@ -1,0 +1,27 @@
+id: data-gov-lk-demography
+source: data-gov-lk
+title: 'data.gov.lk demography topic: 19 district-level tables (population, education, health, labour, prices) as csv, xls/xlsx and pdf'
+landing_page: https://data.gov.lk/search/field_topic/demography-20
+pipeline_module: null
+schedule: manual
+geography_scheme: admin
+geography_vintage: null
+reference_period: '2013'
+rights: inherit
+spatial:
+  support: area
+  scheme: admin
+  level: district
+  vintage: null
+  coverage: LK
+  measured_in: null
+  positional_accuracy: null
+  crs_source: not_applicable
+  resolution: district tables (a few national)
+  information_unit: district-table
+  information_count: 19
+  derived_by: null
+indicators: []
+cross_checks: []
+status: proposed
+notes: '19 datasets, 46 files. Periods range from 1871 to 2017 by table; reference_period shows 2013 only as the most common year. Units, original publisher and definitions not yet checked; district names need the crosswalk before any join (AGENTS rule 5). Not integrated.'
