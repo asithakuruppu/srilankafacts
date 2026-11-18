@@ -73,11 +73,13 @@ Vector doc naming: [vector-space-model.md](../architecture/vector-space-model.md
 
 - **Canopy height** (Meta/WRI v2, 75 tiles, about 1.2 m, EPSG:3857, CC BY 4.0): every pixel inside a GN division is read at full resolution; ground area comes from the pixel's Web Mercator size corrected to the ellipsoid. A place's mean height counts bare, built and water pixels as zero. Shares are of the place's area at 5, 15 and 30 m or taller. The period 2026 is the publication year; the imagery years are not stated ❓.
 
+- **Soil** (Mapa et al. 2020 open soil maps, CC BY 4.0; 9 properties x 5 depths, 1 km, EPSG:4326): each cell is split into 100 sub-cells shared by centre and a place's value is the area-weighted mean per depth (breakdown `depth_cm`). Five properties also get a standard-error indicator from the published error maps; the wilting-point error maps are identical to the value maps in the source, so none is built. The maps come from 122 sampling locations nationwide: treat them as regional surfaces, not place measurements.
+
 ## 5. Licences of the outputs
 
 | Derived from | Output licence |
 |---|---|
-| Copernicus DEM, WorldCover, Global Forest Change, Global Surface Water, GHSL, Giga, Wikidata, CHIRPS (public domain), Global Mangrove Watch (CC BY 4.0), Meta/WRI canopy height (CC BY 4.0) | Compatible with CC BY 4.0 with the source attributions (the Copernicus DEM licence still needs a full read: R02) |
+| Copernicus DEM, WorldCover, Global Forest Change, Global Surface Water, GHSL, Giga, Wikidata, CHIRPS (public domain), Global Mangrove Watch (CC BY 4.0), Meta/WRI canopy height (CC BY 4.0), open soil maps (CC BY 4.0) | Compatible with CC BY 4.0 with the source attributions (the Copernicus DEM licence still needs a full read: R02) |
 | Overture Places | CDLA-Permissive-2.0 source; counts can be CC BY with attribution ❓ (confirm in R02) |
 | healthsites.io, Overture Buildings | **ODbL.** Kept apart from CC BY outputs (D-005); whether per-place counts are a derivative database is the open legal question already listed in multi-scale-features.md §6 |
 

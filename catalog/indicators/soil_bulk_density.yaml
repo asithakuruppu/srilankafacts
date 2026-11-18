@@ -1,0 +1,21 @@
+id: soil_bulk_density
+name: "Soil bulk density"
+short_name: "Soil bulk density"
+topic: [landscape, soil]
+measure_type: mean
+unit: g/cm3
+universe: land_area_measured
+numerator: null
+denominator: null
+aggregation: none
+higher_is: neutral
+distribution: api
+decimals: 3
+sensitivity: public
+definition: >
+  Dry mass of soil per volume, area-weighted mean of the 1 km interpolated map cells over the
+  place, for each of five depth layers (0-5, 5-15, 15-30, 30-60, 60-100 cm; the layer is the
+  breakdown `depth_cm`). Modelled from 122 sampling locations nationwide (Mapa et al., Data in
+  Brief 2020): a smooth surface, not a measurement for the place.
+source_definition_ref: "lk-soil-property-maps (catalog/datasets/lk-soil-property-maps.yaml)"
+methodology_notes: docs/methods/landscape.md

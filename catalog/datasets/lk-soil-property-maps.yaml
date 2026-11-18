@@ -2,7 +2,7 @@ id: lk-soil-property-maps
 source: mendeley-soil
 title: 'Open soil property maps for Sri Lanka, 9 properties, interpolated and error maps (rar archives)'
 landing_page: https://data.mendeley.com/datasets/5sc7njfcyn
-pipeline_module: null
+pipeline_module: slf.spatial.build
 schedule: manual
 geography_scheme: grid
 geography_vintage: null
@@ -16,12 +16,39 @@ spatial:
   coverage: LK
   measured_in: null
   positional_accuracy: null
-  crs_source: unconfirmed
-  resolution: 1 km (per data article)
+  crs_source: EPSG:4326
+  resolution: 1 km (0.0094 degree, read from the files)
   information_unit: grid-1km
-  information_count: null
-  derived_by: null
-indicators: []
+  information_count: 122
+  derived_by: zonal_mean_v1 (docs/methods/landscape.md)
+indicators:
+- soil_ph
+- soil_ph_standard_error
+- soil_bulk_density
+- soil_bulk_density_standard_error
+- soil_cec
+- soil_cec_standard_error
+- soil_organic_carbon
+- soil_organic_carbon_standard_error
+- soil_clay
+- soil_sand
+- soil_silt
+- soil_moisture_dul
+- soil_moisture_dul_standard_error
+- soil_moisture_wp
 cross_checks: []
-status: proposed
-notes: 'Held, not integrated. Nested rar archives not yet unpacked; CRS and depths not yet read.'
+status: active
+notes: >-
+  Integrated 2026-11-18. The two rars were unpacked with bsdtar into data/derived (never inside raw/): 45
+  value maps (9 properties x 5 depths) and 30 error maps, all on one grid (416 x 251 cells, EPSG:4326 read
+  from the files; the article says WGS 1984). Units from the data article: pH, bulk density g/cm3, CEC
+  cmol+/kg, organic carbon %, clay/sand/silt %, moisture mm/mm. The article states the maps were made from
+  122 sampling locations nationwide (radial basis functions for the textures, Empirical Bayesian Kriging for
+  the rest), so the real information floor is far coarser than the 1 km cells: a place's value is the
+  surface passing through it, not a measurement ❓ (122 locations taken from the article, not checked). 
+  Checks: national means equal the source cells' own means (pH 5.98, organic carbon 1.43 at 0-5 cm) and
+  clay+sand+silt sums to 100.0%. Defect in the source: the 'error maps' for wilting point (VMC-WP_PEM) are
+  byte-identical to the wilting-point value maps at all five depths, so no error indicator is published for
+  it. The period 2020 is the publication year; sampling dates are not stated here. 55 small coastal GN
+  divisions have no valid cell (not_available). Depth is stored as the breakdown depth_cm. Not compared with
+  other soil maps or with the Soil Science Society.

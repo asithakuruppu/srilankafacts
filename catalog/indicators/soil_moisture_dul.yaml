@@ -1,0 +1,21 @@
+id: soil_moisture_dul
+name: "Soil moisture at drainage upper limit"
+short_name: "Soil moisture at drainage upper limit"
+topic: [landscape, soil]
+measure_type: mean
+unit: mm/mm
+universe: land_area_measured
+numerator: null
+denominator: null
+aggregation: none
+higher_is: neutral
+distribution: api
+decimals: 3
+sensitivity: public
+definition: >
+  Volumetric moisture content at 0.33 bar (drainage upper limit), area-weighted mean of the 1 km
+  interpolated map cells over the place, for each of five depth layers (0-5, 5-15, 15-30, 30-60,
+  60-100 cm; the layer is the breakdown `depth_cm`). Modelled from 122 sampling locations
+  nationwide (Mapa et al., Data in Brief 2020): a smooth surface, not a measurement for the place.
+source_definition_ref: "lk-soil-property-maps (catalog/datasets/lk-soil-property-maps.yaml)"
+methodology_notes: docs/methods/landscape.md
