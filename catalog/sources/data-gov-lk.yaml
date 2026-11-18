@@ -1,0 +1,17 @@
+# Reviewed 2026-11-18. Held only: every dataset page shows 'License Not Specified'; reuse permission being requested by the lead.
+id: data-gov-lk
+name: 'Open Data Portal Sri Lanka (data.gov.lk, ICTA): demography topic'
+publisher_type: government
+homepage: https://data.gov.lk/search/field_topic/demography-20
+contact: null
+access_classes:
+- download_table
+rights:
+  status: unclear
+  licence: 'Portal shows "License Not Specified" on all 19 dataset pages'
+  commercial_reuse: unknown
+  attribution: 'Open Data Portal Sri Lanka (data.gov.lk); original publishing agencies per dataset not yet recorded'
+  evidence:
+  - https://data.gov.lk/search/field_topic/demography-20 (read 2026-11-18)
+  last_reviewed: '2026-11-18'
+notes: 'Held only; not republished or integrated until a written permission is recorded here (AGENTS rule 4). Downloaded with TLS certificate verification disabled at the lead instruction because the site certificate is invalid; sha256 in each .meta.json is of the bytes received, but the transport was not authenticated.'
