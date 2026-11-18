@@ -1,0 +1,27 @@
+id: ratnatunga-historical-maps
+source: lakdiva-ratnatunga
+title: 'Scans of 19 historical maps (1587-1893, Ptolemy c. 150 CE) of Ceylon, Asia and the world'
+landing_page: https://maps.lakdiva.org.lk/
+pipeline_module: null
+schedule: manual
+geography_scheme: admin
+geography_vintage: null
+reference_period: '2018'
+rights: inherit
+spatial:
+  support: national
+  scheme: admin
+  level: country
+  vintage: null
+  coverage: LK
+  measured_in: null
+  positional_accuracy: null
+  crs_source: not_applicable
+  resolution: 100 dpi web scans, unreferenced
+  information_unit: map-image
+  information_count: 19
+  derived_by: null
+indicators: []
+cross_checks: []
+status: proposed
+notes: 'Scanned in Nov 2018; reference_period is the scan date, the maps themselves date from 1587 to 1893 (plus a 150 CE Ptolemy reconstruction). Images are not georeferenced and carry no data we can cite as indicators. Visual reference for historical place names only. Non-commercial.'

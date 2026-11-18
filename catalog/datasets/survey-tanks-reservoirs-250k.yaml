@@ -1,0 +1,27 @@
+id: survey-tanks-reservoirs-250k
+source: survey-dept-hdx
+title: 'Tanks and reservoirs of Sri Lanka, 1:250,000 (polygons, SLD-Kandawala)'
+landing_page: https://data.humdata.org/dataset/sri-lanka-water-bodies
+pipeline_module: null
+schedule: manual
+geography_scheme: admin
+geography_vintage: null
+reference_period: '2012'
+rights: inherit
+spatial:
+  support: area
+  scheme: admin
+  level: gn
+  vintage: null
+  coverage: LK
+  measured_in: null
+  positional_accuracy: null
+  crs_source: unconfirmed
+  resolution: 1:250,000 map scale
+  information_unit: water-body polygon
+  information_count: 1280
+  derived_by: null
+indicators: []
+cross_checks: []
+status: proposed
+notes: '1,280 polygons, attributes AREA, PERIMETER, TANK_, TANK_ID, CODE, NAME; CRS SLD-Kandawala read from the .prj (not EPSG:5235). File dates 2008/2012; the polygon vintage is the shapefile date, not a survey date. Held only, rights unclear.'

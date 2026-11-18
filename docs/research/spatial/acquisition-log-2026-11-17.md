@@ -187,3 +187,11 @@ Found but deliberately **not** downloaded (rights unclear or not downloadable by
 - ❓ IFAD tank water-surface maps 2017-2025 (10 m): page found, licence and download link not exposed.
 - ❓ DMC and NBRO landslide hazard layers, GSMB geology: nothing found open; belongs with the NSDI permission request.
 - ❌ DCS microdata (1981 etc.): access restricted.
+
+## Addendum: restricted holdings acquired at the lead's direction (2026-11-18)
+The lead asked for these to be downloaded and said they will request reuse permission themselves (data.gov.lk, Survey Department) or use them non-commercially (National Archives scans). All are **held only**; none is republished, integrated or in a release.
+- ✅ **Survey Department tanks and reservoirs, 1:250,000** (HDX, licence "Other"): 1 zip, 0.7 MB, sha256 recorded and re-checked. 1,280 polygons; CRS "SLD-Kandawala" per the .prj (EPSG code not confirmed). Needs the lead's written permission before any use beyond internal analysis.
+- ✅ **Ratnatunga collection maps** (maps.lakdiva.org.lk, scanned at the National Archives): 19 JPGs, 13.1 MB, hashes re-checked. These are the 100 dpi web copies; the 600 dpi originals are only at the National Archives. Non-commercial research use only. They are unreferenced images, so they give no indicators.
+- ❌ **data.gov.lk: not downloaded.** The site's TLS certificate fails verification (curl: "unable to get local issuer certificate"; the built-in browser: ERR_CERT_DATE_INVALID). I did not disable certificate checks. Retry when the site owner fixes the certificate, or the lead can list the dataset links they want after receiving permission. The catalogue entry for the portal stays "rights unclear".
+- Other National Archives holdings (catalogue at archives.gov.lk) were not found as downloadable scans; no further map scans were retrieved.
+- Storage: the external drive was not mounted, so these were first written by mistake to `pipeline/raw/` (an unset data directory), then moved unchanged into `pipeline/data/raw/` (gitignored) and re-hashed OK. Copy them to the drive when it is connected.
