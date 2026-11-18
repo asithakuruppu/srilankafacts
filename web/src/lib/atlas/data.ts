@@ -13,6 +13,8 @@ import type {
   FeatureFile,
   FeatureIndex,
   FineFile,
+  FireTimeline,
+  StormFile,
   LandscapeIndicator,
   LandscapeSimilar,
   LevelName,
@@ -95,6 +97,9 @@ export const loadFeatures = (district: string) =>
   loadJson<FeatureFile>(atlas(`features/${district}.json`)).catch(
     () => ({ district, points: [] }) as FeatureFile,
   );
+
+export const loadFires = () => loadJson<FireTimeline>(atlas("events/fires.json"));
+export const loadStorms = () => loadJson<StormFile>(atlas("events/storms.json"));
 
 export const loadPlace = (id: string) => loadJson<Place>(`/api/v1/places/${id}.json`);
 

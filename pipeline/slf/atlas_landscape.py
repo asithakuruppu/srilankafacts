@@ -194,13 +194,30 @@ def build(
 
 
 def build_extra(
-    subnational_dir: Path, spine_dir: Path, catalog_dir: Path | None, out_dir: Path
+    subnational_dir: Path | None,
+    spine_dir: Path,
+    catalog_dir: Path | None,
+    out_dir: Path,
+    events_dir: Path | None = None,
 ) -> dict[str, Any]:
-    """Stage 3 indicators (`slf subnational build`), shown in the Geography lens."""
-    source = subnational_dir / "observations.parquet"
-    if not source.exists():
-        return {"available": False, "reason": "no subnational build found"}
-    from slf.subnational import SPECS as EXTRA
+    """Stage 3 indicators (`slf subnational build`, `slf events`), shown in the Geography lens."""
+    from slf.events import SPECS as EVENT_SPECS
+    from slf.subnational import SPECS as SUBNATIONAL_SPECS
+
+    parts = []
+    specs: list[Any] = []
+    for folder, spec_list in ((subnational_dir, SUBNATIONAL_SPECS), (events_dir, EVENT_SPECS)):
+        if folder is not None and (folder / "observations.parquet").exists():
+            frame = pd.read_parquet(folder / "observations.parquet")
+            if len(frame):
+                parts.append(frame)
+                specs += spec_list
+    if not parts:
+        return {"available": False, "reason": "no subnational or events build found"}
+    source = out_dir / "extra" / "_observations.parquet"
+    source.parent.mkdir(parents=True, exist_ok=True)
+    pd.concat(parts, ignore_index=True).to_parquet(source, index=False)
+    EXTRA = specs
 
     groups: dict[str, list[str]] = {}
     for spec in EXTRA:
@@ -219,7 +236,42 @@ def build_extra(
     index, skipped = _export(
         source, list(groups.items()), meta_of, spine_dir, catalog_dir, out_dir / "extra"
     )
-    return {"available": True, "indicators": len(index), "skipped": skipped}
+    source.unlink()
+    timelines = _timelines(events_dir, out_dir) if events_dir is not None else {}
+    return {"available": True, "indicators": len(index), "skipped": skipped, "timelines": timelines}
+
+
+def _timelines(events_dir: Path, out_dir: Path) -> dict[str, Any]:
+    """Yearly fire detections per DS and district, and storm passes per district."""
+    done: dict[str, Any] = {}
+    observations = events_dir / "observations.parquet"
+    if observations.exists():
+        frame = pd.read_parquet(observations)
+        fires = pd.DataFrame(frame[frame["indicator_id"] == "fire_detections"])
+        if len(fires):
+            years = sorted({int(p) for p in fires["period"]})
+            series: dict[str, list[int]] = {}
+            for gid, group in fires.groupby("geography_id"):
+                by_year = {int(r["period"]): int(r["value"]) for r in _rows(pd.DataFrame(group))}
+                series[str(gid)] = [by_year.get(y, 0) for y in years]
+            first = _rows(fires.head(1))[0]
+            _dump(
+                out_dir / "events" / "fires.json",
+                {
+                    "years": years,
+                    "series": series,
+                    "dataset_id": first["dataset_id"],
+                    "snapshot_sha256": first["snapshot_sha256"],
+                    "source_locator": first["source_locator"],
+                },
+            )
+            done["fires"] = {"places": len(series), "years": [years[0], years[-1]]}
+    storms = events_dir / "storms.json"
+    if storms.exists():
+        (out_dir / "events").mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(storms, out_dir / "events" / "storms.json")
+        done["storms"] = True
+    return done
 
 
 # Point features shown at high zoom and listed per GN ("what's here"). Public facilities and
