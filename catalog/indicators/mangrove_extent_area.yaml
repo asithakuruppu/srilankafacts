@@ -1,0 +1,20 @@
+id: mangrove_extent_area
+name: "Mangrove extent (Global Mangrove Watch)"
+short_name: "Mangrove extent (Global Mangrove Watch)"
+topic: [landscape, forest]
+measure_type: count
+unit: hectares
+universe: land_area_measured
+numerator: null
+denominator: null
+aggregation: sum
+higher_is: neutral
+distribution: api
+decimals: 1
+sensitivity: public
+definition: >
+  Ground area of 25 m pixels mapped as mangrove in Global Mangrove Watch v3.0 for the year (1996,
+  2010 or 2020), from radar and optical satellite data. Independent of the WorldCover mangrove
+  class; the two are not expected to agree.
+source_definition_ref: "global-mangrove-watch (catalog/datasets/global-mangrove-watch.yaml)"
+methodology_notes: docs/methods/landscape.md

@@ -1,0 +1,19 @@
+id: rainfall_annual_normal
+name: "Annual rainfall, 1991-2020 average"
+short_name: "Annual rainfall, 1991-2020 average"
+topic: [landscape, climate]
+measure_type: mean
+unit: millimetres
+universe: land_area_measured
+numerator: null
+denominator: null
+aggregation: none
+higher_is: neutral
+distribution: api
+decimals: 0
+sensitivity: public
+definition: >
+  Average over 1991-2020 of the annual rainfall indicator (CHIRPS v3.0), the 30-year window used
+  for climate normals.
+source_definition_ref: "chirps-v3-annual (catalog/datasets/chirps-v3-annual.yaml)"
+methodology_notes: docs/methods/landscape.md

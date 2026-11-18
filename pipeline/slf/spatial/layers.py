@@ -37,6 +37,9 @@ SMOD_GROUPS: dict[int, str] = {
 
 GHSL_EPOCHS = tuple(range(1975, 2021, 5))
 LOSS_YEARS = tuple(range(2001, 2025))
+RAIN_YEARS = tuple(range(1981, 2026))
+RAIN_NORMAL = (1991, 2020)
+GMW_YEARS = (1996, 2010, 2020)
 
 
 @dataclass(frozen=True)
@@ -358,6 +361,44 @@ def indicator_specs() -> list[IndicatorSpec]:
             "settlement_measured_area",
             "Share of the place's area in urban centre or urban cluster cells of GHS-SMOD 2020.",
             topic=("landscape", "settlement"),
+        ),
+    ]
+    rain = "chirps-v3-annual"
+    s += [
+        IndicatorSpec(
+            "rainfall_annual_mean",
+            "Annual rainfall",
+            rain,
+            "mean",
+            "millimetres",
+            0,
+            "Area-weighted mean of the calendar-year rainfall total over the 0.05 degree (about "
+            "5 km) CHIRPS v3.0 cells whose area falls inside the place. A satellite-and-gauge "
+            "estimate; a cell is shared between the places it overlaps, so small places carry "
+            "the information of the cell around them.",
+            topic=("landscape", "climate"),
+            aggregation="none",
+        ),
+        IndicatorSpec(
+            "rainfall_annual_normal",
+            "Annual rainfall, 1991-2020 average",
+            rain,
+            "mean",
+            "millimetres",
+            0,
+            "Average over 1991-2020 of the annual rainfall indicator (CHIRPS v3.0), the 30-year "
+            "window used for climate normals.",
+            topic=("landscape", "climate"),
+            aggregation="none",
+        ),
+        _area(
+            "mangrove_extent_area",
+            "Mangrove extent (Global Mangrove Watch)",
+            "global-mangrove-watch",
+            "Ground area of 25 m pixels mapped as mangrove in Global Mangrove Watch v3.0 for the "
+            "year (1996, 2010 or 2020), from radar and optical satellite data. Independent of the "
+            "WorldCover mangrove class; the two are not expected to agree.",
+            topic=("landscape", "forest"),
         ),
     ]
     return s

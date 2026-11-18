@@ -2,7 +2,7 @@ id: chirps-v3-annual
 source: chc
 title: 'CHIRPS v3.0 annual rainfall, global, 1981-2025'
 landing_page: https://chc.ucsb.edu/data/chirps
-pipeline_module: null
+pipeline_module: slf.spatial.build
 schedule: manual
 geography_scheme: grid
 geography_vintage: null
@@ -16,12 +16,20 @@ spatial:
   coverage: LK
   measured_in: null
   positional_accuracy: null
-  crs_source: unconfirmed
+  crs_source: EPSG:4326
   resolution: 0.05 degree
   information_unit: grid-5km
   information_count: null
-  derived_by: null
-indicators: []
+  derived_by: zonal_mean_v1 (docs/methods/landscape.md)
+indicators:
+- rainfall_annual_mean
+- rainfall_annual_normal
 cross_checks: []
-status: proposed
-notes: 'Held, not integrated; CRS not yet read.'
+status: active
+notes: >-
+  Integrated 2026-11-18: 45 annual totals (1981-2025) as area-weighted means per GN division, rolled up
+  to every level, plus the 1991-2020 average. CRS read from the files (EPSG:4326, 0.05 degree, global,
+  no-data written as negative values, not flagged in the file). Cells are about 5 km, so a GN division
+  carries the value of the cell around it; the information floor is the 5 km cell. CHIRPS is land-only:
+  35 small coastal GN divisions have no valid cell and are not_available. 2025 is the newest year held
+  and may be preliminary ❓. Not compared with station records or the Department of Meteorology.
