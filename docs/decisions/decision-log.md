@@ -535,6 +535,19 @@ These were stated by you or are standing rules in [brainstorm-decisions.md](../b
 
 ---
 
+## D-052: Events layer v1 from held datasets; no live feeds and no Movement layer yet
+- **Status:** Proposed · 2026-11-18 (agent proposal, acted on under the lead's instruction of 2026-11-17 to follow recommended decisions; builds on D-020, D-044)
+- **Context:** The Stage 3 "Living Sri Lanka" track asks for an events layer and place timelines; the Stage 4 "Movement" track asks for estimated train positions from timetables. Held: UNOSAT's 2025 flood extent, NASA FIRMS fire detections, IBTrACS storm tracks. No train timetable or other movement data is held.
+- **Decision:**
+  - `slf events` builds three event layers by place: area and share flooded in Cyclone Ditwah (26 Nov to 2 Dec 2025, UNOSAT, every level down to GN), VIIRS fire detections per complete year 2013 to 2025 (DS and above), and storm tracks within 50 km of each district (IBTrACS). Flood and fire layers join the Geography lens under "Events"; the Change lens shows a fire series and recent storm passes for the selected place.
+  - Every event value is labelled: floods are a lower bound (cloud and tree cover), a fire detection is a hot pixel, not a fire, and a storm passing within 50 km is not damage.
+  - No scheduled or live feeds are set up: the freshness monitor (D-050) detects new editions, and snapshots stay manual. **No Movement layer is built**: there is no timetable data, and an empty layer would suggest a feature that does not exist.
+- **Alternatives:** an hourly FIRMS feed (needs an API key and a scheduler; deferred); a placeholder Movement layer (rejected: it would mislead).
+- **Consequences:** events are historical snapshots, not live. The landslide points and cloud-obstruction mask in the UNOSAT file are not used yet.
+- **Revisit when:** a timetable source with clear rights is found (Sri Lanka Railways GTFS or similar); the lead wants near-real-time feeds and accepts a scheduler.
+
+---
+
 ## Template
 
 ```markdown

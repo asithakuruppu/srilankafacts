@@ -461,3 +461,12 @@ test("SQL in the browser returns rows with their source", async ({ page }) => {
   await expect(page.getByTestId("query-summary")).toContainText("rows", { timeout: 60_000 });
   await expect(page.getByTestId("query-result")).toContainText("source_locator");
 });
+
+test("the change lens shows fire detections and storm passes for a district", async ({ page }) => {
+  const fires = await page.request.get("/release/atlas/events/fires.json");
+  test.skip(!fires.ok(), "this build has no event timelines");
+  await page.goto("/?place=LK23&lens=change");
+  const events = page.getByTestId("events-timeline");
+  await expect(events).toContainText("Active fire detections");
+  await expect(events).toContainText("Storm tracks within 50 km");
+});

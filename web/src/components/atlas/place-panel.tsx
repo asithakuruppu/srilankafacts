@@ -12,7 +12,7 @@ import {
   summariseGroup,
   type ValueMap,
 } from "@/lib/atlas/context";
-import { loadClusters, loadGnAdjacency, loadLandscapeSimilar, loadPlace } from "@/lib/atlas/data";
+import { loadClusters, loadFires, loadGnAdjacency, loadLandscapeSimilar, loadPlace, loadStorms } from "@/lib/atlas/data";
 import {
   explainPair,
   percentileAmong,
@@ -204,7 +204,10 @@ export default function PlacePanel(props: Props) {
         ) : lens === "profile" ? (
           <ProfileLens {...props} place={place} />
         ) : lens === "change" ? (
-          <ChangeLens {...props} />
+          <>
+            <ChangeLens {...props} />
+            <EventsTimeline {...props} />
+          </>
         ) : (
           <LandscapeLens {...props} />
         )}
@@ -1303,6 +1306,71 @@ function WhatsHere(props: Props) {
         GeoNames), placed in a division by its point. Mapping is incomplete and uneven; an
         empty list does not mean there is nothing there. Names only: no addresses or people.
       </p>
+    </section>
+  );
+}
+
+/** Events for the selected place: yearly fire detections and storm passes (D-020). */
+function EventsTimeline(props: Props) {
+  const { subject, subjectLevel, parentOf, nameOf } = props;
+  const enabled = Boolean(props.meta.events);
+  const fires = useLoaded(enabled ? loadFires : null, `fires|${enabled}`);
+  const storms = useLoaded(enabled ? loadStorms : null, `storms|${enabled}`);
+  if (!enabled) {
+    return null;
+  }
+  // Fire series exist for DS divisions and above; a GN shows its DS division's.
+  const fireId = subjectLevel === "gn" ? parentOf(subject) : subject;
+  const series = fireId ? fires?.series[fireId] : undefined;
+  let district: string | null = subject;
+  while (district && props.levelOf(district) !== "district") {
+    district = parentOf(district);
+  }
+  const passes = district ? (storms?.districts[district] ?? []) : [];
+  const modern = passes.filter(([, date]) => date >= "1950");
+  return (
+    <section className="atlas-section" data-testid="events-timeline">
+      <h3>Events</h3>
+      {series && fires ? (
+        <>
+          <p className="atlas-kicker">
+            Active fire detections{fireId !== subject && fireId ? ` in ${nameOf(fireId)}` : ""}, {fires.years[0]} to{" "}
+            {fires.years[fires.years.length - 1]}
+          </p>
+          <Series
+            points={fires.years.map((year, index) => ({ year, value: series[index] }))}
+            format={(value) => formatNumber(value)}
+          />
+          <p className="atlas-note">
+            VIIRS satellite pixels (375 m) flagged as vegetation fires, nominal or high confidence
+            (NASA FIRMS). A detection is a hot pixel, not a fire; cloud hides some.
+          </p>
+        </>
+      ) : null}
+      {district && storms ? (
+        <>
+          <p className="atlas-kicker">
+            Storm tracks within 50 km of {nameOf(district)} district since 1950: {modern.length}
+          </p>
+          {modern.length ? (
+            <ul className="plain-list">
+              {modern
+                .slice(-6)
+                .reverse()
+                .map(([sid, date, wind]) => (
+                  <li key={sid}>
+                    {date} · {wind === null ? "wind not reported" : `${wind} knots at most nearby`}{" "}
+                    <small className="muted">IBTrACS {sid}</small>
+                  </li>
+                ))}
+            </ul>
+          ) : null}
+          <p className="atlas-note">
+            From IBTrACS v04r01 track points. Passing within 50 km is not the same as damage;
+            winds before satellite records are often missing.
+          </p>
+        </>
+      ) : null}
     </section>
   );
 }

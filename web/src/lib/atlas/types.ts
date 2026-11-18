@@ -194,6 +194,8 @@ export type AtlasMeta = {
   electoral?: boolean;
   /** Vector spaces v2 in the bundle (`spaces/*.json`); trajectory is private (D-038). */
   spaces?: { typology: boolean; composite: boolean; trajectory: boolean; text: boolean };
+  /** Event timelines (`events/fires.json`, `events/storms.json`). */
+  events?: boolean;
   /** Stage 3 indicators from other open sources (`extra/`). */
   extra?: boolean;
   /** Named public features (`features/`), local preview only. */
@@ -306,3 +308,19 @@ export type ElectoralFile = {
 };
 
 export type EdOutlines = { coarse: Collection<OutlineProps>; fine: Collection<OutlineProps> };
+
+export type FireTimeline = {
+  years: number[];
+  series: Record<string, number[]>;
+  dataset_id: string;
+  snapshot_sha256: string;
+  source_locator: string;
+};
+
+/** Storm passes per district: [IBTrACS storm id, first date near, max WMO wind in knots]. */
+export type StormFile = {
+  dataset_id: string;
+  snapshot_sha256: string;
+  method: string;
+  districts: Record<string, [string, string, number | null][]>;
+};

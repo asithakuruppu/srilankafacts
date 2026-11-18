@@ -952,6 +952,9 @@ def atlas_export(
     subnational_dir: Annotated[
         Path | None, typer.Option(help="Sub-national build folder (`slf subnational build`).")
     ] = None,
+    events_dir: Annotated[
+        Path | None, typer.Option(help="Events build folder (`slf events`).")
+    ] = None,
     out_dir: Annotated[Path, typer.Option(help="Output folder.")] = Path("./data/build/atlas"),
 ) -> None:
     """Write the derived files the map-first website reads (local, never part of a release)."""
@@ -968,6 +971,7 @@ def atlas_export(
         grid_dir,
         landscape_dir,
         subnational_dir,
+        events_dir,
     )
     geometry = manifest["geometry"]
     typer.echo(f"atlas bundle for {manifest['release']} -> {out_dir / manifest['release']}")
@@ -1233,3 +1237,20 @@ def evalset(
 
     summary = module.build(release_dir, out_dir, size)
     typer.echo(json.dumps(summary, indent=2))
+
+
+@app.command("events")
+def events_build(
+    raw_root: Annotated[Path, typer.Option(help="Folder holding raw/<source>/<dataset>/.")] = Path(
+        "./data/raw"
+    ),
+    spine_dir: Annotated[Path, typer.Option(help="Geography spine build folder.")] = Path(
+        "./data/build/geography-spine"
+    ),
+    out_dir: Annotated[Path, typer.Option(help="Output folder.")] = Path("./data/build/events"),
+) -> None:
+    """Events by place: 2025 flood extent, yearly fire detections, storm passes (D-020)."""
+    from slf import events
+
+    summary = events.build(raw_root, spine_dir, out_dir)
+    typer.echo(json.dumps(summary, indent=2)[:3000])
