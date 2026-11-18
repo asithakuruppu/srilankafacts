@@ -12,7 +12,7 @@ import {
   summariseGroup,
   type ValueMap,
 } from "@/lib/atlas/context";
-import { loadClusters, loadGnAdjacency, loadPlace } from "@/lib/atlas/data";
+import { loadClusters, loadGnAdjacency, loadLandscapeSimilar, loadPlace } from "@/lib/atlas/data";
 import {
   explainPair,
   percentileAmong,
@@ -29,6 +29,8 @@ import {
   type AtlasMeta,
   type ChangeFile,
   type ClusterClass,
+  type FeatureFile,
+  type LandscapeIndicator,
   type Lens,
   type LevelName,
   type NeighbourRef,
@@ -65,6 +67,8 @@ type Props = {
   onLens: (lens: Lens) => void;
   sheetOpen: boolean;
   onSheet: (open: boolean) => void;
+  /** Named public features of the selected place's district (local preview only). */
+  features?: FeatureFile | null;
 };
 
 const CLUSTER_TEXT: Record<ClusterClass, string> = {
@@ -338,12 +342,15 @@ function useNeighbours(props: Props): NeighbourRef[] | null {
   return adjacency[subjectLevel]?.[subject] ?? [];
 }
 
-function GeographyLens(props: Props & { place: Place | null }) {
-  const { indicator, values, subject, subjectLevel, nameOf, parentOf, levelOf, similar, units, place } = props;
+function GeographyLens(
+  props: Props & { place: Place | null; landscape?: LandscapeIndicator; similarLabel?: string },
+) {
+  const { indicator, values, subject, subjectLevel, nameOf, parentOf, levelOf, similar, units, place, landscape } =
+    props;
   const neighbours = useNeighbours(props);
   const clusters = useLoaded(
-    indicator ? () => loadClusters(indicator.id) : null,
-    `clusters|${indicator?.id}`,
+    indicator && !landscape ? () => loadClusters(indicator.id) : null,
+    `clusters|${indicator?.id}|${Boolean(landscape)}`,
   );
   if (!indicator) {
     return <p className="atlas-empty">No indicator in this release.</p>;
@@ -402,7 +409,9 @@ function GeographyLens(props: Props & { place: Place | null }) {
   return (
     <>
       <section className="atlas-section atlas-headline">
-        <p className="atlas-kicker">{indicator.name} · Census 2024</p>
+        <p className="atlas-kicker">
+          {indicator.name} · {landscape ? `${landscape.period} · modelled estimate` : "Census 2024"}
+        </p>
         {!hasLevel ? (
           <p className="atlas-empty">
             This indicator is not published for {LEVEL_PLURAL_TEXT[subjectLevel]}. Its
@@ -490,7 +499,7 @@ function GeographyLens(props: Props & { place: Place | null }) {
             <div className="compare-row compare-similar">
               <dt>
                 <i aria-hidden="true" />
-                Similar places
+                {props.similarLabel ?? "Similar places"}
               </dt>
               {subjectLevel !== "ds" ? (
                 <dd className="is-missing">
@@ -499,7 +508,11 @@ function GeographyLens(props: Props & { place: Place | null }) {
                 </dd>
               ) : !similarSummary || similarSummary.median === null ? (
                 <dd className="is-missing">
-                  {props.meta.profile ? "No profile for this division." : "No profile space in this build."}
+                  {landscape
+                    ? "No landscape neighbours for this division."
+                    : props.meta.profile
+                      ? "No profile for this division."
+                      : "No profile space in this build."}
                 </dd>
               ) : (
                 <dd>
@@ -509,9 +522,11 @@ function GeographyLens(props: Props & { place: Place | null }) {
                     {describeDifference(own, similarSummary.median, indicator.unit).text}
                   </span>
                   .{" "}
-                  <button type="button" className="text-button" onClick={() => props.onLens("profile")}>
-                    Which places, and why
-                  </button>
+                  {landscape ? null : (
+                    <button type="button" className="text-button" onClick={() => props.onLens("profile")}>
+                      Which places, and why
+                    </button>
+                  )}
                 </dd>
               )}
             </div>
@@ -592,6 +607,24 @@ function GeographyLens(props: Props & { place: Place | null }) {
       <details className="atlas-sources">
         <summary>Sources for these numbers</summary>
         <ul>
+          {landscape ? (
+            <li>
+              <strong>{landscape.name}</strong>
+              <span>
+                {landscape.source_name ?? landscape.dataset_id} · period {landscape.period}
+                {landscape.time_start && landscape.time_end && landscape.time_start !== landscape.time_end
+                  ? ` (${landscape.time_start} to ${landscape.time_end})`
+                  : ""}{" "}
+                · {landscape.data_nature.replaceAll("_", " ")} · {landscape.verification.replaceAll("_", " ")}
+              </span>
+              <span>
+                Information floor: {landscape.floor}. Licence: {landscape.licence ?? "not recorded"}
+                {landscape.commercial_reuse === "yes" ? "" : " (commercial reuse not confirmed)"}.
+              </span>
+              <span>{landscape.source_locator}</span>
+              <code>sha256 {landscape.snapshot_sha256.slice(0, 16)}…</code>
+            </li>
+          ) : null}
           {observation ? <SourceLine label={indicator.name} observation={observation} /> : null}
           {facts.map((fact) =>
             fact.observation ? (
@@ -620,7 +653,7 @@ function GeographyLens(props: Props & { place: Place | null }) {
               none gets its 3 nearest. See <Link href="/methods">methods</Link>.
             </span>
           </li>
-          {!place ? <li>Loading the record…</li> : null}
+          {!place && !landscape ? <li>Loading the record…</li> : null}
         </ul>
         <p className="atlas-note">{indicator.definition}</p>
       </details>
@@ -1127,43 +1160,118 @@ function ChangeLens(props: Props) {
 }
 
 function LandscapeLens(props: Props) {
-  const area = props.units?.[props.subject]?.a ?? null;
-  return (
-    <>
+  const landscape = props.lens === "landscape" ? (props.indicator as LandscapeIndicator | undefined) : undefined;
+  const similarFile = useLoaded(props.meta.landscape ? loadLandscapeSimilar : null, `landscape-similar|${props.meta.landscape}`);
+  const similar = useMemo(
+    () =>
+      props.subjectLevel === "ds"
+        ? (similarFile?.places[props.subject] ?? []).map(([id, distance]) => ({ id, distance }))
+        : [],
+    [props.subject, props.subjectLevel, similarFile],
+  );
+  if (!props.meta.landscape) {
+    return (
       <section className="atlas-section">
         <p className="atlas-kicker">Landscape</p>
-        <p>
-          No landscape dataset is in this release, so nothing is drawn or estimated here. Land
-          cover, built-up area, tree canopy, terrain, buildings and landmarks are planned, and
-          each needs its rights and completeness checked first.
-        </p>
-        {area !== null ? (
-          <dl className="facts">
-            <div>
-              <dt>Area</dt>
-              <dd>{formatNumber(area, area < 100 ? 1 : 0)} km²</dd>
-            </div>
-          </dl>
-        ) : null}
-        <p className="atlas-note">
-          Area is computed from the COD-AB v03 boundaries in the geography spine. It is the one
-          physical measure this release holds.
+        <p className="atlas-empty">
+          This build has no landscape layers. They come from <code>uv run slf spatial build</code>{" "}
+          and <code>slf atlas export --landscape-dir</code>.
         </p>
       </section>
-      <section className="atlas-section">
-        <h3>What would appear here</h3>
-        <ul className="plain-list">
-          <li>Land cover and built-up share, observed per pixel (10 m to 100 m).</li>
-          <li>Tree canopy, as a modelled surface and labelled as such.</li>
-          <li>Buildings and landmarks as features, with physical attributes only.</li>
-          <li>Gridded population, labelled with its information floor (the GN division).</li>
-        </ul>
-        <p className="atlas-note">
-          The finest unit with data today is the GN division. Statistics about people are never
-          attached to individual buildings.
-        </p>
-      </section>
+    );
+  }
+  if (!landscape) {
+    return <p className="atlas-empty">Loading landscape layers…</p>;
+  }
+  return (
+    <>
+      <p className="atlas-note atlas-landscape-note">
+        <span className="tag">modelled estimate</span> Measured from satellite and open map data,
+        not from the census. Information floor: <strong>{landscape.floor}</strong>; values for a
+        place are sums or shares of the pixels or features whose centre lies inside it.
+      </p>
+      <GeographyLens
+        {...props}
+        place={null}
+        landscape={landscape}
+        similar={similar}
+        similarLabel="Similar landscapes"
+      />
+      <WhatsHere {...props} />
+      {similar.length && similarFile ? (
+        <section className="atlas-section">
+          <h3>Most similar landscapes</h3>
+          <ol className="plain-list">
+            {similar.slice(0, 5).map((item) => (
+              <li key={item.id}>
+                <button type="button" className="text-button" onClick={() => props.onSelect(item.id)}>
+                  {props.nameOf(item.id)}
+                </button>{" "}
+                <small className="muted">distance {item.distance.toFixed(2)}</small>
+              </li>
+            ))}
+          </ol>
+          <p className="atlas-note">
+            Distance in the <code>{similarFile.space_id}</code> space v{similarFile.space_version}{" "}
+            (terrain, land cover and change; D-045, proposed). Axis names are machine drafts.
+          </p>
+        </section>
+      ) : null}
     </>
   );
 }
 
+
+const FEATURE_TITLES: Record<string, string> = {
+  school: "Schools",
+  health: "Health facilities",
+  heritage: "Wikidata places",
+  place: "Place names (GeoNames)",
+};
+
+/** Named public features inside the selected GN (listed) or DS (counted). */
+function WhatsHere(props: Props) {
+  const { features, subject, subjectLevel, parentOf } = props;
+  if (!features || (subjectLevel !== "gn" && subjectLevel !== "ds")) {
+    return null;
+  }
+  const inside = features.points.filter((point) =>
+    subjectLevel === "gn" ? point[5] === subject : parentOf(point[5]) === subject,
+  );
+  const byKind = new Map<string, typeof inside>();
+  for (const point of inside) {
+    byKind.set(point[2], [...(byKind.get(point[2]) ?? []), point]);
+  }
+  return (
+    <section className="atlas-section" data-testid="whats-here">
+      <h3>What is here</h3>
+      {inside.length === 0 ? (
+        <p className="atlas-empty">No named school, health facility or place is mapped inside.</p>
+      ) : (
+        [...byKind.entries()].map(([kind, points]) => (
+          <div key={kind} className="whats-here-group">
+            <p className="atlas-kicker">
+              {FEATURE_TITLES[kind] ?? kind} · {points.length}
+            </p>
+            {subjectLevel === "gn" ? (
+              <ul className="plain-list">
+                {points.slice(0, 12).map((point) => (
+                  <li key={`${point[0]},${point[1]},${point[3]}`}>
+                    {point[3]}
+                    {point[4] ? <small className="muted"> · {point[4].replaceAll("|", ", ").replaceAll("_", " ")}</small> : null}
+                  </li>
+                ))}
+                {points.length > 12 ? <li className="muted">and {points.length - 12} more</li> : null}
+              </ul>
+            ) : null}
+          </div>
+        ))
+      )}
+      <p className="atlas-note">
+        From open map and registry data (Giga, healthsites.io and OpenStreetMap, Wikidata,
+        GeoNames), placed in a division by its point. Mapping is incomplete and uneven; an
+        empty list does not mean there is nothing there. Names only: no addresses or people.
+      </p>
+    </section>
+  );
+}

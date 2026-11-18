@@ -194,11 +194,47 @@ export type AtlasMeta = {
   electoral?: boolean;
   /** Vector spaces v2 in the bundle (`spaces/*.json`); trajectory is private (D-038). */
   spaces?: { typology: boolean; composite: boolean; trajectory: boolean; text: boolean };
+  /** Named public features (`features/`), local preview only. */
+  features?: boolean;
+  /** Landscape roll-ups (`landscape/`), modelled estimates from open spatial layers. */
+  landscape?: boolean;
   /** Analytic grid files (`grid/<district>.json`) for the area tool (older bundles: undefined). */
   grid?: boolean;
   clusters: number;
   detail_tolerance_m: number | null;
   overview_tolerance_m: number | null;
+};
+
+/** Landscape indicators (landscape/index.json) add their period, information floor and rights. */
+export type LandscapeIndicator = AtlasIndicator & {
+  period: string;
+  time_start: string | null;
+  time_end: string | null;
+  floor: string;
+  data_nature: string;
+  verification: string;
+  dataset_id: string;
+  snapshot_sha256: string;
+  source_locator: string;
+  licence: string | null;
+  attribution: string | null;
+  commercial_reuse: string;
+  source_name: string | null;
+};
+
+/** features/<district>.json: [lon, lat, kind, name, category, gn id]. */
+export type FeaturePoint = [number, number, string, string, string, string];
+export type FeatureFile = { district: string; points: FeaturePoint[] };
+export type FeatureIndex = {
+  sources: { kind: string; dataset_id: string; label: string; licence: string | null }[];
+  counts: Record<string, number>;
+};
+
+/** landscape/similar_ds.json: id → [[neighbour, distance, [[input, share]]]]. */
+export type LandscapeSimilar = {
+  space_id: string;
+  space_version: string;
+  places: Record<string, [string, number, [string, number][]][]>;
 };
 
 export type AtlasIndicator = {

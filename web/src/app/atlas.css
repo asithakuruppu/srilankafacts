@@ -212,6 +212,12 @@ body:has(.atlas) .preview-banner .shell {
   cursor: pointer;
 }
 
+/* The generic reset above outranks `.atlas-picker-button`; give the picker its box back. */
+.atlas .atlas-picker-button {
+  background: var(--surface);
+  border: var(--border);
+}
+
 .atlas-lenses button,
 .atlas-scale button,
 .atlas-zoom button {

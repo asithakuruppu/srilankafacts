@@ -494,6 +494,19 @@ These were stated by you or are standing rules in [brainstorm-decisions.md](../b
 
 ---
 
+## D-049: The Landscape lens shows the landscape roll-ups; named public features are drawn in the local preview only
+- **Status:** Proposed · 2026-11-18 (agent proposal, acted on under the lead's instruction of 2026-11-17 to follow recommended decisions; builds on D-042, D-044, D-045)
+- **Context:** D-042 left the Landscape lens empty because no landscape dataset existed. `slf spatial build` (D-044) now gives 69 indicators for every place, and its feature tables hold schools, health facilities, Wikidata and GeoNames points.
+- **Decision:**
+  - `slf atlas export --landscape-dir` copies 30 display indicators (terrain, land cover, trees, water, built-up and settlement, facilities and mapped places), each at its latest period, with its information floor, data nature, verification, dataset, snapshot hash, source locator and the catalogue's licence. Component rows (measured areas, class areas) are not shown. Nothing is recomputed.
+  - The Landscape lens maps the chosen layer at the level in view and shows it against neighbours, parent, the 10 most similar landscapes (landscape space v0.1, D-045) and the country, always labelled "modelled estimate" with its floor.
+  - Named features are drawn from zoom 11 for the selected district, and a GN or DS lists "what is here". Only schools (Giga), health facilities (healthsites.io/OSM), Wikidata places and GeoNames names; name and category only. Wikidata events, organisations and administrative units and GeoNames administrative entries are left out (counted in the manifest). Overture business listings stay counts. **Individual features are not part of any release** (D-044); this is a local preview feature until the lead decides.
+- **Alternatives:** keep the lens empty until review (rejected: the data exists and is labelled); show Overture places by name (rejected: business names and uneven quality; counts suffice).
+- **Consequences:** the atlas bundle grows by 7.6 MB (landscape) and 4.2 MB (features). Feature lists are incomplete and uneven by source; the panel says so.
+- **Revisit when:** the lead reviews D-044/D-045 and the licences (ODbL for health facilities, Copernicus DEM licence recorded as "public licence", commercial use unconfirmed); a release admits landscape data.
+
+---
+
 ## Template
 
 ```markdown

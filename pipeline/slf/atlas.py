@@ -940,6 +940,7 @@ def export(
     catalog_dir: Path | None = None,
     spaces_dir: Path | None = None,
     grid_dir: Path | None = None,
+    landscape_dir: Path | None = None,
 ) -> dict[str, Any]:
     latest = json.loads((release_dir / "api/v1/releases/latest.json").read_text())
     target = out_dir / str(latest["release"])
@@ -987,5 +988,13 @@ def export(
         manifest["resolver"] = {"available": True, "district_to_ed": len(eds)}
     else:
         manifest["grid"] = {"available": False, "reason": "no grid build given (`slf grid build`)"}
+    if landscape_dir is not None:
+        from slf import atlas_landscape
+
+        manifest["landscape"] = atlas_landscape.build(landscape_dir, spine_dir, catalog_dir, target)
+        manifest["features"] = atlas_landscape.build_features(landscape_dir, target)
+    else:
+        manifest["landscape"] = {"available": False, "reason": "no --landscape-dir given"}
+        manifest["features"] = {"available": False, "reason": "no --landscape-dir given"}
     _dump(target / "manifest.json", manifest)
     return manifest
