@@ -1,0 +1,17 @@
+id: population_estimated_nonplantation
+name: "Estimated population, non-plantation districts (historical)"
+short_name: "Est. population, non-plantation (historical)"
+topic: [population]
+measure_type: count
+unit: persons
+universe: persons
+numerator: null
+denominator: null
+aggregation: sum
+higher_is: neutral
+decimals: 0
+sensitivity: public
+definition: >
+  Estimated population of the non-plantation districts for each year 1891-1946, from the same source and with the same limits as the all-districts estimate. The source does not list which districts it counts as plantation districts here.
+source_definition_ref: "population-trajectory-1891-1946 (catalog/datasets/population-trajectory-1891-1946.yaml)"
+methodology_notes: docs/methods/population-estimates-1891-1946.md

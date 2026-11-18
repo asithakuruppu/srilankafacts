@@ -1,0 +1,17 @@
+id: population_estimated_all_districts
+name: "Estimated population, all districts (historical)"
+short_name: "Est. population (historical)"
+topic: [population]
+measure_type: count
+unit: persons
+universe: persons
+numerator: null
+denominator: null
+aggregation: sum
+higher_is: neutral
+decimals: 0
+sensitivity: public
+definition: >
+  Estimated population of the whole island for each year 1891-1946, all districts included, from Chandra and Sarathchandra (2014) as published on Harvard Dataverse. A smooth national reconstruction with one growth rate, not a census count or a yearly enumeration. The year 1918 appears twice in the source with different values.
+source_definition_ref: "population-trajectory-1891-1946 (catalog/datasets/population-trajectory-1891-1946.yaml)"
+methodology_notes: docs/methods/population-estimates-1891-1946.md

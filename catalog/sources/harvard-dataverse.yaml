@@ -14,4 +14,4 @@ rights:
   evidence:
   - https://dataverse.harvard.edu/api/datasets/:persistentId/?persistentId=doi:10.7910/DVN/29209 (CC0-1.0, read 2026-11-18)
   last_reviewed: '2026-11-18'
-notes: 'Historical district population; underlying census sources not checked.'
+notes: 'National annual population estimates 1891-1946 (no districts); underlying census sources not checked.'
