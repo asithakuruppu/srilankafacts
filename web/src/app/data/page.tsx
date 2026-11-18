@@ -232,7 +232,8 @@ export default function DataPage() {
           Read the rights review in <code>docs/research/rights/census-2024-gnd-tables.md</code>,
           the topic-table source dossier in{" "}
           <code>docs/research/sources/dcs-census-2024-topic-tables.md</code> (decision D-032), and
-          the methods in <Link href="/methods">Methods and known gaps</Link>.
+          the methods in <Link href="/methods">Methods and known gaps</Link>. Which sources are
+          held and which are due is in the <Link href="/data/calendar">release calendar</Link>.
         </p>
       </section>
 

@@ -121,6 +121,7 @@ for (const candidate of atlasCandidates) {
     grid: Boolean(manifest.grid?.available),
     landscape: Boolean(manifest.landscape?.available),
     features: Boolean(manifest.features?.available),
+    extra: Boolean(manifest.extra?.available),
     clusters: manifest.clusters?.indicators ?? 0,
     detail_tolerance_m: manifest.geometry?.detail_tolerance_m ?? null,
     overview_tolerance_m: manifest.geometry?.overview_tolerance_m ?? null,
@@ -149,6 +150,14 @@ fs.writeFileSync(
 const size = (file) => `${(fs.statSync(file).size / 1024 / 1024).toFixed(2)} MB`;
 console.log(`release ${latest.release} from ${root}`);
 console.log(`boundaries: ${boundaries.length} files`);
+// Release calendar (`slf freshness`): detection metadata about sources, not data.
+const calendarSource = path.resolve(process.cwd(), "../pipeline/data/build/freshness/calendar.json");
+const calendarTarget = path.join(out, "calendar.json");
+if (fs.existsSync(calendarSource)) {
+  fs.copyFileSync(calendarSource, calendarTarget);
+} else if (fs.existsSync(calendarTarget)) {
+  fs.rmSync(calendarTarget);
+}
 console.log(atlas ? "atlas bundle: copied" : "atlas bundle: none (plain boundary map)");
 console.log(
   `search index: ${searchIndex.length} places, ${size(path.resolve(process.cwd(), "public/search-index.json"))}`,

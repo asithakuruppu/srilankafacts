@@ -194,6 +194,8 @@ export type AtlasMeta = {
   electoral?: boolean;
   /** Vector spaces v2 in the bundle (`spaces/*.json`); trajectory is private (D-038). */
   spaces?: { typology: boolean; composite: boolean; trajectory: boolean; text: boolean };
+  /** Stage 3 indicators from other open sources (`extra/`). */
+  extra?: boolean;
   /** Named public features (`features/`), local preview only. */
   features?: boolean;
   /** Landscape roll-ups (`landscape/`), modelled estimates from open spatial layers. */

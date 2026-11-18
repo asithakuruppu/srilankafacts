@@ -941,6 +941,7 @@ def export(
     spaces_dir: Path | None = None,
     grid_dir: Path | None = None,
     landscape_dir: Path | None = None,
+    subnational_dir: Path | None = None,
 ) -> dict[str, Any]:
     latest = json.loads((release_dir / "api/v1/releases/latest.json").read_text())
     target = out_dir / str(latest["release"])
@@ -996,5 +997,13 @@ def export(
     else:
         manifest["landscape"] = {"available": False, "reason": "no --landscape-dir given"}
         manifest["features"] = {"available": False, "reason": "no --landscape-dir given"}
+    if subnational_dir is not None:
+        from slf import atlas_landscape
+
+        manifest["extra"] = atlas_landscape.build_extra(
+            subnational_dir, spine_dir, catalog_dir, target
+        )
+    else:
+        manifest["extra"] = {"available": False, "reason": "no --subnational-dir given"}
     _dump(target / "manifest.json", manifest)
     return manifest

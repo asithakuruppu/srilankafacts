@@ -79,6 +79,17 @@ export async function loadLandscapeValues(indicator: string, level: LevelName): 
   return new Map(Object.entries(file[level] ?? {}));
 }
 
+/** Stage 3 indicators from other open sources (`extra/`, `slf subnational build`). */
+export const loadExtraIndex = () =>
+  loadJson<{ indicators: LandscapeIndicator[] }>(atlas("extra/index.json"));
+
+export async function loadExtraValues(indicator: string, level: LevelName): Promise<ValueMap> {
+  const file = await loadJson<Partial<Record<LevelName, Record<string, number>>>>(
+    atlas(`extra/values/${indicator}.json`),
+  );
+  return new Map(Object.entries(file[level] ?? {}));
+}
+
 export const loadFeatureIndex = () => loadJson<FeatureIndex>(atlas("features/index.json"));
 export const loadFeatures = (district: string) =>
   loadJson<FeatureFile>(atlas(`features/${district}.json`)).catch(

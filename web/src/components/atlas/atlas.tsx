@@ -14,6 +14,8 @@ import {
   loadElectoral,
   loadJson,
   loadFeatures,
+  loadExtraIndex,
+  loadExtraValues,
   loadLandscapeIndex,
   loadLandscapeValues,
   loadLevelValues,
@@ -54,6 +56,8 @@ import { useLoaded } from "@/lib/atlas/use-loaded";
 import { formatValue } from "@/lib/format";
 import { buildHierarchy, type HierarchyRow } from "@/lib/hierarchy";
 import { useTheme } from "@/lib/atlas/use-theme";
+import type { MessageKey } from "@/lib/i18n/messages";
+import { useLocale } from "@/lib/i18n/use-locale";
 
 export type LegendEntry = { color: string; label: string };
 export type Legend = { title: string; note: string; entries: LegendEntry[] };
@@ -89,6 +93,7 @@ export default function Atlas({
   const params = useSearchParams();
   const mapRef = useRef<AtlasMapHandle | null>(null);
   const theme = useTheme();
+  const { t } = useLocale();
   const viewport = useViewport();
 
   const defaultIndicator =
@@ -96,9 +101,8 @@ export default function Atlas({
   const [initial] = useState(() => ({
     place: params.get("place"),
     lens: LENS_IDS.includes(params.get("lens") as Lens) ? (params.get("lens") as Lens) : "geography",
-    indicator: indicators.some((item) => item.id === params.get("ind"))
-      ? (params.get("ind") as string)
-      : defaultIndicator,
+    // An id not in the census list may be a Stage 3 indicator, known once extra/ loads.
+    indicator: params.get("ind") ?? defaultIndicator,
     level: MAP_LEVELS.includes(params.get("level") as AdminMapLevel)
       ? (params.get("level") as MapLevel)
       : null,
@@ -166,15 +170,26 @@ export default function Atlas({
     wantLandscape ? loadLandscapeIndex : null,
     `landscape|${wantLandscape}`,
   );
+  const extraFile = useLoaded(meta.extra ? loadExtraIndex : null, `extra|${meta.extra}`);
+  const extraIds = useMemo(
+    () => new Set((extraFile?.indicators ?? []).map((item) => item.id)),
+    [extraFile],
+  );
   const isLandscape = lens === "landscape";
   const pool = useMemo<AtlasIndicator[]>(
-    () => (isLandscape ? (landscapeFile?.indicators ?? []) : indicators),
-    [indicators, isLandscape, landscapeFile],
+    () =>
+      isLandscape
+        ? (landscapeFile?.indicators ?? [])
+        : [...indicators, ...(extraFile?.indicators ?? [])],
+    [extraFile, indicators, isLandscape, landscapeFile],
   );
   const currentId = isLandscape ? landscapeId : indicatorId;
   const indicator = pool.find((item) => item.id === currentId) ?? pool[0];
-  const landscapeIndicator = isLandscape ? (indicator as LandscapeIndicator | undefined) : undefined;
   const activeId = indicator?.id ?? "";
+  const isExtra = !isLandscape && extraIds.has(activeId);
+  /** A non-census indicator (landscape or Stage 3), with its period, nature and floor. */
+  const landscapeIndicator =
+    isLandscape || isExtra ? (indicator as LandscapeIndicator | undefined) : undefined;
 
   const nameOf = useCallback(
     (id: string) =>
@@ -242,30 +257,34 @@ export default function Atlas({
 
   // Values of the indicator, per level, loaded when a level is needed.
   const load = (name: LevelName) =>
-    isLandscape ? loadLandscapeValues(activeId, name) : loadLevelValues(activeId, name);
+    isLandscape
+      ? loadLandscapeValues(activeId, name)
+      : isExtra
+        ? loadExtraValues(activeId, name)
+        : loadLevelValues(activeId, name);
   const need = (name: LevelName) =>
     (lens === "geography" || lens === "landscape") &&
     Boolean(indicator?.levels.includes(name)) &&
     (name !== "gn" || level === "gn" || subjectLevel === "ds" || subjectLevel === "gn");
   const country = useLoaded(
     need("country") ? () => load("country") : null,
-    `${lens === "landscape" ? "landscape" : "census"}|${activeId}|country|${need("country")}`,
+    `${isLandscape ? "landscape" : isExtra ? "extra" : "census"}|${activeId}|country|${need("country")}`,
   );
   const province = useLoaded(
     need("province") ? () => load("province") : null,
-    `${lens === "landscape" ? "landscape" : "census"}|${activeId}|province|${need("province")}`,
+    `${isLandscape ? "landscape" : isExtra ? "extra" : "census"}|${activeId}|province|${need("province")}`,
   );
   const district = useLoaded(
     need("district") ? () => load("district") : null,
-    `${lens === "landscape" ? "landscape" : "census"}|${activeId}|district|${need("district")}`,
+    `${isLandscape ? "landscape" : isExtra ? "extra" : "census"}|${activeId}|district|${need("district")}`,
   );
   const ds = useLoaded(
     need("ds") ? () => load("ds") : null,
-    `${lens === "landscape" ? "landscape" : "census"}|${activeId}|ds|${need("ds")}`,
+    `${isLandscape ? "landscape" : isExtra ? "extra" : "census"}|${activeId}|ds|${need("ds")}`,
   );
   const gn = useLoaded(
     need("gn") ? () => load("gn") : null,
-    `${lens === "landscape" ? "landscape" : "census"}|${activeId}|gn|${need("gn")}`,
+    `${isLandscape ? "landscape" : isExtra ? "extra" : "census"}|${activeId}|gn|${need("gn")}`,
   );
   const values = useMemo<Partial<Record<LevelName, ValueMap>>>(
     () => ({
@@ -332,7 +351,7 @@ export default function Atlas({
         colors: colours,
         legend: {
           title: indicator.short,
-          note: `${scope} · ${landscapeIndicator ? `${landscapeIndicator.period} · modelled estimate, ${landscapeIndicator.floor}` : "Census 2024"} · ${map.size.toLocaleString("en-LK")} with a value · classes are fifths of the values`,
+          note: `${scope} · ${landscapeIndicator ? `${landscapeIndicator.period} · ${landscapeIndicator.data_nature.replaceAll("_", " ")}, ${landscapeIndicator.floor}` : "Census 2024"} · ${map.size.toLocaleString("en-LK")} with a value · classes are fifths of the values`,
           entries,
         },
       };
@@ -728,7 +747,7 @@ export default function Atlas({
               className={lens === item.id ? "is-active" : ""}
               onClick={() => switchLens(item.id)}
             >
-              {item.label}
+              {t(`lens.${item.id}` as MessageKey)}
             </button>
           ))}
         </div>
@@ -741,7 +760,7 @@ export default function Atlas({
               aria-controls="atlas-indicator-list"
               onClick={() => setPickerOpen((open) => !open)}
             >
-              <span className="atlas-kicker">{isLandscape ? "Layer" : "Indicator"}</span>
+              <span className="atlas-kicker">{isLandscape ? t("picker.layer") : t("picker.indicator")}</span>
               <span className="atlas-picker-name">{indicator.short}</span>
               <span aria-hidden="true" className="atlas-caret">
                 {pickerOpen ? "–" : "+"}
@@ -790,9 +809,11 @@ export default function Atlas({
                               <small>
                                 {isLandscape
                                   ? (item as LandscapeIndicator).period
-                                  : item.levels.includes("gn")
-                                    ? "to GN"
-                                    : "to DS"}
+                                  : extraIds.has(item.id)
+                                    ? `${(item as LandscapeIndicator).period} · to ${item.levels.includes("district") ? "district" : "province"}`
+                                    : item.levels.includes("gn")
+                                      ? "to GN"
+                                      : "to DS"}
                               </small>
                             </button>
                           </li>
@@ -937,6 +958,7 @@ export default function Atlas({
         profileSubject={profileSubject}
         similar={similar}
         features={featureFile}
+        external={landscapeIndicator}
         change={change}
         compareId={compareId}
         nameOf={nameOf}
