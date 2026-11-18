@@ -948,6 +948,9 @@ def atlas_export(
     landscape_dir: Annotated[
         Path | None, typer.Option(help="Landscape build folder (`slf spatial build`).")
     ] = None,
+    subnational_dir: Annotated[
+        Path | None, typer.Option(help="Sub-national build folder (`slf subnational build`).")
+    ] = None,
     out_dir: Annotated[Path, typer.Option(help="Output folder.")] = Path("./data/build/atlas"),
 ) -> None:
     """Write the derived files the map-first website reads (local, never part of a release)."""
@@ -963,6 +966,7 @@ def atlas_export(
         spaces_dir,
         grid_dir,
         landscape_dir,
+        subnational_dir,
     )
     geometry = manifest["geometry"]
     typer.echo(f"atlas bundle for {manifest['release']} -> {out_dir / manifest['release']}")
@@ -979,6 +983,7 @@ def atlas_export(
     typer.echo(f"grid: {manifest['grid']}")
     typer.echo(f"landscape: {manifest['landscape']}")
     typer.echo(f"features: {manifest['features']}")
+    typer.echo(f"extra: {manifest['extra']}")
 
 
 spatial_app = typer.Typer(
@@ -1163,3 +1168,54 @@ def resolve(
     from slf import resolver
 
     typer.echo(resolver.as_json(resolver.Resolver(spine_dir, relations_dir).resolve(lon, lat)))
+
+
+subnational_app = typer.Typer(
+    help="Stage 3 sub-national indicators from p-coded open tables.", no_args_is_help=True
+)
+app.add_typer(subnational_app, name="subnational")
+
+
+@subnational_app.command("build")
+def subnational_build(
+    raw_root: Annotated[Path, typer.Option(help="Folder holding raw/<source>/<dataset>/.")] = Path(
+        "./data/raw"
+    ),
+    spine_dir: Annotated[Path, typer.Option(help="Geography spine build folder.")] = Path(
+        "./data/build/geography-spine"
+    ),
+    out_dir: Annotated[Path, typer.Option(help="Output folder.")] = Path(
+        "./data/build/subnational"
+    ),
+) -> None:
+    """Poverty (OPHI), rainfall and vegetation (WFP), rural access (HeiGIT), joined by p-code."""
+    from slf import subnational
+
+    summary = subnational.build(raw_root, spine_dir, out_dir)
+    typer.echo(f"{summary['rows']} rows, {len(summary['indicators'])} indicators")
+    for item in summary["unmatched_or_incomplete"] + summary["not_held"]:
+        typer.echo(f"  {item}")
+    typer.echo(f"report: {out_dir / 'qa.md'}")
+
+
+@app.command("freshness")
+def freshness_check(
+    catalog: Annotated[Path, typer.Option(help="Catalogue folder.")] = Path("../catalog"),
+    raw_root: Annotated[
+        list[Path] | None,
+        typer.Option(help="Folders holding raw/<source>/<dataset>/ (repeatable)."),
+    ] = None,
+    out_dir: Annotated[Path, typer.Option(help="Output folder.")] = Path("./data/build/freshness"),
+    probe: Annotated[
+        bool, typer.Option(help="HEAD each landing page for ETag/Last-Modified (polite, slow).")
+    ] = False,
+) -> None:
+    """Release calendar: what is held, what is scheduled, what is overdue (D05)."""
+    from slf import freshness
+
+    calendar = freshness.build(catalog, raw_root or [Path("./data/raw")], out_dir, probe=probe)
+    typer.echo(f"{len(calendar['datasets'])} datasets: {calendar['counts']}")
+    for row in calendar["datasets"]:
+        if row["state"] == "overdue" or row["page_changed"]:
+            typer.echo(f"  {row['state']}: {row['dataset_id']} (last {row['last_snapshot']})")
+    typer.echo(f"wrote {out_dir / 'calendar.json'}")

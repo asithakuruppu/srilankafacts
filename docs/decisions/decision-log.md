@@ -507,6 +507,20 @@ These were stated by you or are standing rules in [brainstorm-decisions.md](../b
 
 ---
 
+## D-050: Stage 3 build-out: p-coded open indicators in the Geography lens, a local freshness monitor, and opt-in draft translations
+- **Status:** Proposed · 2026-11-18 (agent proposal, acted on under the lead's instruction of 2026-11-17 to follow recommended decisions; builds on D-012, D-015, D-019, D-042)
+- **Context:** Stage 3 asks for curated sub-national indicators, a freshness monitor and release calendar (D05), a national context strip and Sinhala and Tamil core pages (W07). Several sources are already held with rights recorded in the catalogue.
+- **Decision:**
+  - `slf subnational build` adds 12 indicators from tables that carry the spine's own p-codes: OPHI MPI 2016 (province, survey estimate, CC0), WFP/CHIRPS rainfall and WFP/MODIS NDVI for the latest complete year against their long-term averages (district and province, CC BY), and HeiGIT's Rural Access Index (district, CC BY-SA). The country rainfall and NDVI figures are pixel-weighted means of the district values; everything else is copied. They appear in the Geography lens under their own groups, each marked "not from the census" with its nature, period, floor and licence.
+  - Not built: DesInventar (place names only; joining needs a crosswalk), HeiGIT travel-time tables (ISO 3166-2 codes; needs a code list with evidence), WFP market prices (points, not areas), the national context strip (no CBSL series is held).
+  - `slf freshness` writes a release calendar from catalogue schedules and held snapshots; `--probe` adds polite HEAD checks of landing pages with a generic user agent. No scheduled workflow and no automatic issues: both are outward-facing and CI runs only by hand.
+  - Interface strings move to a catalogue with machine drafts in Sinhala and Tamil, shown only when a visitor chooses them and always under a banner. No `/si` or `/ta` routes yet.
+- **Alternatives:** a GitHub Actions schedule that opens issues (rejected for now: cost and outward action); an i18n routing library (deferred: new dependency, and nothing is reviewed to route to).
+- **Consequences:** survey and modelled indicators sit next to census ones; the labels must keep them apart. Translations stay drafts until a reviewer is recorded in `docs/translation/README.md`.
+- **Revisit when:** a translator reviews a locale; the lead wants automatic release alerts; CBSL or HIES tables are snapshotted; a crosswalk for DesInventar names exists.
+
+---
+
 ## Template
 
 ```markdown

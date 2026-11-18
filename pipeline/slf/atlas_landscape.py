@@ -73,60 +73,47 @@ def _dump(path: Path, payload: Any) -> None:
     path.write_text(json.dumps(payload, separators=(",", ":"), ensure_ascii=False) + "\n")
 
 
-def build(
-    landscape_dir: Path, spine_dir: Path, catalog_dir: Path | None, out_dir: Path
-) -> dict[str, Any]:
-    source = landscape_dir / "observations.parquet"
-    if not source.exists():
-        return {"available": False, "reason": "no landscape build found"}
-    from slf.spatial.layers import SPECS
-
+def _rights(catalog_dir: Path | None) -> dict[str, dict[str, Any]]:
     rights_of: dict[str, dict[str, Any]] = {}
-    if catalog_dir is not None:
-        from slf.catalog import CatalogReport, load_catalog
-        from slf.release import _dataset_rights
+    if catalog_dir is None:
+        return rights_of
+    from slf.catalog import CatalogReport, load_catalog
+    from slf.release import _dataset_rights
 
-        catalog = load_catalog(catalog_dir, catalog_dir.parent / "overrides", CatalogReport())
-        for dataset_id in catalog.datasets:
-            try:
-                rights_of[dataset_id] = _dataset_rights(catalog, dataset_id)
-            except Exception:  # a catalogue entry without rights stays unknown, never guessed
-                continue
+    catalog = load_catalog(catalog_dir, catalog_dir.parent / "overrides", CatalogReport())
+    for dataset_id in catalog.datasets:
+        try:
+            rights_of[dataset_id] = _dataset_rights(catalog, dataset_id)
+        except Exception:  # a catalogue entry without rights stays unknown, never guessed
+            continue
+    return rights_of
 
+
+def _export(
+    source: Path,
+    groups: list[tuple[str, list[str]]],
+    meta_of: dict[str, dict[str, Any]],
+    spine_dir: Path,
+    catalog_dir: Path | None,
+    folder: Path,
+) -> tuple[list[dict[str, Any]], list[str]]:
+    """Copy the latest period of each listed indicator, per level, with its provenance."""
+    rights_of = _rights(catalog_dir)
     level_of = {
         str(r["geography_id"]): LEVEL_KEYS.get(int(r["level"]))
         for r in _rows(pd.read_parquet(spine_dir / "geographies.parquet"))
     }
-    wanted = [i for _, ids in GROUPS for i in ids]
-    observations = pd.read_parquet(
-        source,
-        columns=[
-            "indicator_id",
-            "geography_id",
-            "period",
-            "value",
-            "value_status",
-            "unit",
-            "information_footprint_ref",
-            "data_nature",
-            "verification",
-            "dataset_id",
-            "snapshot_sha256",
-            "source_locator",
-            "time_start",
-            "time_end",
-            "breakdown",
-        ],
-    )
+    wanted = [i for _, ids in groups for i in ids]
+    observations = pd.read_parquet(source)
     observations = pd.DataFrame(observations[observations["indicator_id"].isin(wanted)])
     index: list[dict[str, Any]] = []
     skipped: list[str] = []
-    for group, ids in GROUPS:
+    for group, ids in groups:
         for indicator in ids:
             rows = pd.DataFrame(observations[observations["indicator_id"] == indicator])
             rows = pd.DataFrame(rows[rows["breakdown"].isna()])
-            spec = SPECS.get(indicator)
-            if rows.empty or spec is None:
+            meta = meta_of.get(indicator)
+            if rows.empty or meta is None:
                 skipped.append(indicator)
                 continue
             period = sorted(str(p) for p in rows["period"].unique())[-1]
@@ -140,36 +127,57 @@ def build(
             first = _rows(rows.head(1))[0]
             dataset = str(first["dataset_id"])
             rights = rights_of.get(dataset, {})
-            entry = {
-                "id": indicator,
-                "name": spec.name,
-                "short": spec.name,
-                "unit": spec.unit,
-                "decimals": spec.decimals,
-                "measureType": spec.measure_type,
-                "higherIs": spec.higher_is,
-                "definition": spec.definition,
-                "levels": [
-                    lv for lv in ("country", "province", "district", "ds", "gn") if lv in values
-                ],
-                "group": group,
-                "period": period,
-                "time_start": None if pd.isna(first["time_start"]) else str(first["time_start"]),
-                "time_end": None if pd.isna(first["time_end"]) else str(first["time_end"]),
-                "floor": str(first["information_footprint_ref"]),
-                "data_nature": str(first["data_nature"]),
-                "verification": str(first["verification"]),
-                "dataset_id": dataset,
-                "snapshot_sha256": str(first["snapshot_sha256"]),
-                "source_locator": str(first["source_locator"]),
-                "licence": rights.get("licence"),
-                "attribution": rights.get("attribution"),
-                "commercial_reuse": rights.get("commercial_reuse", "unknown"),
-                "source_name": rights.get("source_name"),
-            }
-            index.append(entry)
-            _dump(out_dir / "landscape" / "values" / f"{indicator}.json", values)
-    _dump(out_dir / "landscape" / "index.json", {"indicators": index})
+            index.append(
+                {
+                    "id": indicator,
+                    **meta,
+                    "short": meta["name"],
+                    "levels": [
+                        lv for lv in ("country", "province", "district", "ds", "gn") if lv in values
+                    ],
+                    "group": group,
+                    "period": period,
+                    "time_start": None
+                    if pd.isna(first["time_start"])
+                    else str(first["time_start"]),
+                    "time_end": None if pd.isna(first["time_end"]) else str(first["time_end"]),
+                    "floor": str(first["information_footprint_ref"]),
+                    "data_nature": str(first["data_nature"]),
+                    "verification": str(first["verification"]),
+                    "dataset_id": dataset,
+                    "snapshot_sha256": str(first["snapshot_sha256"]),
+                    "source_locator": str(first["source_locator"]),
+                    "licence": rights.get("licence"),
+                    "attribution": rights.get("attribution"),
+                    "commercial_reuse": rights.get("commercial_reuse", "unknown"),
+                    "source_name": rights.get("source_name"),
+                }
+            )
+            _dump(folder / "values" / f"{indicator}.json", values)
+    _dump(folder / "index.json", {"indicators": index})
+    return index, skipped
+
+
+def build(
+    landscape_dir: Path, spine_dir: Path, catalog_dir: Path | None, out_dir: Path
+) -> dict[str, Any]:
+    source = landscape_dir / "observations.parquet"
+    if not source.exists():
+        return {"available": False, "reason": "no landscape build found"}
+    from slf.spatial.layers import SPECS
+
+    meta_of = {
+        spec.id: {
+            "name": spec.name,
+            "unit": spec.unit,
+            "decimals": spec.decimals,
+            "measureType": spec.measure_type,
+            "higherIs": spec.higher_is,
+            "definition": spec.definition,
+        }
+        for spec in SPECS.values()
+    }
+    index, skipped = _export(source, GROUPS, meta_of, spine_dir, catalog_dir, out_dir / "landscape")
     similar = landscape_dir / "vectors" / "similar_ds.json"
     if similar.exists():
         shutil.copyfile(similar, out_dir / "landscape" / "similar_ds.json")
@@ -183,6 +191,35 @@ def build(
             "values are modelled estimates on their own information floor (D-044)."
         ),
     }
+
+
+def build_extra(
+    subnational_dir: Path, spine_dir: Path, catalog_dir: Path | None, out_dir: Path
+) -> dict[str, Any]:
+    """Stage 3 indicators (`slf subnational build`), shown in the Geography lens."""
+    source = subnational_dir / "observations.parquet"
+    if not source.exists():
+        return {"available": False, "reason": "no subnational build found"}
+    from slf.subnational import SPECS as EXTRA
+
+    groups: dict[str, list[str]] = {}
+    for spec in EXTRA:
+        groups.setdefault(spec.group, []).append(spec.id)
+    meta_of = {
+        spec.id: {
+            "name": spec.name,
+            "unit": spec.unit,
+            "decimals": spec.decimals,
+            "measureType": spec.measure_type,
+            "higherIs": spec.higher_is,
+            "definition": spec.definition,
+        }
+        for spec in EXTRA
+    }
+    index, skipped = _export(
+        source, list(groups.items()), meta_of, spine_dir, catalog_dir, out_dir / "extra"
+    )
+    return {"available": True, "indicators": len(index), "skipped": skipped}
 
 
 # Point features shown at high zoom and listed per GN ("what's here"). Public facilities and

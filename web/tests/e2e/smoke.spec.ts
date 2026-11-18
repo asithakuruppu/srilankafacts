@@ -410,3 +410,32 @@ test("search finds a misspelt place through the text space", async ({ page }) =>
   await box.fill("Colmbo");
   await expect(page.getByRole("option").first()).toContainText("Colombo");
 });
+
+test("release calendar lists every catalogued source with a state", async ({ page }) => {
+  await page.goto("/data/calendar");
+  const table = page.getByTestId("calendar-table");
+  if ((await table.count()) === 0) {
+    await expect(page.getByText("No calendar in this build")).toBeVisible();
+    return;
+  }
+  await expect(table.locator("tbody tr").first()).toBeVisible();
+  await expect(table).toContainText(/Held, no fixed schedule|Not held yet|Overdue|Current/);
+});
+
+test("draft translations appear only on request, under a banner", async ({ page }) => {
+  await page.goto("/about");
+  await expect(page.getByTestId("language-banner")).toHaveCount(0);
+  await page.getByRole("combobox", { name: "Interface language" }).selectOption("si");
+  await expect(page.getByTestId("language-banner")).toContainText("Machine draft translation");
+  await expect(page.locator("html")).toHaveAttribute("lang", "si");
+  await page.getByRole("combobox", { name: /Interface language|අතුරුමුහුණත් භාෂාව/ }).selectOption("en");
+  await expect(page.getByTestId("language-banner")).toHaveCount(0);
+});
+
+test("Stage 3 indicators say they are not from the census", async ({ page }) => {
+  const extra = await page.request.get("/release/atlas/extra/index.json");
+  test.skip(!extra.ok(), "this build has no Stage 3 indicators");
+  await page.goto("/?place=LK8&ind=mpi_headcount");
+  await expect(page.getByText("not from the census")).toBeVisible();
+  await expect(page.getByText(/survey estimate/i).first()).toBeVisible();
+});

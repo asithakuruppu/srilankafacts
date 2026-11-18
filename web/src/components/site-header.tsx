@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import SearchBox from "@/components/search-box";
+import { LanguageBanner, LanguageSwitch, SiteNav } from "@/components/site-nav";
 import ThemeToggle from "@/components/theme-toggle";
 import { getLatest } from "@/lib/release";
 
@@ -21,20 +22,13 @@ export default function SiteHeader() {
               <small>Every place, every number, with its source</small>
             </span>
           </Link>
-          <nav className="site-nav" aria-label="Main">
-            <Link href="/">Atlas</Link>
-            <Link href="/explore">Tables</Link>
-            <Link href="/indicators">Indicators</Link>
-            <Link href="/elections">Elections</Link>
-            <Link href="/area">Areas</Link>
-            <Link href="/data">Data</Link>
-            <Link href="/methods">Methods</Link>
-            <Link href="/about">About</Link>
-          </nav>
+          <SiteNav />
           <SearchBox compact />
+          <LanguageSwitch />
           <ThemeToggle />
         </div>
       </header>
+      <LanguageBanner />
       {!latest.publishable ? (
         <div className="preview-banner" role="note">
           <div className="shell">

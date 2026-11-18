@@ -37,6 +37,7 @@ import {
   type Unit,
 } from "@/lib/atlas/types";
 import { useLoaded } from "@/lib/atlas/use-loaded";
+import { useLocale } from "@/lib/i18n/use-locale";
 import { formatNumber, formatValue } from "@/lib/format";
 import type { Hierarchy } from "@/lib/hierarchy";
 import type { Observation, Place } from "@/lib/types";
@@ -69,6 +70,8 @@ type Props = {
   onSheet: (open: boolean) => void;
   /** Named public features of the selected place's district (local preview only). */
   features?: FeatureFile | null;
+  /** The indicator in view when it is not from the census (landscape or Stage 3). */
+  external?: LandscapeIndicator;
 };
 
 const CLUSTER_TEXT: Record<ClusterClass, string> = {
@@ -76,6 +79,14 @@ const CLUSTER_TEXT: Record<ClusterClass, string> = {
   low_low: "Part of a cluster of low values",
   high_low: "A high value among lower neighbours",
   low_high: "A low value among higher neighbours",
+};
+
+const LEVEL_SINGULAR_TEXT: Partial<Record<LevelName, string>> = {
+  gn: "GN division",
+  ds: "DS division",
+  district: "district",
+  province: "province",
+  country: "country",
 };
 
 const KEY_FACTS = [
@@ -345,8 +356,9 @@ function useNeighbours(props: Props): NeighbourRef[] | null {
 function GeographyLens(
   props: Props & { place: Place | null; landscape?: LandscapeIndicator; similarLabel?: string },
 ) {
-  const { indicator, values, subject, subjectLevel, nameOf, parentOf, levelOf, similar, units, place, landscape } =
-    props;
+  const { indicator, values, subject, subjectLevel, nameOf, parentOf, levelOf, similar, units, place } = props;
+  const landscape = props.landscape ?? props.external;
+  const { t } = useLocale();
   const neighbours = useNeighbours(props);
   const clusters = useLoaded(
     indicator && !landscape ? () => loadClusters(indicator.id) : null,
@@ -408,14 +420,31 @@ function GeographyLens(
 
   return (
     <>
+      {landscape && props.lens === "geography" ? (
+        <p className="atlas-note atlas-landscape-note">
+          <span className="tag">not from the census</span> {landscape.source_name ?? landscape.dataset_id},{" "}
+          {landscape.period}: a {landscape.data_nature.replaceAll("_", " ")} at {landscape.floor} level.
+          It is published for {landscape.levels.map((level) => LEVEL_PLURAL_TEXT[level as LevelName] ?? level).join(", ")}{" "}
+          only.
+        </p>
+      ) : null}
       <section className="atlas-section atlas-headline">
         <p className="atlas-kicker">
-          {indicator.name} · {landscape ? `${landscape.period} · modelled estimate` : "Census 2024"}
+          {indicator.name} ·{" "}
+          {landscape ? `${landscape.period} · ${landscape.data_nature.replaceAll("_", " ")}` : "Census 2024"}
         </p>
         {!hasLevel ? (
           <p className="atlas-empty">
             This indicator is not published for {LEVEL_PLURAL_TEXT[subjectLevel]}. Its
-            finest level is the {indicator.levels.includes("ds") ? "DS division" : "district"}.
+            finest level is the{" "}
+            {
+              LEVEL_SINGULAR_TEXT[
+                (["gn", "ds", "district", "province", "country"] as LevelName[]).find((level) =>
+                  indicator.levels.includes(level),
+                ) ?? "country"
+              ]
+            }
+            .
           </p>
         ) : own === null ? (
           <p className="atlas-empty">
@@ -447,7 +476,7 @@ function GeographyLens(
 
       {own !== null && subjectLevel !== "country" && levelValues ? (
         <section className="atlas-section">
-          <h3>Compared to where?</h3>
+          <h3>{t("panel.compared")}</h3>
           <ContextStrip
             values={[...levelValues.values()]}
             markers={markers}
@@ -458,7 +487,7 @@ function GeographyLens(
             <div className="compare-row compare-neighbours">
               <dt>
                 <i aria-hidden="true" />
-                Neighbours
+                {t("panel.neighbours")}
               </dt>
               {neighbours === null ? (
                 <dd className="is-missing">Loading…</dd>
@@ -499,7 +528,7 @@ function GeographyLens(
             <div className="compare-row compare-similar">
               <dt>
                 <i aria-hidden="true" />
-                {props.similarLabel ?? "Similar places"}
+                {props.similarLabel ?? t("panel.similar")}
               </dt>
               {subjectLevel !== "ds" ? (
                 <dd className="is-missing">
@@ -533,7 +562,7 @@ function GeographyLens(
             <div className="compare-row compare-country">
               <dt>
                 <i aria-hidden="true" />
-                Sri Lanka
+                {t("panel.country")}
               </dt>
               {national === null ? (
                 <dd className="is-missing">No national value.</dd>
@@ -584,7 +613,7 @@ function GeographyLens(
 
       {facts.length > 0 || area !== null ? (
         <section className="atlas-section">
-          <h3>Key facts</h3>
+          <h3>{t("panel.keyFacts")}</h3>
           <dl className="facts">
             {facts.map((fact) => (
               <div key={fact.id}>
@@ -605,7 +634,7 @@ function GeographyLens(
       ) : null}
 
       <details className="atlas-sources">
-        <summary>Sources for these numbers</summary>
+        <summary>{t("panel.sources")}</summary>
         <ul>
           {landscape ? (
             <li>
@@ -1160,6 +1189,7 @@ function ChangeLens(props: Props) {
 }
 
 function LandscapeLens(props: Props) {
+  const { t } = useLocale();
   const landscape = props.lens === "landscape" ? (props.indicator as LandscapeIndicator | undefined) : undefined;
   const similarFile = useLoaded(props.meta.landscape ? loadLandscapeSimilar : null, `landscape-similar|${props.meta.landscape}`);
   const similar = useMemo(
@@ -1195,7 +1225,7 @@ function LandscapeLens(props: Props) {
         place={null}
         landscape={landscape}
         similar={similar}
-        similarLabel="Similar landscapes"
+        similarLabel={t("panel.similarLandscapes")}
       />
       <WhatsHere {...props} />
       {similar.length && similarFile ? (
@@ -1232,6 +1262,7 @@ const FEATURE_TITLES: Record<string, string> = {
 /** Named public features inside the selected GN (listed) or DS (counted). */
 function WhatsHere(props: Props) {
   const { features, subject, subjectLevel, parentOf } = props;
+  const { t } = useLocale();
   if (!features || (subjectLevel !== "gn" && subjectLevel !== "ds")) {
     return null;
   }
@@ -1244,7 +1275,7 @@ function WhatsHere(props: Props) {
   }
   return (
     <section className="atlas-section" data-testid="whats-here">
-      <h3>What is here</h3>
+      <h3>{t("panel.whatsHere")}</h3>
       {inside.length === 0 ? (
         <p className="atlas-empty">No named school, health facility or place is mapped inside.</p>
       ) : (
