@@ -225,6 +225,13 @@ def test_rainfall_mean_ignores_no_data_cells(tmp_path):
     assert reducer.area[1] == 0 and reducer.invalid_area[1] > 0
 
 
+def test_soil_indicators_cover_five_depths_and_skip_the_faulty_error_maps():
+    assert len(layers.SOIL) == 9 and len(layers.SOIL_DEPTHS) == 5
+    assert "soil_moisture_wp" in layers.SPECS
+    assert "soil_moisture_wp_standard_error" not in layers.SPECS
+    assert "soil_ph_standard_error" in layers.SPECS
+
+
 def test_every_share_names_components_that_exist():
     for spec in layers.SPECS.values():
         if spec.aggregation == "recompute_from_components":

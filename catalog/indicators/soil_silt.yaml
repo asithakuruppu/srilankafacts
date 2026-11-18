@@ -1,0 +1,21 @@
+id: soil_silt
+name: "Soil silt content"
+short_name: "Soil silt content"
+topic: [landscape, soil]
+measure_type: mean
+unit: percent
+universe: land_area_measured
+numerator: null
+denominator: null
+aggregation: none
+higher_is: neutral
+distribution: api
+decimals: 2
+sensitivity: public
+definition: >
+  Silt share by mass, area-weighted mean of the 1 km interpolated map cells over the place, for
+  each of five depth layers (0-5, 5-15, 15-30, 30-60, 60-100 cm; the layer is the breakdown
+  `depth_cm`). Modelled from 122 sampling locations nationwide (Mapa et al., Data in Brief 2020):
+  a smooth surface, not a measurement for the place.
+source_definition_ref: "lk-soil-property-maps (catalog/datasets/lk-soil-property-maps.yaml)"
+methodology_notes: docs/methods/landscape.md

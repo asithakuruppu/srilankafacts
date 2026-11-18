@@ -1,0 +1,20 @@
+id: soil_organic_carbon_standard_error
+name: "Soil organic carbon: standard error of the map"
+short_name: "Soil organic carbon: standard error of the map"
+topic: [landscape, soil]
+measure_type: mean
+unit: percent
+universe: land_area_measured
+numerator: null
+denominator: null
+aggregation: none
+higher_is: neutral
+distribution: api
+decimals: 3
+sensitivity: public
+definition: >
+  Area-weighted mean over the place of the published error map for organic carbon content by mass,
+  in the same unit, by depth layer (breakdown `depth_cm`). The source calls these standard error
+  maps; how the error was computed is not checked here.
+source_definition_ref: "lk-soil-property-maps (catalog/datasets/lk-soil-property-maps.yaml)"
+methodology_notes: docs/methods/landscape.md

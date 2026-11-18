@@ -15,6 +15,7 @@ from __future__ import annotations
 import hashlib
 import json
 import re
+import subprocess
 import zipfile
 from collections.abc import Iterator
 from contextlib import ExitStack, contextmanager
@@ -37,6 +38,8 @@ from slf.spatial.layers import (
     RAIN_NORMAL,
     RAIN_YEARS,
     SMOD_GROUPS,
+    SOIL,
+    SOIL_DEPTHS,
     SPECS,
     WORLDCOVER_CLASSES,
 )
@@ -367,6 +370,65 @@ def canopy_height(roots: list[Path], zones: zonal.Zones) -> Layer:
     return layer
 
 
+def _unpack_rar(held: Held, dest: Path) -> Path:
+    """Unpack a .rar (nested ones too) beside the data, never inside raw/. Idempotent."""
+    dest = dest.resolve()
+    done = dest / ".done"
+    if not done.exists():
+        dest.mkdir(parents=True, exist_ok=True)
+        subprocess.run(["bsdtar", "-xf", str(held.path.resolve())], cwd=dest, check=True)
+        for inner in sorted(dest.rglob("*.rar")):
+            subprocess.run(["bsdtar", "-xf", str(inner)], cwd=inner.parent, check=True)
+        done.write_text(held.sha256)
+    return dest
+
+
+def soil(roots: list[Path], zones: zonal.Zones) -> Layer:
+    files = [f for f in held_files(roots, "mendeley-soil", "lk-soil-property-maps")]
+    layer = Layer(
+        "lk-soil-property-maps",
+        files,
+        "grid-1km",
+        "Open soil property maps for Sri Lanka (Mendeley Data 10.17632/5sc7njfcyn.2), GeoTIFF, "
+        "EPSG:4326, about 1 km, five depth layers; each cell split into 100 sub-cells and shared "
+        "between places by sub-cell centre",
+    )
+    by_name = {f.path.name: f for f in files}
+    unpacked: dict[str, Path] = {}
+    for key, name in (("map", "Interpolated_soil_property_maps.rar"), ("error", "Error_maps.rar")):
+        held = by_name.get(name)
+        if held is None:
+            layer.notes.append(f"soil: {name} not held; its layers skipped")
+            continue
+        unpacked[key] = _unpack_rar(held, roots[-1] / "derived" / "soil" / held.sha256[:16])
+    for slug, (_, _, _, prefix, error_prefix, _) in SOIL.items():
+        if error_prefix is None and slug == "moisture_wp":
+            layer.notes.append(
+                "soil moisture_wp: the source's error maps are byte-identical to its value maps "
+                "at all five depths (packaging fault), so no error indicator is built for it"
+            )
+        for kind, file_prefix in (("map", prefix), ("error", error_prefix)):
+            if file_prefix is None or kind not in unpacked:
+                continue
+            for k, depth in enumerate(SOIL_DEPTHS, start=1):
+                found = sorted(unpacked[kind].rglob(f"{file_prefix}_SLK_SL{k}.tif"))
+                if len(found) != 1:
+                    layer.notes.append(f"soil {slug} {kind} depth {depth}: {len(found)} files")
+                    continue
+                if kind == "error":
+                    twin = sorted(unpacked["map"].rglob(f"{prefix}_SLK_SL{k}.tif"))
+                    if twin and twin[0].read_bytes() == found[0].read_bytes():
+                        layer.notes.append(f"soil {slug} depth {depth}: error map equals value map")
+                        continue
+                reducer = zonal.Moments(len(zones), valid=lambda a: a > -1e30)
+                with rasterio.open(found[0]) as dataset:
+                    layer.blocks += zonal.walk([dataset], zones, reducer, upsample=10)
+                tag = f"{slug}_{kind}_{k}"
+                layer.sums[f"soil_wsum_{tag}"] = reducer.weighted[1:]
+                layer.sums[f"soil_area_{tag}"] = reducer.area[1:]
+    return layer
+
+
 class _Int16Classes(zonal.ClassAreas):
     """ClassAreas for signed 16-bit class rasters (negative no-data becomes a high index)."""
 
@@ -445,6 +507,7 @@ class Emitter:
         data_nature: str = "modelled_estimate",
         first: int | None = None,
         how: str = "zonal sum over GN divisions",
+        breakdown: dict[str, str] | None = None,
     ) -> None:
         spec = SPECS[indicator]
         ids = self.hierarchy.ids[:first]
@@ -453,7 +516,11 @@ class Emitter:
         missing = ~np.isfinite(rounded)
         frame = pd.DataFrame(
             {
-                "claim_id": [f"{layer.dataset}:{g}:{indicator}:{period}" for g in ids],
+                "claim_id": [
+                    f"{layer.dataset}:{g}:{indicator}:{period}"
+                    + ("".join(f":{k}={v}" for k, v in breakdown.items()) if breakdown else "")
+                    for g in ids
+                ],
                 "indicator_id": indicator,
                 "geography_id": ids,
                 "geography_vintage": VINTAGE,
@@ -470,7 +537,7 @@ class Emitter:
                 "revision_status": "final",
                 "preferred": True,
                 "preferred_reason": f"Only claim for this indicator: {layer.dataset}.",
-                "breakdown": None,
+                "breakdown": [breakdown] * len(ids) if breakdown else None,
                 "value": np.where(missing, np.nan, rounded),
                 "value_status": np.where(missing, "not_available", "normal"),
                 "unit": spec.unit,
@@ -650,6 +717,32 @@ def emit_all(layers: dict[str, Layer], h: Hierarchy) -> pd.DataFrame:
         out.add(c, f"canopy_{metres}m_area", tall / HA, locator=where, **obs)
         out.add(c, f"canopy_{metres}m_share", _ratio(tall, measured, 100), locator=where, **obs)
 
+    q = layers["soil"]
+    soil_obs: dict[str, Any] = dict(
+        period="2020", start="2020-01-01", end="2020-12-31", time_support="observed_around"
+    )
+    for slug in SOIL:
+        for kind in ("map", "error"):
+            for k, depth in enumerate(SOIL_DEPTHS, start=1):
+                tag = f"{slug}_{kind}_{k}"
+                if f"soil_wsum_{tag}" not in q.sums:
+                    continue
+                values = _ratio(
+                    h.total(q.sums[f"soil_wsum_{tag}"]), h.total(q.sums[f"soil_area_{tag}"])
+                )
+                out.add(
+                    q,
+                    f"soil_{slug}" + ("_standard_error" if kind == "error" else ""),
+                    values,
+                    locator=f"{q.locator}; {'error map' if kind == 'error' else 'map'} depth "
+                    f"{depth} cm (file suffix SL{k})",
+                    how="area-weighted mean over GN divisions",
+                    breakdown={"depth_cm": depth},
+                    data_nature="modelled_estimate",
+                    collection_method="model",
+                    **soil_obs,
+                )
+
     frame = pd.concat(out.frames, ignore_index=True)
     frame["note_ids"] = [[] for _ in range(len(frame))]
     frame["release"] = None
@@ -666,6 +759,7 @@ LAYER_BUILDERS = {
     "rainfall": rainfall,
     "mangrove": mangrove,
     "canopy_height": canopy_height,
+    "soil": soil,
 }
 
 
@@ -705,6 +799,7 @@ LAYER_SOURCES = {
     "rainfall": ("chc", "chirps-v3-annual"),
     "mangrove": ("gmw", "global-mangrove-watch"),
     "canopy_height": ("meta-wri", "meta-wri-canopy-height-v2"),
+    "soil": ("mendeley-soil", "lk-soil-property-maps"),
 }
 
 MEASURED = {

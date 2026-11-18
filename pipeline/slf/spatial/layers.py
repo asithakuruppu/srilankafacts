@@ -40,6 +40,54 @@ LOSS_YEARS = tuple(range(2001, 2025))
 RAIN_YEARS = tuple(range(1981, 2026))
 RAIN_NORMAL = (1991, 2020)
 GMW_YEARS = (1996, 2010, 2020)
+SOIL_DEPTHS = ("0-5", "5-15", "15-30", "30-60", "60-100")  # centimetres; file suffix SL1..SL5
+# slug -> (name, unit, decimals, map file prefix, error-map file prefix or None, what it is)
+SOIL: dict[str, tuple[str, str, int, str, str | None, str]] = {
+    "ph": ("Soil pH", "pH units", 2, "PHOX_OB", "PHOX_PEM_OB", "Soil acidity (pH)"),
+    "bulk_density": (
+        "Soil bulk density",
+        "g/cm3",
+        3,
+        "BD_OB",
+        "BD_PEM_OB",
+        "Dry mass of soil per volume",
+    ),
+    "cec": (
+        "Soil cation exchange capacity",
+        "cmol+/kg",
+        2,
+        "CEC_OB",
+        "CEC_PEM_OB",
+        "Capacity of the soil to hold exchangeable cations",
+    ),
+    "organic_carbon": (
+        "Soil organic carbon",
+        "percent",
+        3,
+        "ORGCBN_OB",
+        "ORGCBN_PEM_OB",
+        "Organic carbon content by mass",
+    ),
+    "clay": ("Soil clay content", "percent", 2, "CLYPPT_OB", None, "Clay share by mass"),
+    "sand": ("Soil sand content", "percent", 2, "SNDPPT_OB", None, "Sand share by mass"),
+    "silt": ("Soil silt content", "percent", 2, "SLTPPT_OB", None, "Silt share by mass"),
+    "moisture_dul": (
+        "Soil moisture at drainage upper limit",
+        "mm/mm",
+        3,
+        "VMC(DUL)_OB",
+        "VMC(DUL)_PEM_OB",
+        "Volumetric moisture content at 0.33 bar (drainage upper limit)",
+    ),
+    "moisture_wp": (
+        "Soil moisture at wilting point",
+        "mm/mm",
+        3,
+        "VMC(WP)_OB",
+        None,  # the source's "error maps" for this property are copies of its value maps
+        "Volumetric moisture content at 15 bar (wilting point)",
+    ),
+}
 # canopy height thresholds in whole metres: (label metres, 'taller than' cut on integer values)
 CANOPY_CLASSES = ((5, 4), (15, 14), (30, 29))
 
@@ -483,6 +531,41 @@ def indicator_specs() -> list[IndicatorSpec]:
             topic=("landscape", "forest"),
         ),
     ]
+    soil = "lk-soil-property-maps"
+    for slug, (name, unit, decimals, _, error_prefix, what) in SOIL.items():
+        s.append(
+            IndicatorSpec(
+                f"soil_{slug}",
+                name,
+                soil,
+                "mean",
+                unit,
+                decimals,
+                f"{what}, area-weighted mean of the 1 km interpolated map cells over the place, for "
+                "each of five depth layers (0-5, 5-15, 15-30, 30-60, 60-100 cm; the layer is the "
+                "breakdown `depth_cm`). Modelled from 122 sampling locations nationwide "
+                "(Mapa et al., Data in Brief 2020): a smooth surface, not a measurement for the place.",
+                topic=("landscape", "soil"),
+                aggregation="none",
+            )
+        )
+        if error_prefix:
+            s.append(
+                IndicatorSpec(
+                    f"soil_{slug}_standard_error",
+                    f"{name}: standard error of the map",
+                    soil,
+                    "mean",
+                    unit,
+                    decimals,
+                    f"Area-weighted mean over the place of the published error map for "
+                    f"{what.lower()}, in the same unit, by depth layer (breakdown `depth_cm`). "
+                    "The source calls these standard error maps; how the error was computed is "
+                    "not checked here.",
+                    topic=("landscape", "soil"),
+                    aggregation="none",
+                )
+            )
     return s
 
 
