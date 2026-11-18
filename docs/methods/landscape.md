@@ -75,11 +75,13 @@ Vector doc naming: [vector-space-model.md](../architecture/vector-space-model.md
 
 - **Soil** (Mapa et al. 2020 open soil maps, CC BY 4.0; 9 properties x 5 depths, 1 km, EPSG:4326): each cell is split into 100 sub-cells shared by centre and a place's value is the area-weighted mean per depth (breakdown `depth_cm`). Five properties also get a standard-error indicator from the published error maps; the wilting-point error maps are identical to the value maps in the source, so none is built. The maps come from 122 sampling locations nationwide: treat them as regional surfaces, not place measurements.
 
+- **Historical map sheets** (Stanford index of the Survey Department of Ceylon one-inch series, public domain): the 72 sheet footprints are intersected with every GN division in EPSG:5235. A sheet covers a division if it overlaps at least 1% of its area (a chosen rule); a district, province or the country lists the sheets that cover any of its divisions, so the lists are unions and counts are distinct sheets. Two indicators (`map_sheets_one_inch`, `map_sheets_one_inch_scanned`) and a place-to-sheet table (`place_map_sheets.parquet`, with overlap and share) are written; the sheet table with links is `features/ceylon-one-inch-sheets.parquet`. It locates sheets only: no scan is downloaded and no map content is read.
+
 ## 5. Licences of the outputs
 
 | Derived from | Output licence |
 |---|---|
-| Copernicus DEM, WorldCover, Global Forest Change, Global Surface Water, GHSL, Giga, Wikidata, CHIRPS (public domain), Global Mangrove Watch (CC BY 4.0), Meta/WRI canopy height (CC BY 4.0), open soil maps (CC BY 4.0) | Compatible with CC BY 4.0 with the source attributions (the Copernicus DEM licence still needs a full read: R02) |
+| Copernicus DEM, WorldCover, Global Forest Change, Global Surface Water, GHSL, Giga, Wikidata, CHIRPS (public domain), Global Mangrove Watch (CC BY 4.0), Meta/WRI canopy height (CC BY 4.0), open soil maps (CC BY 4.0), Ceylon one-inch index (public domain) | Compatible with CC BY 4.0 with the source attributions (the Copernicus DEM licence still needs a full read: R02) |
 | Overture Places | CDLA-Permissive-2.0 source; counts can be CC BY with attribution ❓ (confirm in R02) |
 | healthsites.io, Overture Buildings | **ODbL.** Kept apart from CC BY outputs (D-005); whether per-place counts are a derivative database is the open legal question already listed in multi-scale-features.md §6 |
 

@@ -1,0 +1,19 @@
+id: map_sheets_one_inch_scanned
+name: "Of these, sheets with a scan listed by Stanford"
+short_name: "Of these, sheets with a scan listed by Stanford"
+topic: [landscape, history]
+measure_type: count
+unit: sheets
+universe: mapped_features
+numerator: null
+denominator: null
+aggregation: none
+higher_is: neutral
+distribution: api
+decimals: 0
+sensitivity: public
+definition: >
+  Number of those sheets that the Stanford Libraries index marks as available as a digital scan.
+  Whether a scan is complete or usable is not checked.
+source_definition_ref: "ceylon-one-inch-index (catalog/datasets/ceylon-one-inch-index.yaml)"
+methodology_notes: docs/methods/landscape.md

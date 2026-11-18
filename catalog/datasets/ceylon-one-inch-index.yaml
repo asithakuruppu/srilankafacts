@@ -2,7 +2,7 @@ id: ceylon-one-inch-index
 source: stanford
 title: 'Ceylon one-inch map series index (1958-1976 sheets)'
 landing_page: https://purl.stanford.edu/yk696bp5456
-pipeline_module: null
+pipeline_module: slf.spatial.build
 schedule: manual
 geography_scheme: grid
 geography_vintage: null
@@ -16,12 +16,24 @@ spatial:
   coverage: LK
   measured_in: null
   positional_accuracy: null
-  crs_source: unconfirmed
+  crs_source: EPSG:4326
   resolution: vector index
   information_unit: map-sheet
-  information_count: null
-  derived_by: null
-indicators: []
+  information_count: 72
+  derived_by: sheet_overlap_v1 (docs/methods/landscape.md)
+indicators:
+- map_sheets_one_inch
+- map_sheets_one_inch_scanned
 cross_checks: []
-status: proposed
-notes: 'Index only (shapefile, geojson, metadata). Sheet scans not located.'
+status: active
+notes: >-
+  Integrated 2026-11-18 from index_map.geojson (72 sheet footprints, EPSG:4326, also stated in the shapefile
+  .prj and the Stanford metadata XML; series by the Survey Department of Ceylon, 1958-1976, public domain per
+  the Stanford record). 67 sheets are marked available (scanned) and 5 are not; the scan links (PURL and IIIF
+  manifest) are in the sheet table but the scans themselves are NOT downloaded, so nothing about map content
+  is used. The index gives sheet extents only; positional accuracy of the drawn footprints is not checked
+  against the printed sheets. The shapefile parts were each stored in their own snapshot folder, so the
+  shapefile cannot be opened from raw/ as it is; the GeoJSON is used and the shapefile is not compared with
+  it. A sheet 'covers' a place if it overlaps at least 1% of the place's area (chosen, not from the source);
+  every GN division has at least one sheet and no more than four. The period 1976 is the end of the series;
+  sheets were printed across 1958-1976.

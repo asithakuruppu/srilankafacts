@@ -884,7 +884,10 @@ def build(roots: list[Path], spine_dir: Path, out_dir: Path) -> dict[str, Any]:
     out_dir.mkdir(parents=True, exist_ok=True)
     extra: dict[str, Any] = {}
     point_frame, point_sets = point_layers.build(roots, zones, hierarchy, labels, out_dir, extra)
-    frame = pd.concat([emit_all(layers, hierarchy), point_frame], ignore_index=True)
+    from slf.spatial import sheets as sheet_layers
+
+    sheet_frame, sheet_layer, sheet_summary = sheet_layers.build(roots, zones, hierarchy, out_dir)
+    frame = pd.concat([emit_all(layers, hierarchy), point_frame, sheet_frame], ignore_index=True)
     errors = check_frame(frame)
     out_dir.mkdir(parents=True, exist_ok=True)
     frame.to_parquet(out_dir / "observations.parquet", index=False)
@@ -928,6 +931,20 @@ def build(roots: list[Path], spine_dir: Path, out_dir: Path) -> dict[str, Any]:
     }
     (out_dir / "sources.json").write_text(json.dumps(sources, indent=1) + "\n")
 
+    if sheet_layer is not None:
+        sources[sheet_layer.dataset] = {
+            "snapshot_sha256": digest(sheet_layer.files),
+            "information_floor": sheet_layer.floor,
+            "files": [
+                {
+                    "file": f.path.name,
+                    "sha256": f.sha256,
+                    "url": f.url,
+                    "retrieved_at": f.retrieved_at,
+                }
+                for f in sheet_layer.files
+            ],
+        }
     for points in point_sets.values():
         sources[points.dataset] = {
             "snapshot_sha256": digest(points.files),
@@ -947,10 +964,29 @@ def build(roots: list[Path], spine_dir: Path, out_dir: Path) -> dict[str, Any]:
     spine_area = gn.geometry.to_crs(5235).area.to_numpy()
     qa = render_qa(layers, zones, hierarchy, frame, spine_area, errors)
     qa += render_points_qa(point_sets, frame)
+    qa += render_sheets_qa(sheet_summary, frame)
     if "rollup" in extra:
         qa += render_buildings_qa(extra["rollup"], zones, frame, spine_area)
     (out_dir / "qa.md").write_text(qa, encoding="utf-8")
     return {"rows": len(frame), "errors": errors, "indicators": frame.indicator_id.nunique()}
+
+
+def render_sheets_qa(summary: dict[str, Any], frame: pd.DataFrame) -> str:
+    if not summary.get("held"):
+        return "\n## 9. Historical map sheets\n\n- Index not held.\n"
+    national = frame[(frame.geography_id == "LK") & frame.indicator_id.str.startswith("map_sheets")]
+    lines = [
+        "",
+        "## 9. Historical one-inch map sheets (Stanford index, public domain)",
+        "",
+        f"- Sheets in the index: {summary['sheets']}; marked as scanned: {summary['scanned']}.",
+        f"- GN divisions covered by no sheet (overlap under 1% of the division): "
+        f"{summary['gn_without_sheet']}; most sheets over one GN division: "
+        f"{summary['max_sheets_per_gn']}.",
+    ]
+    for indicator, value in zip(national.indicator_id, national.value, strict=True):
+        lines.append(f"- {indicator} (LK): {value:.0f}.")
+    return "\n".join(lines) + "\n"
 
 
 def render_buildings_qa(

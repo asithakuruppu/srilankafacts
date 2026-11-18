@@ -232,6 +232,63 @@ def test_soil_indicators_cover_five_depths_and_skip_the_faulty_error_maps():
     assert "soil_ph_standard_error" in layers.SPECS
 
 
+def test_map_sheets_count_only_real_overlaps_and_union_upwards(tmp_path):
+    from slf.spatial import sheets
+
+    geos = pd.DataFrame(
+        {
+            "geography_id": ["LK", "LK1", "LK11", "LK1103", "LK1103005", "LK1103010"],
+            "level": [0, 1, 2, 3, 4, 4],
+            "parent_id": [None, "LK", "LK1", "LK11", "LK1103", "LK1103"],
+        }
+    )
+    geos.to_parquet(tmp_path / "geographies.parquet")
+    pd.DataFrame(columns=["geography_id", "related_id", "relation"]).to_parquet(
+        tmp_path / "geography_relations.parquet"
+    )
+    gn = gpd.GeoDataFrame(
+        {"geography_id": ["LK1103005", "LK1103010"]},
+        geometry=[box(80.0, 7.0, 80.1, 7.1), box(80.1, 7.0, 80.2, 7.1)],
+        crs="EPSG:4326",
+    )
+    zones = zonal.Zones.from_frame(gn)
+    h = build.Hierarchy.from_spine(zones, tmp_path)
+    index = gpd.GeoDataFrame(
+        {
+            "Sheet_Num": ["A", "B", "C"],
+            "label": ["A", "B", "C"],
+            "call_num": ["a", "b", "c"],
+            "recId": ["x", "y", "z"],
+            "websiteUrl": ["u", "u", "u"],
+            "iiifUrl": ["i", "i", "i"],
+            "available": ["True", "False", "True"],
+        },
+        geometry=[
+            box(79.9, 6.9, 80.3, 7.2),  # covers both divisions
+            box(80.1995, 7.0, 80.5, 7.1),  # touches 0.5% of the second division: not counted
+            box(80.15, 7.0, 80.4, 7.1),  # covers half of the second division
+        ],
+        crs="EPSG:4326",
+    )
+    folder = tmp_path / "raw" / "stanford" / "ceylon-one-inch-index" / "20261118T000000Z"
+    folder.mkdir(parents=True)
+    index.to_file(folder / "index_map.geojson", driver="GeoJSON")
+    (folder / "index_map.geojson.meta.json").write_text(
+        json.dumps({"sha256": "ab", "url": "u", "retrieved_at": "20261118T000000Z"})
+    )
+    frame, layer, summary = sheets.build([tmp_path], zones, h, tmp_path / "out")
+    count = {
+        (i, g): v
+        for i, g, v in zip(frame.indicator_id, frame.geography_id, frame.value, strict=True)
+    }
+    assert layer is not None and summary["sheets"] == 3
+    assert count[("map_sheets_one_inch", "LK1103005")] == 1
+    assert count[("map_sheets_one_inch", "LK1103010")] == 2  # A and C, not B
+    assert count[("map_sheets_one_inch", "LK")] == 2
+    assert count[("map_sheets_one_inch_scanned", "LK")] == 2  # A and C are scanned
+    assert (tmp_path / "out" / "place_map_sheets.parquet").exists()
+
+
 def test_every_share_names_components_that_exist():
     for spec in layers.SPECS.values():
         if spec.aggregation == "recompute_from_components":
