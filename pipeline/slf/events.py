@@ -32,6 +32,8 @@ import shapely
 
 CRS_METRIC = 5235
 FIRE_YEARS = range(2013, 2026)
+MODIS_FIRE_YEARS = range(2001, 2026)  # the MODIS archive starts 2000-12-01
+MODIS_MIN_CONFIDENCE = 30  # FIRMS classes: low 0-29, nominal 30-79, high 80-100
 STORM_BUFFER_M = 50_000
 
 
@@ -85,6 +87,20 @@ SPECS: list[Spec] = [
         "confidence (NASA FIRMS archive). A detection is a hot pixel, not a fire count.",
         "modelled_estimate",
         "grid-375m",
+    ),
+    Spec(
+        "fire_detections_modis",
+        "Active fire detections (MODIS), per year",
+        "nasa-firms-active-fire-lk",
+        "detections",
+        0,
+        "count",
+        "MODIS Terra and Aqua 1 km pixels (Collection 6.1) flagged as presumed vegetation fire "
+        "with confidence 30 or more (NASA FIRMS archive), per calendar year. A detection is a hot "
+        "pixel, not a fire count; the 1 km pixel and the different sensor mean counts are not "
+        "comparable with the VIIRS indicator.",
+        "modelled_estimate",
+        "grid-1km",
     ),
 ]
 SPEC_BY_ID = {spec.id: spec for spec in SPECS}
@@ -208,15 +224,33 @@ def floods(
 
 
 def fires(
-    raw: Path, versions: gpd.GeoDataFrame, parent: dict[str, str | None], level: dict[str, int]
+    raw: Path,
+    versions: gpd.GeoDataFrame,
+    parent: dict[str, str | None],
+    level: dict[str, int],
+    sensor: str = "viirs",
 ) -> list[dict[str, Any]]:
-    path, meta = _latest(raw, "nasa-firms", "nasa-firms-active-fire-lk", "DL_FIRE_SV-C2_*.zip")
+    modis = sensor == "modis"
+    indicator = "fire_detections_modis" if modis else "fire_detections"
+    years = MODIS_FIRE_YEARS if modis else FIRE_YEARS
+    path, meta = _latest(
+        raw,
+        "nasa-firms",
+        "nasa-firms-active-fire-lk",
+        "DL_FIRE_M-C61_*.zip" if modis else "DL_FIRE_SV-C2_*.zip",
+    )
     with zipfile.ZipFile(path) as archive:
         name = next(n for n in archive.namelist() if n.startswith("fire_archive_"))
         table = pd.read_csv(io.BytesIO(archive.read(name)))
-    table = pd.DataFrame(table[(table["type"] == 0) & table["confidence"].isin(["n", "h"])])
+    if modis:
+        confidence = cast(pd.Series, pd.to_numeric(table["confidence"], errors="coerce"))
+        table = pd.DataFrame(table[(table["type"] == 0) & (confidence >= MODIS_MIN_CONFIDENCE)])
+        rule = f"type 0, confidence >= {MODIS_MIN_CONFIDENCE}, points in place"
+    else:
+        table = pd.DataFrame(table[(table["type"] == 0) & table["confidence"].isin(["n", "h"])])
+        rule = "type 0, confidence n or h, points in place"
     table["year"] = table["acq_date"].astype(str).str[:4].astype(int)
-    table = pd.DataFrame(table[table["year"].isin(list(FIRE_YEARS))])
+    table = pd.DataFrame(table[table["year"].isin(list(years))])
     points = gpd.GeoDataFrame(
         {"year": table["year"].to_numpy()},
         geometry=gpd.points_from_xy(table["longitude"], table["latitude"]),
@@ -234,15 +268,15 @@ def fires(
     }
     rows = []
     for place in sorted(places):
-        for year in FIRE_YEARS:
+        for year in years:
             rows.append(
                 _row(
-                    SPEC_BY_ID["fire_detections"],
+                    SPEC_BY_ID[indicator],
                     place,
                     str(year),
                     float(counts.get((place, year), 0)),
                     meta,
-                    f"{name} in {path.name}: type 0, confidence n or h, points in place",
+                    f"{name} in {path.name}: {rule}",
                     f"{year}-01-01",
                     f"{year}-12-31",
                 )
@@ -300,6 +334,7 @@ def build(raw_root: Path, spine_dir: Path, out_dir: Path) -> dict[str, Any]:
     for name, step in (
         ("floods", lambda: floods(raw_root, versions, parent)),
         ("fires", lambda: fires(raw_root, versions, parent, level)),
+        ("fires_modis", lambda: fires(raw_root, versions, parent, level, "modis")),
     ):
         try:
             rows += step()
