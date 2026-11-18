@@ -1,0 +1,27 @@
+id: lk-soil-property-maps
+source: mendeley-soil
+title: 'Open soil property maps for Sri Lanka, 9 properties, interpolated and error maps (rar archives)'
+landing_page: https://data.mendeley.com/datasets/5sc7njfcyn
+pipeline_module: null
+schedule: manual
+geography_scheme: grid
+geography_vintage: null
+reference_period: '2020'
+rights: inherit
+spatial:
+  support: grid
+  scheme: grid
+  level: null
+  vintage: null
+  coverage: LK
+  measured_in: null
+  positional_accuracy: null
+  crs_source: unconfirmed
+  resolution: 1 km (per data article)
+  information_unit: grid-1km
+  information_count: null
+  derived_by: null
+indicators: []
+cross_checks: []
+status: proposed
+notes: 'Held, not integrated. Nested rar archives not yet unpacked; CRS and depths not yet read.'

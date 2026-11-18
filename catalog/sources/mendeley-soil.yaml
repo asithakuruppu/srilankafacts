@@ -1,0 +1,17 @@
+# Reviewed 2026-11-18. Licence read from the repository record on that date.
+id: mendeley-soil
+name: 'Mendeley Data: Nation-wide open soil property maps for Sri Lanka'
+publisher_type: academic
+homepage: https://data.mendeley.com/datasets/5sc7njfcyn
+contact: null
+access_classes:
+- download_table
+rights:
+  status: open
+  licence: CC BY 4.0
+  commercial_reuse: 'yes'
+  attribution: 'Mendeley Data doi:10.17632/5sc7njfcyn.2 (authors per the record and the 2020 Data in Brief article)'
+  evidence:
+  - https://data.mendeley.com/public-api/datasets/5sc7njfcyn (CC BY 4.0, read 2026-11-18)
+  last_reviewed: '2026-11-18'
+notes: 'Modelled 1 km soil properties at five depths (per the data article, not checked in the files).'
