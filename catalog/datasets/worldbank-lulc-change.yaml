@@ -1,0 +1,27 @@
+id: worldbank-lulc-change
+source: worldbank
+title: 'World Bank land cover classification 1991, 2001, 2012 and change (shapefiles)'
+landing_page: https://energydata.info/dataset/sri-lanka-land-use-land-cover-lulc-change-mapping
+pipeline_module: null
+schedule: manual
+geography_scheme: grid
+geography_vintage: null
+reference_period: '2012'
+rights: inherit
+spatial:
+  support: grid
+  scheme: grid
+  level: null
+  vintage: null
+  coverage: partial
+  measured_in: null
+  positional_accuracy: null
+  crs_source: EPSG:5235
+  resolution: vector polygons
+  information_unit: land-cover-polygon
+  information_count: null
+  derived_by: null
+indicators: []
+cross_checks: []
+status: proposed
+notes: 'Held, not integrated. Support recorded as grid because the polygons are land-cover patches, not administrative units. Extent about 108 x 69 km only (x 392,963-501,543; y 469,632-538,929 in EPSG:5235, read from the 2012 file), not the whole island. CRS read from the files.'

@@ -171,3 +171,19 @@ Held under `/Volumes/Earth for Air/srilankafacts-data/raw/` (✅ sha256 of each 
 - ✅ 4 zips (3.9 MB) held under the laptop `pipeline/data/raw/nasa-firms/`; sha256 equals meta. Archive rows: MODIS 28,808; S-NPP 102,841; NOAA-20 49,928; NOAA-21 19,978. Archive files end 2026-07/08; recent detections are in the `fire_nrt_*` files.
 - ❓ The NASA policy page was not read; rights status is assumed open until read.
 - On 2026-11-18 the drive's `raw/` returned "Operation not permitted" (macOS volume permission), so the files were first saved to the laptop root. ✅ Access returned later the same day and a second snapshot of the same four files was taken on the external drive (`raw/nasa-firms/`); all 4 sha256 equal their meta files. The laptop copy remains (raw is never deleted); the lead may remove it.
+
+## Addendum: search of historical archives and agency sources (2026-11-18)
+Held on the external drive, all 13 files re-hashed OK:
+- ✅ **World Bank land cover 1991/2001/2012 and change** (CC BY 4.0, energydata.info): 9 files, 844 MB. ❌ It is titled "Sri Lanka" but the shapefiles cover only a window of about 108 x 69 km (read from the 2012 file), so it is not a national layer. One file failed mid-transfer once and was retried.
+- ✅ **Open soil property maps** (CC BY 4.0, Mendeley Data 10.17632/5sc7njfcyn.2): 2 rar archives, 14.3 MB, nested rars of 9 soil properties; not yet unpacked.
+- ✅ **Population trajectory of Ceylon 1891-1946** (CC0, Harvard Dataverse 10.7910/DVN/29209): tab and xlsx, 25 KB.
+
+Found but deliberately **not** downloaded (rights unclear or not downloadable by link):
+- 🟡 data.gov.lk (ICTA): many datasets show "License Not Specified"; its terms text was not retrieved. Includes census-year district population 1871-2012.
+- 🟡 HDX "Sri Lanka tanks and reservoirs" (Survey Department, 1:250,000): licence "Other"; terms unread.
+- 🟡 Irrigation Department Hydrological Annuals and Department of Meteorology bulletins: PDF reports, no terms found; Meteorology has no open station-level download that I found.
+- 🟡 National Archives of Sri Lanka map scans (maps.lakdiva.org.lk): non-commercial research and education only.
+- 🟡 Wikimedia Commons old maps and Picryl: per-file licences not checked.
+- ❓ IFAD tank water-surface maps 2017-2025 (10 m): page found, licence and download link not exposed.
+- ❓ DMC and NBRO landslide hazard layers, GSMB geology: nothing found open; belongs with the NSDI permission request.
+- ❌ DCS microdata (1981 etc.): access restricted.

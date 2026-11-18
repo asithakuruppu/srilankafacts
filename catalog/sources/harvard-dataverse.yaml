@@ -1,0 +1,17 @@
+# Reviewed 2026-11-18. Licence read from the repository record on that date.
+id: harvard-dataverse
+name: 'Harvard Dataverse: Population Trajectory of Sri Lanka (Ceylon), 1891 to 1946'
+publisher_type: academic
+homepage: https://doi.org/10.7910/DVN/29209
+contact: null
+access_classes:
+- download_table
+rights:
+  status: open
+  licence: CC0 1.0
+  commercial_reuse: 'yes'
+  attribution: 'Harvard Dataverse doi:10.7910/DVN/29209'
+  evidence:
+  - https://dataverse.harvard.edu/api/datasets/:persistentId/?persistentId=doi:10.7910/DVN/29209 (CC0-1.0, read 2026-11-18)
+  last_reviewed: '2026-11-18'
+notes: 'Historical district population; underlying census sources not checked.'

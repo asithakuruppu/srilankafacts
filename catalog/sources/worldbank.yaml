@@ -1,0 +1,17 @@
+# Reviewed 2026-11-18. Licence read from the repository record on that date.
+id: worldbank
+name: 'World Bank (VAESSA project): land use land cover change'
+publisher_type: international
+homepage: https://energydata.info/dataset/sri-lanka-land-use-land-cover-lulc-change-mapping
+contact: null
+access_classes:
+- download_table
+rights:
+  status: open
+  licence: CC BY 4.0
+  commercial_reuse: 'yes'
+  attribution: 'World Bank, Sri Lanka Land Use Land Cover (Change) Mapping'
+  evidence:
+  - https://energydata.info/api/3/action/package_show (licence_id CC-BY-4.0, read 2026-11-18)
+  last_reviewed: '2026-11-18'
+notes: 'Titled Sri Lanka but the shapefiles cover only a window near the Kelani Ganga and Attanagalu Oya catchments.'
