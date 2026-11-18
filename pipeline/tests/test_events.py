@@ -66,6 +66,31 @@ def test_fire_detections_are_counted_by_place_and_year(tmp_path: Path) -> None:
     assert value[("LK1101", "2021")] == 0
 
 
+def test_modis_fire_detections_use_numeric_confidence_and_start_in_2001(tmp_path: Path) -> None:
+    spine = _spine(tmp_path / "spine")
+    raw = tmp_path / "raw"
+    csv = (
+        "latitude,longitude,acq_date,confidence,type\n"
+        "7.05,80.05,2005-03-01,30,0\n"  # counted: confidence 30 is nominal
+        "7.05,80.15,2005-03-02,95,0\n"  # counted
+        "7.05,80.15,2005-03-03,29,0\n"  # low: not counted
+        "7.05,80.15,2005-03-04,80,3\n"  # not a vegetation fire: not counted
+        "7.05,80.15,2000-12-05,80,0\n"  # before 2001: outside the yearly series
+    )
+    archive = tmp_path / "m.zip"
+    with zipfile.ZipFile(archive, "w") as z:
+        z.writestr("fire_archive_M-C61_1.csv", csv)
+    _snapshot(
+        raw, "nasa-firms", "nasa-firms-active-fire-lk", "DL_FIRE_M-C61_1.zip", archive.read_bytes()
+    )
+    versions, parent, level = events._hierarchy(spine)
+    rows = events.fires(raw, versions, parent, level, "modis")
+    value = {(r["geography_id"], r["period"]): r["value"] for r in rows}
+    assert value[("LK1101", "2005")] == 2
+    assert ("LK1101", "2000") not in value and ("LK1101", "2001") in value
+    assert {r["indicator_id"] for r in rows} == {"fire_detections_modis"}
+
+
 def test_storm_passes_use_a_50_km_zone(tmp_path: Path) -> None:
     spine = _spine(tmp_path / "spine")
     raw = tmp_path / "raw"
