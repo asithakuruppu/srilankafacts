@@ -62,6 +62,7 @@ Prerequisites: `uv` (Python 3.12 is fetched by uv), Node.js 20+ and pnpm 12 (`np
 | Code crosswalk (needs the spine build and snapshots; `snapshot-nsdi` fetches NSDI attributes politely) | `uv run slf crosswalk snapshot-nsdi` · `uv run slf crosswalk build` |
 | Geometry QA and NSDI shape comparison (`snapshot-nsdi` takes ~5 minutes, paced) | `uv run slf geometry-qa snapshot-nsdi` · `uv run slf geometry-qa build` |
 | Profile vectors, similar places and QA (needs the spine and census builds) | `uv run slf profile build` |
+| Public atlas bundle for a deploy (needs a publishable release; leaves out D-038 and D-049 files) | add `--public --out-dir data/build/atlas-public` to the atlas export below |
 | Web atlas bundle for the map-first home page (needs a release; profile and history builds are optional) | `uv run slf atlas export --release-dir <release> --profile-dir data/build/profile-v03 --history-dir data/build/history --spaces-dir data/build/spaces --grid-dir data/build/grid --landscape-dir data/build/landscape --subnational-dir data/build/subnational --events-dir data/build/events` |
 | Analytic grid (H3 r9, equal-share GN weights) and point resolver | `uv run slf grid build` · `uv run slf resolve --lon 79.86 --lat 6.93` |
 | Stage 3 sub-national indicators (OPHI, WFP rainfall and NDVI, HeiGIT access) | `uv run slf subnational build` |
@@ -87,6 +88,9 @@ Storage: local `./data/` by default; `SLF_STORAGE=s3` with `SLF_S3_BUCKET`, `SLF
 | Unit tests | `pnpm test` |
 | Build | `pnpm build` |
 | Browser smoke test | `pnpm exec playwright install chromium` once, then `pnpm test:e2e` |
+| Static build for free hosting (D-053; needs `NEXT_PUBLIC_SITE_URL`, see `docs/ops/deploy.md`) | `pnpm build:static` |
+
+**Deploy** (lead only; agents prepare, never publish): `docs/ops/deploy.md`. Free Cloudflare static sites for the website and the data site (`deploy/cloudflare/`), large files on a GitHub release.
 
 **MCP server** (run in `mcp/`): `pnpm install` · `pnpm build` · `pnpm typecheck` · `pnpm test`; run it with `SLF_API_ROOT=<release dir> node dist/index.js`.
 

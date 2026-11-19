@@ -45,5 +45,6 @@ uv run slf upload --release-dir data/build/releases/v2026.11.14
 uv run slf verify-upload --release-dir data/build/releases/v2026.11.14
 ```
 
+- **Superseded 2026-11-19 (D-053):** hosting is now free Cloudflare static sites plus a GitHub release for large files; follow [deploy.md](deploy.md). The R2 and Vercel notes in this file are kept for history.
 - Website on Vercel: the site builds from local release files, so build locally and deploy the result (in `web/`, with `SLF_RELEASE_DIR` set to the release folder): `vercel build` then `vercel deploy --prebuilt`.
 - ❓ Unverified risk: the 857 MB `api/` folder may exceed Vercel's deployment limits. Try the deploy and report the error if it does.

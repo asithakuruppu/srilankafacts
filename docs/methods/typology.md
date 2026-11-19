@@ -30,6 +30,8 @@ classification. GN divisions get no type (D-031).
    deviations from the national average. The name lists up to two inputs at least 0.5 SD above
    and two at least 0.5 SD below, for example "Higher share aged 60-64 and share aged 65+; lower
    share aged 15-59". Names are tagged `machine_generated_draft` in the data and the interface.
+   Since 2026-11-19 (D-054) names use age, sex, size and housing inputs only, never ethnic group
+   or religion; those inputs still shape the types and are listed in each type's input profile.
 7. **Per place:** its type, its distance to the type's centre, and its *agreement*: how often its
    type mates stay together across the bootstrap runs (mean Jaccard overlap).
 
@@ -42,5 +44,6 @@ type, and a list gives each type's size, draft name, three typical members and s
 
 - k-means assumes roughly round groups of similar spread; the silhouette of 0.27 says the types
   overlap. Places near a boundary between types carry a lower agreement.
-- Three of the five draft names lead with ethnic group or religion, because those inputs separate
-  the groups most. That follows D-037 but is sensitive; the names await the lead's review.
+- Ethnic group and religion separate three of the five types most strongly (D-037). Until
+  2026-11-19 they also led those types' names; they are now left out of names (D-054). The names
+  still await a person's review.

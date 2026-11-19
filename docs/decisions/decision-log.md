@@ -304,6 +304,7 @@ These were stated by you or are standing rules in [brainstorm-decisions.md](../b
 - **Alternatives:** build on Vercel from Git (rejected: no release data in the repository); serve everything from Vercel (rejected: size); put the release in Git (rejected: 2.1 GB).
 - **Consequences:** r2.dev is rate-limited and meant for testing, so it is acceptable for a non-commercial preview but not for launch. ❓ Open risk, not verified: the 857 MB `api/` folder may exceed Vercel's deployment size or file-count limits. If it does, the site must fetch `api/` from R2 instead of bundling it, which is a code change.
 - **Revisit when:** the Vercel prebuilt deploy is tried and passes or fails on size; before launch (custom domain for R2, rate limits); or D-030 changes.
+- **Superseded 2026-11-19 by D-053** (free static hosting on Cloudflare Workers; no R2, no Vercel).
 
 ## D-035: Indicator drill-down charts are hand-written SVG; the hierarchy ships as a compact `hierarchy.json`
 - **Status:** Accepted · 2026-11-15 (proposed); accepted by the lead 2026-11-16 (builds on D-007, D-027, D-033)
@@ -476,6 +477,7 @@ These were stated by you or are standing rules in [brainstorm-decisions.md](../b
   - No new dependency: k-means, silhouette and ARI are plain NumPy.
 - **Alternatives:** UMAP layout for the 2-D view (needs a new dependency and distorts distances; PCA axes are what the space is); hierarchical clustering (no stability advantage at this size); an embedding model for search (download, cost, opaque); GN-level types (D-031).
 - **Consequences:** the atlas bundle grows by about 150 KB (`spaces/`). Three of the five type names lead with ethnic group or religion, because those inputs separate the groups most (D-037); this is sensitive and is the main item for review.
+- **Amended 2026-11-19 (D-054):** type names no longer use ethnic group or religion.
 - **Revisit when:** the lead reviews the type names; more 2012 DS topics are held (a richer trajectory); D-030 is extended to the history datasets; aliases are added to the spine.
 
 ---
@@ -545,6 +547,33 @@ These were stated by you or are standing rules in [brainstorm-decisions.md](../b
 - **Alternatives:** an hourly FIRMS feed (needs an API key and a scheduler; deferred); a placeholder Movement layer (rejected: it would mislead).
 - **Consequences:** events are historical snapshots, not live. The landslide points and cloud-obstruction mask in the UNOSAT file are not used yet.
 - **Revisit when:** a timetable source with clear rights is found (Sri Lanka Railways GTFS or similar); the lead wants near-real-time feeds and accepts a scheduler.
+
+## D-053: Free hosting: the website and the data site as Cloudflare Workers static assets; large files on a GitHub release
+- **Status:** Accepted · 2026-11-19 (lead: "prepare the deploy. check free usage limitations. don't make it cost me anything"; the design is the agent's) · Supersedes D-034's hosting choice; amends D-007 (Vercel Pro) and D-051 (DuckDB engine source on the static host)
+- **Context:** D-034 chose Vercel (prebuilt deploys) for the site and R2 for files. Measured on 2026-11-19 ✅: the server build is about 840 MB of prerendered pages plus 140 MB of public files, and the release is 16,158 files and 2.2 GB, of which three files are over 100 MB. Vendor limits read the same day (🟡 from the vendors' pages): Vercel Hobby caps uploads at 100 MB and 15,000 files and allows non-commercial use only; R2's free tier (10 GB) sits behind an R2 subscription checkout; Cloudflare Workers static assets on the free plan allow 20,000 files per site and 25 MiB per file, with "requests to static assets free and unlimited"; GitHub Pages caps a site at 1 GB.
+- **Decision:**
+  - **Website:** a static export of `web/` (`pnpm build:static`): pages from country to DS division are prebuilt (6,840 files, 962 MB, largest 16.1 MB on `v2026.11.17-preview.3` ✅). GN pages (14,043) are not prebuilt: `/place/<GN id>` is served by `/place/gn`, which renders the same place view in the browser from the API. `_redirects` lists each prebuilt place page before the GN rule (Cloudflare applies rules before files). Deployed as an assets-only Worker `srilankafacts-site` (no Worker script).
+  - **Data site:** the public release itself, hard-linked by `deploy/stage-data-site.mjs`, served as the assets-only Worker `srilankafacts-data` with `Access-Control-Allow-Origin: *`. The website reads the API from `NEXT_PUBLIC_DATA_BASE`.
+  - **Large files:** files over 25 MiB (topic-tables CSV 1.03 GB, GN-tables CSV 103 MB, `geography_versions.geoparquet` 126 MB) go on a GitHub release of this public repository, linked from `/data` via `NEXT_PUBLIC_LARGE_FILES_BASE`. The Parquet copies of both tables stay on the data site.
+  - **SQL engine:** the static site loads DuckDB-WASM 1.32.0 (33 MB, over the per-file limit) from jsDelivr's copy of the npm package (`NEXT_PUBLIC_DUCKDB_BASE`), only when a reader opens `/query`.
+  - **Addresses:** the free `*.workers.dev` addresses first; a custom domain is optional and free if its DNS moves to Cloudflare.
+  - **Tooling:** `wrangler` 4.156.0 run with `npx` at deploy time; not a project dependency.
+  - Cache Components are switched off in the web app (static export cannot use partial prerendering); pages are unchanged.
+- **Alternatives:** Vercel Hobby (100 MB upload limit; site alone is about 1 GB); Vercel Pro and R2 (cost money); GitHub Pages (1 GB site cap, release would not fit); Cloudflare Pages (same free limits: 20,000 files, 25 MiB per file); prebuilding GN pages (about 3 files each: over the file limit); serving DuckDB from the data site (over the per-file limit).
+- **Consequences:** no running cost and no payment method needed for Workers or GitHub (🟡 not verified by signing up). GN pages need JavaScript (D-027's no-JavaScript rule now holds from country to DS level; GN pages are `noindex` and link their API file for readers without JavaScript). `/query` makes a request to jsDelivr. The data site's 16,156 files are under the 20,000 limit but could not be run in full in the local emulator (it fails above a few thousand files; a 3,003-file subset served correctly); the real upload is the first full check. If Cloudflare's free terms change, the same static folders can move to any static host.
+- **Revisit when:** a release passes 20,000 files or the site passes 20,000 files; traffic or terms change; the lead wants a custom domain; a server becomes necessary (S01).
+
+## D-054: The four launch decisions, as recommended by the agent
+- **Status:** Accepted · 2026-11-19 (lead: "follow your recommendations on the four decisions") · Amends D-047; confirms D-038 and D-049 for public builds
+- **Context:** The 2026-11-18 review queue listed four items blocking a public site: typology names, the 2012 census comparison, share-alike layers, and a public release.
+- **Decision:**
+  1. **Typology names (D-047):** names never use ethnic group or religion. They are drafted from age, sex, size and housing inputs only; the identity inputs still shape the types and stay listed in each type's input profile. Same partition as before (339 of 339 assignments unchanged ✅); the five names are in `docs/qa/typology-v1.0.md`. Still machine drafts awaiting review.
+  2. **2012 census comparison (D-038):** stays private; D-030 is not extended. `slf atlas export --public` refuses a release that is not publishable and leaves out `change.json`, the `trajectory` space and named features (D-049).
+  3. **Share-alike layers** (healthsites.io ODbL, HeiGIT CC BY-SA, UNOSAT CC BY-SA): allowed in public builds, each in its own file under its own licence and attribution (the atlas index and the place panel already carry both), never relicensed under the census's non-commercial terms.
+  4. **Public release:** built with `slf release` without `--preview` once disk space allows (see the deploy guide); the website and data site are built from it.
+- **Alternatives:** approve the original names (rejected: leads with ethnic group or religion); extend D-030 to the 2012 data (rejected for now: no reply from DCS); drop share-alike layers (loses the health access, risk and flood layers for no rights gain).
+- **Consequences:** the public atlas has no Change lens history and no named features; the typology legend reads neutrally.
+- **Revisit when:** DCS replies on reuse terms; a reviewer renames the types.
 
 ---
 

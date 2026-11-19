@@ -106,7 +106,8 @@ if (fs.existsSync(path.join(root, "geographies.parquet"))) {
 }
 const duckdbDist = path.resolve(process.cwd(), "node_modules/@duckdb/duckdb-wasm/dist");
 const duckdbOut = path.join(out, "duckdb");
-if (fs.existsSync(path.join(duckdbDist, "duckdb-eh.wasm"))) {
+// A static host with a 25 MiB file limit loads the engine from NEXT_PUBLIC_DUCKDB_BASE instead.
+if (!process.env.NEXT_PUBLIC_DUCKDB_BASE && fs.existsSync(path.join(duckdbDist, "duckdb-eh.wasm"))) {
   fs.mkdirSync(duckdbOut, { recursive: true });
   for (const name of ["duckdb-eh.wasm", "duckdb-browser-eh.worker.js"]) {
     fs.copyFileSync(path.join(duckdbDist, name), path.join(duckdbOut, name));

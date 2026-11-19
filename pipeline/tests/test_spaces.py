@@ -91,6 +91,24 @@ def test_typology_names_are_drafts_and_types_are_numbered_by_size(tmp_path: Path
     assert len(data["type_of"]) == 42
 
 
+def test_type_names_never_use_ethnic_group_or_religion(tmp_path: Path) -> None:
+    rng = np.random.default_rng(3)
+    cols = ["population_ethnicity_a", "population_religion_b", "c", "d"]
+    # The second group differs most on the identity inputs, a little on "c".
+    lo = rng.normal(loc=0.0, scale=0.3, size=(30, 4))
+    hi = rng.normal(loc=[4.0, 4.0, 1.5, 0.0], scale=0.3, size=(12, 4))
+    x = pd.DataFrame(np.vstack([lo, hi]), columns=cols, index=[f"LK{3000 + i}" for i in range(42)])
+    f = pf.fit(x, {"identity": cols[:2], "housing": cols[2:]})
+    sp.build_typology(f, tmp_path, runs=5)
+    data = json.loads((tmp_path / "typology.json").read_text())
+    for t in data["types"]:
+        assert "ethnic" not in t["draft_name"] and "religion" not in t["draft_name"]
+        assert "population_ethnicity_a" not in t["draft_name"]
+    # The identity inputs still describe the types.
+    listed = {row[0] for t in data["types"] for row in t["inputs_sd"]}
+    assert "population_ethnicity_a" in listed
+
+
 def test_trajectory_keeps_only_one_to_one_units_and_carries_the_flag(tmp_path: Path) -> None:
     history = tmp_path / "history"
     history.mkdir()

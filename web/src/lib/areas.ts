@@ -1,3 +1,5 @@
+import { dataUrl } from "@/lib/data-base";
+
 export type BoundaryFeature = {
   type: "Feature";
   properties: {
@@ -50,7 +52,7 @@ export async function fetchAreaDataset(
   const [boundaryResponse, ...valueResponses] = await Promise.all([
     fetch(`/release/boundaries/admin${boundaryLevel}.geojson`, { signal }),
     ...levelFiles(levelName).map((level) =>
-      fetch(`/api/v1/indicators/${indicatorId}/${level}.json`, { signal }),
+      fetch(dataUrl(`/api/v1/indicators/${indicatorId}/${level}.json`), { signal }),
     ),
   ]);
   if (!boundaryResponse.ok) {

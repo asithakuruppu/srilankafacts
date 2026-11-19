@@ -56,6 +56,8 @@ function cell(value: unknown): string {
   return String(value);
 }
 
+const DUCKDB_BASE = (process.env.NEXT_PUBLIC_DUCKDB_BASE ?? "").replace(/\/*$/, "/").replace(/^\/$/, "");
+
 export default function QueryConsole({ files }: { files: string[] }) {
   const db = useRef<{ db: AsyncDuckDB; conn: AsyncDuckDBConnection } | null>(null);
   const [state, setState] = useState<"idle" | "loading" | "ready" | "running" | "error">("idle");
@@ -70,9 +72,22 @@ export default function QueryConsole({ files }: { files: string[] }) {
     }
     setState("loading");
     const duckdb = await import("@duckdb/duckdb-wasm");
-    const worker = new Worker("/release/duckdb/duckdb-browser-eh.worker.js");
+    // The engine is served from this site, or, on a static host whose per-file limit is below
+    // the 33 MB engine, from the pinned npm copy named by NEXT_PUBLIC_DUCKDB_BASE (D-053).
+    const engine = DUCKDB_BASE || `${window.location.origin}/release/duckdb/`;
+    const workerUrl = `${engine}duckdb-browser-eh.worker.js`;
+    // A worker script from another origin must be started through a same-origin blob.
+    const blobUrl = DUCKDB_BASE
+      ? URL.createObjectURL(
+          new Blob([`importScripts(${JSON.stringify(workerUrl)});`], { type: "text/javascript" }),
+        )
+      : null;
+    const worker = new Worker(blobUrl ?? workerUrl);
     const instance = new duckdb.AsyncDuckDB(new duckdb.VoidLogger(), worker);
-    await instance.instantiate(`${window.location.origin}/release/duckdb/duckdb-eh.wasm`);
+    await instance.instantiate(`${engine}duckdb-eh.wasm`);
+    if (blobUrl) {
+      URL.revokeObjectURL(blobUrl);
+    }
     const conn = await instance.connect();
     const base = `${window.location.origin}/release/`;
     for (const [view, file] of views) {
