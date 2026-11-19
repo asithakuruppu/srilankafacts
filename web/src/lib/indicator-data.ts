@@ -1,3 +1,4 @@
+import { dataUrl } from "@/lib/data-base";
 import { levelFiles } from "@/lib/areas";
 import type { Hierarchy, HierarchyRow } from "@/lib/hierarchy";
 import { buildHierarchy } from "@/lib/hierarchy";
@@ -39,7 +40,7 @@ export function loadLevelValues(
   }
   const request = Promise.all(
     levelFiles(levelName).map(async (file) => {
-      const response = await fetch(`/api/v1/indicators/${indicatorId}/${file}.json`);
+      const response = await fetch(dataUrl(`/api/v1/indicators/${indicatorId}/${file}.json`));
       if (response.status === 404) {
         return [];
       }
@@ -81,7 +82,7 @@ export function loadPlaceValues(geoId: string): Promise<Map<string, number>> {
   if (cached) {
     return cached;
   }
-  const request = fetch(`/api/v1/places/${geoId}.json`)
+  const request = fetch(dataUrl(`/api/v1/places/${geoId}.json`))
     .then((response) => {
       if (!response.ok) {
         throw new Error(`Place request failed (${response.status}).`);

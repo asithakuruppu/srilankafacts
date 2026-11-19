@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
+import { DATA_BASE, dataUrl } from "@/lib/data-base";
 import { formatBytes } from "@/lib/format";
 import { getDatapackage, getLatest, releaseName } from "@/lib/release";
 
@@ -11,6 +12,12 @@ export const metadata: Metadata = {
 };
 
 // Observation files are listed from the release's datapackage.json (one pair per dataset).
+// The data site serves files up to 25 MiB (the free host's limit); larger files are offered
+// from NEXT_PUBLIC_LARGE_FILES_BASE (for example a GitHub release's download address).
+const LARGE_FILE_BYTES = 25 * 1024 * 1024;
+const LARGE_FILES_BASE = (process.env.NEXT_PUBLIC_LARGE_FILES_BASE ?? "").replace(/\/+$/, "");
+const EXAMPLE_HOST = DATA_BASE || "https://data.example";
+
 const OTHER_FILES = [
   "boundaries/admin0.geojson",
   "boundaries/admin1.geojson",
@@ -31,36 +38,44 @@ const ENDPOINTS = [
   {
     path: "/api/v1/releases/latest.json",
     description: "Release id, status, citation, dataset rights and counts.",
-    example: "curl -s https://data.example/api/v1/releases/latest.json",
+    example: `curl -s ${EXAMPLE_HOST}/api/v1/releases/latest.json`,
   },
   {
     path: "/api/v1/places/{geoId}.json",
     description: "One place with all its values, each with its locator and snapshot hash.",
-    example: "curl -s https://data.example/api/v1/places/LK11.json",
+    example: `curl -s ${EXAMPLE_HOST}/api/v1/places/LK11.json`,
   },
   {
     path: "/api/v1/indicators.json",
     description: "Indicator metadata: name, definition, unit, aggregation and levels.",
-    example: "curl -s https://data.example/api/v1/indicators.json",
+    example: `curl -s ${EXAMPLE_HOST}/api/v1/indicators.json`,
   },
   {
     path: "/api/v1/indicators/{id}.json",
     description: "One indicator's metadata and available levels.",
-    example: "curl -s https://data.example/api/v1/indicators/population_density.json",
+    example: `curl -s ${EXAMPLE_HOST}/api/v1/indicators/population_density.json`,
   },
   {
     path: "/api/v1/indicators/{id}/{level}.json",
     description:
       "Values for one indicator at one level: country, province, district, ds, ds-provisional or gn.",
     example:
-      "curl -s https://data.example/api/v1/indicators/population_total/district.json",
+      "curl -s ${EXAMPLE_HOST}/api/v1/indicators/population_total/district.json",
   },
   {
     path: "/api/v1/geographies/admin.json",
     description: "The admin geography index with names in English, Sinhala and Tamil.",
-    example: "curl -s https://data.example/api/v1/geographies/admin.json",
+    example: `curl -s ${EXAMPLE_HOST}/api/v1/geographies/admin.json`,
   },
 ];
+
+/** Download address of a release file on a public static deploy, or null (docs/ops/deploy.md). */
+function downloadUrl(file: string, bytes: number | null): string | null {
+  if (bytes !== null && bytes > LARGE_FILE_BYTES) {
+    return LARGE_FILES_BASE ? `${LARGE_FILES_BASE}/${file.split("/").pop()}` : null;
+  }
+  return DATA_BASE ? dataUrl(`/${file}`) : null;
+}
 
 export default function DataPage() {
   const latest = getLatest();
@@ -138,7 +153,13 @@ export default function DataPage() {
               {listed.map((file) => (
                 <tr key={file.path}>
                   <th scope="row">
-                    <code>{file.path}</code>
+                    {latest.publishable && downloadUrl(file.path, file.size) ? (
+                      <a href={downloadUrl(file.path, file.size) ?? undefined}>
+                        <code>{file.path}</code>
+                      </a>
+                    ) : (
+                      <code>{file.path}</code>
+                    )}
                   </th>
                   <td className="numeric">{file.size === null ? "—" : formatBytes(file.size)}</td>
                   <td>
@@ -187,8 +208,10 @@ export default function DataPage() {
         <p className="muted small">
           This website mirrors <code>/api/v1/places/{"{geoId}"}</code> and{" "}
           <code>/api/v1/indicators/{"{id}"}/{"{level}"}</code> from the release for the map.
-          The complete generated API is the release directory itself; the examples above use a
-          placeholder host because a public base URL is not yet agreed.
+          The complete generated API is the release directory itself
+          {DATA_BASE
+            ? `, served at ${DATA_BASE}.`
+            : "; the examples above use a placeholder host because no public data address is set."}
         </p>
       </section>
 
@@ -196,7 +219,9 @@ export default function DataPage() {
         <div className="section-head">
           <div>
             <p className="eyebrow">Rights</p>
-            <h2 id="rights-heading">Why the downloads are blocked</h2>
+            <h2 id="rights-heading">
+              {latest.publishable ? "Rights and attribution" : "Why the downloads are blocked"}
+            </h2>
           </div>
         </div>
         <table>

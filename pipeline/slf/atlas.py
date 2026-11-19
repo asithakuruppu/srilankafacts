@@ -910,15 +910,21 @@ def build_change(history_dir: Path, spine_dir: Path, out_dir: Path) -> dict[str,
 SPACE_FILES = ("typology.json", "composite.json", "trajectory.json", "text.json")
 
 
-def build_spaces(spaces_dir: Path, out_dir: Path) -> dict[str, Any]:
+# Parts that stay out of a public bundle (`--public`): the 2012 census comparison is private
+# under D-038 (change.json, the trajectory space), and named features are local only (D-049).
+PRIVATE_SPACES = ("trajectory.json",)
+
+
+def build_spaces(spaces_dir: Path, out_dir: Path, public: bool = False) -> dict[str, Any]:
     """Copy the vector-space files of `slf profile spaces` into the bundle, unchanged.
 
-    trajectory.json is private under D-038 (local preview only), like change.json.
+    trajectory.json is private under D-038 (local preview only), like change.json; a public
+    bundle leaves it out.
     """
     copied: dict[str, Any] = {}
     for name in SPACE_FILES:
         source = spaces_dir / name
-        if not source.exists():
+        if not source.exists() or (public and name in PRIVATE_SPACES):
             continue
         payload = json.loads(source.read_text())
         _dump(out_dir / "spaces" / name, payload)
@@ -943,8 +949,18 @@ def export(
     landscape_dir: Path | None = None,
     subnational_dir: Path | None = None,
     events_dir: Path | None = None,
+    public: bool = False,
 ) -> dict[str, Any]:
+    """Write the bundle. `public=True` builds the bundle for a public site: it needs a
+    publishable release and leaves out the private parts (D-038 change and trajectory, D-049
+    named features)."""
     latest = json.loads((release_dir / "api/v1/releases/latest.json").read_text())
+    if public and not latest.get("publishable"):
+        raise ValueError(
+            f"{latest['release']} is not publishable; a public atlas needs a public release"
+        )
+    if public:
+        history_dir = None
     target = out_dir / str(latest["release"])
     target.mkdir(parents=True, exist_ok=True)
     ed_of_district = ed_of_district_from_catalog(catalog_dir) if catalog_dir else {}
@@ -966,13 +982,19 @@ def export(
             if profile_dir is not None
             else {"available": False, "reason": "no --profile-dir given"}
         ),
+        "public": public,
         "change": (
             build_change(history_dir, spine_dir, target)
             if history_dir is not None
-            else {"available": False, "reason": "no --history-dir given"}
+            else {
+                "available": False,
+                "reason": "private under D-038 (public bundle)"
+                if public
+                else "no --history-dir given",
+            }
         ),
         "spaces": (
-            build_spaces(spaces_dir, target)
+            build_spaces(spaces_dir, target, public=public)
             if spaces_dir is not None
             else {"available": False, "reason": "no --spaces-dir given"}
         ),
@@ -994,7 +1016,11 @@ def export(
         from slf import atlas_landscape
 
         manifest["landscape"] = atlas_landscape.build(landscape_dir, spine_dir, catalog_dir, target)
-        manifest["features"] = atlas_landscape.build_features(landscape_dir, target)
+        manifest["features"] = (
+            {"available": False, "reason": "named features stay local (D-049; public bundle)"}
+            if public
+            else atlas_landscape.build_features(landscape_dir, target)
+        )
     else:
         manifest["landscape"] = {"available": False, "reason": "no --landscape-dir given"}
         manifest["features"] = {"available": False, "reason": "no --landscape-dir given"}

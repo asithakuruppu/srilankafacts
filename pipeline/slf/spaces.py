@@ -47,6 +47,7 @@ RESTARTS = 25
 BOOTSTRAP_RUNS = 50
 MIN_STABILITY = 0.75  # mean adjusted Rand index of bootstrap partitions vs the full-data one
 NAME_MIN_SD = 0.5  # an input must differ from the national average by this much to name a type
+NAME_EXCLUDED_PREFIXES = ("population_ethnicity_", "population_religion_")  # D-047
 LABEL_STATUS = "machine_generated_draft"
 
 TRAJECTORY_K = 10
@@ -197,8 +198,11 @@ def type_name(centre: np.ndarray, f: pf.Fit) -> tuple[str, list[list[Any]]]:
         raise ValueError("fit has no weights")
     sd_units = (centre @ f.basis.T) / f.weights
     order = np.argsort(-sd_units)
-    above = [j for j in order if sd_units[j] >= NAME_MIN_SD][:2]
-    below = [j for j in order[::-1] if sd_units[j] <= -NAME_MIN_SD][:2]
+    # D-047 as decided on 2026-11-19: names never lead with, or rest on, ethnic group or
+    # religion. Those inputs still shape the types and stay listed in `inputs_sd`.
+    nameable = [j for j in order if not f.columns[j].startswith(NAME_EXCLUDED_PREFIXES)]
+    above = [j for j in nameable if sd_units[j] >= NAME_MIN_SD][:2]
+    below = [j for j in nameable[::-1] if sd_units[j] <= -NAME_MIN_SD][:2]
 
     def label(j: int) -> str:
         return pf.INPUT_LABELS.get(f.columns[j], f.columns[j])
@@ -286,7 +290,8 @@ def build_typology(f: pf.Fit, out_dir: Path, runs: int = BOOTSTRAP_RUNS) -> dict
         "note": (
             "Types group DS divisions that are close in the profile space. A type is a "
             "similarity grouping, not a fact about a place, and not a ranking. Names are machine "
-            "drafts from each type's average inputs and await review."
+            "drafts from each type's average inputs and await review. Names use age, sex, "
+            "size and housing inputs only, never ethnic group or religion (D-047)."
         ),
         "k": k,
         "choices": choices,

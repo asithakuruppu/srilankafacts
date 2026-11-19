@@ -2,7 +2,7 @@ import Link from "next/link";
 
 import Provenance from "@/components/provenance";
 import { formatValue } from "@/lib/format";
-import { getObservationFor } from "@/lib/release";
+import { getObservationFor } from "@/lib/place-model";
 import type { Place } from "@/lib/types";
 
 /**

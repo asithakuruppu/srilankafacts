@@ -972,6 +972,14 @@ def atlas_export(
         Path | None, typer.Option(help="Events build folder (`slf events`).")
     ] = None,
     out_dir: Annotated[Path, typer.Option(help="Output folder.")] = Path("./data/build/atlas"),
+    public: Annotated[
+        bool,
+        typer.Option(
+            "--public",
+            help="Bundle for a public site: needs a publishable release; leaves out the D-038 "
+            "change and trajectory files and the named features (D-049).",
+        ),
+    ] = False,
 ) -> None:
     """Write the derived files the map-first website reads (local, never part of a release)."""
     from slf.atlas import export
@@ -988,6 +996,7 @@ def atlas_export(
         landscape_dir,
         subnational_dir,
         events_dir,
+        public=public,
     )
     geometry = manifest["geometry"]
     typer.echo(f"atlas bundle for {manifest['release']} -> {out_dir / manifest['release']}")
