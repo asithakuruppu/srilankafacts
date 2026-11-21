@@ -1,0 +1,18 @@
+id: paddy_gross_extent_harvested
+name: "Paddy gross extent harvested, all schemes"
+short_name: "Paddy harvested (gross)"
+topic: [agriculture]
+measure_type: count
+unit: "acres"
+universe: paddy_fields
+numerator: null
+denominator: null
+aggregation: none
+higher_is: neutral
+distribution: downloads_only
+decimals: 0
+sensitivity: public
+definition: >
+  Gross extent of paddy harvested in the season, all schemes, in acres.
+source_definition_ref: "DCS Paddy Statistics by district (final estimate)"
+methodology_notes: docs/methods/stat-tables.md

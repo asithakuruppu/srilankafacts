@@ -1,0 +1,18 @@
+id: paddy_production
+name: "Paddy production"
+short_name: "Paddy production"
+topic: [agriculture]
+measure_type: count
+unit: "thousand bushels"
+universe: paddy_fields
+numerator: null
+denominator: null
+aggregation: none
+higher_is: neutral
+distribution: downloads_only
+decimals: 0
+sensitivity: public
+definition: >
+  Total paddy production in the season, in thousands of bushels as printed by DCS.
+source_definition_ref: "DCS Paddy Statistics by district (final estimate)"
+methodology_notes: docs/methods/stat-tables.md

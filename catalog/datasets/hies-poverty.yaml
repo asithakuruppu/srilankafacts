@@ -1,18 +1,18 @@
 id: hies-poverty
 source: dcs
 title: "Household Income and Expenditure Survey: poverty indicators"
-landing_page: null
-pipeline_module: null
+landing_page: https://www.statistics.gov.lk/Poverty/StaticalInformation
+pipeline_module: slf.stat_tables
 schedule: manual
 geography_scheme: admin
-geography_vintage: null
-reference_period: null
+geography_vintage: "cod-ab-v03"
+reference_period: "2019"
 rights: inherit
 spatial:
   support: area
   scheme: admin
   level: district
-  vintage: null
+  vintage: "cod-ab-v03"
   coverage: LK
   measured_in: null
   positional_accuracy: null
@@ -21,8 +21,14 @@ spatial:
   information_unit: null
   information_count: null
   derived_by: null
-indicators: []
+indicators:
+  - poverty_headcount_old_pl
+  - poor_population_old_pl
+  - poverty_contribution_old_pl
+  - poverty_headcount_updated_pl
+  - poor_population_updated_pl
+  - poverty_contribution_updated_pl
 cross_checks: []
-status: proposed
+status: active
 notes: >
-  Stage 3. DS-level estimates only if published.
+  Stage 3. Held: DCS Poverty Indicators 2019 (PDF), Table 04 only: national, 3 sectors, 9 provinces and 25 districts, old and updated poverty lines (228 observations). Also snapshotted, not ingested: Poverty Indicators 2016 (PDF), and the DS-division poverty ranking (PovertyStatisticsDSDivision.pdf), which is the 2002 headcount in image tables on pre-2012 DS boundaries and has no DS crosswalk (rule 5). DS-level estimates for 2019 were not found. Rights unclear (catalog/sources/dcs.yaml) and NO publication decision (D-030/D-032 cover the census only), so the release builder refuses it. Method: docs/methods/stat-tables.md.

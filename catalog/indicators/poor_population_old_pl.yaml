@@ -1,0 +1,18 @@
+id: poor_population_old_pl
+name: "Number of poor people (old poverty line, 2019)"
+short_name: "Poor people (old line)"
+topic: [poverty]
+measure_type: count
+unit: "persons"
+universe: persons
+numerator: null
+denominator: null
+aggregation: none
+higher_is: worse
+distribution: downloads_only
+decimals: 0
+sensitivity: public
+definition: >
+  Estimated number of persons below the old official poverty line, HIES 2019, as printed (rounded to the nearest 100). Not additive across published areas; sums of areas differ from the national figure by rounding.
+source_definition_ref: "Poverty Indicators 2019, Table 04"
+methodology_notes: docs/methods/stat-tables.md

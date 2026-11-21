@@ -1,0 +1,18 @@
+id: paddy_gross_extent_sown
+name: "Paddy gross extent sown, all schemes"
+short_name: "Paddy sown"
+topic: [agriculture]
+measure_type: count
+unit: "acres"
+universe: paddy_fields
+numerator: null
+denominator: null
+aggregation: none
+higher_is: neutral
+distribution: downloads_only
+decimals: 0
+sensitivity: public
+definition: >
+  Gross extent of paddy sown in the season, major and minor irrigation schemes and rain-fed combined, in acres. Season values only; never summed across seasons without saying so.
+source_definition_ref: "DCS Paddy Statistics by district (final estimate)"
+methodology_notes: docs/methods/stat-tables.md
