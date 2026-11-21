@@ -1,6 +1,6 @@
 # Draft: Aswesuma counts by DS and GN division (Welfare Benefits Board)
 
-Status: **draft, not sent** (D-063; the lead sends it, AGENTS rule 9) · Channel: letter or email to the Welfare Benefits Board (www.wbb.gov.lk; recipient to be chosen by the lead) · Language: English (a Sinhala or Tamil version may be better received; the lead decides)
+Status: **draft, not sent** (D-064; the lead sends it, AGENTS rule 9) · Channel: letter or email to the Welfare Benefits Board (www.wbb.gov.lk; recipient to be chosen by the lead) · Language: English (a Sinhala or Tamil version may be better received; the lead decides)
 
 Before sending, fill the contact placeholders and choose the recipient.
 
@@ -35,5 +35,5 @@ Yours faithfully,
 | Claim in the draft | Source |
 |---|---|
 | Beneficiary lists are displayed at DS and GN offices and on wbb.gov.lk | 🟡 news report (newswire.lk, October 2026), not checked on wbb.gov.lk |
-| The project will not use the named lists | D-063; AGENTS rule 11 |
+| The project will not use the named lists | D-064; AGENTS rule 11 |
 | Code is public | ✅ repository is public |

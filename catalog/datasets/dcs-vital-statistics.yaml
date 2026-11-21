@@ -8,9 +8,9 @@ geography_scheme: admin
 geography_vintage: "cod-ab-v03"
 reference_period: null
 rights: inherit
-# D-060 extends the D-030/D-032 position to these DCS tables. Not a licence; rights stay unclear.
+# D-061 extends the D-030/D-032 position to these DCS tables. Not a licence; rights stay unclear.
 publication:
-  decision: D-060
+  decision: D-061
   use: non_commercial
   attribution: "Source: Department of Census and Statistics, Sri Lanka, Vital Statistics (figures from the Registrar General's Department)."
   notice: "DCS has not published reuse terms; Sri Lanka Facts publishes these figures non-commercially for public information, has asked DCS for terms, and will correct or remove them on DCS's request."

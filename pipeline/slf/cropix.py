@@ -1,5 +1,5 @@
 # ruff: noqa: E501
-"""CROPIX (Department of Agriculture) geography lists: code crosswalk and GN memberships (D-061).
+"""CROPIX (Department of Agriculture) geography lists: code crosswalk and GN memberships (D-062).
 
 Reads the snapshotted public endpoints under ``raw/department-of-agriculture/cropix-geographies/``
 and writes a **local, private** build: each CROPIX GN division matched to the spine through the
@@ -9,7 +9,7 @@ through the crosswalk, never by name), with the agriculture geographies CROPIX a
 
 CROPIX GN codes are ``P-D-SS-GGG`` (province, district index, DS, GN); the DCS code is
 ``P`` + ``D`` + ``SS`` + ``GGG`` (for example ``1-1-03-115`` -> ``1103115``, Pettah). Names are
-compared only as a check. Nothing here enters a release: rights are unclear (D-061), and endpoints
+compared only as a check. Nothing here enters a release: rights are unclear (D-062), and endpoints
 about individual farmers are never fetched.
 """
 
@@ -150,7 +150,7 @@ def qa_markdown(cw: Crosswalk) -> str:
     )
     spine_ids = {r["geography_id"] for r in cw.rows}
     lines = [
-        "# QA report: CROPIX GN divisions against the spine (`cropix-geographies`, local only, D-061)",
+        "# QA report: CROPIX GN divisions against the spine (`cropix-geographies`, local only, D-062)",
         "",
         f"- CROPIX GN records: {total}; matched to a spine GN through DCS 2024 codes: {matched} "
         f"({matched / total:.1%})"

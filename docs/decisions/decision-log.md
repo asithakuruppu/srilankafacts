@@ -627,9 +627,19 @@ These were stated by you or are standing rules in [brainstorm-decisions.md](../b
 - **Consequences:** the OSM public tile policy suits light use only and offers no guarantee; OSM data is ODbL, with attribution required. The Plain view works offline of OSM. Visitors' IP addresses reach the OSM tile servers when they use the OSM view.
 - **Revisit when:** traffic grows, or the lead wants a self-hosted or vector basemap (see D-053 on tile stacks).
 
+## D-060: Finest view page and a resolution manifest; native raster tiles deferred
+- **Status:** Proposed · 2026-11-22 (agent proposal, following the lead's request for a page showing all data at its best resolution; builds on D-017, D-018, D-044, D-048)
+- **Context:** Every indicator is shown at GN level, but many sources are finer (10 m land cover, 1.2 m canopy height, 30 m terrain, 100 m built-up, 1 km soils, 375 m fire pixels, event polygons, points). The pipeline keeps only per-GN zonal sums, and no tile stack exists.
+- **Decision:** `slf atlas export --catalog-dir` writes `resolution.json`, one row per catalogue dataset (native resolution in metres only where the catalogue states it plainly, otherwise null and shown as "not recorded"; information unit; what the platform shows today; rights). A new `/resolution` page ("Finest view") lists them finest first and maps what the bundle really holds at fine scale: GN outlines, H3 r9 cells (always badged as modelled from GN totals) and named features (local preview only, D-049).
+- **Alternatives:** serving native rasters as PMTiles/COG now (needs a tile pipeline and storage decision; deferred); showing H3 cells without the modelled badge (rejected: resolution is not information).
+- **Consequences:** raster sources appear in the table as "finer in the source, shown only at GN" until a tile stack exists. Metres are missing for datasets whose catalogue text is not a plain size (for example "0.05 degree", "1:250,000").
+- **Revisit when:** the lead wants native raster layers on the map (needs a tile-stack decision and a storage budget).
+
 ---
 
-## D-060: D-030 also covers the DCS vital statistics and mid-year population tables
+---
+
+## D-061: D-030 also covers the DCS vital statistics and mid-year population tables
 - **Status:** Accepted · 2026-11-22 (decided by the lead: "lets go with recommended decisions"; amends D-030/D-032, scope only)
 - **Context:** The source scan of 2026-11-22 (`docs/research/sources/new-source-candidates-2026-11-22.md`) found district-level vital statistics on the DCS Vital Statistics page ✅: births, deaths and marriages registered 2019-2025, crude birth and death rates by sex 2019-2025, and the Registrar General's mid-year population estimates by district and sex 2014-2026. Same publisher, same missing reuse terms ("All Rights Reserved" footer, no licence) as the census tables.
 - **Decision:** the new catalogue entry `dcs-vital-statistics` gets a `publication` block under this decision, on the D-030 terms: non-commercial, attribution, notice, 7-day takedown. `rights.status` stays `unclear`. The infant, neonatal, under-five and maternal mortality tables and the district life tables on the same page fall under this decision when ingested.
@@ -637,7 +647,7 @@ These were stated by you or are standing rules in [brainstorm-decisions.md](../b
 - **Consequences:** the platform gains yearly district denominators between censuses and its first health-outcome series. Two caveats travel with the values: counts are by place of occurrence and rates by usual residence; mid-year estimates change basis between 2024 (Census 2012) and 2025 (Census 2024).
 - **Revisit when:** DCS answers the reuse-terms request (docs/outreach/2026-11-07-dcs-reuse-terms.md).
 
-## D-061: CROPIX public APIs: geography endpoints for internal crosswalk work only; ask the Department of Agriculture for terms; never collect farmer lists
+## D-062: CROPIX public APIs: geography endpoints for internal crosswalk work only; ask the Department of Agriculture for terms; never collect farmer lists
 - **Status:** Accepted · 2026-11-22 (decided by the lead: "lets go with recommended decisions")
 - **Context:** The Department of Agriculture's CROPIX gateway (`apiweb.doa.gov.lk`) lists 102 public endpoints that need no credentials ✅, including agriculture geography schemes with GN membership (agrarian development and ASC divisions, Mahaweli systems, agriculture zones, AI regions) and district crop extents. No licence or terms text was found on the gateway ❌. Two endpoint groups list individual farmers ("Get All GAP Farmers", "Seed Act Registered Farmers").
 - **Decision:** (1) Snapshot the public geography and crop-summary endpoints politely and keep them local, for crosswalk and QA work only; nothing from CROPIX enters a release, the atlas or the preview until terms are known. (2) Draft a reuse-terms request to the Department of Agriculture for the lead to send (rule 9). (3) Never request, store or derive anything from endpoints about named farmers or seed handlers (rule 11).
@@ -645,7 +655,7 @@ These were stated by you or are standing rules in [brainstorm-decisions.md](../b
 - **Consequences:** new geography schemes can be assessed for the spine; publication waits for the Department's answer.
 - **Revisit when:** the Department of Agriculture replies.
 
-## D-062: Examination results are published only as education-zone, district and province aggregates
+## D-063: Examination results are published only as education-zone, district and province aggregates
 - **Status:** Accepted · 2026-11-22 (decided by the lead: "lets go with recommended decisions")
 - **Context:** The Department of Examinations publishes "Performance of Candidates" reports (O/L, A/L, Grade 5) and, for 2017-2021, "School Performance Indices" at school level ✅. Results by school are about institutions, not people, but school league tables are sensitive and easy to misuse.
 - **Decision:** when exam results are ingested, only education-zone, district and province aggregates are stored for publication. School-level indices are not ingested. Rights: "All Rights Reserved" footer, no terms ✅; a publication position is needed before any value is published.
@@ -653,7 +663,7 @@ These were stated by you or are standing rules in [brainstorm-decisions.md](../b
 - **Consequences:** no school ranking appears on the platform. Zone results need a zone-to-district crosswalk.
 - **Revisit when:** a school or education partner asks for school-level values with a clear purpose.
 
-## D-063: Aswesuma: ask the Welfare Benefits Board for counts by DS/GN; never touch the named lists
+## D-064: Aswesuma: ask the Welfare Benefits Board for counts by DS/GN; never touch the named lists
 - **Status:** Accepted · 2026-11-22 (decided by the lead: "lets go with recommended decisions")
 - **Context:** Aswesuma beneficiary lists name households and are displayed at DS and GN offices and on wbb.gov.lk 🟡. Counts by place would be valuable for poverty context, but deriving them from the named lists would mean collecting personal data (rule 11).
 - **Decision:** the named lists are never downloaded, scraped or stored. A request for aggregate counts by DS division (and GN, if the Board can) is drafted for the lead to send.
@@ -665,6 +675,7 @@ These were stated by you or are standing rules in [brainstorm-decisions.md](../b
 ---
 
 ## Template
+
 
 ```markdown
 ## D-NNN: Title

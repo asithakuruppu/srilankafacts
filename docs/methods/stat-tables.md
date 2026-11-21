@@ -31,7 +31,7 @@ Every row carries the snapshot sha256 (recomputed at build time) and a locator (
 - LFS: 26 rows in each of three tables; employed + unemployed = labour force and labour force + not in labour force = population on every row (±1 rounding); districts sum to Sri Lanka; male + female = both sexes.
 - Paddy: the CSV's gross sown extent sums to the national total I read from the DCS PDF page image (1,804,204 acres Maha 2010/11; 900,795 Yala 2012) ✅. The data.gov.lk file named `maha_2011` is the **2010/11** season: the PDF title says so (the file name is misleading).
 
-## Vital statistics notes (D-060, 2026-11-22)
+## Vital statistics notes (D-061, 2026-11-22)
 
 - Snapshots: `raw/dcs/dcs-vital-statistics/` (two `.xlsx` workbooks from the page's Excel links, two PDFs, and the page itself), fetched with the pipeline's own user agent, 4 s apart.
 - Excel cells are read with `openpyxl`; the year and measure headers carry `*` for provisional values (for example 2021 births and marriages, every column from 2022). These rows get `revision_status = provisional`.
@@ -40,7 +40,7 @@ Every row carries the snapshot sha256 (recomputed at build time) and a locator (
 - **Series break:** 2014-2024 estimates are carried forward from Census 2012 and 2025-2026 from Census 2024 (Sri Lanka 21,916 thousand in 2024, 21,756 thousand in 2025). The step is a change of basis.
 - Checks ✅ ([QA](../qa/stat-tables-2026-11-22/dcs-vital-statistics.md)): district counts sum exactly to Sri Lanka every year; the both-sexes rate lies between the male and female rates; male + female = total; district populations sum exactly to Sri Lanka; 26 places in each of 13 years.
 - Not yet ingested from the same page: infant, neonatal, under-five and maternal mortality by district (2012-2021) and the district life tables.
-- Publication: `dcs-vital-statistics` carries a `publication` block under D-060 (non-commercial, attribution, notice), unlike HIES, LFS, paddy and dengue.
+- Publication: `dcs-vital-statistics` carries a `publication` block under D-061 (non-commercial, attribution, notice), unlike HIES, LFS, paddy and dengue.
 
 ## Dengue notes
 

@@ -1,6 +1,6 @@
 # Draft: reuse terms for CROPIX public APIs (Department of Agriculture)
 
-Status: **draft, not sent** (D-061; the lead sends it, AGENTS rule 9) · Channel: the "Contact us" / "Request API Key" route on https://apiweb.doa.gov.lk, or a letter to the Director General of Agriculture (recipient to be chosen by the lead) · Language: English
+Status: **draft, not sent** (D-062; the lead sends it, AGENTS rule 9) · Channel: the "Contact us" / "Request API Key" route on https://apiweb.doa.gov.lk, or a letter to the Director General of Agriculture (recipient to be chosen by the lead) · Language: English
 
 Before sending, fill the contact placeholders and choose the recipient.
 
@@ -35,5 +35,5 @@ Yours faithfully,
 |---|---|
 | The gateway has public endpoints that need no credentials | ✅ apiweb.doa.gov.lk, "Public APIs … available for broad discovery without credentials", read 2026-11-22 |
 | Endpoint names (agrarian development, ASC divisions, Mahaweli systems and blocks, agriculture zones, AI regions, GN by zone) | ✅ public API list, read 2026-11-22 (`docs/research/sources/new-source-candidates-2026-11-22.md` §2.2) |
-| Farmer-list endpoints exist and will not be used | ✅ "Get All GAP Farmers", "Seed Act Registered Farmers" on the same list; D-061 |
+| Farmer-list endpoints exist and will not be used | ✅ "Get All GAP Farmers", "Seed Act Registered Farmers" on the same list; D-062 |
 | Code is public | ✅ repository is public |

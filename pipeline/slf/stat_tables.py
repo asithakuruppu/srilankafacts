@@ -770,7 +770,7 @@ def _dengue_row(
 # --- Output ---------------------------------------------------------------------------------
 
 
-# --- DCS vital statistics and mid-year population (D-060) ------------------------------------
+# --- DCS vital statistics and mid-year population (D-061) ------------------------------------
 
 VITAL_ID = "dcs-vital-statistics"
 VITAL_COUNTS_FILE = "NumberofBirthsDeathsMarriagesDistrict2019-2025.xlsx"

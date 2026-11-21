@@ -11,6 +11,7 @@ const LINKS = [
   ["/indicators", "nav.indicators"],
   ["/elections", "nav.elections"],
   ["/area", "nav.areas"],
+  ["/resolution", "nav.resolution"],
   ["/data", "nav.data"],
   ["/methods", "nav.methods"],
   ["/about", "nav.about"],

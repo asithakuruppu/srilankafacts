@@ -145,6 +145,7 @@ for (const candidate of atlasCandidates) {
           text: Boolean(manifest.spaces.spaces?.text),
         }
       : null,
+    resolution: Boolean(manifest.resolution?.available),
     grid: Boolean(manifest.grid?.available),
     landscape: Boolean(manifest.landscape?.available),
     features: Boolean(manifest.features?.available),

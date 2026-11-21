@@ -1,4 +1,4 @@
-# QA report: CROPIX GN divisions against the spine (`cropix-geographies`, local only, D-061)
+# QA report: CROPIX GN divisions against the spine (`cropix-geographies`, local only, D-062)
 
 - CROPIX GN records: 13721; matched to a spine GN through DCS 2024 codes: 13279 (96.8%)
 - Distinct spine GN reached: 13279

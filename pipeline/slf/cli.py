@@ -1564,7 +1564,7 @@ def stat_tables_build(
 
 
 cropix_app = typer.Typer(
-    help="CROPIX geography lists (Department of Agriculture; local only, D-061).",
+    help="CROPIX geography lists (Department of Agriculture; local only, D-062).",
     no_args_is_help=True,
 )
 app.add_typer(cropix_app, name="cropix")
