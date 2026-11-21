@@ -1350,3 +1350,31 @@ def hazard_access_build(
 
     summary = hazard_access.build(raw_root, spine_dir, catalog, out_dir, out_dir / "_work")
     typer.echo(f"{summary['rows']} rows, {len(summary['indicators'])} indicators")
+
+
+@hazard_app.command("checks")
+def hazard_access_checks(
+    raw_root: Annotated[Path, typer.Option(help="Folder holding raw/<source>/<dataset>/.")] = Path(
+        "./data/raw"
+    ),
+    spine_dir: Annotated[Path, typer.Option(help="Geography spine build folder.")] = Path(
+        "./data/build/geography-spine"
+    ),
+    release_dir: Annotated[
+        Path, typer.Option(help="A release folder (census 2024 figures).")
+    ] = Path("./data/build/releases/v2026.11.19"),
+    build_dir: Annotated[Path, typer.Option(help="`slf hazard-access build` output.")] = Path(
+        "./data/build/hazard-access"
+    ),
+    catalog: Annotated[Path, typer.Option(help="Catalogue root.")] = Path("../catalog"),
+) -> None:
+    """Cross-check the indicators against independent figures; writes checks.md and checks.json."""
+    from slf import hazard_checks
+
+    checks = hazard_checks.run(
+        raw_root, spine_dir, release_dir, build_dir / "observations.parquet", catalog
+    )
+    path = hazard_checks.write(checks, build_dir)
+    for c in checks:
+        typer.echo(f"{c.id}: {c.result}")
+    typer.echo(f"report -> {path}")

@@ -67,6 +67,7 @@ Prerequisites: `uv` (Python 3.12 is fetched by uv), Node.js 20+ and pnpm 12 (`np
 | Analytic grid (H3 r9, equal-share GN weights) and point resolver | `uv run slf grid build` · `uv run slf resolve --lon 79.86 --lat 6.93` |
 | Stage 3 sub-national indicators (OPHI, WFP rainfall and NDVI, HeiGIT access) | `uv run slf subnational build` |
 | Crosswalks and district indicators for HeiGIT travel-time access and DesInventar records (writes `catalog/geographies/codes/`; pass `--hazard-dir` to the atlas export) | `uv run slf hazard-access build` |
+| Cross-checks of those indicators against the census, Giga schools, healthsites and ADRC (needs a release for the census figures) | `uv run slf hazard-access checks` |
 | Release calendar (add `--probe` for polite landing-page checks) | `uv run slf freshness` |
 | AI evaluation set (A02) from a release; score the MCP server with `node eval/run.mjs <set> <release> <report>` in `mcp/` | `uv run slf evalset --release-dir <release>` |
 | Events by place: 2025 flood extent, yearly fire detections, storm passes | `uv run slf events` |

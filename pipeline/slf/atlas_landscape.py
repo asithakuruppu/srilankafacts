@@ -204,6 +204,7 @@ def build_extra(
 ) -> dict[str, Any]:
     """Stage 3 indicators (`slf subnational build`, `slf events`), shown in the Geography lens."""
     from slf.events import SPECS as EVENT_SPECS
+    from slf.hazard_access import SHARE_ALIKE_DATASETS
     from slf.hazard_access import SPECS as HAZARD_SPECS
     from slf.subnational import SPECS as SUBNATIONAL_SPECS
 
@@ -219,8 +220,8 @@ def build_extra(
             if folder is hazard_dir and public:
                 # HeiGIT is CC BY-SA: a public bundle needs a licence statement that carries
                 # the share-alike terms, so its indicators stay out until a release does.
-                frame = pd.DataFrame(frame[frame["dataset_id"] != "heigit-accessibility"])
-                spec_list = [s for s in spec_list if s.dataset != "heigit-accessibility"]
+                frame = pd.DataFrame(frame[~frame["dataset_id"].isin(list(SHARE_ALIKE_DATASETS))])
+                spec_list = [s for s in spec_list if s.dataset not in SHARE_ALIKE_DATASETS]
             if len(frame):
                 parts.append(frame)
                 specs += spec_list

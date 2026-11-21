@@ -1,6 +1,6 @@
 # Method: crosswalks and indicators for HeiGIT accessibility and DesInventar
 
-Status: **local build, 2026-11-21, not in any release** · Code: `pipeline/slf/hazard_access.py` (`uv run slf hazard-access build`) · QA: [hazard-access-xwalk-2026-11-21.md](../qa/hazard-access-xwalk-2026-11-21.md)
+Status: **local build, 2026-11-21 (extended the same day), not in any release** · Code: `pipeline/slf/hazard_access.py` (`uv run slf hazard-access build`) · QA: [hazard-access-xwalk-2026-11-21.md](../qa/hazard-access-xwalk-2026-11-21.md) · cross-checks: [hazard-access-checks-2026-11-21.md](../qa/hazard-access-checks-2026-11-21.md) · rights: [heigit-share-alike.md](../research/rights/heigit-share-alike.md)
 
 Legend: ✅ verified by running it · 🟡 claimed by the source · ❓ assumption.
 
@@ -8,35 +8,57 @@ Legend: ✅ verified by running it · 🟡 claimed by the source · ❓ assumpti
 
 | Code system | File | Units matched | Method |
 |---|---|---|---|
-| `heigit-iso` (ISO 3166-2:LK, HeiGIT accessibility tables) | `catalog/geographies/codes/heigit-iso.csv` | country, 9 provinces, 25 districts: all ✅ | `name_and_parent`: name equals one spine name at the level; districts are matched inside the province given by the ISO number's first digit |
-| `desinventar` (DesInventar province and district codes) | `catalog/geographies/codes/desinventar.csv` | 9 provinces, 25 districts: all ✅ | `name_and_parent` for 33; **one `manual`** (confidence 0.95): `lka008002 Moneragala` → `LK82 Monaragala`, a spelling variant, lead review pending |
+| `heigit-iso` (ISO 3166-2:LK, HeiGIT accessibility tables) | `catalog/geographies/codes/heigit-iso.csv` | country, 9 provinces, 25 districts: all ✅ | `name_and_parent` |
+| `desinventar` provinces and districts | `catalog/geographies/codes/desinventar.csv` | 9 + 25: all ✅ | `name_and_parent`; one `manual` (0.95): `lka008002 Moneragala` → `LK82` (accepted by the lead 2026-11-21) |
+| `desinventar` DS divisions (2015 shapefile, 328) | same file | **309 matched** ✅ | `exact_code` (DesInventar's DCS-style DS code equals the DCS code already mapped to a spine DS, names at least 0.80 alike, unit inside the matched district) or `name_and_parent` (0.9) |
 
-- ✅ **The ISO district number is not the p-code suffix for four northern districts**: ISO LK-42 Kilinochchi, LK-43 Mannar, LK-44 Vavuniya, LK-45 Mullaitivu, against p-codes LK45, LK42, LK43, LK44. A join on "LK-" + number would have put four districts' values on the wrong places. The ISO code is therefore only ever looked up in the crosswalk.
-- ✅ HeiGIT's nine risk-indicator tables are already keyed by ADM2 p-codes; all 25 codes in all nine tables are spine districts (no translation, a check only).
-- **Stopped at districts for DesInventar.** The event table has province, district and (for about a quarter of records) GN names, but no DS column. The shapefile holds 328 DS divisions on a 2015 file of unstated vintage; mapping them would need the 2012-to-2024 succession table and is not needed for these records, so it is not done. GN names in the event table are free text with no code table and are not mapped (never a bare name join).
-- ❓ District boundaries and names are taken as unchanged across 1965 to 2014 (the record years). The 1984 split of Kilinochchi from Jaffna and Mullaitivu from Mullaitivu-Vavuniya is not modelled; records are placed in the district the database names.
+- ✅ ISO district numbers are not p-code suffixes for four northern districts (LK-42 Kilinochchi → LK45, LK-43 Mannar → LK42, LK-44 Vavuniya → LK43, LK-45 Mullaitivu → LK44).
+- ✅ HeiGIT's nine risk tables are p-coded already; all codes are spine districts.
+- **DS divisions.** The event table's "Code Commune" column is the DS division code (34,707 records carry one), not a GN code. 17 DS divisions are **not mapped and listed for review**: 10 where the same code now belongs to a unit with a different name, or the same name differs by a transliteration below the 0.80 threshold (for example Kanthalai/Kantale, Ambanganga Korale/Ambanganga, Hanwella/Seethawaka), and 7 that land on a unit created by a 2012 to 2024 split (Baddegama, Hikkaduwa, Balangoda, Kothmale, Hanguranketha, Nuwara Eliya, Walapane; Ambagamuwa Korale): the old unit's events cannot be assigned to one part. 2 more (Eravu Pattu and Porathivu Pattu, Batticaloa) match neither by code nor by name. Records for unmapped DS divisions (2,502) still count at district level.
+- **GN level: stopped.** The "Location" text names GNs and places in free form ("Telangapatha (GN)", "Wijerama Mw, colombo 7"), several per record, with no code table; matching them to spine GNs would be a name join. Not done.
+- ❓ District and DS boundaries are taken as unchanged 1965 to 2014, except where the succession table shows a split (refused). The 1984 Kilinochchi and Mullaitivu changes are not modelled.
 
-## Indicators ingested (12, 2,632 rows)
+## Indicators (56, 13,475 rows)
 
-| Indicator | Source dataset | Level | Period | Support | Floor |
-|---|---|---|---|---|---|
-| `access_hospital_{30,60,120}min`, `access_primary_care_{30,60}min`, `access_school_{5,10}km` (share of total population within the limit, cumulative) | `heigit-accessibility` | country, province, district | 2026 | `area_mean`, `interval_mean`, modelled estimate | `grid-100m` (WorldPop, OSM) |
-| `di_{flood,landslide,drought,wind}_records`, `di_disaster_records` (records per district per year) | `desinventar-sri-lanka` | district | 1965 to 2014 | `area_total`, `interval_total`, administrative record | district (record location) |
+| Group | Indicators | Dataset | Level | Period | Support | Floor |
+|---|---|---|---|---|---|---|
+| Travel-time and distance access | `access_*` (7): share of total population within 30/60/120 minutes of a hospital, 30/60 of primary care, 5/10 km of a school; cumulative | `heigit-accessibility` | country, province, district | 2026 | `area_mean`, modelled estimate | `grid-100m` |
+| DesInventar records | `di_{flood,landslide,drought,wind,disaster}_records`: records per year | `desinventar-sri-lanka` | district and DS division | 1965 to 2014 | `area_total`, administrative record | district or DS (2015 file) |
+| Population (modelled) | `heigit_pop_*` (5), `heigit_rural_share` | `heigit-risk-indicators` | district | 2026 | `area_total` / `area_mean`, modelled | `grid-100m` |
+| Facilities (OSM) | `osm_hospitals_count`, `osm_primary_care_count` | same | district | 2026 | `area_total` | OSM features |
+| Flood evacuation | `evac_minutes_{mean,median}_rp{10,50,100,500}` (8) | same | district | 2026 | `area_mean` | 1-in-N-year flood, JRC |
+| Flood exposure | `flood_rp{10,50,100,500}_*` (28): cropland km² and share, exposed women, under-5s, over-65s, hospitals, primary care | same | district | 2026 | `area_total` | JRC 30 cm depth |
 
-- Every row carries dataset, snapshot sha256, source URL, a locator (file, row and column for HeiGIT; file lines and the counting rule for DesInventar), `verification: machine_extracted`, `boundary_vintage: cod-ab-v03`.
-- Only positive counts are stored. **A missing year is not a zero**: reporting effort varies (91 to 260 records in each of 1979, 1980, 1982, 1984, 1985 and 1996 against 8,100 to 9,000 in each of 2006 to 2008 ✅ counted).
-- A record is one reported event at one place and date, not one distinct disaster. Epidemics (85,707 matched records), plague, animal attacks and snake bites are left out of the disaster total and of the hazard indicators; no epidemic indicator is built.
-- Hazard groups are our grouping of DesInventar's free event labels (listed in the QA report); "RAINS", "FIRE", "LIGHTNING" and others are not grouped into any indicator.
-- ✅ HeiGIT shares are cumulative (Colombo: 97.83% within 10 minutes, 99.94% within 20, 100% beyond); `population_share` is used, not the per-band `population_interval_share`.
-- Dates that do not exist (for example 31 June, `2005/2/29`) are not given a year; 120 matched records are listed by count in the QA report.
+Every row carries dataset, snapshot sha256, source URL, a locator (file, row, column for HeiGIT; file lines and counting rule for DesInventar), `verification: machine_extracted`, `boundary_vintage: cod-ab-v03`. HeiGIT values are copied, not computed. Inputs are as HeiGIT states them (WorldPop, GHSL, OSM, JRC; 🟡 not independently verified).
+
+- **A missing year is not a zero.** Only positive DesInventar counts are stored; reporting varies (91 to 260 records in each of 1979, 1980, 1982, 1984, 1985 and 1996 against 8,100 to 9,000 in each of 2006 to 2008 ✅ counted). A record is a reported event at a place and date, not a distinct disaster. Epidemics, plague, animal attacks and snake bites are out of the hazard indicators; no epidemic indicator is built.
+- 120 matched DesInventar records have impossible dates (31 June, 29 February 2005) and get no year; 2 have a province that contradicts their district and are excluded (both epidemics).
+- HeiGIT shares are cumulative (✅ Colombo 97.83% within 10 minutes, 99.94% within 20, 100% beyond); `population_share` is used, not the per-band share.
+- Held, **not** ingested, with the reason: educational-facility counts and exposure (OSM holds about 40% of Giga's school list in the median district, see below); the risk-table `access` counts (they disagree with the accessibility tables by up to 20 points); `coping` and `vulnerability` (identical joins of other tables); per-group RAI and the per-group accessibility tables.
+- Existing correction: the Rural Access Index in `subnational.py` was described as "all-season road"; HeiGIT's own description says **paved road** (Mapillary and Planet road-surface data). Text fixed; values unchanged.
+
+## Cross-checks (full numbers in the QA report)
+
+| Check | Independent | Result |
+|---|---|---|
+| HeiGIT district population against Census 2024 | yes | ✅ **differs by -21% to +42% by district** (total +6.0%); not a substitute for the census, so the definitions say so |
+| OSM education features against Giga's 10,112 schools | yes | ✅ OSM 5,047; district ratio 0.16 to 1.44, median 0.40: incomplete, hence not ingested |
+| OSM hospitals against healthsites.io | no (both OSM) | ✅ 904 against 905, ratio 0.92 to 1.08 |
+| `coping` and `vulnerability` against their parts | no | ✅ identical |
+| Access counts against accessibility shares | no | ❌ **disagree** by up to 20 points (Monaragala 64.9% against 85.2%) and 17.9 to 21.5 million people; HeiGIT gives no reason. Only the accessibility tables are ingested |
+| Flood exposure by return period, exposed facilities and shares | no | ✅ no violations |
+| DesInventar DS sums against district counts | no | ✅ never exceed, every district-year |
+| DesInventar 2004 tsunami deaths against ADRC Annual Disaster Report 2004 | yes, partly | ✅ 30,959 = 30,959 (identical, so probably one upstream tally); missing 1,908 against 5,443 ❌ not used |
 
 ## Rights
 
-- HeiGIT: **CC BY-SA 4.0** with © OpenStreetMap contributors; commercial reuse allowed. **Share-alike applies**: a release that includes these indicators must carry the attribution and offer them under the same licence (catalogue status `permitted_with_conditions`). The release process must check this before inclusion.
-- DesInventar (UNDRR, source: Disaster Management Centre): CC-BY-4.0, attribution required.
+- HeiGIT: CC BY-SA (no version stated); attribution "HeiGIT; © OpenStreetMap contributors". The release builder now writes a **Share-alike terms** section into `NOTICE.md` and the README for any dataset with a share-alike licence, and keeps the values in their own files. The memo and open points: [heigit-share-alike.md](../research/rights/heigit-share-alike.md).
+- DesInventar (UNDRR, source: Disaster Management Centre): CC-BY-4.0, attribution.
+- `slf atlas export --public` leaves out both HeiGIT datasets until a release carries the statement.
 
 ## Not done
 
-- In no release; the live preview is unchanged. `slf atlas export --hazard-dir data/build/hazard-access` shows the indicators in a local bundle. With `--public` the HeiGIT access indicators are left out (CC BY-SA needs a licence statement that carries share-alike; lead decision, 2026-11-21: keep them out of the current preview), DesInventar stays in (CC BY).
-- 🟡 Nothing is cross-checked against an independent figure (for example DMC annual loss reports); all values are `machine_extracted`.
-- HeiGIT per-group breakdowns (adults, elderly, under-5, women of childbearing age) and the other eight risk tables are held but not ingested.
+- Not in any release; the live preview is unchanged. `slf atlas export --hazard-dir data/build/hazard-access` shows the indicators in a local bundle.
+- The 17 DS divisions above need a reviewer's decision (a reviewed alias list, like Moneragala).
+- GN-level DesInventar records; per-group HeiGIT breakdowns.
+- Upstream licences of WorldPop, GHSL, JRC, Mapillary and Planet are not recorded in the catalogue.

@@ -239,6 +239,43 @@ def _dataset_rights(catalog: Catalog, dataset_id: str) -> dict[str, Any]:
     }
 
 
+def share_alike_datasets(datasets: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Datasets whose recorded licence is share-alike (for example CC-BY-SA)."""
+    return [
+        d
+        for d in datasets
+        if re.search(r"(^|[-\s])SA\b|share-?alike", str(d.get("licence") or ""), re.IGNORECASE)
+    ]
+
+
+def _share_alike_markdown(datasets: list[dict[str, Any]]) -> str:
+    """The licence statement a release owes for share-alike data."""
+    if not datasets:
+        return ""
+    lines = [
+        "# Share-alike terms",
+        "",
+        "The datasets below are published under a share-alike licence. Their values are kept in "
+        "their own files, `observations/<dataset>.parquet` and `.csv`, so that the licence of "
+        "other datasets in this release is not changed. If you adapt these values, for example "
+        "by joining or recomputing them, you must credit the source as shown and offer your "
+        "adapted version under the same licence. Other datasets in this release keep the terms "
+        "in their own notices.",
+        "",
+    ]
+    for d in datasets:
+        lines += [
+            f"## {d['dataset_id']}",
+            "",
+            f"- Licence as recorded: {d['licence']} (the source's record states no version)",
+            f"- Attribution: {d['attribution']}",
+            f"- Source: {d.get('source_name') or d['source_id']}, {d.get('source_homepage') or ''}",
+            "- Basis: licence field of the source's record, not a legal opinion.",
+            "",
+        ]
+    return "\n".join(lines)
+
+
 def _notice_markdown(notices: list[dict[str, Any]]) -> str:
     if not notices:
         return ""
@@ -1113,6 +1150,9 @@ def build_release(
     _write(out / "CHANGELOG.md", changelog.encode("utf-8"))
     _write(out / "changes.json", _json_bytes(changes))
     notice_md = _notice_markdown(notices)
+    share_alike_md = _share_alike_markdown(share_alike_datasets(datasets))
+    if share_alike_md:
+        notice_md = (notice_md + "\n" if notice_md else "") + share_alike_md
     _write(
         out / "CITATION.md",
         (
@@ -1129,6 +1169,12 @@ def build_release(
         (
             (notes.rstrip() + "\n\n" if notes else "# Release\n\n")
             + ("See NOTICE.md: some values are for non-commercial use only.\n\n" if notices else "")
+            + (
+                "See NOTICE.md: some datasets are share-alike and must be credited and shared "
+                "alike.\n\n"
+                if share_alike_md
+                else ""
+            )
             + "All files are reproducible from the same inputs. The GeoPackage layer metadata "
             "date is derived from the release version (first day of the release month); it is "
             "not a build timestamp.\n"
