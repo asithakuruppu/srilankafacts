@@ -972,6 +972,7 @@ def export(
     subnational_dir: Path | None = None,
     events_dir: Path | None = None,
     public: bool = False,
+    hazard_dir: Path | None = None,
     units_dir: Path | None = None,
 ) -> dict[str, Any]:
     """Write the bundle. `public=True` builds the bundle for a public site: it needs a
@@ -1047,14 +1048,17 @@ def export(
     else:
         manifest["landscape"] = {"available": False, "reason": "no --landscape-dir given"}
         manifest["features"] = {"available": False, "reason": "no --landscape-dir given"}
-    if subnational_dir is not None or events_dir is not None:
+    if subnational_dir is not None or events_dir is not None or hazard_dir is not None:
         from slf import atlas_landscape
 
         manifest["extra"] = atlas_landscape.build_extra(
-            subnational_dir, spine_dir, catalog_dir, target, events_dir
+            subnational_dir, spine_dir, catalog_dir, target, events_dir, hazard_dir, public
         )
     else:
-        manifest["extra"] = {"available": False, "reason": "no --subnational-dir or --events-dir"}
+        manifest["extra"] = {
+            "available": False,
+            "reason": "no --subnational-dir, --events-dir or --hazard-dir",
+        }
     manifest["units"] = _copy_unit_profiles(units_dir, target)
     _dump(target / "manifest.json", manifest)
     return manifest

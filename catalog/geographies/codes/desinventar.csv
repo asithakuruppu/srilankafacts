@@ -1,0 +1,35 @@
+geography_id,vintage,code_system,external_code,external_name,match_method,confidence,notes
+LK1,cod-ab-v03,desinventar,lka001,Western,name_and_parent,1.0,name equals one spine province (parent LK); name from the province shapefile
+LK11,cod-ab-v03,desinventar,lka001001,Colombo,name_and_parent,1.0,name equals one spine district under LK1; the shapefile's province lka001 (Western) matches that parent
+LK12,cod-ab-v03,desinventar,lka001002,Gampaha,name_and_parent,1.0,name equals one spine district under LK1; the shapefile's province lka001 (Western) matches that parent
+LK13,cod-ab-v03,desinventar,lka001003,Kalutara,name_and_parent,1.0,name equals one spine district under LK1; the shapefile's province lka001 (Western) matches that parent
+LK2,cod-ab-v03,desinventar,lka002,Central,name_and_parent,1.0,name equals one spine province (parent LK); name from the province shapefile
+LK21,cod-ab-v03,desinventar,lka002001,Kandy,name_and_parent,1.0,name equals one spine district under LK2; the shapefile's province lka002 (Central) matches that parent
+LK22,cod-ab-v03,desinventar,lka002002,Matale,name_and_parent,1.0,name equals one spine district under LK2; the shapefile's province lka002 (Central) matches that parent
+LK23,cod-ab-v03,desinventar,lka002003,Nuwara Eliya,name_and_parent,1.0,name equals one spine district under LK2; the shapefile's province lka002 (Central) matches that parent
+LK3,cod-ab-v03,desinventar,lka003,Southern,name_and_parent,1.0,name equals one spine province (parent LK); name from the province shapefile
+LK31,cod-ab-v03,desinventar,lka003001,Galle,name_and_parent,1.0,name equals one spine district under LK3; the shapefile's province lka003 (Southern) matches that parent
+LK32,cod-ab-v03,desinventar,lka003002,Matara,name_and_parent,1.0,name equals one spine district under LK3; the shapefile's province lka003 (Southern) matches that parent
+LK33,cod-ab-v03,desinventar,lka003003,Hambantota,name_and_parent,1.0,name equals one spine district under LK3; the shapefile's province lka003 (Southern) matches that parent
+LK4,cod-ab-v03,desinventar,lka004,Northern,name_and_parent,1.0,name equals one spine province (parent LK); name from the province shapefile
+LK41,cod-ab-v03,desinventar,lka004001,Jaffna,name_and_parent,1.0,name equals one spine district under LK4; the shapefile's province lka004 (Northern) matches that parent
+LK42,cod-ab-v03,desinventar,lka004002,Mannar,name_and_parent,1.0,name equals one spine district under LK4; the shapefile's province lka004 (Northern) matches that parent
+LK43,cod-ab-v03,desinventar,lka004003,Vavuniya,name_and_parent,1.0,name equals one spine district under LK4; the shapefile's province lka004 (Northern) matches that parent
+LK44,cod-ab-v03,desinventar,lka004004,Mullaitivu,name_and_parent,1.0,name equals one spine district under LK4; the shapefile's province lka004 (Northern) matches that parent
+LK45,cod-ab-v03,desinventar,lka004005,Kilinochchi,name_and_parent,1.0,name equals one spine district under LK4; the shapefile's province lka004 (Northern) matches that parent
+LK5,cod-ab-v03,desinventar,lka005,Eastern,name_and_parent,1.0,name equals one spine province (parent LK); name from the province shapefile
+LK51,cod-ab-v03,desinventar,lka005001,Batticaloa,name_and_parent,1.0,name equals one spine district under LK5; the shapefile's province lka005 (Eastern) matches that parent
+LK52,cod-ab-v03,desinventar,lka005002,Ampara,name_and_parent,1.0,name equals one spine district under LK5; the shapefile's province lka005 (Eastern) matches that parent
+LK53,cod-ab-v03,desinventar,lka005003,Trincomalee,name_and_parent,1.0,name equals one spine district under LK5; the shapefile's province lka005 (Eastern) matches that parent
+LK6,cod-ab-v03,desinventar,lka006,North Western,name_and_parent,1.0,name equals one spine province (parent LK); name from the province shapefile
+LK61,cod-ab-v03,desinventar,lka006001,Kurunegala,name_and_parent,1.0,name equals one spine district under LK6; the shapefile's province lka006 (North Western) matches that parent
+LK62,cod-ab-v03,desinventar,lka006002,Puttalam,name_and_parent,1.0,name equals one spine district under LK6; the shapefile's province lka006 (North Western) matches that parent
+LK7,cod-ab-v03,desinventar,lka007,North Central,name_and_parent,1.0,name equals one spine province (parent LK); name from the province shapefile
+LK71,cod-ab-v03,desinventar,lka007001,Anuradhapura,name_and_parent,1.0,name equals one spine district under LK7; the shapefile's province lka007 (North Central) matches that parent
+LK72,cod-ab-v03,desinventar,lka007002,Polonnaruwa,name_and_parent,1.0,name equals one spine district under LK7; the shapefile's province lka007 (North Central) matches that parent
+LK8,cod-ab-v03,desinventar,lka008,Uva,name_and_parent,1.0,name equals one spine province (parent LK); name from the province shapefile
+LK81,cod-ab-v03,desinventar,lka008001,Badulla,name_and_parent,1.0,name equals one spine district under LK8; the shapefile's province lka008 (Uva) matches that parent
+LK82,cod-ab-v03,desinventar,lka008002,Moneragala,manual,0.95,"variant spelling of Monaragala; the only DesInventar district under Uva (lka008) not matched by name, and Monaragala is the only spine district under LK8 left unmatched (Badulla matched by name); lead review pending"
+LK9,cod-ab-v03,desinventar,lka009,Sabaragamuwa,name_and_parent,1.0,name equals one spine province (parent LK); name from the province shapefile
+LK91,cod-ab-v03,desinventar,lka009001,Ratnapura,name_and_parent,1.0,name equals one spine district under LK9; the shapefile's province lka009 (Sabaragamuwa) matches that parent
+LK92,cod-ab-v03,desinventar,lka009002,Kegalle,name_and_parent,1.0,name equals one spine district under LK9; the shapefile's province lka009 (Sabaragamuwa) matches that parent

@@ -66,6 +66,7 @@ Prerequisites: `uv` (Python 3.12 is fetched by uv), Node.js 20+ and pnpm 12 (`np
 | Web atlas bundle for the map-first home page (needs a release; profile and history builds are optional) | `uv run slf atlas export --release-dir <release> --profile-dir data/build/profile-v03 --history-dir data/build/history --spaces-dir data/build/spaces --grid-dir data/build/grid --landscape-dir data/build/landscape --subnational-dir data/build/subnational --events-dir data/build/events` |
 | Analytic grid (H3 r9, equal-share GN weights) and point resolver | `uv run slf grid build` · `uv run slf resolve --lon 79.86 --lat 6.93` |
 | Stage 3 sub-national indicators (OPHI, WFP rainfall and NDVI, HeiGIT access) | `uv run slf subnational build` |
+| Crosswalks and district indicators for HeiGIT travel-time access and DesInventar records (writes `catalog/geographies/codes/`; pass `--hazard-dir` to the atlas export) | `uv run slf hazard-access build` |
 | Release calendar (add `--probe` for polite landing-page checks) | `uv run slf freshness` |
 | AI evaluation set (A02) from a release; score the MCP server with `node eval/run.mjs <set> <release> <report>` in `mcp/` | `uv run slf evalset --release-dir <release>` |
 | Events by place: 2025 flood extent, yearly fire detections, storm passes | `uv run slf events` |
