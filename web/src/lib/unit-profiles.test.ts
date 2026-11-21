@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { getUnitProfiles, isUnitScheme, parseUnitProfiles } from "./unit-profiles";
+import { isUnitScheme, parseUnitProfiles } from "./unit-profiles";
 
 describe("unit profiles gate", () => {
   it("never renders an internal file", () => {
@@ -11,9 +11,8 @@ describe("unit profiles gate", () => {
   it("accepts a publishable file", () => {
     expect(parseUnitProfiles(JSON.stringify({ publishable: true, units: [] }))).not.toBeNull();
   });
-  it("knows its schemes and finds no file in a build without one", () => {
+  it("knows its schemes", () => {
     expect(isUnitScheme("la") && isUnitScheme("moh")).toBe(true);
     expect(isUnitScheme("ed")).toBe(false);
-    expect(getUnitProfiles("la")).toBeNull();
   });
 });

@@ -256,6 +256,15 @@ def rights_allow_catalog(catalog: Path, dataset_id: str) -> tuple[bool, str]:
     return False, f"rights {rights.status}; internal run only, nothing committed"
 
 
+def publication_text(catalog: Path, dataset_id: str) -> tuple[str | None, str | None]:
+    """The attribution and notice of a dataset's publication block, if it has one."""
+    cat = load_catalog(catalog, None, CatalogReport())
+    ds = cat.datasets.get(dataset_id)
+    if ds is None or ds.publication is None:
+        return None, None
+    return ds.publication.attribution, ds.publication.notice
+
+
 def la_type_check(composed: Composed, census: pd.DataFrame) -> pd.DataFrame:
     """Per local authority: census population of its GNs by DCS local-authority type.
 
@@ -565,3 +574,5 @@ def units_csv(units: Iterable[Unit]) -> str:
 
 
 GIG_SOURCE_DATASET = GIG_DATASET
+# Catalogue entry for the lg_id / moh_id memberships alone (D-057); the rights gate reads it.
+GIG_LG_MOH_DATASET = "nuuuwan-gig-data-lg-moh"

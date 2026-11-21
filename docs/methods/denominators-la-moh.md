@@ -1,6 +1,6 @@
 # Method: local authorities and MOH areas as GN compositions (G05, schemes `la` and `health`)
 
-Status: **code built and tested; no publishable source held** · 2026-11-17 · Decision: D-046
+Status: **built; preview publishes gig-data memberships under D-057 (non-commercial, flagged); no official list held** · 2026-11-17 · Decision: D-046
 (Proposed) · Module `pipeline/slf/datasets/composed_geography.py` · command
 `uv run slf composition build` · QA: [la-moh-composition-2026-11-17.md](../qa/la-moh-composition-2026-11-17.md)
 
@@ -82,6 +82,15 @@ GN, some GN without census, shape IoU < 0.9, DCS type share < 0.9). The website 
 (Accepted 2026-11-21). `slf atlas export --units-dir data/build` copies `units-la.json` and
 `units-health.json` into the atlas bundle, only from non-internal files that say
 `publishable: true`.
+
+## Preview publication (2026-11-21, D-057)
+
+The lead decided the preview carries LA and MOH profiles now. Catalogue entry
+`nuuuwan-gig-data-lg-moh` (lg_id and moh_id only) has a `publication` block; `rights.status` stays
+`unclear`. `slf composition build --gig-internal` therefore writes `catalog/geographies/codes/{la,health}-gig-2026-11.csv`,
+`relations/{la,health}_gig-2026-11.csv`, and non-`_internal` profiles, and `slf atlas export --units-dir data/build`
+carries them to `/units/la` and `/units/moh`, where each page shows the notice, attribution, the count of GNs in no area, and
+per-unit flags. Shapes and polling-division columns stay local. An official list replaces it.
 
 ## Next step
 

@@ -600,6 +600,16 @@ These were stated by you or are standing rules in [brainstorm-decisions.md](../b
 
 ---
 
+## D-057: LA and MOH memberships from gig-data are published in the non-commercial preview, flagged
+- **Status:** Accepted · 2026-11-21 (decided by the lead: "build the preview with no restrictions" until broader permissions are obtained; amends D-046 and D-055 on the rights gate only)
+- **Context:** No official GN list per local authority or MOH area is held (D-046). The only membership source, nuuuwan `gig-data`, has no licence and no stated origin. The lead wants the preview to carry LA and MOH profiles now and to stay a preview until permissions are obtained.
+- **Decision:** (1) A new catalogue entry `nuuuwan-gig-data-lg-moh` (`lg_id` and `moh_id` only) gets a `publication` block under this decision, as for D-030/D-032: non-commercial, attribution, notice, 7-day takedown; `rights.status` stays `unclear`. (2) LA and MOH compositions and profiles built from it are committed to `catalog/` and shown at `/units/la` and `/units/moh` with their known gaps and per-unit flags. (3) gig-data's polling-division columns stay local (D-040) and its shapes are not published. (4) The preview is non-commercial only; nothing is a commercial release.
+- **Alternatives:** wait for an official list (rejected by the lead for the preview); also publish gig-data shapes (rejected: not needed for tables, and the IoU shows many disagree).
+- **Consequences:** units show coverage gaps (423 GNs in no LA, 986 in no MOH area), flagged shape and type disagreements, and the notice. The site header/footer notice for D-030 is unchanged; the unit pages carry their own notice. An official list replaces this when obtained.
+- **Revisit when:** an official GN list per local authority or MOH area is held; permissions are obtained; nuuuwan states a licence.
+
+---
+
 ## Template
 
 ```markdown

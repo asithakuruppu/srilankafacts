@@ -58,7 +58,18 @@ export default async function UnitsPage({ params }: { params: Promise<{ scheme: 
         Each area is a set of GN divisions. Counts are the sum of Census 2024 GN values weighted by
         membership; rates are recomputed from those counts. {doc.support}.
       </p>
-      <p className="small muted">Source: {doc.source}</p>
+      {doc.notice ? (
+        <p className="notice" data-testid="units-notice">
+          {doc.notice}
+        </p>
+      ) : null}
+      <p className="small muted">{doc.attribution ?? `Source: ${doc.source}`}</p>
+      {doc.spine_gns_without_unit != null ? (
+        <p className="small muted">
+          Coverage: {doc.spine_gns_without_unit.toLocaleString("en-US")} GN divisions belong to no
+          area in this list, so these areas do not add up to the country.
+        </p>
+      ) : null}
       <table>
         <thead>
           <tr>

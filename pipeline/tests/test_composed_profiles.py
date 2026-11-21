@@ -55,6 +55,7 @@ def test_publishable_reads_untagged_files(tmp_path: Path) -> None:
     _den(tmp_path, "")
     out, _ = cp.build_profiles(tmp_path, "la", publishable=True, source_note="x")
     assert out.name == "la_profiles.json"
+    assert json.loads(out.read_text())["notice"] is None
     assert json.loads(out.read_text())["publishable"] is True
 
 

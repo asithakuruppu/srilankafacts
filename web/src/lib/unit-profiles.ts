@@ -24,12 +24,15 @@ export type UnitProfileFile = {
   publishable: boolean;
   source: string;
   support: string;
+  attribution?: string | null;
+  notice?: string | null;
+  spine_gns_without_unit?: number | null;
   units: UnitProfile[];
 };
 
 export const UNAVAILABLE_REASON =
-  "No official GN list with recorded reuse rights is held for this scheme, so no profiles are published. " +
-  "The only membership source held has no licence and is used for internal quality checks only.";
+  "This build has no publishable membership list for this scheme: no official GN list per area is held, " +
+  "and a community list is shown only in builds that carry its preview notice (D-057).";
 
 export function isUnitScheme(value: string): value is UnitScheme {
   return value in UNIT_SCHEMES;
