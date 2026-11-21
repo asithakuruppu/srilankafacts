@@ -1578,3 +1578,9 @@ body:has(.atlas) .preview-banner .shell {
 .embed-credit {
   color: var(--muted);
 }
+
+.resolution-page .table-scroll { overflow-x: auto; }
+.resolution-filter { display: inline-flex; gap: 0.5rem; align-items: center; margin-bottom: 0.5rem; }
+.finest-controls { display: flex; flex-wrap: wrap; gap: 0.5rem 1rem; align-items: center; margin-bottom: 0.5rem; }
+.finest-canvas { height: 60vh; min-height: 320px; border-radius: 6px; overflow: hidden; }
+.finest-badge { padding: 0.4rem 0.6rem; border-left: 3px solid #f2b400; background: rgba(242, 180, 0, 0.12); }

@@ -1006,5 +1006,11 @@ def export(
         )
     else:
         manifest["extra"] = {"available": False, "reason": "no --subnational-dir or --events-dir"}
+    if catalog_dir is not None:
+        from slf import atlas_resolution
+
+        manifest["resolution"] = atlas_resolution.build(catalog_dir, target)
+    else:
+        manifest["resolution"] = {"available": False, "reason": "no --catalog-dir given"}
     _dump(target / "manifest.json", manifest)
     return manifest
