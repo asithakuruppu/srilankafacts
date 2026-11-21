@@ -1225,6 +1225,26 @@ def grid_build(
         typer.echo(f"{key}: {value}")
 
 
+@grid_app.command("popweights")
+def grid_popweights(
+    worldpop_tif: Annotated[
+        Path, typer.Option(help="WorldPop 100 m constrained population GeoTIFF.")
+    ],
+    census_parquet: Annotated[Path, typer.Option(help="Release census-2024-gnd-tables.parquet.")],
+    spine_dir: Annotated[Path, typer.Option(help="Geography spine build folder.")] = Path(
+        "./data/build/geography-spine"
+    ),
+    out_dir: Annotated[Path, typer.Option(help="Output folder.")] = Path(
+        "./data/build/grid-popweighted"
+    ),
+) -> None:
+    """Population-weighted H3 r10 and r9 grid: WorldPop weights, GN census totals (G07)."""
+    from slf import grid_weights
+
+    summary = grid_weights.build(spine_dir, worldpop_tif, census_parquet, out_dir)
+    typer.echo(json.dumps(summary, indent=2, default=str))
+
+
 @app.command("resolve")
 def resolve(
     lon: Annotated[float, typer.Option(help="Longitude (EPSG:4326).")],

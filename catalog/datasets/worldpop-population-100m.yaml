@@ -28,4 +28,4 @@ notes: 'The 2025 constrained grid and the R2025A release statement are held (202
   a comparison with Census 2024 GN counts (docs/research/spatial/findings-2026-11-17.md): it is a modelled
   estimate and is not published as an indicator. WorldPop labels R2025A an alpha release. The census input
   for Sri Lanka in R2025A was not confirmed ❓; the 2000-2020 release used 13,938 GN totals of the 2012
-  Census (multi-scale-features.md §2.1).'
+  Census (multi-scale-features.md §2.1). G07 on 2026-11-21, admitted as the weight source for the population-weighted grid (docs/research/rights/g07-weighting-inputs.md). Rights: CC BY 4.0, commercial reuse allowed (WorldPop page footer, read 2026-11-17; the meta.json of the file licence_note says CC BY 4.0). The release statement (read 2026-11-21) says the model uses GHSL, Google Open Buildings V3 and Microsoft building footprints as covariates; WorldPop licenses its output CC BY 4.0, and we rely on that grant, not on the upstream terms (not independently checked).'
