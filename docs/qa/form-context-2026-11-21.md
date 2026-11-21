@@ -62,7 +62,7 @@ Files: `data/build/form/{form,context}/` hold `vectors/{space}_v0.1.parquet`, `_
 
 ## 5. Tests and lint
 
-`uv run pytest`: 300 passed (13 new in `tests/test_formspace.py`, including exact-decomposition, exclusion and shape-measurement fixtures). `uv run ruff check .` and `ruff format --check .`: clean. `uv run pyright`: 0 errors. `uv run slf catalog validate --root ../catalog`: OK.
+`uv run pytest`: 300 passed (6 new in `tests/test_formspace.py`, including exact-decomposition, exclusion and shape-measurement fixtures). `uv run ruff check .` and `ruff format --check .`: clean. `uv run pyright`: 0 errors. `uv run slf catalog validate --root ../catalog`: OK.
 
 ## 6. Not checked
 
