@@ -56,3 +56,18 @@ def test_publishable_reads_untagged_files(tmp_path: Path) -> None:
     out, _ = cp.build_profiles(tmp_path, "la", publishable=True, source_note="x")
     assert out.name == "la_profiles.json"
     assert json.loads(out.read_text())["publishable"] is True
+
+
+def test_atlas_copies_only_publishable_profiles(tmp_path: Path) -> None:
+    from slf.atlas import _copy_unit_profiles
+
+    (tmp_path / "la").mkdir()
+    (tmp_path / "health").mkdir()
+    (tmp_path / "la" / "la_profiles.json").write_text(json.dumps({"publishable": True}))
+    (tmp_path / "health" / "health_profiles.json").write_text(json.dumps({"publishable": False}))
+    (tmp_path / "health" / "health_profiles_internal.json").write_text("{}")
+    target = tmp_path / "out"
+    target.mkdir()
+    assert _copy_unit_profiles(tmp_path, target) == {"available": True, "schemes": ["la"]}
+    assert (target / "units-la.json").exists() and not (target / "units-health.json").exists()
+    assert _copy_unit_profiles(None, target)["available"] is False

@@ -79,7 +79,9 @@ and 15+, population per household, occupied units per household), and flags per 
 GN, some GN without census, shape IoU < 0.9, DCS type share < 0.9). The website route
 `/units/la` and `/units/moh` shows a file only if it says `publishable: true`; otherwise it shows
 "unavailable" with the reason. Internal files are never copied into the site. Decision: D-055
-(Proposed).
+(Accepted 2026-11-21). `slf atlas export --units-dir data/build` copies `units-la.json` and
+`units-health.json` into the atlas bundle, only from non-internal files that say
+`publishable: true`.
 
 ## Next step
 

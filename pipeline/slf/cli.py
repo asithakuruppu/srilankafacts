@@ -1003,6 +1003,10 @@ def atlas_export(
     events_dir: Annotated[
         Path | None, typer.Option(help="Events build folder (`slf events`).")
     ] = None,
+    units_dir: Annotated[
+        Path | None,
+        typer.Option(help="Build folder holding la/ and health/ (publishable profiles only)."),
+    ] = None,
     out_dir: Annotated[Path, typer.Option(help="Output folder.")] = Path("./data/build/atlas"),
     public: Annotated[
         bool,
@@ -1029,6 +1033,7 @@ def atlas_export(
         subnational_dir,
         events_dir,
         public=public,
+        units_dir=units_dir,
     )
     geometry = manifest["geometry"]
     typer.echo(f"atlas bundle for {manifest['release']} -> {out_dir / manifest['release']}")
