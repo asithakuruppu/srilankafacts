@@ -619,6 +619,14 @@ These were stated by you or are standing rules in [brainstorm-decisions.md](../b
 - **Addendum (2026-11-21, lead instruction):** the lead then said "yes to all ... what we are building will stay preview until we get permissions. so build the preview with no restrictions", so the per-feature `form-feature` and `context-feature` v0.1 were built (8.9 million footprints; method §7, QA `docs/qa/form-features-2026-11-21.md`). They are a private local preview: not published, no people attributes on any row, ODbL share-alike material. The "no per-building vector is produced" and "per-feature unbuilt" statements above describe the state before this addendum.
 - **Revisit when:** the lead approves or changes either recipe; the ODbL question is settled; CTrees or GHSL terms are read in full; the lead's broader permissions are in place (then decide what, if anything, of the feature spaces may be published).
 
+## D-059: OpenStreetMap basemap under the maps (public tile server)
+- **Status:** Proposed · 2026-11-22 (agent proposal, following the lead's request for an OpenStreetMap underlay on the Areas page and a basemap switcher elsewhere)
+- **Context:** The maps draw only boundaries on a flat background, so a clicked point on `/area` cannot be placed on the ground.
+- **Decision:** `/area` opens on an OpenStreetMap raster basemap; the home atlas and indicator maps get a Plain / OpenStreetMap switch and stay Plain by default. Boundary fills become semi-transparent when OSM is on. Tiles come from `tile.openstreetmap.org` and are requested by the visitor's browser only while the OSM view is on; the map shows "© OpenStreetMap contributors". No click coordinates are sent to any geocoder.
+- **Alternatives:** a hosted tile provider or self-served PMTiles extract (cost and a tile-stack decision; the fallback if traffic grows); a reverse-geocoding call on click (rejected: sends the visitor's chosen location to a third party).
+- **Consequences:** the OSM public tile policy suits light use only and offers no guarantee; OSM data is ODbL, with attribution required. The Plain view works offline of OSM. Visitors' IP addresses reach the OSM tile servers when they use the OSM view.
+- **Revisit when:** traffic grows, or the lead wants a self-hosted or vector basemap (see D-053 on tile stacks).
+
 
 ---
 

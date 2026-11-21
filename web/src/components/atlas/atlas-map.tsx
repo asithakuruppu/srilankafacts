@@ -5,6 +5,16 @@ import "maplibre-gl/dist/maplibre-gl.css";
 import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from "react";
 import type { GeoJSONSource, Map as MapLibreMap } from "maplibre-gl";
 
+import BasemapSwitch from "@/components/atlas/basemap-switch";
+import {
+  basemapStyle,
+  OSM_FILL_OPACITY,
+  readBasemap,
+  saveBasemap,
+  setBasemap,
+  type Basemap,
+} from "@/lib/atlas/basemap";
+
 import {
   loadDetail,
   loadEdMesh,
@@ -152,6 +162,8 @@ const AtlasMap = forwardRef<AtlasMapHandle, Props>(function AtlasMap(props, ref)
     null,
   );
   const [ready, setReady] = useState(false);
+  const [basemap, setBasemapState] = useState<Basemap>("plain");
+  const basemapRef = useRef<Basemap>("plain");
   /** Bumped whenever more geometry arrives, so selection and labels can use it. */
   const [dataVersion, setDataVersion] = useState(0);
 
@@ -453,11 +465,7 @@ const AtlasMap = forwardRef<AtlasMapHandle, Props>(function AtlasMap(props, ref)
         const tokens = MAP_TOKENS[latest.current.theme];
         const map = new MapLibrary({
           container: container.current,
-          style: {
-            version: 8,
-            sources: {},
-            layers: [{ id: "sea", type: "background", paint: { "background-color": tokens.sea } }],
-          },
+          style: basemapStyle(tokens.sea, basemapRef.current),
           bounds: [79.4, 5.8, 82.1, 9.95],
           fitBoundsOptions: {
             padding: {
@@ -470,7 +478,7 @@ const AtlasMap = forwardRef<AtlasMapHandle, Props>(function AtlasMap(props, ref)
           minZoom: 5,
           maxZoom: 15,
           maxBounds: [76.5, 3.5, 85, 12.5],
-          attributionControl: false,
+          attributionControl: { compact: true },
           dragRotate: false,
           pitchWithRotate: false,
           touchPitch: false,
@@ -762,9 +770,10 @@ const AtlasMap = forwardRef<AtlasMapHandle, Props>(function AtlasMap(props, ref)
       dimOutside && selected && selected.level !== "country"
         ? ["case", ["==", ["get", selected.level], selected.id], 1, 0.32]
         : 1;
+    const opacity = basemap === "osm" ? ["*", focus, OSM_FILL_OPACITY] : focus;
     for (const id of FILL_LAYERS) {
       map.setPaintProperty(id, "fill-color", expression as never);
-      map.setPaintProperty(id, "fill-opacity", focus as never);
+      map.setPaintProperty(id, "fill-opacity", opacity as never);
     }
     const borders =
       level === "ed"
@@ -788,7 +797,20 @@ const AtlasMap = forwardRef<AtlasMapHandle, Props>(function AtlasMap(props, ref)
         });
     }
     internals.current?.scheduleLabels();
-  }, [colors, dimOutside, level, ready, selected, theme]);
+  }, [basemap, colors, dimOutside, level, ready, selected, theme]);
+
+  // Basemap: plain by default; the viewer's remembered choice applies after the first render.
+  useEffect(() => {
+    const stored = readBasemap("plain");
+    basemapRef.current = stored;
+    setBasemapState(stored);
+  }, []);
+  useEffect(() => {
+    basemapRef.current = basemap;
+    if (mapRef.current && ready) {
+      setBasemap(mapRef.current, basemap);
+    }
+  }, [basemap, ready]);
 
   // Selection and highlight outlines, at the geometry tier in view.
   useEffect(() => {
@@ -841,6 +863,13 @@ const AtlasMap = forwardRef<AtlasMapHandle, Props>(function AtlasMap(props, ref)
     <div className="atlas-map">
       <div className="atlas-canvas" ref={container} aria-hidden="true" />
       <div className="atlas-labels" ref={labelLayer} aria-hidden="true" />
+      <BasemapSwitch
+        value={basemap}
+        onChange={(next) => {
+          saveBasemap(next);
+          setBasemapState(next);
+        }}
+      />
       <div className="atlas-tip" ref={tip} hidden aria-hidden="true">
         <strong />
         <span />

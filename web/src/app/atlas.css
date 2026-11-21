@@ -1456,6 +1456,10 @@ body:has(.atlas) .preview-banner .shell {
   border-top: var(--border);
   min-height: 70vh;
 }
+.area-canvas {
+  position: absolute;
+  inset: 0;
+}
 .area-map {
   position: relative;
   min-height: 70vh;
