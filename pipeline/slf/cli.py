@@ -886,7 +886,7 @@ def composition_build(
         unit_rows, member_rows, geoms, totals = cg.gig_inputs(
             from_env(), spec, with_geometry=with_geometry
         )
-        source_dataset, code_system, method = cg.GIG_SOURCE_DATASET, "nuuuwan", "attribute"
+        source_dataset, code_system, method = cg.GIG_LG_MOH_DATASET, "nuuuwan", "attribute"
         vintage = vintage or "gig-2026-11"
     else:
         if units is None or membership is None or source_dataset is None or not vintage:
@@ -897,8 +897,6 @@ def composition_build(
             raise typer.Exit(2)
         unit_rows, member_rows = cg.read_units(units), cg.read_membership(membership)
     publishable, rights_note = cg.rights_allow_catalog(catalog, source_dataset)
-    if gig_internal:
-        publishable = False
     composed = cg.compose(
         spec,
         unit_rows,
@@ -935,8 +933,14 @@ def composition_build(
     from slf.datasets import composed_profiles as cp
 
     out = out_dir or Path(DEFAULT_BUILD_DIR) / scheme
+    pub = cg.publication_text(catalog, source_dataset) if publishable else (None, None)
     prof, summary = cp.build_profiles(
-        out, scheme, publishable=publishable, source_note=f"{source_dataset} ({rights_note})"
+        out,
+        scheme,
+        publishable=publishable,
+        source_note=f"{source_dataset} ({rights_note})",
+        attribution=pub[0],
+        notice=pub[1],
     )
     typer.echo(f"wrote {prof}: {summary}")
 
@@ -950,18 +954,23 @@ def composition_profile(
     publishable: Annotated[
         bool, typer.Option(help="Read the files without `_internal`; only after a rights gate.")
     ] = False,
+    catalog: Annotated[Path, typer.Option(help="Catalogue folder.")] = Path("../catalog"),
 ) -> None:
     """Write per-unit profiles from an existing composition build (no download needed)."""
+    from slf.datasets import composed_geography as cg
     from slf.datasets import composed_profiles as cp
 
     folder = build_dir or Path(DEFAULT_BUILD_DIR) / scheme
+    pub = cg.publication_text(catalog, cg.GIG_LG_MOH_DATASET) if publishable else (None, None)
     out, summary = cp.build_profiles(
         folder,
         scheme,
         publishable=publishable,
-        source_note="internal run on nuuuwan gig-data (no licence); not for publication"
-        if not publishable
-        else "see composition QA",
+        source_note=f"{cg.GIG_LG_MOH_DATASET} (rights unclear; publication decision D-056)"
+        if publishable
+        else "internal run on nuuuwan gig-data; not for publication",
+        attribution=pub[0],
+        notice=pub[1],
     )
     typer.echo(f"wrote {out}: {summary}")
 

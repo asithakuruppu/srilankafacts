@@ -1,0 +1,40 @@
+id: nuuuwan-gig-data-lg-moh
+source: nuuuwan
+title: "gig-data: local authority (lg_id) and MOH area (moh_id) per GN division (community)"
+landing_page: https://github.com/nuuuwan/gig-data
+pipeline_module: slf.datasets.composed_geography
+schedule: manual
+geography_scheme: admin
+geography_vintage: null
+reference_period: null
+rights: inherit
+# D-056: the lead's instruction to publish these two memberships in the non-commercial preview.
+# Not a licence; rights stay unclear. Covers lg_id and moh_id only, not the polling-division
+# columns (D-040 still holds) and not gig-data's shapes.
+publication:
+  decision: D-056
+  use: non_commercial
+  attribution: "Membership of GN divisions in local authorities and MOH areas: nuuuwan/gig-data (community dataset, origin not stated by its author). Counts are from the Department of Census and Statistics, Census of Population and Housing 2024."
+  notice: "No official list of GN divisions per local authority or MOH area is held. These memberships come from an unlicensed community dataset, are shown as a preview with their quality flags, and will be replaced by an official list or removed when one is obtained or on request."
+  takedown_days: 7
+  decided: 2026-11-21
+spatial:
+  support: area
+  scheme: admin
+  level: gn
+  vintage: null
+  coverage: LK
+  measured_in: null
+  positional_accuracy: null
+  crs_source: unconfirmed
+  resolution: null
+  information_unit: null
+  information_count: null
+  derived_by: null
+indicators: []
+cross_checks: []
+status: active
+notes: >
+  Membership only (ents/gnd.tsv lg_id and moh_id, ents/lg.tsv, ents/moh.tsv); the shapes in geo/lg and geo/moh
+  are read for the IoU check only and are not published. Known gaps (QA 2026-11-21): 423 GNs in no local
+  authority, 986 in no MOH area. Superseded by an official list when one is held.

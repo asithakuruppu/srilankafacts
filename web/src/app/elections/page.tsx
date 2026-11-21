@@ -40,8 +40,10 @@ export default function ElectionsPage() {
       <h2>Not held yet</h2>
       <p>
         Parliamentary, provincial council and local authority elections, and presidential
-        elections before 2024, are not yet ingested. Local authority and MOH areas are not drawn:
-        no boundary or GN list with recorded reuse rights is held.
+        elections before 2024, are not yet ingested. Local authority and MOH areas are not drawn on the
+        map (no boundary with recorded reuse rights is held); their profile tables are in the{" "}
+        <Link href="/units/la">local authority</Link> and <Link href="/units/moh">MOH</Link> preview
+        pages, with their known gaps.
       </p>
       <p className="small muted">
         Method: <Link href="/methods">methods</Link> (election results, D-039; polling divisions
