@@ -50,3 +50,7 @@ DCS and NDCU reuse terms are unclear and D-030/D-032 cover only the census. Thes
 ## Limits
 
 LFS and HIES are sample surveys: district values carry sampling error (DCS flags high CVs; none is published in the tables read) ❓. HIES poor-population counts are rounded to 100. HIES 2019 and LFS 2024 are different years with different universes; do not compare them.
+
+## Atlas and website (private preview)
+
+`uv run slf atlas export ... --stat-tables-dir data/build/stat-tables` copies the latest period of each stat-table indicator into the atlas bundle's `extra/` folder, where the website's Geography lens reads it. Only whole-population rows are shown (HIES district and country rows; LFS both-sexes rows); the sector and sex breakdowns stay in the observation downloads. Each map shows the latest period only (paddy: 2012 Yala; dengue: the latest week). Their rights are unclear (D-030/D-032 cover only the census), so a `--public` bundle leaves them out.

@@ -974,6 +974,7 @@ def export(
     public: bool = False,
     hazard_dir: Path | None = None,
     units_dir: Path | None = None,
+    stat_tables_dir: Path | None = None,
 ) -> dict[str, Any]:
     """Write the bundle. `public=True` builds the bundle for a public site: it needs a
     publishable release and leaves out the private parts (D-038 change and trajectory, D-049
@@ -1028,14 +1029,14 @@ def export(
         from slf import grid
 
         manifest["grid"] = grid.web_files(spine_dir, weights[-1], target)
+    else:
+        manifest["grid"] = {"available": False, "reason": "no grid build given (`slf grid build`)"}
     if catalog_dir is not None and (catalog_dir / "geographies" / "relations").exists():
         from slf import resolver
 
         eds = resolver.district_to_ed(catalog_dir / "geographies" / "relations")
         _dump(target / "resolver.json", {"district_to_ed": eds})
         manifest["resolver"] = {"available": True, "district_to_ed": len(eds)}
-    else:
-        manifest["grid"] = {"available": False, "reason": "no grid build given (`slf grid build`)"}
     if landscape_dir is not None:
         from slf import atlas_landscape
 
@@ -1048,11 +1049,18 @@ def export(
     else:
         manifest["landscape"] = {"available": False, "reason": "no --landscape-dir given"}
         manifest["features"] = {"available": False, "reason": "no --landscape-dir given"}
-    if subnational_dir is not None or events_dir is not None or hazard_dir is not None:
+    if any(d is not None for d in (subnational_dir, events_dir, hazard_dir, stat_tables_dir)):
         from slf import atlas_landscape
 
         manifest["extra"] = atlas_landscape.build_extra(
-            subnational_dir, spine_dir, catalog_dir, target, events_dir, hazard_dir, public
+            subnational_dir,
+            spine_dir,
+            catalog_dir,
+            target,
+            events_dir,
+            hazard_dir,
+            public,
+            stat_tables_dir,
         )
     else:
         manifest["extra"] = {

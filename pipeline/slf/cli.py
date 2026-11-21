@@ -1020,6 +1020,10 @@ def atlas_export(
         Path | None,
         typer.Option(help="Build folder holding la/ and health/ (publishable profiles only)."),
     ] = None,
+    stat_tables_dir: Annotated[
+        Path | None,
+        typer.Option(help="Stat-tables build folder (`slf stat-tables build`); private only."),
+    ] = None,
     out_dir: Annotated[Path, typer.Option(help="Output folder.")] = Path("./data/build/atlas"),
     public: Annotated[
         bool,
@@ -1048,6 +1052,7 @@ def atlas_export(
         public=public,
         hazard_dir=hazard_dir,
         units_dir=units_dir,
+        stat_tables_dir=stat_tables_dir,
     )
     geometry = manifest["geometry"]
     typer.echo(f"atlas bundle for {manifest['release']} -> {out_dir / manifest['release']}")
