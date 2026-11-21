@@ -1279,3 +1279,32 @@ def events_build(
 
     summary = events.build(raw_root, spine_dir, out_dir)
     typer.echo(json.dumps(summary, indent=2)[:3000])
+
+
+hazard_app = typer.Typer(
+    help="HeiGIT accessibility and DesInventar records: crosswalks, then indicators.",
+    no_args_is_help=True,
+)
+app.add_typer(hazard_app, name="hazard-access")
+
+
+@hazard_app.command("build")
+def hazard_access_build(
+    raw_root: Annotated[Path, typer.Option(help="Folder holding raw/<source>/<dataset>/.")] = Path(
+        "./data/raw"
+    ),
+    spine_dir: Annotated[Path, typer.Option(help="Geography spine build folder.")] = Path(
+        "./data/build/geography-spine"
+    ),
+    catalog: Annotated[
+        Path, typer.Option(help="Catalogue root (writes geographies/codes).")
+    ] = Path("../catalog"),
+    out_dir: Annotated[Path, typer.Option(help="Output folder.")] = Path(
+        "./data/build/hazard-access"
+    ),
+) -> None:
+    """Write the heigit-iso and desinventar crosswalks, then the joinable indicators."""
+    from slf import hazard_access
+
+    summary = hazard_access.build(raw_root, spine_dir, catalog, out_dir, out_dir / "_work")
+    typer.echo(f"{summary['rows']} rows, {len(summary['indicators'])} indicators")
