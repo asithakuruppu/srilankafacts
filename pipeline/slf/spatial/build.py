@@ -717,6 +717,32 @@ def emit_all(layers: dict[str, Layer], h: Hierarchy) -> pd.DataFrame:
         out.add(c, f"canopy_{metres}m_area", tall / HA, locator=where, **obs)
         out.add(c, f"canopy_{metres}m_share", _ratio(tall, measured, 100), locator=where, **obs)
 
+    bh = layers["building_height"]
+    obs = dict(period="2018", start="2018-01-01", end="2018-12-31", time_support="observed_around")
+    area = h.total(bh.sums["height_area"])
+    out.add(bh, "building_height_area", area / HA, **obs)
+    out.add(
+        bh,
+        "building_height_mean",
+        _ratio(h.total(bh.sums["height_wsum"]), area),
+        how="area-weighted mean over GN divisions",
+        **obs,
+    )
+
+    bm = layers["biomass"]
+    obs = dict(period="2025", start="2025-01-01", end="2025-12-31", time_support="observed_around")
+    area = h.total(bm.sums["agb_area"])
+    stock = h.total(bm.sums["agb_wsum"])  # megagrams per hectare x m2
+    out.add(bm, "biomass_measured_area", area / HA, **obs)
+    out.add(
+        bm,
+        "biomass_agb_mean",
+        _ratio(stock, area),
+        how="area-weighted mean over GN divisions",
+        **obs,
+    )
+    out.add(bm, "biomass_agb_total", stock / HA, **obs)
+
     q = layers["soil"]
     soil_obs: dict[str, Any] = dict(
         period="2020", start="2020-01-01", end="2020-12-31", time_support="observed_around"
@@ -749,6 +775,43 @@ def emit_all(layers: dict[str, Layer], h: Hierarchy) -> pd.DataFrame:
     return frame
 
 
+def building_height(roots: list[Path], zones: zonal.Zones) -> Layer:
+    files = held_files(roots, "ghsl", "ghsl-building-height")
+    layer = Layer(
+        "ghsl-building-height",
+        files,
+        "grid-100m",
+        "GHS-BUILT-H R2023A ANBH 2018, 100 m Mollweide tiles R8_C26, R8_C27, R9_C26, R9_C27, band 1 "
+        "(average net building height in metres, -1 = no data, 0 = no buildings); each cell split "
+        "into 25 sub-cells of 20 m and shared between places by sub-cell centre; only cells above "
+        "zero count",
+    )
+    reducer = zonal.Moments(len(zones), valid=lambda a: a > 0)
+    layer.blocks = _run(files, zones, reducer, upsample=5)
+    layer.sums = {"height_area": reducer.area[1:], "height_wsum": reducer.weighted[1:]}
+    layer.maxima = {"height_max": reducer.maximum[1:]}
+    return layer
+
+
+def biomass(roots: list[Path], zones: zonal.Zones) -> Layer:
+    files = [
+        f
+        for f in held_files(roots, "ctrees", "ctrees-aboveground-biomass")
+        if f.path.suffix == ".tif"
+    ]
+    layer = Layer(
+        "ctrees-aboveground-biomass",
+        files,
+        "grid-100m",
+        "CTrees above-ground biomass 2025, GeoTIFF in EPSG:4326 (about 100 m), band 1 (int16, "
+        "megagrams per hectare times 10, -9999 = no data); pixels whose centre is inside the place",
+    )
+    reducer = zonal.Moments(len(zones), valid=lambda a: a >= 0)
+    layer.blocks = _run(files, zones, reducer)
+    layer.sums = {"agb_area": reducer.area[1:], "agb_wsum": reducer.weighted[1:] / 10.0}
+    return layer
+
+
 LAYER_BUILDERS = {
     "terrain": terrain,
     "land_cover": land_cover,
@@ -760,6 +823,8 @@ LAYER_BUILDERS = {
     "mangrove": mangrove,
     "canopy_height": canopy_height,
     "soil": soil,
+    "building_height": building_height,
+    "biomass": biomass,
 }
 
 
@@ -800,6 +865,8 @@ LAYER_SOURCES = {
     "mangrove": ("gmw", "global-mangrove-watch"),
     "canopy_height": ("meta-wri", "meta-wri-canopy-height-v2"),
     "soil": ("mendeley-soil", "lk-soil-property-maps"),
+    "building_height": ("ghsl", "ghsl-building-height"),
+    "biomass": ("ctrees", "ctrees-aboveground-biomass"),
 }
 
 MEASURED = {
@@ -811,6 +878,7 @@ MEASURED = {
     "settlement": "smod_measured",
     "rainfall": "rain_area_2020",
     "canopy_height": "canopy_area",
+    "biomass": "agb_area",
 }
 
 WIDE = [
@@ -883,7 +951,15 @@ def build(roots: list[Path], spine_dir: Path, out_dir: Path) -> dict[str, Any]:
     labels = gpd.GeoSeries(gpd.points_from_xy(gn.label_lon, gn.label_lat), crs="EPSG:4326")
     out_dir.mkdir(parents=True, exist_ok=True)
     extra: dict[str, Any] = {}
-    point_frame, point_sets = point_layers.build(roots, zones, hierarchy, labels, out_dir, extra)
+    point_frame, point_sets = point_layers.build(
+        roots,
+        zones,
+        hierarchy,
+        labels,
+        out_dir,
+        extra,
+        land_m2=layers["land_cover"].sums["wc_mapped"],
+    )
     from slf.spatial import sheets as sheet_layers
 
     sheet_frame, sheet_layer, sheet_summary = sheet_layers.build(roots, zones, hierarchy, out_dir)

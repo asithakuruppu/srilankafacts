@@ -1,0 +1,21 @@
+id: building_height_mean
+name: "Mean building height (GHSL)"
+short_name: "Mean building height (GHSL)"
+topic: [landscape, form]
+measure_type: mean
+unit: metres
+universe: built_cells
+numerator: null
+denominator: null
+aggregation: none
+higher_is: neutral
+distribution: api
+decimals: 2
+sensitivity: public
+definition: >
+  Mean of the modelled average net building height of 100 m cells (GHS-BUILT-H R2023A, 2018),
+  weighted by ground area, over cells where a height is modelled (above zero). A modelled estimate
+  from the Global Human Settlement Layer, not a surveyed height; the Overture footprints carry a
+  height for only 0.05% of buildings.
+source_definition_ref: "ghsl-building-height (catalog/datasets/ghsl-building-height.yaml)"
+methodology_notes: docs/methods/landscape.md

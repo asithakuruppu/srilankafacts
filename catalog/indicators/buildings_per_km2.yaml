@@ -1,0 +1,20 @@
+id: buildings_per_km2
+name: "Mapped footprints per square kilometre"
+short_name: "Mapped footprints per square kilometre"
+topic: [features]
+measure_type: ratio
+unit: per square kilometre
+universe: mapped_features
+numerator: buildings_mapped
+denominator: land_cover_mapped_area
+aggregation: recompute_from_components
+higher_is: neutral
+distribution: api
+decimals: 1
+sensitivity: public
+definition: >
+  Mapped building footprints divided by the place's measured land area (land_cover_mapped_area,
+  ESA WorldCover mapped area, which matches the spine area to 0.01% nationally). Not a count of
+  houses; see buildings_mapped.
+source_definition_ref: "overture-buildings (catalog/datasets/overture-buildings.yaml)"
+methodology_notes: docs/methods/landscape.md

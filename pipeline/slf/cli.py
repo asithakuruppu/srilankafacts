@@ -1187,6 +1187,85 @@ def spatial_space(
     typer.echo(f"wrote {landscape_dir / 'vectors'}")
 
 
+@spatial_app.command("formspace")
+def spatial_formspace(
+    landscape_dir: Annotated[Path, typer.Option(help="Landscape build folder.")] = Path(
+        "./data/build/landscape-form"
+    ),
+    spine_dir: Annotated[Path, typer.Option(help="Spine build folder.")] = Path(
+        "./data/build/geography-spine"
+    ),
+    out_dir: Annotated[Path, typer.Option(help="Output folder.")] = Path("./data/build/form"),
+) -> None:
+    """Build the proposed `form` and `context` place spaces and their QA (private)."""
+    import json as _json
+
+    import pandas as pd
+
+    from slf.spatial import formspace
+
+    observations = pd.read_parquet(landscape_dir / "observations.parquet")
+    geographies = pd.read_parquet(spine_dir / "geographies.parquet")
+    summaries = {}
+    for spec in formspace.SPECS.values():
+        space_dir = out_dir / spec.space_id
+        summaries[spec.space_id] = formspace.build(spec, observations, geographies, space_dir)
+        (space_dir / "qa.md").write_text(
+            formspace.render_qa(spec, summaries[spec.space_id]), encoding="utf-8"
+        )
+        for level, info in summaries[spec.space_id]["levels"].items():
+            typer.echo(
+                f"{spec.space_id} {level}: {info['places']} places, {info['axes_retained']} axes, "
+                f"{info['variance_explained_retained']:.1%} of variance, "
+                f"{len(info['excluded'])} excluded"
+            )
+    cross = {
+        level: formspace.cross_space(
+            out_dir / "form", out_dir / "context", "form_v0.1", "context_v0.1", level
+        )
+        for level in ("ds",)
+    }
+    (out_dir / "cross_space.json").write_text(_json.dumps(cross, indent=1) + "\n")
+    typer.echo(f"form vs context distance rank correlation: {cross}")
+    typer.echo(f"wrote {out_dir}")
+
+
+@spatial_app.command("featurespace")
+def spatial_featurespace(
+    spine_dir: Annotated[Path, typer.Option(help="Spine build folder.")] = Path(
+        "./data/build/geography-spine"
+    ),
+    features_dir: Annotated[Path, typer.Option(help="Landscape build `features/` folder.")] = Path(
+        "./data/build/landscape-form/features"
+    ),
+    out_dir: Annotated[Path, typer.Option(help="Output folder.")] = Path(
+        "./data/build/form-features"
+    ),
+    data_root: Annotated[
+        list[Path] | None, typer.Option(help="Data roots holding raw/ (repeatable).")
+    ] = None,
+    limit_batches: Annotated[
+        int | None, typer.Option(help="Smoke test: read only this many 250,000-row batches.")
+    ] = None,
+) -> None:
+    """Build the private per-feature `form-feature` and `context-feature` spaces (preview only)."""
+    from slf.spatial import build, featurespace
+
+    summary = featurespace.build(
+        data_root or [Path("./data")],
+        build.load_zones(spine_dir),
+        features_dir,
+        out_dir,
+        limit_batches,
+    )
+    for space_id, info in summary["spaces"].items():
+        typer.echo(
+            f"{space_id}: {info['features_in_space']:,} features, {info['axes_retained']} axes, "
+            f"{info['variance_explained_retained']:.1%} of variance"
+        )
+    typer.echo(f"wrote {out_dir}")
+
+
 @spatial_app.command("findings")
 def spatial_findings(
     landscape_dir: Annotated[Path, typer.Option(help="Landscape build folder.")] = Path(

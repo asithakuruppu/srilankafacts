@@ -735,6 +735,164 @@ def point_specs() -> list[IndicatorSpec]:
             universe="mapped_features",
         ),
     ]
+    s += [
+        _count(
+            "buildings_small",
+            "Small building footprints",
+            ob,
+            "buildings",
+            "Mapped footprints under 20 m² (a chosen cut): mostly sheds, kiosks and outbuildings, "
+            "plus some false detections.",
+        ),
+        _count(
+            "buildings_large",
+            "Large building footprints",
+            ob,
+            "buildings",
+            "Mapped footprints of 250 m² or more (a chosen cut): halls, factories, schools, "
+            "apartment blocks and large houses.",
+        ),
+        IndicatorSpec(
+            "buildings_small_share",
+            "Share of footprints under 20 m²",
+            ob,
+            "share",
+            "percent",
+            2,
+            "Mapped footprints under 20 m² as a share of all mapped footprints in the place.",
+            topic=("features",),
+            numerator="buildings_small",
+            denominator="buildings_mapped",
+            aggregation="recompute_from_components",
+            universe="mapped_features",
+        ),
+        IndicatorSpec(
+            "buildings_large_share",
+            "Share of footprints of 250 m² or more",
+            ob,
+            "share",
+            "percent",
+            2,
+            "Mapped footprints of 250 m² or more as a share of all mapped footprints in the place.",
+            topic=("features",),
+            numerator="buildings_large",
+            denominator="buildings_mapped",
+            aggregation="recompute_from_components",
+            universe="mapped_features",
+        ),
+        IndicatorSpec(
+            "building_compactness_mean",
+            "Mean building compactness",
+            ob,
+            "ratio",
+            "index",
+            3,
+            "Mean of 4 pi x area / perimeter squared over the mapped footprints (Polsby-Popper, "
+            "computed in EPSG:5235): 1 for a circle, about 0.79 for a square, near 0 for a "
+            "sliver. Machine-detected outlines are smoothed or blocky depending on the source, "
+            "so compare places, not buildings.",
+            topic=("features",),
+            aggregation="none",
+            universe="mapped_features",
+        ),
+        IndicatorSpec(
+            "buildings_per_km2",
+            "Mapped footprints per square kilometre",
+            ob,
+            "ratio",
+            "per square kilometre",
+            1,
+            "Mapped building footprints divided by the place's measured land area "
+            "(land_cover_mapped_area, ESA WorldCover mapped area, which matches the spine area "
+            "to 0.01% nationally). Not a count of houses; see buildings_mapped.",
+            topic=("features",),
+            numerator="buildings_mapped",
+            denominator="land_cover_mapped_area",
+            aggregation="recompute_from_components",
+            universe="mapped_features",
+        ),
+        IndicatorSpec(
+            "building_coverage_share",
+            "Share of the place covered by mapped footprints",
+            ob,
+            "share",
+            "percent",
+            3,
+            "Total mapped footprint area divided by the place's measured land area "
+            "(land_cover_mapped_area). Footprint area is computed in EPSG:5235.",
+            topic=("features",),
+            numerator="building_footprint_area",
+            denominator="land_cover_mapped_area",
+            aggregation="recompute_from_components",
+            universe="mapped_features",
+        ),
+    ]
+    gb = "ghsl-building-height"
+    s += [
+        _area(
+            "building_height_area",
+            "Area with building height data",
+            gb,
+            "Ground area of 100 m cells with a modelled average net building height above zero "
+            "(GHS-BUILT-H R2023A, 2018). The weight for the mean building height.",
+            topic=("landscape", "form"),
+            universe="built_cells",
+        ),
+        IndicatorSpec(
+            "building_height_mean",
+            "Mean building height (GHSL)",
+            gb,
+            "mean",
+            "metres",
+            2,
+            "Mean of the modelled average net building height of 100 m cells (GHS-BUILT-H R2023A, "
+            "2018), weighted by ground area, over cells where a height is modelled (above zero). "
+            "A modelled estimate from the Global Human Settlement Layer, not a surveyed height; the "
+            "Overture footprints carry a height for only 0.05% of buildings.",
+            topic=("landscape", "form"),
+            numerator=None,
+            aggregation="none",
+            universe="built_cells",
+        ),
+    ]
+    cb = "ctrees-aboveground-biomass"
+    s += [
+        _area(
+            "biomass_measured_area",
+            "Area with biomass data",
+            cb,
+            "Ground area of the place covered by valid CTrees above-ground biomass pixels. The "
+            "weight for the mean biomass.",
+            topic=("landscape", "context"),
+        ),
+        IndicatorSpec(
+            "biomass_agb_mean",
+            "Mean above-ground biomass density",
+            cb,
+            "mean",
+            "megagrams per hectare",
+            2,
+            "Area-weighted mean of CTrees' 2025 above-ground live biomass over the place's whole "
+            "measured area, including non-forest land at low values. CTrees' product, modelled "
+            "from NASA ICESat and GEDI lidar with satellite radar and optical imagery, 100 m; "
+            "pixel values are stored times 10 and divided here. Modelled, not measured on the "
+            "ground, and the per-pixel uncertainty is not published in this dataset.",
+            topic=("landscape", "context"),
+            aggregation="none",
+        ),
+        IndicatorSpec(
+            "biomass_agb_total",
+            "Above-ground biomass stock",
+            cb,
+            "count",
+            "megagrams",
+            0,
+            "Mean biomass density times measured area, summed over the place: CTrees' modelled "
+            "2025 above-ground live biomass stock in megagrams of dry matter. Not carbon: that "
+            "needs a carbon fraction the source does not give here.",
+            topic=("landscape", "context"),
+        ),
+    ]
     for slug, label in OVERTURE_CATEGORIES.items():
         s.append(
             _count(

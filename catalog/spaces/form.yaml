@@ -1,0 +1,44 @@
+# The `form` space: places by how they are built (vector-space-model.md §4, D-058 Proposed).
+#
+# RECIPE approved by the lead on 2026-11-21 (LA-007). vector-space-model.md
+# lists `form` as a feature-level space (buildings, landmarks, trees). This v0.1 describes PLACES
+# (GN and DS divisions) from aggregates of building footprints and GHSL heights; no per-building
+# vector is built or published (AGENTS rule 11). A feature-level `form` space would be a later
+# version with its own id or version number.
+#
+# RIGHTS: five of the seven inputs are computed from Overture Maps Buildings (ODbL, share-alike).
+# The space and anything derived from it stay internal until the share-alike question (D-005,
+# multi-scale-features.md §6) is settled.
+id: form
+version: "0.1"
+title: Built form of a place (density, footprint size and shape, height)
+entity_types: [place]
+metric: euclidean
+inputs:
+  - { id: buildings_per_km2, kind: indicator, weight: 1.0 }
+  - { id: building_coverage_share, kind: indicator, weight: 1.0 }
+  - { id: building_footprint_mean, kind: indicator, weight: 1.0 }
+  - { id: buildings_large_share, kind: indicator, weight: 1.0 }
+  - { id: buildings_small_share, kind: indicator, weight: 1.0 }
+  - { id: building_compactness_mean, kind: indicator, weight: 1.0 }
+  - { id: building_height_mean, kind: indicator, weight: 1.0 }
+transformations:
+  - "buildings_per_km2 (2026) -> log10(1 + footprints per km2)"
+  - "building_coverage_share, buildings_large_share, buildings_small_share (2026) -> square root of percent"
+  - "building_footprint_mean (2026) -> log10(square metres)"
+  - "building_compactness_mean (2026) -> unchanged (index 0 to 1)"
+  - "building_height_mean (GHSL 2018) -> log10(metres)"
+  - "places with an undefined input (no footprint, or no GHSL height) are excluded and listed in the QA, never filled"
+  - "standardise each transformed input across places, separately at GN and at DS level; winsorise at ±5"
+  - "blocks: intensity = density, coverage, height (3 inputs); character = footprint, large, small, compactness (4 inputs); each block's columns scaled by 1/sqrt(inputs in the block), so each block carries total variance 1"
+  - "PCA by SVD (slf.profile.fit); retain the fewest axes that explain 85% of the variance, at most 6"
+  - "distance = Euclidean over the retained axes; squared distance decomposes exactly into axis contributions and into the seven named inputs"
+status: active
+method_notes: >
+  Built by `slf spatial formspace` (docs/methods/form-context.md). First build 2026-11-21: 14,036
+  GN divisions with 3 axes (87.1% of variance), 340 DS divisions with 3 axes (91.3%). Inputs are
+  machine-detected footprints (Google, OpenStreetMap and Microsoft, merged by Overture) and a
+  modelled height; compactness partly reflects how each source draws outlines, and building
+  height is the modelled value of 100 m cells. Axis labels are machine-generated drafts. Similar-
+  place lists are not published until the lead approves the recipe and the licence question is
+  settled.

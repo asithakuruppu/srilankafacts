@@ -1,0 +1,38 @@
+# The `context` space: places by their surroundings (vector-space-model.md §4, D-058 Proposed).
+#
+# RECIPE approved by the lead on 2026-11-21 (LA-007). Like `form`, this v0.1
+# describes PLACES from aggregates; the feature-level `context` space of the vector-space model
+# (distance to road, coast and facilities per feature) is not built: no road or coast layer is
+# held and per-feature output is not published (AGENTS rule 11, D-044).
+#
+# Rights: Meta/WRI canopy height (CC BY 4.0), CTrees biomass (CC BY), ESA WorldCover (CC BY 4.0)
+# and Overture Places (CDLA-Permissive-2.0). No ODbL input. Still unpublished until approved.
+id: context
+version: "0.1"
+title: Surroundings of a place (tree canopy, biomass, open land, services around)
+entity_types: [place]
+metric: euclidean
+inputs:
+  - { id: canopy_height_mean, kind: indicator, weight: 1.0 }
+  - { id: canopy_15m_share, kind: indicator, weight: 1.0 }
+  - { id: biomass_agb_mean, kind: indicator, weight: 1.0 }
+  - { id: land_cover_cropland_share, kind: indicator, weight: 1.0 }
+  - { id: land_cover_grassland_share, kind: indicator, weight: 1.0 }
+  - { id: land_cover_water_share, kind: indicator, weight: 1.0 }
+  - { id: places_listed, kind: indicator, weight: 1.0 }
+transformations:
+  - "canopy_height_mean (2026) -> unchanged (metres, bare and built pixels count as zero)"
+  - "canopy_15m_share (2026), land_cover_cropland_share, land_cover_grassland_share, land_cover_water_share (2021) -> square root of percent"
+  - "biomass_agb_mean (2025) -> square root of megagrams per hectare"
+  - "places_listed (2026) / land_cover_mapped_area (2021) -> listed places per km2, log10(1 + x)"
+  - "standardise each transformed input across places, separately at GN and at DS level; winsorise at ±5"
+  - "blocks: vegetation = canopy height, tall-canopy share, biomass (3 inputs); land_and_services = cropland, grassland, water, listed places per km2 (4 inputs); each block's columns scaled by 1/sqrt(inputs in the block), so each block carries total variance 1"
+  - "PCA by SVD (slf.profile.fit); retain the fewest axes that explain 85% of the variance, at most 6"
+  - "distance = Euclidean over the retained axes; squared distance decomposes exactly into axis contributions and into the seven named inputs"
+status: active
+method_notes: >
+  Built by `slf spatial formspace` (docs/methods/form-context.md). First build 2026-11-21: 14,037
+  GN divisions with 4 axes (90.4% of variance), 340 DS divisions with 3 axes (87.3%). Canopy and
+  biomass are modelled estimates; Overture Places reflects online presence, not a census of services.
+  Axis labels are machine-generated drafts. Similar-place lists are not published until the lead
+  approves the recipe.

@@ -21,6 +21,8 @@ from pyproj import Transformer
 from slf.spatial.build import Held, digest, held_files
 from slf.spatial.zonal import Zones
 
+SMALL_M2 = 20.0  # footprints under this are mostly sheds and outbuildings (a chosen cut)
+LARGE_M2 = 250.0  # footprints at or above this are large buildings (a chosen cut)
 SOURCES = ("OpenStreetMap", "Microsoft ML Buildings", "Google Open Buildings")
 
 
@@ -32,6 +34,11 @@ class BuildingRollup:
     count: np.ndarray = field(default_factory=lambda: np.zeros(0))
     area_m2: np.ndarray = field(default_factory=lambda: np.zeros(0))
     with_height: np.ndarray = field(default_factory=lambda: np.zeros(0))
+    perimeter_m: np.ndarray = field(default_factory=lambda: np.zeros(0))
+    compact_sum: np.ndarray = field(default_factory=lambda: np.zeros(0))
+    shaped: np.ndarray = field(default_factory=lambda: np.zeros(0))
+    small: np.ndarray = field(default_factory=lambda: np.zeros(0))
+    large: np.ndarray = field(default_factory=lambda: np.zeros(0))
     by_source: dict[str, np.ndarray] = field(default_factory=dict)
     source_totals: dict[str, int] = field(default_factory=dict)
 
@@ -45,12 +52,22 @@ def rollup(roots: list[Path], zones: Zones, cache_dir: Path) -> BuildingRollup |
     if not files:
         return None
     files = files[-1:]
-    cached = cache_dir / f"buildings-{digest(files)[:16]}.pkl"
+    cached = cache_dir / f"buildings-v2-{digest(files)[:16]}.pkl"
     if cached.exists():
         with cached.open("rb") as handle:
             return pickle.load(handle)
     n = len(zones)
-    out = BuildingRollup(files, count=np.zeros(n), area_m2=np.zeros(n), with_height=np.zeros(n))
+    out = BuildingRollup(
+        files,
+        count=np.zeros(n),
+        area_m2=np.zeros(n),
+        with_height=np.zeros(n),
+        perimeter_m=np.zeros(n),
+        compact_sum=np.zeros(n),
+        shaped=np.zeros(n),
+        small=np.zeros(n),
+        large=np.zeros(n),
+    )
     out.by_source = {name: np.zeros(n) for name in (*SOURCES, "other")}
     _geoms, tree = zones.in_crs(zones.frame.crs)
     to_metres = Transformer.from_crs("EPSG:4326", "EPSG:5235", always_xy=True)
@@ -74,6 +91,17 @@ def rollup(roots: list[Path], zones: Zones, cache_dir: Path) -> BuildingRollup |
         where = index[inside]
         out.count += np.bincount(where, minlength=n)
         out.area_m2 += np.bincount(where, weights=area, minlength=n)
+        # Shape in metres on the national grid: perimeter, and the Polsby-Popper compactness
+        # 4 pi A / P^2 (1 for a circle, about 0.79 for a square, near 0 for a sliver).
+        perimeter = shapely.length(projected)
+        ok = (area > 0) & (perimeter > 0)
+        compact = np.zeros(len(area))
+        compact[ok] = np.minimum(4 * np.pi * area[ok] / perimeter[ok] ** 2, 1.0)
+        out.perimeter_m += np.bincount(where[ok], weights=perimeter[ok], minlength=n)
+        out.compact_sum += np.bincount(where[ok], weights=compact[ok], minlength=n)
+        out.shaped += np.bincount(where[ok], minlength=n)
+        out.small += np.bincount(where[area < SMALL_M2], minlength=n)
+        out.large += np.bincount(where[area >= LARGE_M2], minlength=n)
         height = batch.column("height").to_numpy(zero_copy_only=False)
         has_height = ~np.isnan(np.asarray(height, dtype=np.float64))[inside]
         out.with_height += np.bincount(where[has_height], minlength=n)
