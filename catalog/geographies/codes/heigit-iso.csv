@@ -1,0 +1,36 @@
+geography_id,vintage,code_system,external_code,external_name,match_method,confidence,notes
+LK1,cod-ab-v03,heigit-iso,LK-1,Western Province,name_and_parent,1.0,name matches a unique province; ISO number agrees with the p-code suffix
+LK11,cod-ab-v03,heigit-iso,LK-11,Colombo District,name_and_parent,1.0,name unique within the province whose ISO number is the district's first digit; ISO number agrees with the p-code suffix
+LK12,cod-ab-v03,heigit-iso,LK-12,Gampaha District,name_and_parent,1.0,name unique within the province whose ISO number is the district's first digit; ISO number agrees with the p-code suffix
+LK13,cod-ab-v03,heigit-iso,LK-13,Kalutara District,name_and_parent,1.0,name unique within the province whose ISO number is the district's first digit; ISO number agrees with the p-code suffix
+LK2,cod-ab-v03,heigit-iso,LK-2,Central Province,name_and_parent,1.0,name matches a unique province; ISO number agrees with the p-code suffix
+LK21,cod-ab-v03,heigit-iso,LK-21,Kandy District,name_and_parent,1.0,name unique within the province whose ISO number is the district's first digit; ISO number agrees with the p-code suffix
+LK22,cod-ab-v03,heigit-iso,LK-22,Matale District,name_and_parent,1.0,name unique within the province whose ISO number is the district's first digit; ISO number agrees with the p-code suffix
+LK23,cod-ab-v03,heigit-iso,LK-23,Nuwara Eliya District,name_and_parent,1.0,name unique within the province whose ISO number is the district's first digit; ISO number agrees with the p-code suffix
+LK3,cod-ab-v03,heigit-iso,LK-3,Southern Province,name_and_parent,1.0,name matches a unique province; ISO number agrees with the p-code suffix
+LK31,cod-ab-v03,heigit-iso,LK-31,Galle District,name_and_parent,1.0,name unique within the province whose ISO number is the district's first digit; ISO number agrees with the p-code suffix
+LK32,cod-ab-v03,heigit-iso,LK-32,Matara District,name_and_parent,1.0,name unique within the province whose ISO number is the district's first digit; ISO number agrees with the p-code suffix
+LK33,cod-ab-v03,heigit-iso,LK-33,Hambantota District,name_and_parent,1.0,name unique within the province whose ISO number is the district's first digit; ISO number agrees with the p-code suffix
+LK4,cod-ab-v03,heigit-iso,LK-4,Northern Province,name_and_parent,1.0,name matches a unique province; ISO number agrees with the p-code suffix
+LK41,cod-ab-v03,heigit-iso,LK-41,Jaffna District,name_and_parent,1.0,name unique within the province whose ISO number is the district's first digit; ISO number agrees with the p-code suffix
+LK45,cod-ab-v03,heigit-iso,LK-42,Kilinochchi District,name_and_parent,1.0,"name unique within the province whose ISO number is the district's first digit; ISO number DISAGREES with the p-code suffix (ISO 42, spine 45): the ISO code must not be used as a p-code"
+LK42,cod-ab-v03,heigit-iso,LK-43,Mannar District,name_and_parent,1.0,"name unique within the province whose ISO number is the district's first digit; ISO number DISAGREES with the p-code suffix (ISO 43, spine 42): the ISO code must not be used as a p-code"
+LK43,cod-ab-v03,heigit-iso,LK-44,Vavuniya District,name_and_parent,1.0,"name unique within the province whose ISO number is the district's first digit; ISO number DISAGREES with the p-code suffix (ISO 44, spine 43): the ISO code must not be used as a p-code"
+LK44,cod-ab-v03,heigit-iso,LK-45,Mullaitivu District,name_and_parent,1.0,"name unique within the province whose ISO number is the district's first digit; ISO number DISAGREES with the p-code suffix (ISO 45, spine 44): the ISO code must not be used as a p-code"
+LK5,cod-ab-v03,heigit-iso,LK-5,Eastern Province,name_and_parent,1.0,name matches a unique province; ISO number agrees with the p-code suffix
+LK51,cod-ab-v03,heigit-iso,LK-51,Batticaloa District,name_and_parent,1.0,name unique within the province whose ISO number is the district's first digit; ISO number agrees with the p-code suffix
+LK52,cod-ab-v03,heigit-iso,LK-52,Ampara District,name_and_parent,1.0,name unique within the province whose ISO number is the district's first digit; ISO number agrees with the p-code suffix
+LK53,cod-ab-v03,heigit-iso,LK-53,Trincomalee District,name_and_parent,1.0,name unique within the province whose ISO number is the district's first digit; ISO number agrees with the p-code suffix
+LK6,cod-ab-v03,heigit-iso,LK-6,North Western Province,name_and_parent,1.0,name matches a unique province; ISO number agrees with the p-code suffix
+LK61,cod-ab-v03,heigit-iso,LK-61,Kurunegala District,name_and_parent,1.0,name unique within the province whose ISO number is the district's first digit; ISO number agrees with the p-code suffix
+LK62,cod-ab-v03,heigit-iso,LK-62,Puttalam District,name_and_parent,1.0,name unique within the province whose ISO number is the district's first digit; ISO number agrees with the p-code suffix
+LK7,cod-ab-v03,heigit-iso,LK-7,North Central Province,name_and_parent,1.0,name matches a unique province; ISO number agrees with the p-code suffix
+LK71,cod-ab-v03,heigit-iso,LK-71,Anuradhapura District,name_and_parent,1.0,name unique within the province whose ISO number is the district's first digit; ISO number agrees with the p-code suffix
+LK72,cod-ab-v03,heigit-iso,LK-72,Polonnaruwa District,name_and_parent,1.0,name unique within the province whose ISO number is the district's first digit; ISO number agrees with the p-code suffix
+LK8,cod-ab-v03,heigit-iso,LK-8,Uva Province,name_and_parent,1.0,name matches a unique province; ISO number agrees with the p-code suffix
+LK81,cod-ab-v03,heigit-iso,LK-81,Badulla District,name_and_parent,1.0,name unique within the province whose ISO number is the district's first digit; ISO number agrees with the p-code suffix
+LK82,cod-ab-v03,heigit-iso,LK-82,Monaragala District,name_and_parent,1.0,name unique within the province whose ISO number is the district's first digit; ISO number agrees with the p-code suffix
+LK9,cod-ab-v03,heigit-iso,LK-9,Sabaragamuwa Province,name_and_parent,1.0,name matches a unique province; ISO number agrees with the p-code suffix
+LK91,cod-ab-v03,heigit-iso,LK-91,Ratnapura District,name_and_parent,1.0,name unique within the province whose ISO number is the district's first digit; ISO number agrees with the p-code suffix
+LK92,cod-ab-v03,heigit-iso,LK-92,Kegalle District,name_and_parent,1.0,name unique within the province whose ISO number is the district's first digit; ISO number agrees with the p-code suffix
+LK,cod-ab-v03,heigit-iso,LKA,Sri Lanka,exact_code,1.0,ISO 3166-1 alpha-3 for the country

@@ -199,16 +199,28 @@ def build_extra(
     catalog_dir: Path | None,
     out_dir: Path,
     events_dir: Path | None = None,
+    hazard_dir: Path | None = None,
+    public: bool = False,
 ) -> dict[str, Any]:
     """Stage 3 indicators (`slf subnational build`, `slf events`), shown in the Geography lens."""
     from slf.events import SPECS as EVENT_SPECS
+    from slf.hazard_access import SPECS as HAZARD_SPECS
     from slf.subnational import SPECS as SUBNATIONAL_SPECS
 
     parts = []
     specs: list[Any] = []
-    for folder, spec_list in ((subnational_dir, SUBNATIONAL_SPECS), (events_dir, EVENT_SPECS)):
+    for folder, spec_list in (
+        (subnational_dir, SUBNATIONAL_SPECS),
+        (events_dir, EVENT_SPECS),
+        (hazard_dir, HAZARD_SPECS),
+    ):
         if folder is not None and (folder / "observations.parquet").exists():
             frame = pd.read_parquet(folder / "observations.parquet")
+            if folder is hazard_dir and public:
+                # HeiGIT is CC BY-SA: a public bundle needs a licence statement that carries
+                # the share-alike terms, so its indicators stay out until a release does.
+                frame = pd.DataFrame(frame[frame["dataset_id"] != "heigit-accessibility"])
+                spec_list = [s for s in spec_list if s.dataset != "heigit-accessibility"]
             if len(frame):
                 parts.append(frame)
                 specs += spec_list
