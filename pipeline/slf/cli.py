@@ -932,6 +932,38 @@ def composition_build(
         typer.echo(f"  {key}: {value}")
     for p in result.outputs:
         typer.echo(f"wrote {p}")
+    from slf.datasets import composed_profiles as cp
+
+    out = out_dir or Path(DEFAULT_BUILD_DIR) / scheme
+    prof, summary = cp.build_profiles(
+        out, scheme, publishable=publishable, source_note=f"{source_dataset} ({rights_note})"
+    )
+    typer.echo(f"wrote {prof}: {summary}")
+
+
+@composition_app.command("profile")
+def composition_profile(
+    scheme: Annotated[str, typer.Option(help="la or health.")],
+    build_dir: Annotated[
+        Path | None, typer.Option(help="Composition build folder (default data/build/<scheme>).")
+    ] = None,
+    publishable: Annotated[
+        bool, typer.Option(help="Read the files without `_internal`; only after a rights gate.")
+    ] = False,
+) -> None:
+    """Write per-unit profiles from an existing composition build (no download needed)."""
+    from slf.datasets import composed_profiles as cp
+
+    folder = build_dir or Path(DEFAULT_BUILD_DIR) / scheme
+    out, summary = cp.build_profiles(
+        folder,
+        scheme,
+        publishable=publishable,
+        source_note="internal run on nuuuwan gig-data (no licence); not for publication"
+        if not publishable
+        else "see composition QA",
+    )
+    typer.echo(f"wrote {out}: {summary}")
 
 
 atlas_app = typer.Typer(
@@ -975,6 +1007,10 @@ def atlas_export(
         Path | None,
         typer.Option(help="HeiGIT access and DesInventar build (`slf hazard-access build`)."),
     ] = None,
+    units_dir: Annotated[
+        Path | None,
+        typer.Option(help="Build folder holding la/ and health/ (publishable profiles only)."),
+    ] = None,
     out_dir: Annotated[Path, typer.Option(help="Output folder.")] = Path("./data/build/atlas"),
     public: Annotated[
         bool,
@@ -1002,6 +1038,7 @@ def atlas_export(
         events_dir,
         public=public,
         hazard_dir=hazard_dir,
+        units_dir=units_dir,
     )
     geometry = manifest["geometry"]
     typer.echo(f"atlas bundle for {manifest['release']} -> {out_dir / manifest['release']}")

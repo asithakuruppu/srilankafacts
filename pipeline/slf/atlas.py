@@ -16,6 +16,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import shutil
 from collections.abc import Sequence
 from pathlib import Path
 from typing import Any, cast
@@ -937,6 +938,27 @@ def build_spaces(spaces_dir: Path, out_dir: Path, public: bool = False) -> dict[
     return {"available": bool(copied), "spaces": copied}
 
 
+def _copy_unit_profiles(units_dir: Path | None, target: Path) -> dict[str, Any]:
+    """Copy LA and MOH profiles into the bundle, only files that say publishable (D-055).
+
+    An internal run (``*_profiles_internal.json``) is never read here.
+    """
+    if units_dir is None:
+        return {"available": False, "reason": "no --units-dir given"}
+    copied: list[str] = []
+    for scheme in ("la", "health"):
+        src = units_dir / scheme / f"{scheme}_profiles.json"
+        if not src.exists():
+            continue
+        if json.loads(src.read_text()).get("publishable") is not True:
+            continue
+        shutil.copyfile(src, target / f"units-{scheme}.json")
+        copied.append(scheme)
+    if not copied:
+        return {"available": False, "reason": "no publishable LA or MOH composition (D-046)"}
+    return {"available": True, "schemes": copied}
+
+
 def export(
     release_dir: Path,
     spine_dir: Path,
@@ -951,6 +973,7 @@ def export(
     events_dir: Path | None = None,
     public: bool = False,
     hazard_dir: Path | None = None,
+    units_dir: Path | None = None,
 ) -> dict[str, Any]:
     """Write the bundle. `public=True` builds the bundle for a public site: it needs a
     publishable release and leaves out the private parts (D-038 change and trajectory, D-049
@@ -1036,5 +1059,6 @@ def export(
             "available": False,
             "reason": "no --subnational-dir, --events-dir or --hazard-dir",
         }
+    manifest["units"] = _copy_unit_profiles(units_dir, target)
     _dump(target / "manifest.json", manifest)
     return manifest
