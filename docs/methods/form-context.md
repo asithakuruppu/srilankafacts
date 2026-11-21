@@ -72,3 +72,13 @@ Nothing is added to a release, the atlas bundle or the live preview. No per-buil
 - Biomass and canopy describe vegetation, including plantations and home gardens, not forest in a legal sense. Biomass was not compared with any published national figure ❓.
 - `places_listed` reflects online presence (98% of Overture Places rows come from Meta), not a count of services.
 - The recipes are proposals. Axis labels are machine-generated drafts. Neighbour coherence is modest by design: 14% (`form`) and 21% (`context`) of the 10 nearest GN divisions share a district, against 5.6% by chance.
+
+## 7. Per-feature spaces `form-feature` and `context-feature` (private preview)
+
+Built 2026-11-21 on the lead's instruction to build the preview without restrictions while broader permissions are sought. One row per Overture building footprint (8,886,949), with `gn_id` (empty for 853 footprints outside every GN polygon) and the physical inputs only. No people statistic, owner, occupant, name or address is attached (AGENTS rule 11). The output is a 878 MB local Parquet in the gitignored `data/build/form-features/`; nothing is published, released or added to the atlas.
+
+- `form-feature`: footprint area, shape (compactness, rectangularity, elongation) and the modelled GHSL height of its 100 m cell. 4 axes, 98.9% of variance.
+- `context-feature`: neighbours within 100 m and 500 m, distance to the nearest other footprint, OSM road, Giga school, healthsites.io facility and the GN coast outline, plus CTrees biomass and elevation at the building's point. 5 axes, 86.6% of variance. 48,778 footprints have no biomass pixel and are excluded (counted in the QA report).
+- Method: same as §3 (standardise on a seeded 400,000-footprint sample, winsorise ±5, PCA by SVD, 85% retention), then every footprint is projected. Distances are exact over the stored float32 vectors and decompose into named inputs (largest error over 300 pairs 2.0e-08 and 3.7e-08).
+- Command: `uv run slf spatial featurespace` (about 12 minutes on this machine).
+- Limits: canopy height per building is left out (too heavy to sample); height is a coarse cell value shared by buildings in the cell; "coast" includes lagoon and island edges. Rule 13 applies: a neighbour list is a distance, not a fact, and must carry `space_id` and `space_version`.

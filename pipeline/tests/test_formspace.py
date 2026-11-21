@@ -155,3 +155,49 @@ def test_places_with_an_undefined_input_are_excluded_and_named(tmp_path):
 
 def test_decompose_function_is_the_profile_one():
     assert formspace.profile.decompose is profile.decompose
+
+
+def test_feature_projection_is_exact_and_leaves_incomplete_rows_empty():
+    from slf.spatial import featurespace as fs
+
+    rng = np.random.default_rng(5)
+    n = 600
+    x = pd.DataFrame(rng.normal(size=(n, 5)), columns=["a", "b", "c", "d", "e"])
+    x.loc[7, "c"] = np.nan
+    blocks = {"one": ["a", "b"], "two": ["c", "d", "e"]}
+    f, scores, complete, _ = fs.fit_and_project(x, blocks)
+    assert not complete[7] and np.isnan(scores[7]).all()
+    assert complete.sum() == n - 1
+    gn = np.zeros(n, dtype=int)
+    xy = rng.normal(size=(n, 2)) * 1000
+    result = fs.checks(f, x, scores, gn, xy)
+    assert result["max_abs_decomposition_error"] < 1e-4
+
+
+def test_sampler_reads_the_cell_under_a_point(tmp_path):
+    import rasterio
+    from rasterio.transform import from_origin
+
+    from slf.spatial import featurespace as fs
+
+    data = np.arange(16, dtype=np.float32).reshape(4, 4)
+    path = tmp_path / "r.tif"
+    with rasterio.open(
+        path,
+        "w",
+        driver="GTiff",
+        height=4,
+        width=4,
+        count=1,
+        dtype="float32",
+        crs="EPSG:4326",
+        transform=from_origin(80.0, 7.4, 0.1, 0.1),
+        nodata=-1,
+    ) as dst:
+        dst.write(data, 1)
+    out = np.full(3, np.nan)
+    filled = np.zeros(3, dtype=bool)
+    (sampler,) = fs.Sampler.many([fs._opener(path)])
+    sampler.lookup(np.array([80.05, 80.35, 90.0]), np.array([7.35, 7.05, 7.0]), out, filled)
+    assert out[:2].tolist() == [0.0, 15.0]
+    assert np.isnan(out[2]) and filled.tolist() == [True, True, False]

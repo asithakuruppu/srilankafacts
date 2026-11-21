@@ -1221,6 +1221,42 @@ def spatial_formspace(
     typer.echo(f"wrote {out_dir}")
 
 
+@spatial_app.command("featurespace")
+def spatial_featurespace(
+    spine_dir: Annotated[Path, typer.Option(help="Spine build folder.")] = Path(
+        "./data/build/geography-spine"
+    ),
+    features_dir: Annotated[Path, typer.Option(help="Landscape build `features/` folder.")] = Path(
+        "./data/build/landscape-form/features"
+    ),
+    out_dir: Annotated[Path, typer.Option(help="Output folder.")] = Path(
+        "./data/build/form-features"
+    ),
+    data_root: Annotated[
+        list[Path] | None, typer.Option(help="Data roots holding raw/ (repeatable).")
+    ] = None,
+    limit_batches: Annotated[
+        int | None, typer.Option(help="Smoke test: read only this many 250,000-row batches.")
+    ] = None,
+) -> None:
+    """Build the private per-feature `form-feature` and `context-feature` spaces (preview only)."""
+    from slf.spatial import build, featurespace
+
+    summary = featurespace.build(
+        data_root or [Path("./data")],
+        build.load_zones(spine_dir),
+        features_dir,
+        out_dir,
+        limit_batches,
+    )
+    for space_id, info in summary["spaces"].items():
+        typer.echo(
+            f"{space_id}: {info['features_in_space']:,} features, {info['axes_retained']} axes, "
+            f"{info['variance_explained_retained']:.1%} of variance"
+        )
+    typer.echo(f"wrote {out_dir}")
+
+
 @spatial_app.command("findings")
 def spatial_findings(
     landscape_dir: Annotated[Path, typer.Option(help="Landscape build folder.")] = Path(

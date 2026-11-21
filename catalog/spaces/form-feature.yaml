@@ -1,0 +1,30 @@
+# The `form-feature` space: individual building footprints by their own form (vector-space-model.md §4).
+#
+# PRIVATE PREVIEW. Built 2026-11-21 on the lead's instruction ("build the preview with no
+# restrictions"; the lead is seeking broader permissions). Nothing from this space is published,
+# added to a release, the atlas or the live preview, until the lead lifts the restriction and the
+# ODbL share-alike question (D-005) is settled.
+#
+# Rights: every row is derived from Overture Maps Buildings (ODbL, share-alike) with the GHS-BUILT-H
+# height (CC BY 4.0). Rows carry physical attributes and the GN they fall in only; no people
+# statistic, owner, occupant, name or address is attached (AGENTS rule 11).
+id: form-feature
+version: "0.1"
+title: Form of an individual building footprint (size, shape, modelled height)
+entity_types: [feature]
+metric: euclidean
+inputs:
+  - { id: log_area, kind: derived, weight: 1.0 }
+  - { id: height, kind: derived, weight: 1.0 }
+  - { id: compactness, kind: derived, weight: 1.0 }
+  - { id: rectangularity, kind: derived, weight: 1.0 }
+  - { id: log_elongation, kind: derived, weight: 1.0 }
+transformations:
+  - "area in EPSG:5235 -> log10; height = log10(1 + GHS-BUILT-H cell height, 0 where none); compactness 4*pi*A/P^2; rectangularity and elongation from the minimum rotated rectangle"
+  - "standardise on a seeded 400,000-footprint sample, winsorise at ±5, equal weight per input, PCA by SVD (slf.profile.fit), 85% variance retention"
+  - "distance = Euclidean over the retained axes; squared distance decomposes exactly into axis and input contributions"
+status: proposed
+method_notes: >
+  Built by `slf spatial featurespace` (docs/methods/form-context.md §7). 8,886,949 footprints,
+  4 axes (98.9% of variance). Footprints are machine-detected; height is a 100 m modelled cell
+  value, so buildings in one cell share a height. Output is a private local file.
