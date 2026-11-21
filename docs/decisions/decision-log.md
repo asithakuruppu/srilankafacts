@@ -588,7 +588,7 @@ These were stated by you or are standing rules in [brainstorm-decisions.md](../b
 ---
 
 ## D-056: Population-weighted grid v1 from WorldPop weights at H3 r9 and r10, built locally; web unchanged
-- **Status:** Proposed · 2026-11-21 (agent proposal; implements D-014, G07 steps 1, 5 and 6 in part; follows D-048's "revisit when")
+- **Status:** Proposed · 2026-11-21 (agent proposal; implements D-014, G07 steps 1, 5 and 6 in part; follows D-048's "revisit when"). The lead replied "approved" on 2026-11-21 to the report recommending WorldPop as the primary weight source; web adoption (`/area`) still waits for the bundle-size check.
 - **Context:** D-048 deferred population weights and resolution 10 until the G07 rights work was done.
 - **Decision:**
   - `slf grid popweights` builds weights from WorldPop R2025A 100 m (CC BY 4.0): pixels to r10 cells by centre, normalised within each GN, r9 summed from r10. The weight file contains no census numbers and is commercial-capable. Kontur, Overture buildings and OSM are not used (unclear or ODbL); GHSL is not used as a weight.
