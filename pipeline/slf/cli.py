@@ -971,6 +971,10 @@ def atlas_export(
     events_dir: Annotated[
         Path | None, typer.Option(help="Events build folder (`slf events`).")
     ] = None,
+    hazard_dir: Annotated[
+        Path | None,
+        typer.Option(help="HeiGIT access and DesInventar build (`slf hazard-access build`)."),
+    ] = None,
     out_dir: Annotated[Path, typer.Option(help="Output folder.")] = Path("./data/build/atlas"),
     public: Annotated[
         bool,
@@ -997,6 +1001,7 @@ def atlas_export(
         subnational_dir,
         events_dir,
         public=public,
+        hazard_dir=hazard_dir,
     )
     geometry = manifest["geometry"]
     typer.echo(f"atlas bundle for {manifest['release']} -> {out_dir / manifest['release']}")

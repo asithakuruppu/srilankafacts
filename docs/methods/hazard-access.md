@@ -37,6 +37,6 @@ Legend: ✅ verified by running it · 🟡 claimed by the source · ❓ assumpti
 
 ## Not done
 
-- Not wired into the atlas export or any release; the live preview is unchanged. Wiring means a `--hazard-dir` option for `slf atlas export` and a release decision for the share-alike data.
+- In no release; the live preview is unchanged. `slf atlas export --hazard-dir data/build/hazard-access` shows the indicators in a local bundle. With `--public` the HeiGIT access indicators are left out (CC BY-SA needs a licence statement that carries share-alike; lead decision, 2026-11-21: keep them out of the current preview), DesInventar stays in (CC BY).
 - 🟡 Nothing is cross-checked against an independent figure (for example DMC annual loss reports); all values are `machine_extracted`.
 - HeiGIT per-group breakdowns (adults, elderly, under-5, women of childbearing age) and the other eight risk tables are held but not ingested.
