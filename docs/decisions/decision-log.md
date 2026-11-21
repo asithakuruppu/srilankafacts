@@ -577,6 +577,18 @@ These were stated by you or are standing rules in [brainstorm-decisions.md](../b
 
 ---
 
+---
+
+## D-055: Local-authority and MOH profile pages render only from a publishable composition
+- **Status:** Proposed · 2026-11-21 (agent proposal; builds on D-046, D-030, D-040)
+- **Context:** `slf composition profile` now writes per-unit profiles (population, age, households, housing, rates recomputed from counts) from a composition build. The only membership source held, nuuuwan `gig-data`, has no licence. The internal run shows 423 spine GNs with no local authority and 986 with no MOH area, 97 local authorities and 88 MOH areas whose own shape overlaps their GN union poorly (IoU < 0.9), and 16 local authorities whose population DCS places mostly under another local-authority type.
+- **Decision (proposed):** (1) the website route `/units/la` and `/units/moh` renders profiles only from a file marked `publishable: true`, which is written only when the membership dataset passes the rights gate (D-046); otherwise it says unavailable and why. (2) `gig-data` stays internal. (3) The profiles of a source that passes the gate must show the flags (coverage gaps, shape disagreement, DCS type mismatch) beside each unit.
+- **Alternatives:** publish gig-data profiles under D-030-style terms (rejected: no stated origin, so no one to notify or credit, and the QA gaps above); hide flagged units (rejected: rule 6, show with the reason).
+- **Consequences:** nothing public changes now. Publishing needs an official GN list per unit with rights recorded, plus copying `units-<scheme>.json` into `web/public/release/atlas/` (atlas export wiring is not done).
+- **Revisit when:** an official GN list per local authority or MOH area is held with rights recorded.
+
+---
+
 ## Template
 
 ```markdown

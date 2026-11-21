@@ -71,6 +71,16 @@ types, most local authorities hold all their population in their own type, but 1
 90 % and 3 below 50 %. Even if it were licensed, gig-data would need these resolved before it
 could serve as a denominator source.
 
+## Profiles (added 2026-11-21)
+
+`uv run slf composition profile --scheme la|health` (also run at the end of `composition build`)
+writes `<scheme>_profiles[_internal].json`: counts, rates recomputed from counts (share aged 0-14
+and 15+, population per household, occupied units per household), and flags per unit (no census
+GN, some GN without census, shape IoU < 0.9, DCS type share < 0.9). The website route
+`/units/la` and `/units/moh` shows a file only if it says `publishable: true`; otherwise it shows
+"unavailable" with the reason. Internal files are never copied into the site. Decision: D-055
+(Proposed).
+
 ## Next step
 
 Obtain an official GN list per local authority (Ministry of Public Administration, the
