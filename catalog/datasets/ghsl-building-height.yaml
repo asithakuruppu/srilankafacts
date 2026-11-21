@@ -2,7 +2,7 @@ id: ghsl-building-height
 source: ghsl
 title: 'GHS-BUILT-H R2023A 2018: average net building height (100 m)'
 landing_page: https://human-settlement.emergency.copernicus.eu/download.php?ds=builtH
-pipeline_module: null
+pipeline_module: slf.spatial.build
 schedule: manual
 geography_scheme: grid
 geography_vintage: null
@@ -20,8 +20,10 @@ spatial:
   resolution: 100 m
   information_unit: grid-100m
   information_count: null
-  derived_by: null
-indicators: []
+  derived_by: zonal_area_v1 (docs/methods/landscape.md)
+indicators:
+- building_height_area
+- building_height_mean
 cross_checks: []
-status: proposed
-notes: 4 tiles held (2026-11-17), not yet rolled up. Candidate for a 'building height' landscape indicator.
+status: active
+notes: 4 tiles held (2026-11-17), rolled up 2026-11-21 on the 100 m grid with 20 m sub-cells like GHS-BUILT-S. ANBH is the modelled average net building height of a cell in metres (0 = none, -1 = no data); a place's mean counts cells with a height above zero only, weighted by ground area. The lowest modelled height in the held tiles is 2.5 m, so most rural places read close to 2.5 m. Modelled, not surveyed. Used by the `form` space v0.1 (docs/methods/form-context.md).

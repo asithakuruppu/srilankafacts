@@ -1,0 +1,18 @@
+id: dengue_cases_reported
+name: "Dengue cases reported in the week"
+short_name: "Dengue cases (week)"
+topic: [health]
+measure_type: count
+unit: "cases"
+universe: notified_cases
+numerator: null
+denominator: null
+aggregation: sum
+higher_is: worse
+distribution: downloads_only
+decimals: 0
+sensitivity: public
+definition: >
+  Dengue cases notified through NaDSys in the epidemiological week, by district (Ampara district is the sum of its two RDHS, Ampara and Kalmunai). A week's figure can change in the next weekly report when duplicates are removed.
+source_definition_ref: "NDCU Weekly Dengue Update, Table 1"
+methodology_notes: docs/methods/stat-tables.md

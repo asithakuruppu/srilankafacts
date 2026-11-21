@@ -1,6 +1,6 @@
 # Finest view (`/resolution`)
 
-Purpose: show every dataset at the best resolution the platform holds, without implying more information than exists (D-017, D-018, D-053).
+Purpose: show every dataset at the best resolution the platform holds, without implying more information than exists (D-017, D-018, D-060).
 
 - **Manifest:** `pipeline/slf/atlas_resolution.py` reads `catalog/datasets/*.yaml` and writes `resolution.json` into the atlas bundle (`slf atlas export --catalog-dir`). Metres come only from `spatial.information_unit` (`grid-30m`) or a plain "<n> m"/"<n> km" in `spatial.resolution`; H3 uses the documented average edge length. Everything else is null ("not recorded"), never guessed.
 - **Tiers:** `finer_than_gn` (a stated size, or point/line data), `gn`, `coarser_than_gn`, `national`, `unknown` (grid with no stated size).

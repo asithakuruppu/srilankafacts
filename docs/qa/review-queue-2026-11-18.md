@@ -2,6 +2,8 @@
 
 On 2026-11-17 the lead asked for every coding stage of the roadmap to be built, following the agents' recommended decisions, with all review and manual checking moved to the end. This is that end: one list of what now waits for a person. Nothing here is published; everything runs in the local preview.
 
+**Update 2026-11-19:** the lead accepted the agent's recommendations on the four launch items (LA-006, D-054): typology names no longer use ethnic group or religion; the 2012 comparison stays private and is left out of public builds; share-alike layers stay under their own licences; a public release is built for the site. A free deploy is prepared (D-053, `docs/ops/deploy.md`); deploying is the lead's step.
+
 **How to use it:** work top to bottom. Each item says what to look at and the agent's recommendation. Record outcomes in `docs/decisions/lead-approvals-log.md` (approvals) or the decision log (status changes).
 
 ## 1. Decisions acted on, awaiting confirmation
@@ -55,7 +57,7 @@ On 2026-11-17 the lead asked for every coding stage of the roadmap to be built, 
 
 ## 6. Outward-facing steps left to the lead (agents may not do these)
 
-- Hosting (Vercel and R2 are set up but nothing is deployed); the atlas bundle is now about 70 MB uncompressed plus 46 MB for SQL.
+- Hosting: prepared on free plans (D-053). The lead creates the Cloudflare account and runs the steps in `docs/ops/deploy.md`.
 - A "report a problem" channel (set `NEXT_PUBLIC_REPORT_URL`).
 - A scheduled alert workflow for new source editions (D-050).
 - Translators, a GIS reviewer, letters to DCS (2012 GN file, reuse terms) and for official LA and MOH GN lists.
@@ -66,9 +68,9 @@ On 2026-11-17 the lead asked for every coding stage of the roadmap to be built, 
 |---|---|
 | LA and MOH profiles | No official GN list with rights (D-046) |
 | `/si` and `/ta` routes, translated indicator names | No reviewed translation (D-012) |
-| HIES poverty, LFS labour, school census, health bulletin, dengue, paddy, CBSL strip | No tables held |
-| DesInventar and HeiGIT travel-time indicators | Names and ISO codes only; need crosswalks (rule 5) |
-| Population-weighted grid, resolution 10 | G07 completeness and rights work first |
+| HIES poverty, LFS labour, school census, health bulletin, dengue, paddy, CBSL strip | Update 2026-11-21: HIES 2019, LFS 2024 and paddy (2 seasons) now ingested privately, rights unclear and not releasable ([method](../methods/stat-tables.md)); school census, health bulletin, dengue by MOH and CBSL still blocked ([why](stat-tables-2026-11-21/blocked.md)) |
+| ~~DesInventar and HeiGIT travel-time indicators~~ | Crosswalks and district indicators built 2026-11-21, not yet in a release (`docs/methods/hazard-access.md`); 17 DS divisions to review, GN names unmapped |
+| Population-weighted grid, resolution 10 | Built locally 2026-11-21 (D-056, `docs/qa/g07-popweighted-grid-2026-11-21.md`); not in the web or the live release until the lead approves the weight source |
 | Building shapes, canopy, biomass, `form` and `context` spaces | Data held only as counts or not processed |
 | Chart embeds, hosted MCP endpoint, newsletter | Hosting and outward actions |
 | Live feeds, Movement (trains, aircraft) | No scheduler by policy; no timetable data |

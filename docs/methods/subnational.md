@@ -28,4 +28,4 @@ Legend: ✅ verified directly · 🟡 from a secondary source · ❌ not found �
 
 ## Not done
 
-DesInventar disaster records (names, not codes), HeiGIT travel-time tables (ISO codes), WFP market prices (points), HIES poverty and LFS labour (no tables held), CBSL national series (none held).
+DesInventar and HeiGIT travel-time tables (done 2026-11-21: see [hazard-access.md](hazard-access.md)), WFP market prices (points), HIES poverty and LFS labour (no tables held), CBSL national series (none held).

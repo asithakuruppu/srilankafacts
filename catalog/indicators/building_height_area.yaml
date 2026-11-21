@@ -1,0 +1,19 @@
+id: building_height_area
+name: "Area with building height data"
+short_name: "Area with building height data"
+topic: [landscape, form]
+measure_type: count
+unit: hectares
+universe: built_cells
+numerator: null
+denominator: null
+aggregation: sum
+higher_is: neutral
+distribution: api
+decimals: 1
+sensitivity: public
+definition: >
+  Ground area of 100 m cells with a modelled average net building height above zero (GHS-BUILT-H
+  R2023A, 2018). The weight for the mean building height.
+source_definition_ref: "ghsl-building-height (catalog/datasets/ghsl-building-height.yaml)"
+methodology_notes: docs/methods/landscape.md

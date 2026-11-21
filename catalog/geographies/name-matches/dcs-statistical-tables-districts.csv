@@ -1,0 +1,67 @@
+source_label,geography_id,match_method,datasets,evidence
+Sri Lanka,LK,exact_name,hies-poverty;labour-force-survey,"Printed as the spine name_en (catalog/geographies, COD-AB v03)."
+Central,LK2,exact_name,hies-poverty;labour-force-survey,"Printed as the spine name_en (catalog/geographies, COD-AB v03)."
+Eastern,LK5,exact_name,hies-poverty;labour-force-survey,"Printed as the spine name_en (catalog/geographies, COD-AB v03)."
+North Central,LK7,exact_name,hies-poverty;labour-force-survey,"Printed as the spine name_en (catalog/geographies, COD-AB v03)."
+North Western,LK6,exact_name,hies-poverty;labour-force-survey,"Printed as the spine name_en (catalog/geographies, COD-AB v03)."
+Northern,LK4,exact_name,hies-poverty;labour-force-survey,"Printed as the spine name_en (catalog/geographies, COD-AB v03)."
+Sabaragamuwa,LK9,exact_name,hies-poverty;labour-force-survey,"Printed as the spine name_en (catalog/geographies, COD-AB v03)."
+Southern,LK3,exact_name,hies-poverty;labour-force-survey,"Printed as the spine name_en (catalog/geographies, COD-AB v03)."
+Uva,LK8,exact_name,hies-poverty;labour-force-survey,"Printed as the spine name_en (catalog/geographies, COD-AB v03)."
+Western,LK1,exact_name,hies-poverty;labour-force-survey,"Printed as the spine name_en (catalog/geographies, COD-AB v03)."
+Colombo,LK11,exact_name,hies-poverty;labour-force-survey;dengue-weekly-district,"Printed as the spine name_en (catalog/geographies, COD-AB v03)."
+Gampaha,LK12,exact_name,hies-poverty;labour-force-survey;dengue-weekly-district,"Printed as the spine name_en (catalog/geographies, COD-AB v03)."
+Kalutara,LK13,exact_name,hies-poverty;labour-force-survey;dengue-weekly-district,"Printed as the spine name_en (catalog/geographies, COD-AB v03)."
+Kandy,LK21,exact_name,hies-poverty;labour-force-survey;dengue-weekly-district,"Printed as the spine name_en (catalog/geographies, COD-AB v03)."
+Matale,LK22,exact_name,hies-poverty;labour-force-survey;dengue-weekly-district,"Printed as the spine name_en (catalog/geographies, COD-AB v03)."
+Nuwara Eliya,LK23,exact_name,hies-poverty;labour-force-survey;dengue-weekly-district,"Printed as the spine name_en (catalog/geographies, COD-AB v03)."
+Galle,LK31,exact_name,hies-poverty;labour-force-survey;dengue-weekly-district,"Printed as the spine name_en (catalog/geographies, COD-AB v03)."
+Matara,LK32,exact_name,hies-poverty;labour-force-survey;dengue-weekly-district,"Printed as the spine name_en (catalog/geographies, COD-AB v03)."
+Hambantota,LK33,exact_name,hies-poverty;labour-force-survey;dengue-weekly-district,"Printed as the spine name_en (catalog/geographies, COD-AB v03)."
+Jaffna,LK41,exact_name,hies-poverty;labour-force-survey;dengue-weekly-district,"Printed as the spine name_en (catalog/geographies, COD-AB v03)."
+Mannar,LK42,exact_name,hies-poverty;labour-force-survey;dengue-weekly-district,"Printed as the spine name_en (catalog/geographies, COD-AB v03)."
+Vavuniya,LK43,exact_name,hies-poverty;labour-force-survey;dengue-weekly-district,"Printed as the spine name_en (catalog/geographies, COD-AB v03)."
+Mullaitivu,LK44,exact_name,hies-poverty;labour-force-survey;dengue-weekly-district,"Printed as the spine name_en (catalog/geographies, COD-AB v03)."
+Kilinochchi,LK45,exact_name,hies-poverty;labour-force-survey;dengue-weekly-district,"Printed as the spine name_en (catalog/geographies, COD-AB v03)."
+Batticaloa,LK51,exact_name,hies-poverty;labour-force-survey;dengue-weekly-district,"Printed as the spine name_en (catalog/geographies, COD-AB v03)."
+Ampara,LK52,exact_name,hies-poverty;labour-force-survey;dengue-weekly-district,"Printed as the spine name_en (catalog/geographies, COD-AB v03)."
+Trincomalee,LK53,exact_name,hies-poverty;labour-force-survey;dengue-weekly-district,"Printed as the spine name_en (catalog/geographies, COD-AB v03)."
+Kurunegala,LK61,exact_name,hies-poverty;labour-force-survey;dengue-weekly-district,"Printed as the spine name_en (catalog/geographies, COD-AB v03)."
+Puttalam,LK62,exact_name,hies-poverty;labour-force-survey;dengue-weekly-district,"Printed as the spine name_en (catalog/geographies, COD-AB v03)."
+Anuradhapura,LK71,exact_name,hies-poverty;labour-force-survey;dengue-weekly-district,"Printed as the spine name_en (catalog/geographies, COD-AB v03)."
+Polonnaruwa,LK72,exact_name,hies-poverty;labour-force-survey;dengue-weekly-district,"Printed as the spine name_en (catalog/geographies, COD-AB v03)."
+Badulla,LK81,exact_name,hies-poverty;labour-force-survey;dengue-weekly-district,"Printed as the spine name_en (catalog/geographies, COD-AB v03)."
+Monaragala,LK82,exact_name,hies-poverty;labour-force-survey;dengue-weekly-district,"Printed as the spine name_en (catalog/geographies, COD-AB v03)."
+Ratnapura,LK91,exact_name,hies-poverty;labour-force-survey;dengue-weekly-district,"Printed as the spine name_en (catalog/geographies, COD-AB v03)."
+Kegalle,LK92,exact_name,hies-poverty;labour-force-survey;dengue-weekly-district,"Printed as the spine name_en (catalog/geographies, COD-AB v03)."
+Vavunia,LK43,spelling_variant,hies-poverty;labour-force-survey;dengue-weekly-district,Spelling variant of spine name 'Vavuniya'; same district in the same table position and parent province (checked by reading the table).
+Mullativu,LK44,spelling_variant,labour-force-survey,Spelling variant of spine name 'Mullaitivu'; same district in the same table position and parent province (checked by reading the table).
+Kilinochchci,LK45,spelling_variant,labour-force-survey,Spelling variant of spine name 'Kilinochchi'; same district in the same table position and parent province (checked by reading the table).
+MULATIVU,LK44,spelling_variant,paddy-statistics,Spelling variant of spine name 'Mullaitivu'; same district in the same table position and parent province (checked by reading the table).
+KILLINOCHCHI,LK45,spelling_variant,paddy-statistics,Spelling variant of spine name 'Kilinochchi'; same district in the same table position and parent province (checked by reading the table).
+NUWARAELIYA,LK23,spelling_variant,paddy-statistics,Spelling variant of spine name 'Nuwara Eliya'; same district in the same table position and parent province (checked by reading the table).
+VAVUNIYA,LK43,spelling_variant,paddy-statistics,Spelling variant of spine name 'Vavuniya'; same district in the same table position and parent province (checked by reading the table).
+COLOMBO,LK11,exact_name,paddy-statistics,Printed as the spine name_en in capitals.
+GAMPAHA,LK12,exact_name,paddy-statistics,Printed as the spine name_en in capitals.
+KALUTARA,LK13,exact_name,paddy-statistics,Printed as the spine name_en in capitals.
+KANDY,LK21,exact_name,paddy-statistics,Printed as the spine name_en in capitals.
+MATALE,LK22,exact_name,paddy-statistics,Printed as the spine name_en in capitals.
+GALLE,LK31,exact_name,paddy-statistics,Printed as the spine name_en in capitals.
+MATARA,LK32,exact_name,paddy-statistics,Printed as the spine name_en in capitals.
+HAMBANTOTA,LK33,exact_name,paddy-statistics,Printed as the spine name_en in capitals.
+JAFFNA,LK41,exact_name,paddy-statistics,Printed as the spine name_en in capitals.
+MANNAR,LK42,exact_name,paddy-statistics,Printed as the spine name_en in capitals.
+BATTICALOA,LK51,exact_name,paddy-statistics,Printed as the spine name_en in capitals.
+AMPARA,LK52,exact_name,paddy-statistics,Printed as the spine name_en in capitals.
+TRINCOMALEE,LK53,exact_name,paddy-statistics,Printed as the spine name_en in capitals.
+KURUNEGALA,LK61,exact_name,paddy-statistics,Printed as the spine name_en in capitals.
+PUTTALAM,LK62,exact_name,paddy-statistics,Printed as the spine name_en in capitals.
+ANURADHAPURA,LK71,exact_name,paddy-statistics,Printed as the spine name_en in capitals.
+POLONNARUWA,LK72,exact_name,paddy-statistics,Printed as the spine name_en in capitals.
+BADULLA,LK81,exact_name,paddy-statistics,Printed as the spine name_en in capitals.
+MONARAGALA,LK82,exact_name,paddy-statistics,Printed as the spine name_en in capitals.
+RATNAPURA,LK91,exact_name,paddy-statistics,Printed as the spine name_en in capitals.
+KEGALLE,LK92,exact_name,paddy-statistics,Printed as the spine name_en in capitals.
+Rathnapura,LK91,spelling_variant,labour-force-survey,Spelling variant of spine name 'Ratnapura'.
+Total,LK,national_total,labour-force-survey,"LFS table row ""Total"" = all Sri Lanka."
+Moneragala,LK82,spelling_variant,hies-poverty;labour-force-survey;dengue-weekly-district,Spelling variant of spine name 'Monaragala'.

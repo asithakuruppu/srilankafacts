@@ -7,9 +7,11 @@ from pathlib import Path
 
 import geopandas as gpd
 import pandas as pd
+import pytest
 import shapely
 from shapely.geometry import box
 
+from slf import atlas
 from slf.atlas import _borders, _ranked_mesh, build_adjacency, build_geometry
 
 # A 4 x 2 grid of 1 km squares in EPSG:5235 metres: 8 GNs, 4 DS (pairs stacked vertically),
@@ -255,3 +257,25 @@ def test_split_lines_keeps_every_vertex_and_joins_the_pieces() -> None:
     pieces = _split_lines(line, max_points=20)
     assert [len(shapely.get_coordinates(p)) for p in pieces] == [20, 20, 12]
     assert shapely.length(shapely.union_all(pieces)) == shapely.length(line)
+
+
+def test_public_bundle_leaves_out_the_trajectory_space(tmp_path: Path) -> None:
+    spaces = tmp_path / "spaces"
+    spaces.mkdir()
+    for name in atlas.SPACE_FILES:
+        (spaces / name).write_text(json.dumps({"space_id": name, "space_version": "1"}))
+    private = atlas.build_spaces(spaces, tmp_path / "private")
+    public = atlas.build_spaces(spaces, tmp_path / "public", public=True)
+    assert "trajectory" in private["spaces"]
+    assert "trajectory" not in public["spaces"] and "typology" in public["spaces"]
+    assert not (tmp_path / "public" / "spaces" / "trajectory.json").exists()
+
+
+def test_public_bundle_needs_a_publishable_release(tmp_path: Path) -> None:
+    release = tmp_path / "release"
+    (release / "api/v1/releases").mkdir(parents=True)
+    (release / "api/v1/releases/latest.json").write_text(
+        json.dumps({"release": "v1-preview", "publishable": False})
+    )
+    with pytest.raises(ValueError, match="not publishable"):
+        atlas.export(release, tmp_path / "spine", tmp_path / "out", public=True)

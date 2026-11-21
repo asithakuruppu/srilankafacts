@@ -1,0 +1,18 @@
+id: paddy_average_yield
+name: "Paddy average yield per nett acre"
+short_name: "Paddy yield"
+topic: [agriculture]
+measure_type: mean
+unit: "bushels per nett acre"
+universe: paddy_fields
+numerator: null
+denominator: null
+aggregation: none
+higher_is: better
+distribution: downloads_only
+decimals: 1
+sensitivity: public
+definition: >
+  Average yield in bushels per nett acre harvested, all schemes. A bushel of paddy is the unit DCS prints; no conversion to kilograms is applied here.
+source_definition_ref: "DCS Paddy Statistics by district (final estimate)"
+methodology_notes: docs/methods/stat-tables.md

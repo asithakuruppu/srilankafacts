@@ -1,0 +1,18 @@
+id: poverty_headcount_updated_pl
+name: "Poverty headcount index (updated poverty line, 2019)"
+short_name: "Poverty headcount (updated line)"
+topic: [poverty]
+measure_type: share
+unit: "percent"
+universe: persons
+numerator: null
+denominator: null
+aggregation: none
+higher_is: worse
+distribution: downloads_only
+decimals: 1
+sensitivity: public
+definition: >
+  Percentage of the population below the updated official poverty line (Rs. 6,966 per person per month in 2019; based on 2012/13 NCPI), HIES 2019. A sample-survey estimate.
+source_definition_ref: "Poverty Indicators 2019, Table 04"
+methodology_notes: docs/methods/stat-tables.md

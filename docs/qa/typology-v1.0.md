@@ -25,13 +25,20 @@ k = 4 has a higher silhouette but is unstable (ARI 0.60); k = 5 is the only stab
 
 ## Types (draft names, machine-generated, awaiting review)
 
+Names revised on 2026-11-19 (D-054): drafted from age, sex, size and housing inputs only, never
+from ethnic group or religion. The partition is unchanged (339 of 339 assignments identical to
+the 2026-11-17 build ✅); only the names changed.
+
 | Type | DS divisions | Mean agreement | Draft name |
 |---|---|---|---|
 | 1 | 140 | 0.88 | Higher share aged 60-64 and share aged 65+; lower share aged 15-59 |
-| 2 | 87 | 0.89 | Higher sex ratio (log) and share Buddhist (religion); lower population density (log) and persons per housing unit (log) |
-| 3 | 42 | 0.73 | Higher persons per housing unit (log) and share Islam (religion); lower share Sinhalese (ethnic group) and share Buddhist (religion) |
+| 2 | 87 | 0.89 | Higher sex ratio (log); lower population density (log) and persons per housing unit (log) |
+| 3 | 42 | 0.73 | Higher persons per housing unit (log) and share aged 0-14; lower share aged 60-64 and share aged 65+ |
 | 4 | 35 | 0.82 | Higher population (log) and occupied housing units (log); lower share aged 0-14 |
-| 5 | 35 | 0.85 | Higher share Sri Lanka Tamil (ethnic group) and share Hindu (religion); lower share Sinhalese (ethnic group) and share Buddhist (religion) |
+| 5 | 35 | 0.85 | Higher share aged 15-59 and share aged 0-14; lower share aged 60-64 and occupied housing units (log) |
+
+The ethnic-group and religion shares still separate types 2, 3 and 5 most strongly (D-037); they
+remain in each type's `inputs_sd` profile in `typology.json`, but not in its name.
 
 Sizes sum to 339 ✅. Type 3 is the least stable (0.73): its members trade places with types 2 and
 5 across resamples.

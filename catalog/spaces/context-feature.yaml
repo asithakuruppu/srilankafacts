@@ -1,0 +1,33 @@
+# The `context-feature` space: individual building footprints by their surroundings.
+#
+# PRIVATE PREVIEW, same terms as `form-feature` (see that file). Built 2026-11-21.
+#
+# Rights: the building points and neighbour counts are ODbL-derived (Overture Buildings); distances
+# use OpenStreetMap roads and the Giga school and healthsites.io locations (OSM is ODbL; check the
+# other two before any release); biomass is CC BY, elevation is from the DEM held in the archive.
+# No people statistic is attached to any row (AGENTS rule 11).
+id: context-feature
+version: "0.1"
+title: Surroundings of an individual building (neighbours, road, school, health, coast, biomass, elevation)
+entity_types: [feature]
+metric: euclidean
+inputs:
+  - { id: log_near_100m, kind: derived, weight: 1.0 }
+  - { id: log_near_500m, kind: derived, weight: 1.0 }
+  - { id: log_nn_distance, kind: derived, weight: 1.0 }
+  - { id: log_road, kind: derived, weight: 1.0 }
+  - { id: log_school, kind: derived, weight: 1.0 }
+  - { id: log_health, kind: derived, weight: 1.0 }
+  - { id: log_coast, kind: derived, weight: 1.0 }
+  - { id: sqrt_biomass, kind: derived, weight: 1.0 }
+  - { id: log_elevation, kind: derived, weight: 1.0 }
+transformations:
+  - "neighbour counts within 100 m and 500 m and distance to nearest other footprint (KD-tree in EPSG:5235); road distance to OSM road vertices every 30 m; school and health distances to point locations; coast distance to the outline of the GN divisions"
+  - "log10(1 + metres) for distances and counts; sqrt of CTrees biomass at the point; log10(1 + elevation m)"
+  - "same fit as form-feature; footprints with no biomass pixel are excluded, not filled"
+status: proposed
+method_notes: >
+  Built by `slf spatial featurespace`. 8,838,171 footprints (48,778 excluded for no biomass pixel),
+  5 axes (86.6% of variance). Canopy height per building is not included (75 tiles at 8.9 million
+  points was too heavy for this build). "Coast" is the outline of the GN divisions, so it includes
+  lagoon and island edges, not only the open sea.

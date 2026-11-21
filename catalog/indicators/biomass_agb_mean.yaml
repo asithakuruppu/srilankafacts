@@ -1,0 +1,22 @@
+id: biomass_agb_mean
+name: "Mean above-ground biomass density"
+short_name: "Mean above-ground biomass density"
+topic: [landscape, context]
+measure_type: mean
+unit: megagrams per hectare
+universe: land_area_measured
+numerator: null
+denominator: null
+aggregation: none
+higher_is: neutral
+distribution: api
+decimals: 2
+sensitivity: public
+definition: >
+  Area-weighted mean of CTrees' 2025 above-ground live biomass over the place's whole measured
+  area, including non-forest land at low values. CTrees' product, modelled from NASA ICESat and
+  GEDI lidar with satellite radar and optical imagery, 100 m; pixel values are stored times 10 and
+  divided here. Modelled, not measured on the ground, and the per-pixel uncertainty is not
+  published in this dataset.
+source_definition_ref: "ctrees-aboveground-biomass (catalog/datasets/ctrees-aboveground-biomass.yaml)"
+methodology_notes: docs/methods/landscape.md

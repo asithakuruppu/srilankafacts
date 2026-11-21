@@ -9,9 +9,11 @@ from slf.catalog import Catalog, CatalogReport, check_links, load_decisions
 from slf.release import (
     _dataset_rights,
     _notice_markdown,
+    _share_alike_markdown,
     public_release_refusals,
     release_notices,
     release_use,
+    share_alike_datasets,
 )
 from slf.schemas import Dataset, PublicationDecision, Rights, Source, Spatial
 
@@ -132,3 +134,20 @@ def test_repository_decision_log_has_d030_accepted():
     decisions = load_decisions(log)
     assert decisions is not None
     assert decisions.get("D-030") == "Accepted"
+
+
+def test_share_alike_datasets_get_a_licence_statement():
+    sa = {
+        "dataset_id": "heigit-accessibility",
+        "licence": "CC-BY-SA",
+        "attribution": "HeiGIT; © OpenStreetMap contributors",
+        "source_id": "heigit",
+        "source_name": "HeiGIT",
+        "source_homepage": "https://heigit.org",
+    }
+    plain = {**sa, "dataset_id": "cc-by", "licence": "CC-BY-4.0"}
+    assert [d["dataset_id"] for d in share_alike_datasets([sa, plain])] == ["heigit-accessibility"]
+    text = _share_alike_markdown(share_alike_datasets([sa, plain]))
+    assert "same licence" in text and "HeiGIT; © OpenStreetMap contributors" in text
+    assert "cc-by" not in text
+    assert _share_alike_markdown([]) == ""

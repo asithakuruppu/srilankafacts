@@ -33,3 +33,7 @@ next-env.d.ts
 .idea/
 .vscode/
 *.swp
+
+# Staged deploy folders (deploy/stage-data-site.mjs)
+deploy/build/
+.wrangler/

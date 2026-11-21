@@ -1,5 +1,6 @@
 /** Browser loaders for the atlas bundle and release API files. Each file is fetched once. */
 
+import { dataUrl } from "@/lib/data-base";
 import type {
   Adjacency,
   AdjacencyLevel,
@@ -101,7 +102,7 @@ export const loadFeatures = (district: string) =>
 export const loadFires = () => loadJson<FireTimeline>(atlas("events/fires.json"));
 export const loadStorms = () => loadJson<StormFile>(atlas("events/storms.json"));
 
-export const loadPlace = (id: string) => loadJson<Place>(`/api/v1/places/${id}.json`);
+export const loadPlace = (id: string) => loadJson<Place>(dataUrl(`/api/v1/places/${id}.json`));
 
 type LevelFile = { values: { geography_id: string; value: number | null }[] };
 
@@ -111,7 +112,7 @@ export async function loadLevelValues(indicator: string, level: LevelName): Prom
   const values: ValueMap = new Map();
   const payloads = await Promise.all(
     files.map((file) =>
-      loadJson<LevelFile>(`/api/v1/indicators/${indicator}/${file}.json`).catch(() => null),
+      loadJson<LevelFile>(dataUrl(`/api/v1/indicators/${indicator}/${file}.json`)).catch(() => null),
     ),
   );
   for (const payload of payloads) {

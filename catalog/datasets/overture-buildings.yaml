@@ -25,12 +25,19 @@ indicators:
 - buildings_mapped
 - building_footprint_area
 - building_footprint_mean
+- buildings_small
+- buildings_large
+- buildings_small_share
+- buildings_large_share
+- building_compactness_mean
+- buildings_per_km2
+- building_coverage_share
 cross_checks: []
 status: active
 notes: 'Extract of release 2026-10-21.0 by bounding box: 8,886,949 footprints (4,677,986 first sourced
   from Google Open Buildings, 3,394,052 from OpenStreetMap, 814,911 from Microsoft), 878 MB, held on the
   external archive drive. ODbL. Physical attributes only; 4,338 footprints carry a height. Rolled up to
-  places as counts and footprint area. Against Census 2024 there are 1.47 footprints per occupied housing
+  places as counts, footprint area, size classes (under 20 m2, 250 m2 or more), mean compactness and density (2026-11-21). Against Census 2024 there are 1.47 footprints per occupied housing
   unit; 7.3% of GN divisions have fewer footprints than housing units (docs/research/spatial/findings-2026-11-17.md).
   Individual footprints are not published (G08 admission test and the map-publication legal check are
-  still open).'
+  still open). G07 on 2026-11-21, NOT used as a weight. ODbL; a grid weighted by it would be an ODbL database kept apart from CC BY outputs (D-005), and its completeness is uneven (1.47 footprints per housing unit, 7.3% of GNs below one per unit).'

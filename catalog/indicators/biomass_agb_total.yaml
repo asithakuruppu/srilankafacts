@@ -1,0 +1,20 @@
+id: biomass_agb_total
+name: "Above-ground biomass stock"
+short_name: "Above-ground biomass stock"
+topic: [landscape, context]
+measure_type: count
+unit: megagrams
+universe: land_area_measured
+numerator: null
+denominator: null
+aggregation: sum
+higher_is: neutral
+distribution: api
+decimals: 0
+sensitivity: public
+definition: >
+  Mean biomass density times measured area, summed over the place: CTrees' modelled 2025
+  above-ground live biomass stock in megagrams of dry matter. Not carbon: that needs a carbon
+  fraction the source does not give here.
+source_definition_ref: "ctrees-aboveground-biomass (catalog/datasets/ctrees-aboveground-biomass.yaml)"
+methodology_notes: docs/methods/landscape.md

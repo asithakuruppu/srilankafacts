@@ -1,0 +1,18 @@
+id: paddy_nett_extent_harvested
+name: "Paddy nett extent harvested"
+short_name: "Paddy harvested (nett)"
+topic: [agriculture]
+measure_type: count
+unit: "acres"
+universe: paddy_fields
+numerator: null
+denominator: null
+aggregation: none
+higher_is: neutral
+distribution: downloads_only
+decimals: 0
+sensitivity: public
+definition: >
+  Nett extent of paddy harvested in the season, in acres (each field counted once).
+source_definition_ref: "DCS Paddy Statistics by district (final estimate)"
+methodology_notes: docs/methods/stat-tables.md

@@ -11,7 +11,7 @@ is modelled here beyond what the source already models.
   figure is the mean depth over districts weighted by the source's pixel counts.
 - WFP/MODIS NDVI: the latest complete year's mean of the 36 dekadal values, and the same
   mean of the source's long-term averages.
-- HeiGIT Rural Access Index: share of rural population within 2 km of an all-season road,
+- HeiGIT Rural Access Index: share of rural population within 2 km of a paved road,
   by district, copied.
 """
 
@@ -191,8 +191,9 @@ SPECS: list[Spec] = [
         "percent",
         1,
         "share",
-        "Share of the rural population living within 2 km of an all-season road "
-        "(HeiGIT, from OpenStreetMap roads and WorldPop population).",
+        "Share of the rural population living within 2 km of a paved road "
+        "(HeiGIT, from Mapillary and Planet road-surface classification and a modelled "
+        "population grid).",
         "modelled_estimate",
         "grid-100m",
         "higher_is_better",

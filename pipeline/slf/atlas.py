@@ -16,6 +16,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import shutil
 from collections.abc import Sequence
 from pathlib import Path
 from typing import Any, cast
@@ -910,15 +911,21 @@ def build_change(history_dir: Path, spine_dir: Path, out_dir: Path) -> dict[str,
 SPACE_FILES = ("typology.json", "composite.json", "trajectory.json", "text.json")
 
 
-def build_spaces(spaces_dir: Path, out_dir: Path) -> dict[str, Any]:
+# Parts that stay out of a public bundle (`--public`): the 2012 census comparison is private
+# under D-038 (change.json, the trajectory space), and named features are local only (D-049).
+PRIVATE_SPACES = ("trajectory.json",)
+
+
+def build_spaces(spaces_dir: Path, out_dir: Path, public: bool = False) -> dict[str, Any]:
     """Copy the vector-space files of `slf profile spaces` into the bundle, unchanged.
 
-    trajectory.json is private under D-038 (local preview only), like change.json.
+    trajectory.json is private under D-038 (local preview only), like change.json; a public
+    bundle leaves it out.
     """
     copied: dict[str, Any] = {}
     for name in SPACE_FILES:
         source = spaces_dir / name
-        if not source.exists():
+        if not source.exists() or (public and name in PRIVATE_SPACES):
             continue
         payload = json.loads(source.read_text())
         _dump(out_dir / "spaces" / name, payload)
@@ -929,6 +936,27 @@ def build_spaces(spaces_dir: Path, out_dir: Path) -> dict[str, Any]:
             **({"status": payload["status"]} if "status" in payload else {}),
         }
     return {"available": bool(copied), "spaces": copied}
+
+
+def _copy_unit_profiles(units_dir: Path | None, target: Path) -> dict[str, Any]:
+    """Copy LA and MOH profiles into the bundle, only files that say publishable (D-055).
+
+    An internal run (``*_profiles_internal.json``) is never read here.
+    """
+    if units_dir is None:
+        return {"available": False, "reason": "no --units-dir given"}
+    copied: list[str] = []
+    for scheme in ("la", "health"):
+        src = units_dir / scheme / f"{scheme}_profiles.json"
+        if not src.exists():
+            continue
+        if json.loads(src.read_text()).get("publishable") is not True:
+            continue
+        shutil.copyfile(src, target / f"units-{scheme}.json")
+        copied.append(scheme)
+    if not copied:
+        return {"available": False, "reason": "no publishable LA or MOH composition (D-046)"}
+    return {"available": True, "schemes": copied}
 
 
 def export(
@@ -943,8 +971,21 @@ def export(
     landscape_dir: Path | None = None,
     subnational_dir: Path | None = None,
     events_dir: Path | None = None,
+    public: bool = False,
+    hazard_dir: Path | None = None,
+    units_dir: Path | None = None,
+    stat_tables_dir: Path | None = None,
 ) -> dict[str, Any]:
+    """Write the bundle. `public=True` builds the bundle for a public site: it needs a
+    publishable release and leaves out the private parts (D-038 change and trajectory, D-049
+    named features)."""
     latest = json.loads((release_dir / "api/v1/releases/latest.json").read_text())
+    if public and not latest.get("publishable"):
+        raise ValueError(
+            f"{latest['release']} is not publishable; a public atlas needs a public release"
+        )
+    if public:
+        history_dir = None
     target = out_dir / str(latest["release"])
     target.mkdir(parents=True, exist_ok=True)
     ed_of_district = ed_of_district_from_catalog(catalog_dir) if catalog_dir else {}
@@ -966,13 +1007,19 @@ def export(
             if profile_dir is not None
             else {"available": False, "reason": "no --profile-dir given"}
         ),
+        "public": public,
         "change": (
             build_change(history_dir, spine_dir, target)
             if history_dir is not None
-            else {"available": False, "reason": "no --history-dir given"}
+            else {
+                "available": False,
+                "reason": "private under D-038 (public bundle)"
+                if public
+                else "no --history-dir given",
+            }
         ),
         "spaces": (
-            build_spaces(spaces_dir, target)
+            build_spaces(spaces_dir, target, public=public)
             if spaces_dir is not None
             else {"available": False, "reason": "no --spaces-dir given"}
         ),
@@ -982,30 +1029,45 @@ def export(
         from slf import grid
 
         manifest["grid"] = grid.web_files(spine_dir, weights[-1], target)
+    else:
+        manifest["grid"] = {"available": False, "reason": "no grid build given (`slf grid build`)"}
     if catalog_dir is not None and (catalog_dir / "geographies" / "relations").exists():
         from slf import resolver
 
         eds = resolver.district_to_ed(catalog_dir / "geographies" / "relations")
         _dump(target / "resolver.json", {"district_to_ed": eds})
         manifest["resolver"] = {"available": True, "district_to_ed": len(eds)}
-    else:
-        manifest["grid"] = {"available": False, "reason": "no grid build given (`slf grid build`)"}
     if landscape_dir is not None:
         from slf import atlas_landscape
 
         manifest["landscape"] = atlas_landscape.build(landscape_dir, spine_dir, catalog_dir, target)
-        manifest["features"] = atlas_landscape.build_features(landscape_dir, target)
+        manifest["features"] = (
+            {"available": False, "reason": "named features stay local (D-049; public bundle)"}
+            if public
+            else atlas_landscape.build_features(landscape_dir, target)
+        )
     else:
         manifest["landscape"] = {"available": False, "reason": "no --landscape-dir given"}
         manifest["features"] = {"available": False, "reason": "no --landscape-dir given"}
-    if subnational_dir is not None or events_dir is not None:
+    if any(d is not None for d in (subnational_dir, events_dir, hazard_dir, stat_tables_dir)):
         from slf import atlas_landscape
 
         manifest["extra"] = atlas_landscape.build_extra(
-            subnational_dir, spine_dir, catalog_dir, target, events_dir
+            subnational_dir,
+            spine_dir,
+            catalog_dir,
+            target,
+            events_dir,
+            hazard_dir,
+            public,
+            stat_tables_dir,
         )
     else:
-        manifest["extra"] = {"available": False, "reason": "no --subnational-dir or --events-dir"}
+        manifest["extra"] = {
+            "available": False,
+            "reason": "no --subnational-dir, --events-dir or --hazard-dir",
+        }
+    manifest["units"] = _copy_unit_profiles(units_dir, target)
     if catalog_dir is not None:
         from slf import atlas_resolution
 

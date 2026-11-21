@@ -1,18 +1,18 @@
 id: labour-force-survey
 source: dcs
 title: "Labour Force Survey: district indicators"
-landing_page: null
-pipeline_module: null
+landing_page: https://www.statistics.gov.lk/LabourForce/StaticalInformation/AnnualReports
+pipeline_module: slf.stat_tables
 schedule: manual
 geography_scheme: admin
-geography_vintage: null
-reference_period: null
+geography_vintage: "cod-ab-v03"
+reference_period: "2024"
 rights: inherit
 spatial:
   support: area
   scheme: admin
   level: district
-  vintage: null
+  vintage: "cod-ab-v03"
   coverage: LK
   measured_in: null
   positional_accuracy: null
@@ -21,8 +21,15 @@ spatial:
   information_unit: null
   information_count: null
   derived_by: null
-indicators: []
+indicators:
+  - lfs_population_15_plus
+  - lfs_labour_force
+  - lfs_labour_force_participation_rate
+  - lfs_employed
+  - lfs_unemployed
+  - lfs_unemployment_rate
+  - lfs_not_in_labour_force
 cross_checks: []
-status: proposed
+status: active
 notes: >
-  Stage 3.
+  Stage 3. Held: DCS Labour Force Survey Annual Report 2024 (PDF), Tables 12, 12A, 12B (labour force status by district; both sexes, male, female): 546 observations for Sri Lanka and 25 districts. Sample-survey estimates; DCS warns of high CVs in some districts. The data.gov.lk copies of LFS participation and unemployment by district 2009-2014 are held (raw/data-gov-lk) but not ingested. Rights unclear and NO publication decision; the release builder refuses it. Method: docs/methods/stat-tables.md.

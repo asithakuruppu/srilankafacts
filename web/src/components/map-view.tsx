@@ -12,6 +12,15 @@ import {
   type BoundaryCollection,
   type ValueRow,
 } from "@/lib/areas";
+import BasemapSwitch from "@/components/atlas/basemap-switch";
+import {
+  basemapStyle,
+  OSM_FILL_OPACITY,
+  readBasemap,
+  saveBasemap,
+  setBasemap,
+  type Basemap,
+} from "@/lib/atlas/basemap";
 import { formatValue } from "@/lib/format";
 
 type MapViewProps = {
@@ -131,6 +140,8 @@ export default function MapView({
   const fitted = useRef(false);
   const router = useRouter();
   const [ready, setReady] = useState(false);
+  const [basemap, setBasemapState] = useState<Basemap>("plain");
+  const basemapRef = useRef<Basemap>("plain");
   const [fetched, setFetched] = useState<AreaDataset | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [legend, setLegend] = useState<{ color: string; label: string }[]>([]);
@@ -152,20 +163,10 @@ export default function MapView({
         }
         map = new MapLibrary({
           container: container.current,
-          style: {
-            version: 8,
-            sources: {},
-            layers: [
-              {
-                id: "background",
-                type: "background",
-                paint: { "background-color": cssColor("--map-bg", "#eef0f4") },
-              },
-            ],
-          },
+          style: basemapStyle(cssColor("--map-bg", "#eef0f4"), basemapRef.current),
           center: [80.7, 7.6],
           zoom: 6.4,
-          attributionControl: false,
+          attributionControl: { compact: true },
           dragRotate: false,
         });
         // The map is aria-hidden (the table carries the same values), so keep its canvas out of
@@ -195,6 +196,21 @@ export default function MapView({
       mapRef.current = null;
     };
   }, []);
+
+  useEffect(() => {
+    const stored = readBasemap("plain");
+    basemapRef.current = stored;
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- storage is only readable after hydration
+    setBasemapState(stored);
+  }, []);
+
+  useEffect(() => {
+    basemapRef.current = basemap;
+    const map = mapRef.current;
+    if (map && ready) {
+      setBasemap(map, basemap);
+    }
+  }, [basemap, ready]);
 
   useEffect(() => {
     if (preloaded) {
@@ -243,6 +259,14 @@ export default function MapView({
       }),
     };
   }, [data, values, unit]);
+
+  // Let the street map show through the choropleth when it is on.
+  useEffect(() => {
+    const map = mapRef.current;
+    if (map && ready && merged && map.getLayer("areas-fill")) {
+      map.setPaintProperty("areas-fill", "fill-opacity", basemap === "osm" ? OSM_FILL_OPACITY : 1);
+    }
+  }, [basemap, ready, merged]);
 
   const breaks = useMemo(
     () =>
@@ -410,6 +434,13 @@ export default function MapView({
   return (
     <div className={`map ${className ?? ""}`}>
       <div className="map-canvas" ref={container} aria-hidden="true" />
+      <BasemapSwitch
+        value={basemap}
+        onChange={(next) => {
+          saveBasemap(next);
+          setBasemapState(next);
+        }}
+      />
       {error ? (
         <p className="map-status" role="status">
           {error}
@@ -434,7 +465,7 @@ export default function MapView({
       </div>
       <p className="map-note">
         Colours are quantile classes of the selected indicator. Areas are drawn from the
-        COD-AB v03 boundaries; no basemap is used.
+        COD-AB v03 boundaries; the plain view has no basemap; the OpenStreetMap view is © OpenStreetMap contributors.
       </p>
     </div>
   );
