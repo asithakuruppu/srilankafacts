@@ -79,8 +79,8 @@ Each space has an id, a version, a recipe (inputs, transformations, weights), a 
 | `access` | Places, hexes | Travel time to facility types | Euclidean on log minutes | 3 |
 | `trajectory` | Place-periods (place × census year) | `profile` axes, fixed across years | Euclidean; displacement vectors | 2 |
 | `text` | Indicators, datasets, sources, explainers | Text embeddings of names and definitions | Cosine | 2 |
-| `form` | Features (buildings, landmarks, trees) | Footprint area, compactness, height, type | Euclidean on standardised | 3 ([multi-scale-features.md](multi-scale-features.md)) |
-| `context` | Features | Surroundings: density, canopy, distances to road, coast and facilities, land-cover mix | Euclidean on standardised | 3 |
+| `form` | Features (buildings, landmarks, trees); v0.1 built for **places** from aggregates | Footprint area, compactness, height, type | Euclidean on standardised | 3 ([multi-scale-features.md](multi-scale-features.md), [form-context.md](../methods/form-context.md)) |
+| `context` | Features; v0.1 built for **places** from aggregates | Surroundings: density, canopy, distances to road, coast and facilities, land-cover mix | Euclidean on standardised | 3 |
 | `composite` | Places | Weighted combination of the above, chosen by the user | Weighted sum of per-space distances | 2 |
 
 `composite` is where your concept becomes a user experience: sliders for *where*, *who lives here*, *what the land looks like* and *how far from services*, and the space reshapes as you move them.

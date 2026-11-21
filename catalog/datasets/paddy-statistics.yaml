@@ -2,17 +2,17 @@ id: paddy-statistics
 source: dcs
 title: "Paddy statistics by district and season"
 landing_page: null
-pipeline_module: null
+pipeline_module: slf.stat_tables
 schedule: manual
 geography_scheme: admin
-geography_vintage: null
+geography_vintage: "cod-ab-v03"
 reference_period: null
 rights: inherit
 spatial:
   support: area
   scheme: admin
   level: district
-  vintage: null
+  vintage: "cod-ab-v03"
   coverage: LK
   measured_in: null
   positional_accuracy: null
@@ -21,8 +21,13 @@ spatial:
   information_unit: null
   information_count: null
   derived_by: null
-indicators: []
+indicators:
+  - paddy_gross_extent_sown
+  - paddy_gross_extent_harvested
+  - paddy_nett_extent_harvested
+  - paddy_average_yield
+  - paddy_production
 cross_checks: []
-status: proposed
+status: active
 notes: >
-  Stage 3. Seasons use period formats like 2024/25-maha and 2025-yala.
+  Stage 3. Held via data.gov.lk (raw/data-gov-lk/data-gov-lk-other-topics, which shows 'License Not Specified'; fetched with TLS verification off at the lead's instruction): DCS district paddy tables in acres and bushels for Maha 2010/11 and Yala 2012 (250 observations, 25 districts; Uda Walawe and Mahaweli 'H' are paddy management areas, listed as unmatched). Season checked against the DCS PDF title pages and national totals against the PDF. NOT ingested: two metric (hectare) files with no season in them, and the 2010 xls files (no xls reader). Several seasons are likely on statistics.gov.lk (not snapshotted: the page is not reachable by plain fetch). Rights unclear (dcs and data-gov-lk) and NO publication decision. Method: docs/methods/stat-tables.md.

@@ -1,0 +1,344 @@
+geography_id,vintage,code_system,external_code,external_name,match_method,confidence,notes
+LK1,cod-ab-v03,desinventar,lka001,Western,name_and_parent,1.0,name equals one spine province (parent LK); name from the province shapefile
+LK11,cod-ab-v03,desinventar,lka001001,Colombo,name_and_parent,1.0,name equals one spine district under LK1; the shapefile's province lka001 (Western) matches that parent
+LK1103,cod-ab-v03,desinventar,lka001001003,Colombo,exact_code,1.0,DS code 1103 equals DCS code of LK1103; name similarity 1.00
+LK1106,cod-ab-v03,desinventar,lka001001006,Kolonnawa,exact_code,1.0,DS code 1106 equals DCS code of LK1106; name similarity 1.00
+LK1109,cod-ab-v03,desinventar,lka001001009,Kaduwela,exact_code,1.0,DS code 1109 equals DCS code of LK1109; name similarity 1.00
+LK1112,cod-ab-v03,desinventar,lka001001012,Homagama,exact_code,1.0,DS code 1112 equals DCS code of LK1112; name similarity 1.00
+LK1118,cod-ab-v03,desinventar,lka001001018,Padukka,exact_code,1.0,DS code 1118 equals DCS code of LK1118; name similarity 1.00
+LK1121,cod-ab-v03,desinventar,lka001001021,Maharagama,exact_code,1.0,DS code 1121 equals DCS code of LK1121; name similarity 1.00
+LK1124,cod-ab-v03,desinventar,lka001001024,Sri Jayawardanapura Kotte,exact_code,1.0,DS code 1124 equals DCS code of LK1124; name similarity 1.00
+LK1127,cod-ab-v03,desinventar,lka001001027,Thimbirigasyaya,exact_code,1.0,DS code 1127 equals DCS code of LK1127; name similarity 1.00
+LK1130,cod-ab-v03,desinventar,lka001001030,Dehiwala,exact_code,1.0,DS code 1130 equals DCS code of LK1130; name similarity 1.00
+LK1131,cod-ab-v03,desinventar,lka001001031,Ratmalana,exact_code,1.0,DS code 1131 equals DCS code of LK1131; name similarity 1.00
+LK1133,cod-ab-v03,desinventar,lka001001033,Moratuwa,exact_code,1.0,DS code 1133 equals DCS code of LK1133; name similarity 1.00
+LK1136,cod-ab-v03,desinventar,lka001001036,Kesbewa,exact_code,1.0,DS code 1136 equals DCS code of LK1136; name similarity 1.00
+LK12,cod-ab-v03,desinventar,lka001002,Gampaha,name_and_parent,1.0,name equals one spine district under LK1; the shapefile's province lka001 (Western) matches that parent
+LK1203,cod-ab-v03,desinventar,lka001002003,Negombo,exact_code,1.0,DS code 1203 equals DCS code of LK1203; name similarity 1.00
+LK1206,cod-ab-v03,desinventar,lka001002006,Katana,exact_code,1.0,DS code 1206 equals DCS code of LK1206; name similarity 1.00
+LK1209,cod-ab-v03,desinventar,lka001002009,Divulapitiya,exact_code,1.0,DS code 1209 equals DCS code of LK1209; name similarity 1.00
+LK1212,cod-ab-v03,desinventar,lka001002012,Mirigama,exact_code,1.0,DS code 1212 equals DCS code of LK1212; name similarity 1.00
+LK1215,cod-ab-v03,desinventar,lka001002015,Minuwangoda,exact_code,1.0,DS code 1215 equals DCS code of LK1215; name similarity 1.00
+LK1218,cod-ab-v03,desinventar,lka001002018,Wattala,exact_code,1.0,DS code 1218 equals DCS code of LK1218; name similarity 1.00
+LK1221,cod-ab-v03,desinventar,lka001002021,Ja-Ela,exact_code,1.0,DS code 1221 equals DCS code of LK1221; name similarity 1.00
+LK1224,cod-ab-v03,desinventar,lka001002024,Gampaha,exact_code,1.0,DS code 1224 equals DCS code of LK1224; name similarity 1.00
+LK1227,cod-ab-v03,desinventar,lka001002027,Attanagalla,exact_code,1.0,DS code 1227 equals DCS code of LK1227; name similarity 1.00
+LK1230,cod-ab-v03,desinventar,lka001002030,Dompe,exact_code,1.0,DS code 1230 equals DCS code of LK1230; name similarity 1.00
+LK1233,cod-ab-v03,desinventar,lka001002033,Mahara,exact_code,1.0,DS code 1233 equals DCS code of LK1233; name similarity 1.00
+LK1236,cod-ab-v03,desinventar,lka001002036,Kelaniya,exact_code,1.0,DS code 1236 equals DCS code of LK1236; name similarity 1.00
+LK1239,cod-ab-v03,desinventar,lka001002039,Biyagama,exact_code,1.0,DS code 1239 equals DCS code of LK1239; name similarity 1.00
+LK13,cod-ab-v03,desinventar,lka001003,Kalutara,name_and_parent,1.0,name equals one spine district under LK1; the shapefile's province lka001 (Western) matches that parent
+LK1303,cod-ab-v03,desinventar,lka001003003,Panadura,exact_code,1.0,DS code 1303 equals DCS code of LK1303; name similarity 1.00
+LK1306,cod-ab-v03,desinventar,lka001003006,Bandaragama,exact_code,1.0,DS code 1306 equals DCS code of LK1306; name similarity 1.00
+LK1309,cod-ab-v03,desinventar,lka001003009,Horana,exact_code,1.0,DS code 1309 equals DCS code of LK1309; name similarity 1.00
+LK1310,cod-ab-v03,desinventar,lka001003010,Ingiriya,exact_code,1.0,DS code 1310 equals DCS code of LK1310; name similarity 1.00
+LK1312,cod-ab-v03,desinventar,lka001003012,Bulathsinhala,exact_code,1.0,DS code 1312 equals DCS code of LK1312; name similarity 1.00
+LK1315,cod-ab-v03,desinventar,lka001003015,Madurawala,exact_code,1.0,DS code 1315 equals DCS code of LK1315; name similarity 1.00
+LK1318,cod-ab-v03,desinventar,lka001003018,Millaniya,exact_code,1.0,DS code 1318 equals DCS code of LK1318; name similarity 1.00
+LK1321,cod-ab-v03,desinventar,lka001003021,Kalutara,exact_code,1.0,DS code 1321 equals DCS code of LK1321; name similarity 1.00
+LK1324,cod-ab-v03,desinventar,lka001003024,Beruwala,exact_code,1.0,DS code 1324 equals DCS code of LK1324; name similarity 1.00
+LK1327,cod-ab-v03,desinventar,lka001003027,Dodangoda,exact_code,1.0,DS code 1327 equals DCS code of LK1327; name similarity 1.00
+LK1330,cod-ab-v03,desinventar,lka001003030,Mathugama,exact_code,0.9,DS code 1330 equals DCS code of LK1330; name similarity 0.94
+LK1333,cod-ab-v03,desinventar,lka001003033,Agalawatta,exact_code,1.0,DS code 1333 equals DCS code of LK1333; name similarity 1.00
+LK1336,cod-ab-v03,desinventar,lka001003036,Palindanuwara,exact_code,1.0,DS code 1336 equals DCS code of LK1336; name similarity 1.00
+LK1339,cod-ab-v03,desinventar,lka001003039,Walallavita,exact_code,0.9,DS code 1339 equals DCS code of LK1339; name similarity 0.91
+LK2,cod-ab-v03,desinventar,lka002,Central,name_and_parent,1.0,name equals one spine province (parent LK); name from the province shapefile
+LK21,cod-ab-v03,desinventar,lka002001,Kandy,name_and_parent,1.0,name equals one spine district under LK2; the shapefile's province lka002 (Central) matches that parent
+LK2103,cod-ab-v03,desinventar,lka002001003,Thumpane,exact_code,0.9,DS code 2103 equals DCS code of LK2103; name similarity 0.93
+LK2106,cod-ab-v03,desinventar,lka002001006,Poojapitiya,exact_code,1.0,DS code 2106 equals DCS code of LK2106; name similarity 1.00
+LK2109,cod-ab-v03,desinventar,lka002001009,Akurana,exact_code,1.0,DS code 2109 equals DCS code of LK2109; name similarity 1.00
+LK2112,cod-ab-v03,desinventar,lka002001012,Pathadumbara,exact_code,1.0,DS code 2112 equals DCS code of LK2112; name similarity 1.00
+LK2115,cod-ab-v03,desinventar,lka002001015,Panvila,exact_code,1.0,DS code 2115 equals DCS code of LK2115; name similarity 1.00
+LK2118,cod-ab-v03,desinventar,lka002001018,Udadumbara,exact_code,0.9,DS code 2118 equals DCS code of LK2118; name similarity 0.90
+LK2121,cod-ab-v03,desinventar,lka002001021,Minipe,exact_code,1.0,DS code 2121 equals DCS code of LK2121; name similarity 1.00
+LK2124,cod-ab-v03,desinventar,lka002001024,Medadumbara,exact_code,1.0,DS code 2124 equals DCS code of LK2124; name similarity 1.00
+LK2127,cod-ab-v03,desinventar,lka002001027,Kundasale,exact_code,1.0,DS code 2127 equals DCS code of LK2127; name similarity 1.00
+LK2130,cod-ab-v03,desinventar,lka002001030,Gangawata Korale,exact_code,1.0,DS code 2130 equals DCS code of LK2130; name similarity 1.00
+LK2133,cod-ab-v03,desinventar,lka002001033,Harispattuwa,exact_code,1.0,DS code 2133 equals DCS code of LK2133; name similarity 1.00
+LK2134,cod-ab-v03,desinventar,lka002001034,Hatharaliyadda,exact_code,1.0,DS code 2134 equals DCS code of LK2134; name similarity 1.00
+LK2136,cod-ab-v03,desinventar,lka002001036,Yatinuwara,exact_code,1.0,DS code 2136 equals DCS code of LK2136; name similarity 1.00
+LK2139,cod-ab-v03,desinventar,lka002001039,Udunuwara,exact_code,1.0,DS code 2139 equals DCS code of LK2139; name similarity 1.00
+LK2142,cod-ab-v03,desinventar,lka002001042,Doluwa,exact_code,1.0,DS code 2142 equals DCS code of LK2142; name similarity 1.00
+LK2145,cod-ab-v03,desinventar,lka002001045,Pathahewaheta,exact_code,1.0,DS code 2145 equals DCS code of LK2145; name similarity 1.00
+LK2148,cod-ab-v03,desinventar,lka002001048,Delthota,exact_code,0.9,DS code 2148 equals DCS code of LK2148; name similarity 0.93
+LK2151,cod-ab-v03,desinventar,lka002001051,Udapalatha,exact_code,1.0,DS code 2151 equals DCS code of LK2151; name similarity 1.00
+LK2154,cod-ab-v03,desinventar,lka002001054,Ganga Ihala Korale,exact_code,1.0,DS code 2154 equals DCS code of LK2154; name similarity 1.00
+LK2157,cod-ab-v03,desinventar,lka002001057,Pasbage Korale,exact_code,1.0,DS code 2157 equals DCS code of LK2157; name similarity 1.00
+LK22,cod-ab-v03,desinventar,lka002002,Matale,name_and_parent,1.0,name equals one spine district under LK2; the shapefile's province lka002 (Central) matches that parent
+LK2203,cod-ab-v03,desinventar,lka002002003,Galewela,exact_code,1.0,DS code 2203 equals DCS code of LK2203; name similarity 1.00
+LK2206,cod-ab-v03,desinventar,lka002002006,Dambulla,exact_code,1.0,DS code 2206 equals DCS code of LK2206; name similarity 1.00
+LK2209,cod-ab-v03,desinventar,lka002002009,Naula,exact_code,1.0,DS code 2209 equals DCS code of LK2209; name similarity 1.00
+LK2212,cod-ab-v03,desinventar,lka002002012,Pallepola,exact_code,1.0,DS code 2212 equals DCS code of LK2212; name similarity 1.00
+LK2215,cod-ab-v03,desinventar,lka002002015,Yatawatta,exact_code,1.0,DS code 2215 equals DCS code of LK2215; name similarity 1.00
+LK2218,cod-ab-v03,desinventar,lka002002018,Matale,exact_code,1.0,DS code 2218 equals DCS code of LK2218; name similarity 1.00
+LK2227,cod-ab-v03,desinventar,lka002002027,Wilgamuwa,exact_code,1.0,DS code 2227 equals DCS code of LK2227; name similarity 1.00
+LK2230,cod-ab-v03,desinventar,lka002002030,Rattota,exact_code,1.0,DS code 2230 equals DCS code of LK2230; name similarity 1.00
+LK2233,cod-ab-v03,desinventar,lka002002033,Ukuwela,exact_code,1.0,DS code 2233 equals DCS code of LK2233; name similarity 1.00
+LK23,cod-ab-v03,desinventar,lka002003,Nuwara Eliya,name_and_parent,1.0,name equals one spine district under LK2; the shapefile's province lka002 (Central) matches that parent
+LK3,cod-ab-v03,desinventar,lka003,Southern,name_and_parent,1.0,name equals one spine province (parent LK); name from the province shapefile
+LK31,cod-ab-v03,desinventar,lka003001,Galle,name_and_parent,1.0,name equals one spine district under LK3; the shapefile's province lka003 (Southern) matches that parent
+LK3103,cod-ab-v03,desinventar,lka003001003,Benthota,exact_code,0.9,DS code 3103 equals DCS code of LK3103; name similarity 0.93
+LK3106,cod-ab-v03,desinventar,lka003001006,Balapitiya,exact_code,1.0,DS code 3106 equals DCS code of LK3106; name similarity 1.00
+LK3109,cod-ab-v03,desinventar,lka003001009,Karandeniya,exact_code,1.0,DS code 3109 equals DCS code of LK3109; name similarity 1.00
+LK3112,cod-ab-v03,desinventar,lka003001012,Elpitiya,exact_code,1.0,DS code 3112 equals DCS code of LK3112; name similarity 1.00
+LK3115,cod-ab-v03,desinventar,lka003001015,Niyagama,exact_code,1.0,DS code 3115 equals DCS code of LK3115; name similarity 1.00
+LK3118,cod-ab-v03,desinventar,lka003001018,Thawalama,exact_code,1.0,DS code 3118 equals DCS code of LK3118; name similarity 1.00
+LK3121,cod-ab-v03,desinventar,lka003001021,Neluwa,exact_code,1.0,DS code 3121 equals DCS code of LK3121; name similarity 1.00
+LK3124,cod-ab-v03,desinventar,lka003001024,Nagoda,exact_code,1.0,DS code 3124 equals DCS code of LK3124; name similarity 1.00
+LK3130,cod-ab-v03,desinventar,lka003001030,Welivitiya-Divithura,exact_code,0.9,DS code 3130 equals DCS code of LK3130; name similarity 0.97
+LK3133,cod-ab-v03,desinventar,lka003001033,Ambalangoda,exact_code,1.0,DS code 3133 equals DCS code of LK3133; name similarity 1.00
+LK3139,cod-ab-v03,desinventar,lka003001039,Galle Four Gravets,exact_code,0.9,DS code 3139 equals DCS code of LK3139; name similarity 0.86
+LK3142,cod-ab-v03,desinventar,lka003001042,Bope-Poddala,exact_code,1.0,DS code 3142 equals DCS code of LK3142; name similarity 1.00
+LK3145,cod-ab-v03,desinventar,lka003001045,Akmeemana,exact_code,1.0,DS code 3145 equals DCS code of LK3145; name similarity 1.00
+LK3148,cod-ab-v03,desinventar,lka003001048,Yakkalamulla,exact_code,1.0,DS code 3148 equals DCS code of LK3148; name similarity 1.00
+LK3151,cod-ab-v03,desinventar,lka003001051,Imaduwa,exact_code,1.0,DS code 3151 equals DCS code of LK3151; name similarity 1.00
+LK3154,cod-ab-v03,desinventar,lka003001054,Habaraduwa,exact_code,1.0,DS code 3154 equals DCS code of LK3154; name similarity 1.00
+LK32,cod-ab-v03,desinventar,lka003002,Matara,name_and_parent,1.0,name equals one spine district under LK3; the shapefile's province lka003 (Southern) matches that parent
+LK3203,cod-ab-v03,desinventar,lka003002003,Pitabeddara,exact_code,0.9,DS code 3203 equals DCS code of LK3203; name similarity 0.91
+LK3206,cod-ab-v03,desinventar,lka003002006,Kotapola,exact_code,1.0,DS code 3206 equals DCS code of LK3206; name similarity 1.00
+LK3209,cod-ab-v03,desinventar,lka003002009,Pasgoda,exact_code,1.0,DS code 3209 equals DCS code of LK3209; name similarity 1.00
+LK3212,cod-ab-v03,desinventar,lka003002012,Mulatiyana,exact_code,1.0,DS code 3212 equals DCS code of LK3212; name similarity 1.00
+LK3215,cod-ab-v03,desinventar,lka003002015,Athuraliya,exact_code,1.0,DS code 3215 equals DCS code of LK3215; name similarity 1.00
+LK3218,cod-ab-v03,desinventar,lka003002018,Akuressa,exact_code,1.0,DS code 3218 equals DCS code of LK3218; name similarity 1.00
+LK3221,cod-ab-v03,desinventar,lka003002021,Welipitiya,exact_code,1.0,DS code 3221 equals DCS code of LK3221; name similarity 1.00
+LK3224,cod-ab-v03,desinventar,lka003002024,Malimbada,exact_code,1.0,DS code 3224 equals DCS code of LK3224; name similarity 1.00
+LK3227,cod-ab-v03,desinventar,lka003002027,Kamburupitiya,exact_code,0.9,DS code 3227 equals DCS code of LK3227; name similarity 0.96
+LK3230,cod-ab-v03,desinventar,lka003002030,Hakmana,exact_code,1.0,DS code 3230 equals DCS code of LK3230; name similarity 1.00
+LK3233,cod-ab-v03,desinventar,lka003002033,Kirinda Puhulwella,exact_code,1.0,DS code 3233 equals DCS code of LK3233; name similarity 1.00
+LK3236,cod-ab-v03,desinventar,lka003002036,Thihagoda,exact_code,1.0,DS code 3236 equals DCS code of LK3236; name similarity 1.00
+LK3239,cod-ab-v03,desinventar,lka003002039,Weligama,exact_code,1.0,DS code 3239 equals DCS code of LK3239; name similarity 1.00
+LK3242,cod-ab-v03,desinventar,lka003002042,Matara Four Gravets,exact_code,1.0,DS code 3242 equals DCS code of LK3242; name similarity 1.00
+LK3245,cod-ab-v03,desinventar,lka003002045,Devinuwara,exact_code,1.0,DS code 3245 equals DCS code of LK3245; name similarity 1.00
+LK3248,cod-ab-v03,desinventar,lka003002048,Dickwella,exact_code,0.9,DS code 3248 equals DCS code of LK3248; name similarity 0.94
+LK33,cod-ab-v03,desinventar,lka003003,Hambantota,name_and_parent,1.0,name equals one spine district under LK3; the shapefile's province lka003 (Southern) matches that parent
+LK3303,cod-ab-v03,desinventar,lka003003003,Sooriyawewa,exact_code,1.0,DS code 3303 equals DCS code of LK3303; name similarity 1.00
+LK3306,cod-ab-v03,desinventar,lka003003006,Lunugamvehera,exact_code,0.9,DS code 3306 equals DCS code of LK3306; name similarity 0.92
+LK3309,cod-ab-v03,desinventar,lka003003009,Thissamaharama,exact_code,1.0,DS code 3309 equals DCS code of LK3309; name similarity 1.00
+LK3312,cod-ab-v03,desinventar,lka003003012,Hambantota,exact_code,1.0,DS code 3312 equals DCS code of LK3312; name similarity 1.00
+LK3315,cod-ab-v03,desinventar,lka003003015,Ambalantota,exact_code,1.0,DS code 3315 equals DCS code of LK3315; name similarity 1.00
+LK3318,cod-ab-v03,desinventar,lka003003018,Angunakolapelessa,exact_code,1.0,DS code 3318 equals DCS code of LK3318; name similarity 1.00
+LK3321,cod-ab-v03,desinventar,lka003003021,Weeraketiya,exact_code,1.0,DS code 3321 equals DCS code of LK3321; name similarity 1.00
+LK3324,cod-ab-v03,desinventar,lka003003024,Katuwana,exact_code,1.0,DS code 3324 equals DCS code of LK3324; name similarity 1.00
+LK3325,cod-ab-v03,desinventar,lka003003025,Walasmulla,name_and_parent,0.9,name equals the only spine DS with that name under LK33
+LK3327,cod-ab-v03,desinventar,lka003003027,Okewela,exact_code,1.0,DS code 3327 equals DCS code of LK3327; name similarity 1.00
+LK3330,cod-ab-v03,desinventar,lka003003030,Beliatta,exact_code,1.0,DS code 3330 equals DCS code of LK3330; name similarity 1.00
+LK3333,cod-ab-v03,desinventar,lka003003033,Tangalle,exact_code,1.0,DS code 3333 equals DCS code of LK3333; name similarity 1.00
+LK4,cod-ab-v03,desinventar,lka004,Northern,name_and_parent,1.0,name equals one spine province (parent LK); name from the province shapefile
+LK41,cod-ab-v03,desinventar,lka004001,Jaffna,name_and_parent,1.0,name equals one spine district under LK4; the shapefile's province lka004 (Northern) matches that parent
+LK4103,cod-ab-v03,desinventar,lka004001003,Island North(Kayts),exact_code,1.0,DS code 4103 equals DCS code of LK4103; name similarity 1.00
+LK4106,cod-ab-v03,desinventar,lka004001006,Valikamam West(Chankanai),exact_code,1.0,DS code 4106 equals DCS code of LK4106; name similarity 1.00
+LK4109,cod-ab-v03,desinventar,lka004001009,Valikamam South West(Sandilipay),exact_code,1.0,DS code 4109 equals DCS code of LK4109; name similarity 1.00
+LK4112,cod-ab-v03,desinventar,lka004001012,Valikamam North(Tellipallai),exact_code,1.0,DS code 4112 equals DCS code of LK4112; name similarity 1.00
+LK4115,cod-ab-v03,desinventar,lka004001015,Valikamam South(Uduvil),exact_code,1.0,DS code 4115 equals DCS code of LK4115; name similarity 1.00
+LK4118,cod-ab-v03,desinventar,lka004001018,Valikamam East(Kopay),exact_code,1.0,DS code 4118 equals DCS code of LK4118; name similarity 1.00
+LK4121,cod-ab-v03,desinventar,lka004001021,Vadamaradchi South West(Karaveddy),exact_code,1.0,DS code 4121 equals DCS code of LK4121; name similarity 1.00
+LK4124,cod-ab-v03,desinventar,lka004001024,Vadamaradchi East(Maruthnkerny),exact_code,0.9,DS code 4124 equals DCS code of LK4124; name similarity 0.94
+LK4127,cod-ab-v03,desinventar,lka004001027,Vadamaradchi North(Point Pedro),exact_code,1.0,DS code 4127 equals DCS code of LK4127; name similarity 1.00
+LK4130,cod-ab-v03,desinventar,lka004001030,Thenmaradchi(Chavakachcheri),exact_code,1.0,DS code 4130 equals DCS code of LK4130; name similarity 1.00
+LK4133,cod-ab-v03,desinventar,lka004001033,Nallur,exact_code,1.0,DS code 4133 equals DCS code of LK4133; name similarity 1.00
+LK4136,cod-ab-v03,desinventar,lka004001036,Jaffna,exact_code,1.0,DS code 4136 equals DCS code of LK4136; name similarity 1.00
+LK4139,cod-ab-v03,desinventar,lka004001039,Island South(Velanai),exact_code,1.0,DS code 4139 equals DCS code of LK4139; name similarity 1.00
+LK4142,cod-ab-v03,desinventar,lka004001042,Delft,exact_code,1.0,DS code 4142 equals DCS code of LK4142; name similarity 1.00
+LK4104,cod-ab-v03,desinventar,lka004001045,Kareinagar,exact_code,0.9,DS code 4104 equals DCS code of LK4104; name similarity 0.90
+LK42,cod-ab-v03,desinventar,lka004002,Mannar,name_and_parent,1.0,name equals one spine district under LK4; the shapefile's province lka004 (Northern) matches that parent
+LK4203,cod-ab-v03,desinventar,lka004002003,Mannar Town,exact_code,1.0,DS code 4203 equals DCS code of LK4203; name similarity 1.00
+LK4206,cod-ab-v03,desinventar,lka004002006,Manthai West,exact_code,1.0,DS code 4206 equals DCS code of LK4206; name similarity 1.00
+LK4209,cod-ab-v03,desinventar,lka004002009,Madhu,exact_code,1.0,DS code 4209 equals DCS code of LK4209; name similarity 1.00
+LK4212,cod-ab-v03,desinventar,lka004002012,Nanadhan,exact_code,0.9,DS code 4212 equals DCS code of LK4212; name similarity 0.88
+LK4215,cod-ab-v03,desinventar,lka004002015,Musalai,exact_code,0.9,DS code 4215 equals DCS code of LK4215; name similarity 0.92
+LK43,cod-ab-v03,desinventar,lka004003,Vavuniya,name_and_parent,1.0,name equals one spine district under LK4; the shapefile's province lka004 (Northern) matches that parent
+LK4303,cod-ab-v03,desinventar,lka004003003,Vavuniya North,exact_code,1.0,DS code 4303 equals DCS code of LK4303; name similarity 1.00
+LK4306,cod-ab-v03,desinventar,lka004003006,Vavuniya South,exact_code,1.0,DS code 4306 equals DCS code of LK4306; name similarity 1.00
+LK4309,cod-ab-v03,desinventar,lka004003009,Vavuniya(Tamil),exact_code,1.0,DS code 4309 equals DCS code of LK4309; name similarity 1.00
+LK4312,cod-ab-v03,desinventar,lka004003012,Vengalacheddikulam,exact_code,1.0,DS code 4312 equals DCS code of LK4312; name similarity 1.00
+LK44,cod-ab-v03,desinventar,lka004004,Mullaitivu,name_and_parent,1.0,name equals one spine district under LK4; the shapefile's province lka004 (Northern) matches that parent
+LK4403,cod-ab-v03,desinventar,lka004004003,Thunukkai,exact_code,1.0,DS code 4403 equals DCS code of LK4403; name similarity 1.00
+LK4406,cod-ab-v03,desinventar,lka004004006,Manthai East,exact_code,1.0,DS code 4406 equals DCS code of LK4406; name similarity 1.00
+LK4409,cod-ab-v03,desinventar,lka004004009,Puthukudiyiruppu,exact_code,0.9,DS code 4409 equals DCS code of LK4409; name similarity 0.97
+LK4412,cod-ab-v03,desinventar,lka004004012,Oddusuddan,exact_code,1.0,DS code 4412 equals DCS code of LK4412; name similarity 1.00
+LK4415,cod-ab-v03,desinventar,lka004004015,Maritimepattu,exact_code,1.0,DS code 4415 equals DCS code of LK4415; name similarity 1.00
+LK45,cod-ab-v03,desinventar,lka004005,Kilinochchi,name_and_parent,1.0,name equals one spine district under LK4; the shapefile's province lka004 (Northern) matches that parent
+LK4503,cod-ab-v03,desinventar,lka004005003,Pachchilaipalli,exact_code,1.0,DS code 4503 equals DCS code of LK4503; name similarity 1.00
+LK4506,cod-ab-v03,desinventar,lka004005006,Kandavalai,exact_code,1.0,DS code 4506 equals DCS code of LK4506; name similarity 1.00
+LK4509,cod-ab-v03,desinventar,lka004005009,Karachchi,exact_code,1.0,DS code 4509 equals DCS code of LK4509; name similarity 1.00
+LK4512,cod-ab-v03,desinventar,lka004005012,Poonakary,exact_code,1.0,DS code 4512 equals DCS code of LK4512; name similarity 1.00
+LK5,cod-ab-v03,desinventar,lka005,Eastern,name_and_parent,1.0,name equals one spine province (parent LK); name from the province shapefile
+LK51,cod-ab-v03,desinventar,lka005001,Batticaloa,name_and_parent,1.0,name equals one spine district under LK5; the shapefile's province lka005 (Eastern) matches that parent
+LK5103,cod-ab-v03,desinventar,lka005001003,Koralaipattu North(Vakarai),name_and_parent,0.9,name equals the only spine DS with that name under LK51
+LK5106,cod-ab-v03,desinventar,lka005001006,Koralaipattu  West(Oddamavadi),name_and_parent,0.9,name equals the only spine DS with that name under LK51
+LK5109,cod-ab-v03,desinventar,lka005001009,Koralaipattu(Valachchenai),name_and_parent,0.9,name equals the only spine DS with that name under LK51
+LK5139,cod-ab-v03,desinventar,lka005001015,Eravur Town(Eravur),name_and_parent,0.9,name equals the only spine DS with that name under LK51
+LK5118,cod-ab-v03,desinventar,lka005001018,Manmunai North(Batti Town),name_and_parent,0.9,name equals the only spine DS with that name under LK51
+LK5121,cod-ab-v03,desinventar,lka005001021,Manmunai West(Vavunatheivu),name_and_parent,0.9,name equals the only spine DS with that name under LK51
+LK5124,cod-ab-v03,desinventar,lka005001024,Kattankudy,name_and_parent,0.9,name equals the only spine DS with that name under LK51
+LK5127,cod-ab-v03,desinventar,lka005001027,Manmunai Pattu(Araipattai),name_and_parent,0.9,name equals the only spine DS with that name under LK51
+LK5130,cod-ab-v03,desinventar,lka005001030,Manmunai South West(Peddipe),name_and_parent,0.9,name equals the only spine DS with that name under LK51
+LK5136,cod-ab-v03,desinventar,lka005001036,Manmunai South & Eruvil Pattu,name_and_parent,0.9,name equals the only spine DS with that name under LK51
+LK5110,cod-ab-v03,desinventar,lka005001039,Koralaipattu  South(Kiran),name_and_parent,0.9,name equals the only spine DS with that name under LK51
+LK5104,cod-ab-v03,desinventar,lka005001042,Koralaipattu Central,name_and_parent,0.9,name equals the only spine DS with that name under LK51
+LK52,cod-ab-v03,desinventar,lka005002,Ampara,name_and_parent,1.0,name equals one spine district under LK5; the shapefile's province lka005 (Eastern) matches that parent
+LK5203,cod-ab-v03,desinventar,lka005002003,Dehiattakandiya,exact_code,1.0,DS code 5203 equals DCS code of LK5203; name similarity 1.00
+LK5206,cod-ab-v03,desinventar,lka005002006,Padiyathalawa,exact_code,1.0,DS code 5206 equals DCS code of LK5206; name similarity 1.00
+LK5209,cod-ab-v03,desinventar,lka005002009,Mahaoya,exact_code,1.0,DS code 5209 equals DCS code of LK5209; name similarity 1.00
+LK5212,cod-ab-v03,desinventar,lka005002012,Uhana,exact_code,1.0,DS code 5212 equals DCS code of LK5212; name similarity 1.00
+LK5215,cod-ab-v03,desinventar,lka005002015,Ampara,exact_code,1.0,DS code 5215 equals DCS code of LK5215; name similarity 1.00
+LK5216,cod-ab-v03,desinventar,lka005002016,Navithanveli,exact_code,1.0,DS code 5216 equals DCS code of LK5216; name similarity 1.00
+LK5218,cod-ab-v03,desinventar,lka005002018,Samanthurai,exact_code,0.9,DS code 5218 equals DCS code of LK5218; name similarity 0.96
+LK5221,cod-ab-v03,desinventar,lka005002024,Kalmunai,name_and_parent,0.9,name equals the only spine DS with that name under LK52
+LK5225,cod-ab-v03,desinventar,lka005002025,Sayinthamarathu,exact_code,0.9,DS code 5225 equals DCS code of LK5225; name similarity 0.90
+LK5227,cod-ab-v03,desinventar,lka005002027,Karativu,exact_code,0.9,DS code 5227 equals DCS code of LK5227; name similarity 0.94
+LK5230,cod-ab-v03,desinventar,lka005002030,Ninthavur,exact_code,0.9,DS code 5230 equals DCS code of LK5230; name similarity 0.94
+LK5233,cod-ab-v03,desinventar,lka005002033,Addalachchenai,exact_code,0.9,DS code 5233 equals DCS code of LK5233; name similarity 0.89
+LK5236,cod-ab-v03,desinventar,lka005002036,Akkaraipattu(Karunkoditivu),exact_code,1.0,DS code 5236 equals DCS code of LK5236; name similarity 1.00
+LK5239,cod-ab-v03,desinventar,lka005002039,Alayadiwembu,exact_code,0.9,DS code 5239 equals DCS code of LK5239; name similarity 0.92
+LK5242,cod-ab-v03,desinventar,lka005002042,Damana,exact_code,1.0,DS code 5242 equals DCS code of LK5242; name similarity 1.00
+LK5245,cod-ab-v03,desinventar,lka005002045,Thirukkovil,exact_code,0.9,DS code 5245 equals DCS code of LK5245; name similarity 0.95
+LK5248,cod-ab-v03,desinventar,lka005002048,Pothuvil,exact_code,0.9,DS code 5248 equals DCS code of LK5248; name similarity 0.88
+LK5251,cod-ab-v03,desinventar,lka005002051,Lahugala,exact_code,1.0,DS code 5251 equals DCS code of LK5251; name similarity 1.00
+LK53,cod-ab-v03,desinventar,lka005003,Trincomalee,name_and_parent,1.0,name equals one spine district under LK5; the shapefile's province lka005 (Eastern) matches that parent
+LK5303,cod-ab-v03,desinventar,lka005003003,Padavi Sri Pura,exact_code,1.0,DS code 5303 equals DCS code of LK5303; name similarity 1.00
+LK5306,cod-ab-v03,desinventar,lka005003006,Kuchchaveli,exact_code,0.9,DS code 5306 equals DCS code of LK5306; name similarity 0.91
+LK5309,cod-ab-v03,desinventar,lka005003009,Gomarankadawala,exact_code,1.0,DS code 5309 equals DCS code of LK5309; name similarity 1.00
+LK5312,cod-ab-v03,desinventar,lka005003012,Morawewa,exact_code,1.0,DS code 5312 equals DCS code of LK5312; name similarity 1.00
+LK5315,cod-ab-v03,desinventar,lka005003015,Town & Gravets,exact_code,1.0,DS code 5315 equals DCS code of LK5315; name similarity 1.00
+LK5318,cod-ab-v03,desinventar,lka005003018,Thambalagamuwa,exact_code,1.0,DS code 5318 equals DCS code of LK5318; name similarity 1.00
+LK5324,cod-ab-v03,desinventar,lka005003024,Kinniya,exact_code,1.0,DS code 5324 equals DCS code of LK5324; name similarity 1.00
+LK5327,cod-ab-v03,desinventar,lka005003027,Muttur,exact_code,0.9,DS code 5327 equals DCS code of LK5327; name similarity 0.83
+LK5330,cod-ab-v03,desinventar,lka005003030,Seruvila,exact_code,1.0,DS code 5330 equals DCS code of LK5330; name similarity 1.00
+LK6,cod-ab-v03,desinventar,lka006,North Western,name_and_parent,1.0,name equals one spine province (parent LK); name from the province shapefile
+LK61,cod-ab-v03,desinventar,lka006001,Kurunegala,name_and_parent,1.0,name equals one spine district under LK6; the shapefile's province lka006 (North Western) matches that parent
+LK6103,cod-ab-v03,desinventar,lka006001003,Giribawa,exact_code,1.0,DS code 6103 equals DCS code of LK6103; name similarity 1.00
+LK6106,cod-ab-v03,desinventar,lka006001006,Galgamuwa,exact_code,1.0,DS code 6106 equals DCS code of LK6106; name similarity 1.00
+LK6109,cod-ab-v03,desinventar,lka006001009,Ehetuwewa,exact_code,1.0,DS code 6109 equals DCS code of LK6109; name similarity 1.00
+LK6112,cod-ab-v03,desinventar,lka006001012,Ambanpola,exact_code,1.0,DS code 6112 equals DCS code of LK6112; name similarity 1.00
+LK6115,cod-ab-v03,desinventar,lka006001015,Kotavehera,exact_code,0.9,DS code 6115 equals DCS code of LK6115; name similarity 0.90
+LK6118,cod-ab-v03,desinventar,lka006001018,Rasnayakapura,exact_code,1.0,DS code 6118 equals DCS code of LK6118; name similarity 1.00
+LK6121,cod-ab-v03,desinventar,lka006001021,Nikaweratiya,exact_code,1.0,DS code 6121 equals DCS code of LK6121; name similarity 1.00
+LK6127,cod-ab-v03,desinventar,lka006001027,Polpithigama,exact_code,0.9,DS code 6127 equals DCS code of LK6127; name similarity 0.96
+LK6130,cod-ab-v03,desinventar,lka006001030,Ibbagamuwa,exact_code,1.0,DS code 6130 equals DCS code of LK6130; name similarity 1.00
+LK6133,cod-ab-v03,desinventar,lka006001033,Ganewatta,exact_code,1.0,DS code 6133 equals DCS code of LK6133; name similarity 1.00
+LK6136,cod-ab-v03,desinventar,lka006001036,Wariyapola,exact_code,1.0,DS code 6136 equals DCS code of LK6136; name similarity 1.00
+LK6139,cod-ab-v03,desinventar,lka006001039,Kobeigane,exact_code,1.0,DS code 6139 equals DCS code of LK6139; name similarity 1.00
+LK6142,cod-ab-v03,desinventar,lka006001042,Bingiriya,exact_code,1.0,DS code 6142 equals DCS code of LK6142; name similarity 1.00
+LK6145,cod-ab-v03,desinventar,lka006001045,Panduwasnuwara East,exact_code,0.9,DS code 6145 equals DCS code of LK6145; name similarity 0.94
+LK6149,cod-ab-v03,desinventar,lka006001049,Bamunukotuwa,exact_code,0.9,DS code 6149 equals DCS code of LK6149; name similarity 0.92
+LK6151,cod-ab-v03,desinventar,lka006001051,Maspotha,exact_code,1.0,DS code 6151 equals DCS code of LK6151; name similarity 1.00
+LK6154,cod-ab-v03,desinventar,lka006001054,Kurunegala,exact_code,1.0,DS code 6154 equals DCS code of LK6154; name similarity 1.00
+LK6157,cod-ab-v03,desinventar,lka006001057,Mallawapitiya,exact_code,1.0,DS code 6157 equals DCS code of LK6157; name similarity 1.00
+LK6160,cod-ab-v03,desinventar,lka006001060,Mawathagama,exact_code,1.0,DS code 6160 equals DCS code of LK6160; name similarity 1.00
+LK6163,cod-ab-v03,desinventar,lka006001063,Rideegama,exact_code,1.0,DS code 6163 equals DCS code of LK6163; name similarity 1.00
+LK6166,cod-ab-v03,desinventar,lka006001066,Weerambugedara,exact_code,0.9,DS code 6166 equals DCS code of LK6166; name similarity 0.96
+LK6169,cod-ab-v03,desinventar,lka006001069,Kuliyapitiya East,exact_code,1.0,DS code 6169 equals DCS code of LK6169; name similarity 1.00
+LK6172,cod-ab-v03,desinventar,lka006001072,Kuliyapitiya West,exact_code,1.0,DS code 6172 equals DCS code of LK6172; name similarity 1.00
+LK6175,cod-ab-v03,desinventar,lka006001075,Udubaddawa,exact_code,1.0,DS code 6175 equals DCS code of LK6175; name similarity 1.00
+LK6178,cod-ab-v03,desinventar,lka006001078,Pannala,exact_code,1.0,DS code 6178 equals DCS code of LK6178; name similarity 1.00
+LK6181,cod-ab-v03,desinventar,lka006001081,Narammala,exact_code,1.0,DS code 6181 equals DCS code of LK6181; name similarity 1.00
+LK6184,cod-ab-v03,desinventar,lka006001084,Alawwa,exact_code,1.0,DS code 6184 equals DCS code of LK6184; name similarity 1.00
+LK6187,cod-ab-v03,desinventar,lka006001087,Polgahawela,exact_code,1.0,DS code 6187 equals DCS code of LK6187; name similarity 1.00
+LK62,cod-ab-v03,desinventar,lka006002,Puttalam,name_and_parent,1.0,name equals one spine district under LK6; the shapefile's province lka006 (North Western) matches that parent
+LK6203,cod-ab-v03,desinventar,lka006002003,Kalpitiya,exact_code,1.0,DS code 6203 equals DCS code of LK6203; name similarity 1.00
+LK6206,cod-ab-v03,desinventar,lka006002006,Vanathavilluwa,exact_code,1.0,DS code 6206 equals DCS code of LK6206; name similarity 1.00
+LK6209,cod-ab-v03,desinventar,lka006002009,Karuwalagaswewa,exact_code,1.0,DS code 6209 equals DCS code of LK6209; name similarity 1.00
+LK6212,cod-ab-v03,desinventar,lka006002012,Nawagattegama,exact_code,1.0,DS code 6212 equals DCS code of LK6212; name similarity 1.00
+LK6215,cod-ab-v03,desinventar,lka006002015,Puttalam,exact_code,1.0,DS code 6215 equals DCS code of LK6215; name similarity 1.00
+LK6221,cod-ab-v03,desinventar,lka006002021,Mahakumbukkadawala,exact_code,1.0,DS code 6221 equals DCS code of LK6221; name similarity 1.00
+LK6224,cod-ab-v03,desinventar,lka006002024,Anamaduwa,exact_code,1.0,DS code 6224 equals DCS code of LK6224; name similarity 1.00
+LK6227,cod-ab-v03,desinventar,lka006002027,Pallama,exact_code,1.0,DS code 6227 equals DCS code of LK6227; name similarity 1.00
+LK6230,cod-ab-v03,desinventar,lka006002030,Arachchikattuwa,exact_code,1.0,DS code 6230 equals DCS code of LK6230; name similarity 1.00
+LK6233,cod-ab-v03,desinventar,lka006002033,Chilaw,exact_code,1.0,DS code 6233 equals DCS code of LK6233; name similarity 1.00
+LK6236,cod-ab-v03,desinventar,lka006002036,Madampe,exact_code,1.0,DS code 6236 equals DCS code of LK6236; name similarity 1.00
+LK6239,cod-ab-v03,desinventar,lka006002039,Mahawewa,exact_code,1.0,DS code 6239 equals DCS code of LK6239; name similarity 1.00
+LK6242,cod-ab-v03,desinventar,lka006002042,Nattandiya,exact_code,1.0,DS code 6242 equals DCS code of LK6242; name similarity 1.00
+LK6245,cod-ab-v03,desinventar,lka006002045,Wennappuwa,exact_code,1.0,DS code 6245 equals DCS code of LK6245; name similarity 1.00
+LK6248,cod-ab-v03,desinventar,lka006002048,Dankotuwa,exact_code,1.0,DS code 6248 equals DCS code of LK6248; name similarity 1.00
+LK7,cod-ab-v03,desinventar,lka007,North Central,name_and_parent,1.0,name equals one spine province (parent LK); name from the province shapefile
+LK71,cod-ab-v03,desinventar,lka007001,Anuradhapura,name_and_parent,1.0,name equals one spine district under LK7; the shapefile's province lka007 (North Central) matches that parent
+LK7103,cod-ab-v03,desinventar,lka007001003,Padaviya,exact_code,1.0,DS code 7103 equals DCS code of LK7103; name similarity 1.00
+LK7106,cod-ab-v03,desinventar,lka007001006,Kebithigollewa,exact_code,1.0,DS code 7106 equals DCS code of LK7106; name similarity 1.00
+LK7109,cod-ab-v03,desinventar,lka007001009,Medawachchiya,exact_code,1.0,DS code 7109 equals DCS code of LK7109; name similarity 1.00
+LK7112,cod-ab-v03,desinventar,lka007001012,Mahavilachchiya,exact_code,0.9,DS code 7112 equals DCS code of LK7112; name similarity 0.93
+LK7115,cod-ab-v03,desinventar,lka007001015,Nuwaragam Palatha Central,exact_code,1.0,DS code 7115 equals DCS code of LK7115; name similarity 1.00
+LK7118,cod-ab-v03,desinventar,lka007001018,Rambewa,exact_code,1.0,DS code 7118 equals DCS code of LK7118; name similarity 1.00
+LK7121,cod-ab-v03,desinventar,lka007001021,Kahatagasdigiliya,exact_code,1.0,DS code 7121 equals DCS code of LK7121; name similarity 1.00
+LK7124,cod-ab-v03,desinventar,lka007001024,Horowpothana,exact_code,0.9,DS code 7124 equals DCS code of LK7124; name similarity 0.92
+LK7127,cod-ab-v03,desinventar,lka007001027,Galenbindunuwawe,exact_code,0.9,DS code 7127 equals DCS code of LK7127; name similarity 0.84
+LK7130,cod-ab-v03,desinventar,lka007001030,Mihinthale,exact_code,1.0,DS code 7130 equals DCS code of LK7130; name similarity 1.00
+LK7133,cod-ab-v03,desinventar,lka007001033,Nuwaragam Palatha East,exact_code,1.0,DS code 7133 equals DCS code of LK7133; name similarity 1.00
+LK7136,cod-ab-v03,desinventar,lka007001036,Nachchadoowa,exact_code,0.9,DS code 7136 equals DCS code of LK7136; name similarity 0.87
+LK7139,cod-ab-v03,desinventar,lka007001039,Nochchiyagama,exact_code,1.0,DS code 7139 equals DCS code of LK7139; name similarity 1.00
+LK7142,cod-ab-v03,desinventar,lka007001042,Rajanganaya,exact_code,1.0,DS code 7142 equals DCS code of LK7142; name similarity 1.00
+LK7145,cod-ab-v03,desinventar,lka007001045,Thambuttegama,exact_code,0.9,DS code 7145 equals DCS code of LK7145; name similarity 0.93
+LK7148,cod-ab-v03,desinventar,lka007001048,Thalawa,exact_code,1.0,DS code 7148 equals DCS code of LK7148; name similarity 1.00
+LK7151,cod-ab-v03,desinventar,lka007001051,Thirappane,exact_code,1.0,DS code 7151 equals DCS code of LK7151; name similarity 1.00
+LK7154,cod-ab-v03,desinventar,lka007001054,Kekirawa,exact_code,1.0,DS code 7154 equals DCS code of LK7154; name similarity 1.00
+LK7157,cod-ab-v03,desinventar,lka007001057,Palugaswewa,exact_code,1.0,DS code 7157 equals DCS code of LK7157; name similarity 1.00
+LK7160,cod-ab-v03,desinventar,lka007001060,Ipalogama,exact_code,1.0,DS code 7160 equals DCS code of LK7160; name similarity 1.00
+LK7163,cod-ab-v03,desinventar,lka007001063,Galnewa,exact_code,1.0,DS code 7163 equals DCS code of LK7163; name similarity 1.00
+LK7166,cod-ab-v03,desinventar,lka007001066,Palagala,exact_code,1.0,DS code 7166 equals DCS code of LK7166; name similarity 1.00
+LK72,cod-ab-v03,desinventar,lka007002,Polonnaruwa,name_and_parent,1.0,name equals one spine district under LK7; the shapefile's province lka007 (North Central) matches that parent
+LK7203,cod-ab-v03,desinventar,lka007002003,Hingurakgoda,exact_code,0.9,DS code 7203 equals DCS code of LK7203; name similarity 0.96
+LK7206,cod-ab-v03,desinventar,lka007002006,Medirigiriya,exact_code,1.0,DS code 7206 equals DCS code of LK7206; name similarity 1.00
+LK7209,cod-ab-v03,desinventar,lka007002009,Lankapura,exact_code,1.0,DS code 7209 equals DCS code of LK7209; name similarity 1.00
+LK7210,cod-ab-v03,desinventar,lka007002010,Welikanda,exact_code,1.0,DS code 7210 equals DCS code of LK7210; name similarity 1.00
+LK7212,cod-ab-v03,desinventar,lka007002012,Dimbulagala,exact_code,1.0,DS code 7212 equals DCS code of LK7212; name similarity 1.00
+LK7215,cod-ab-v03,desinventar,lka007002015,Thamankaduwa,exact_code,1.0,DS code 7215 equals DCS code of LK7215; name similarity 1.00
+LK7218,cod-ab-v03,desinventar,lka007002018,Elahera,exact_code,1.0,DS code 7218 equals DCS code of LK7218; name similarity 1.00
+LK8,cod-ab-v03,desinventar,lka008,Uva,name_and_parent,1.0,name equals one spine province (parent LK); name from the province shapefile
+LK81,cod-ab-v03,desinventar,lka008001,Badulla,name_and_parent,1.0,name equals one spine district under LK8; the shapefile's province lka008 (Uva) matches that parent
+LK8103,cod-ab-v03,desinventar,lka008001003,Mahiyanganaya,exact_code,1.0,DS code 8103 equals DCS code of LK8103; name similarity 1.00
+LK8106,cod-ab-v03,desinventar,lka008001006,Rideemaliyadda,exact_code,1.0,DS code 8106 equals DCS code of LK8106; name similarity 1.00
+LK8109,cod-ab-v03,desinventar,lka008001009,Meegahakivula,exact_code,0.9,DS code 8109 equals DCS code of LK8109; name similarity 0.96
+LK8112,cod-ab-v03,desinventar,lka008001012,Kandaketiya,exact_code,0.9,DS code 8112 equals DCS code of LK8112; name similarity 0.91
+LK8115,cod-ab-v03,desinventar,lka008001015,Soranathota,exact_code,1.0,DS code 8115 equals DCS code of LK8115; name similarity 1.00
+LK8118,cod-ab-v03,desinventar,lka008001018,Passara,exact_code,1.0,DS code 8118 equals DCS code of LK8118; name similarity 1.00
+LK8119,cod-ab-v03,desinventar,lka008001019,Lunugala,exact_code,1.0,DS code 8119 equals DCS code of LK8119; name similarity 1.00
+LK8121,cod-ab-v03,desinventar,lka008001021,Badulla,exact_code,1.0,DS code 8121 equals DCS code of LK8121; name similarity 1.00
+LK8124,cod-ab-v03,desinventar,lka008001024,Hali Ela,exact_code,1.0,DS code 8124 equals DCS code of LK8124; name similarity 1.00
+LK8127,cod-ab-v03,desinventar,lka008001027,Uva Paranagama,exact_code,1.0,DS code 8127 equals DCS code of LK8127; name similarity 1.00
+LK8130,cod-ab-v03,desinventar,lka008001030,Welimada,exact_code,1.0,DS code 8130 equals DCS code of LK8130; name similarity 1.00
+LK8133,cod-ab-v03,desinventar,lka008001033,Bandarawela,exact_code,1.0,DS code 8133 equals DCS code of LK8133; name similarity 1.00
+LK8136,cod-ab-v03,desinventar,lka008001036,Ella,exact_code,1.0,DS code 8136 equals DCS code of LK8136; name similarity 1.00
+LK8139,cod-ab-v03,desinventar,lka008001039,Haputale,exact_code,1.0,DS code 8139 equals DCS code of LK8139; name similarity 1.00
+LK8142,cod-ab-v03,desinventar,lka008001042,Haldummulla,exact_code,1.0,DS code 8142 equals DCS code of LK8142; name similarity 1.00
+LK82,cod-ab-v03,desinventar,lka008002,Moneragala,manual,0.95,"variant spelling of Monaragala; the only DesInventar district under Uva (lka008) not matched by name, and Monaragala is the only spine district under LK8 left unmatched (Badulla matched by name); lead review pending"
+LK8203,cod-ab-v03,desinventar,lka008002003,Bibile,exact_code,1.0,DS code 8203 equals DCS code of LK8203; name similarity 1.00
+LK8206,cod-ab-v03,desinventar,lka008002006,Madulla,exact_code,1.0,DS code 8206 equals DCS code of LK8206; name similarity 1.00
+LK8209,cod-ab-v03,desinventar,lka008002009,Medagama,exact_code,1.0,DS code 8209 equals DCS code of LK8209; name similarity 1.00
+LK8212,cod-ab-v03,desinventar,lka008002012,Siyambalanduwa,exact_code,1.0,DS code 8212 equals DCS code of LK8212; name similarity 1.00
+LK8215,cod-ab-v03,desinventar,lka008002015,Moneragala,exact_code,0.9,DS code 8215 equals DCS code of LK8215; name similarity 0.90
+LK8218,cod-ab-v03,desinventar,lka008002018,Badalkumbura,exact_code,1.0,DS code 8218 equals DCS code of LK8218; name similarity 1.00
+LK8221,cod-ab-v03,desinventar,lka008002021,Wellawaya,exact_code,1.0,DS code 8221 equals DCS code of LK8221; name similarity 1.00
+LK8224,cod-ab-v03,desinventar,lka008002024,Buttala,exact_code,1.0,DS code 8224 equals DCS code of LK8224; name similarity 1.00
+LK8227,cod-ab-v03,desinventar,lka008002027,Katharagama,exact_code,1.0,DS code 8227 equals DCS code of LK8227; name similarity 1.00
+LK8230,cod-ab-v03,desinventar,lka008002030,Thanamalvila,exact_code,0.9,DS code 8230 equals DCS code of LK8230; name similarity 0.92
+LK8233,cod-ab-v03,desinventar,lka008002033,Sevanagala,exact_code,1.0,DS code 8233 equals DCS code of LK8233; name similarity 1.00
+LK9,cod-ab-v03,desinventar,lka009,Sabaragamuwa,name_and_parent,1.0,name equals one spine province (parent LK); name from the province shapefile
+LK91,cod-ab-v03,desinventar,lka009001,Ratnapura,name_and_parent,1.0,name equals one spine district under LK9; the shapefile's province lka009 (Sabaragamuwa) matches that parent
+LK9103,cod-ab-v03,desinventar,lka009001003,Eheliyagoda,exact_code,1.0,DS code 9103 equals DCS code of LK9103; name similarity 1.00
+LK9106,cod-ab-v03,desinventar,lka009001006,Kuruvita,exact_code,1.0,DS code 9106 equals DCS code of LK9106; name similarity 1.00
+LK9109,cod-ab-v03,desinventar,lka009001009,Kiriella,exact_code,1.0,DS code 9109 equals DCS code of LK9109; name similarity 1.00
+LK9112,cod-ab-v03,desinventar,lka009001012,Ratnapura,exact_code,1.0,DS code 9112 equals DCS code of LK9112; name similarity 1.00
+LK9115,cod-ab-v03,desinventar,lka009001015,Imbulpe,exact_code,1.0,DS code 9115 equals DCS code of LK9115; name similarity 1.00
+LK9121,cod-ab-v03,desinventar,lka009001021,Opanayaka,exact_code,0.9,DS code 9121 equals DCS code of LK9121; name similarity 0.89
+LK9124,cod-ab-v03,desinventar,lka009001024,Pelmadulla,exact_code,1.0,DS code 9124 equals DCS code of LK9124; name similarity 1.00
+LK9127,cod-ab-v03,desinventar,lka009001027,Elapatha,exact_code,1.0,DS code 9127 equals DCS code of LK9127; name similarity 1.00
+LK9130,cod-ab-v03,desinventar,lka009001030,Ayagama,exact_code,1.0,DS code 9130 equals DCS code of LK9130; name similarity 1.00
+LK9133,cod-ab-v03,desinventar,lka009001033,Kalawana,exact_code,1.0,DS code 9133 equals DCS code of LK9133; name similarity 1.00
+LK9136,cod-ab-v03,desinventar,lka009001036,Nivithigala,exact_code,1.0,DS code 9136 equals DCS code of LK9136; name similarity 1.00
+LK9139,cod-ab-v03,desinventar,lka009001039,Kahawatta,exact_code,0.9,DS code 9139 equals DCS code of LK9139; name similarity 0.95
+LK9142,cod-ab-v03,desinventar,lka009001042,Godakawela,exact_code,1.0,DS code 9142 equals DCS code of LK9142; name similarity 1.00
+LK9145,cod-ab-v03,desinventar,lka009001045,Weligepola,exact_code,1.0,DS code 9145 equals DCS code of LK9145; name similarity 1.00
+LK9148,cod-ab-v03,desinventar,lka009001048,Embilipitiya,exact_code,1.0,DS code 9148 equals DCS code of LK9148; name similarity 1.00
+LK9151,cod-ab-v03,desinventar,lka009001051,Kolonna,exact_code,1.0,DS code 9151 equals DCS code of LK9151; name similarity 1.00
+LK92,cod-ab-v03,desinventar,lka009002,Kegalle,name_and_parent,1.0,name equals one spine district under LK9; the shapefile's province lka009 (Sabaragamuwa) matches that parent
+LK9203,cod-ab-v03,desinventar,lka009002003,Rambukkana,exact_code,1.0,DS code 9203 equals DCS code of LK9203; name similarity 1.00
+LK9206,cod-ab-v03,desinventar,lka009002006,Mawanella,exact_code,1.0,DS code 9206 equals DCS code of LK9206; name similarity 1.00
+LK9209,cod-ab-v03,desinventar,lka009002009,Aranayaka,exact_code,0.9,DS code 9209 equals DCS code of LK9209; name similarity 0.89
+LK9212,cod-ab-v03,desinventar,lka009002012,Kegalle,exact_code,1.0,DS code 9212 equals DCS code of LK9212; name similarity 1.00
+LK9215,cod-ab-v03,desinventar,lka009002015,Galigamuwa,exact_code,1.0,DS code 9215 equals DCS code of LK9215; name similarity 1.00
+LK9218,cod-ab-v03,desinventar,lka009002018,Warakapola,exact_code,1.0,DS code 9218 equals DCS code of LK9218; name similarity 1.00
+LK9221,cod-ab-v03,desinventar,lka009002021,Ruwanwella,exact_code,1.0,DS code 9221 equals DCS code of LK9221; name similarity 1.00
+LK9224,cod-ab-v03,desinventar,lka009002024,Bulathkohupitiya,exact_code,0.9,DS code 9224 equals DCS code of LK9224; name similarity 0.94
+LK9227,cod-ab-v03,desinventar,lka009002027,Yatiyanthota,exact_code,0.9,DS code 9227 equals DCS code of LK9227; name similarity 0.96
+LK9230,cod-ab-v03,desinventar,lka009002030,Dehiovita,exact_code,0.9,DS code 9230 equals DCS code of LK9230; name similarity 0.89
+LK9233,cod-ab-v03,desinventar,lka009002033,Deraniyagala,exact_code,1.0,DS code 9233 equals DCS code of LK9233; name similarity 1.00

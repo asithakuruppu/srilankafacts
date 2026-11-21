@@ -304,6 +304,7 @@ These were stated by you or are standing rules in [brainstorm-decisions.md](../b
 - **Alternatives:** build on Vercel from Git (rejected: no release data in the repository); serve everything from Vercel (rejected: size); put the release in Git (rejected: 2.1 GB).
 - **Consequences:** r2.dev is rate-limited and meant for testing, so it is acceptable for a non-commercial preview but not for launch. ❓ Open risk, not verified: the 857 MB `api/` folder may exceed Vercel's deployment size or file-count limits. If it does, the site must fetch `api/` from R2 instead of bundling it, which is a code change.
 - **Revisit when:** the Vercel prebuilt deploy is tried and passes or fails on size; before launch (custom domain for R2, rate limits); or D-030 changes.
+- **Superseded 2026-11-19 by D-053** (free static hosting on Cloudflare Workers; no R2, no Vercel).
 
 ## D-035: Indicator drill-down charts are hand-written SVG; the hierarchy ships as a compact `hierarchy.json`
 - **Status:** Accepted · 2026-11-15 (proposed); accepted by the lead 2026-11-16 (builds on D-007, D-027, D-033)
@@ -476,6 +477,7 @@ These were stated by you or are standing rules in [brainstorm-decisions.md](../b
   - No new dependency: k-means, silhouette and ARI are plain NumPy.
 - **Alternatives:** UMAP layout for the 2-D view (needs a new dependency and distorts distances; PCA axes are what the space is); hierarchical clustering (no stability advantage at this size); an embedding model for search (download, cost, opaque); GN-level types (D-031).
 - **Consequences:** the atlas bundle grows by about 150 KB (`spaces/`). Three of the five type names lead with ethnic group or religion, because those inputs separate the groups most (D-037); this is sensitive and is the main item for review.
+- **Amended 2026-11-19 (D-054):** type names no longer use ethnic group or religion.
 - **Revisit when:** the lead reviews the type names; more 2012 DS topics are held (a richer trajectory); D-030 is extended to the history datasets; aliases are added to the spine.
 
 ---
@@ -546,13 +548,85 @@ These were stated by you or are standing rules in [brainstorm-decisions.md](../b
 - **Consequences:** events are historical snapshots, not live. The landslide points and cloud-obstruction mask in the UNOSAT file are not used yet.
 - **Revisit when:** a timetable source with clear rights is found (Sri Lanka Railways GTFS or similar); the lead wants near-real-time feeds and accepts a scheduler.
 
-## D-054: OpenStreetMap basemap under the maps (public tile server)
+## D-053: Free hosting: the website and the data site as Cloudflare Workers static assets; large files on a GitHub release
+- **Status:** Accepted · 2026-11-19 (lead: "prepare the deploy. check free usage limitations. don't make it cost me anything"; the design is the agent's) · Supersedes D-034's hosting choice; amends D-007 (Vercel Pro) and D-051 (DuckDB engine source on the static host)
+- **Context:** D-034 chose Vercel (prebuilt deploys) for the site and R2 for files. Measured on 2026-11-19 ✅: the server build is about 840 MB of prerendered pages plus 140 MB of public files, and the release is 16,158 files and 2.2 GB, of which three files are over 100 MB. Vendor limits read the same day (🟡 from the vendors' pages): Vercel Hobby caps uploads at 100 MB and 15,000 files and allows non-commercial use only; R2's free tier (10 GB) sits behind an R2 subscription checkout; Cloudflare Workers static assets on the free plan allow 20,000 files per site and 25 MiB per file, with "requests to static assets free and unlimited"; GitHub Pages caps a site at 1 GB.
+- **Decision:**
+  - **Website:** a static export of `web/` (`pnpm build:static`): pages from country to DS division are prebuilt (6,840 files, 962 MB, largest 16.1 MB on `v2026.11.17-preview.3` ✅). GN pages (14,043) are not prebuilt: `/place/<GN id>` is served by `/place/gn`, which renders the same place view in the browser from the API. `_redirects` lists each prebuilt place page before the GN rule (Cloudflare applies rules before files). Deployed as an assets-only Worker `srilankafacts-site` (no Worker script).
+  - **Data site:** the public release itself, hard-linked by `deploy/stage-data-site.mjs`, served as the assets-only Worker `srilankafacts-data` with `Access-Control-Allow-Origin: *`. The website reads the API from `NEXT_PUBLIC_DATA_BASE`.
+  - **Large files:** files over 25 MiB (topic-tables CSV 1.03 GB, GN-tables CSV 103 MB, `geography_versions.geoparquet` 126 MB) go on a GitHub release of this public repository, linked from `/data` via `NEXT_PUBLIC_LARGE_FILES_BASE`. The Parquet copies of both tables stay on the data site.
+  - **SQL engine:** the static site loads DuckDB-WASM 1.32.0 (33 MB, over the per-file limit) from jsDelivr's copy of the npm package (`NEXT_PUBLIC_DUCKDB_BASE`), only when a reader opens `/query`.
+  - **Addresses:** the free `*.workers.dev` addresses first; a custom domain is optional and free if its DNS moves to Cloudflare.
+  - **Tooling:** `wrangler` 4.156.0 run with `npx` at deploy time; not a project dependency.
+  - Cache Components are switched off in the web app (static export cannot use partial prerendering); pages are unchanged.
+- **Alternatives:** Vercel Hobby (100 MB upload limit; site alone is about 1 GB); Vercel Pro and R2 (cost money); GitHub Pages (1 GB site cap, release would not fit); Cloudflare Pages (same free limits: 20,000 files, 25 MiB per file); prebuilding GN pages (about 3 files each: over the file limit); serving DuckDB from the data site (over the per-file limit).
+- **Consequences:** no running cost and no payment method needed for Workers or GitHub (🟡 not verified by signing up). GN pages need JavaScript (D-027's no-JavaScript rule now holds from country to DS level; GN pages are `noindex` and link their API file for readers without JavaScript). `/query` makes a request to jsDelivr. The data site's 16,156 files are under the 20,000 limit but could not be run in full in the local emulator (it fails above a few thousand files; a 3,003-file subset served correctly); the real upload is the first full check. If Cloudflare's free terms change, the same static folders can move to any static host.
+- **Revisit when:** a release passes 20,000 files or the site passes 20,000 files; traffic or terms change; the lead wants a custom domain; a server becomes necessary (S01).
+
+## D-054: The four launch decisions, as recommended by the agent
+- **Status:** Accepted · 2026-11-19 (lead: "follow your recommendations on the four decisions") · Amends D-047; confirms D-038 and D-049 for public builds
+- **Context:** The 2026-11-18 review queue listed four items blocking a public site: typology names, the 2012 census comparison, share-alike layers, and a public release.
+- **Decision:**
+  1. **Typology names (D-047):** names never use ethnic group or religion. They are drafted from age, sex, size and housing inputs only; the identity inputs still shape the types and stay listed in each type's input profile. Same partition as before (339 of 339 assignments unchanged ✅); the five names are in `docs/qa/typology-v1.0.md`. Still machine drafts awaiting review.
+  2. **2012 census comparison (D-038):** stays private; D-030 is not extended. `slf atlas export --public` refuses a release that is not publishable and leaves out `change.json`, the `trajectory` space and named features (D-049).
+  3. **Share-alike layers** (healthsites.io ODbL, HeiGIT CC BY-SA, UNOSAT CC BY-SA): allowed in public builds, each in its own file under its own licence and attribution (the atlas index and the place panel already carry both), never relicensed under the census's non-commercial terms.
+  4. **Public release:** built with `slf release` without `--preview` once disk space allows (see the deploy guide); the website and data site are built from it.
+- **Alternatives:** approve the original names (rejected: leads with ethnic group or religion); extend D-030 to the 2012 data (rejected for now: no reply from DCS); drop share-alike layers (loses the health access, risk and flood layers for no rights gain).
+- **Consequences:** the public atlas has no Change lens history and no named features; the typology legend reads neutrally.
+- **Revisit when:** DCS replies on reuse terms; a reviewer renames the types.
+
+---
+
+## D-055: Local-authority and MOH profile pages render only from a publishable composition
+- **Status:** Accepted · 2026-11-21 (proposed by the agent; accepted by the lead 2026-11-21; builds on D-046, D-030, D-040)
+- **Context:** `slf composition profile` now writes per-unit profiles (population, age, households, housing, rates recomputed from counts) from a composition build. The only membership source held, nuuuwan `gig-data`, has no licence. The internal run shows 423 spine GNs with no local authority and 986 with no MOH area, 97 local authorities and 88 MOH areas whose own shape overlaps their GN union poorly (IoU < 0.9), and 16 local authorities whose population DCS places mostly under another local-authority type.
+- **Decision (proposed):** (1) the website route `/units/la` and `/units/moh` renders profiles only from a file marked `publishable: true`, which is written only when the membership dataset passes the rights gate (D-046); otherwise it says unavailable and why. (2) `gig-data` stays internal. (3) The profiles of a source that passes the gate must show the flags (coverage gaps, shape disagreement, DCS type mismatch) beside each unit.
+- **Alternatives:** publish gig-data profiles under D-030-style terms (rejected: no stated origin, so no one to notify or credit, and the QA gaps above); hide flagged units (rejected: rule 6, show with the reason).
+- **Consequences:** nothing public changes now. Publishing needs an official GN list per unit with rights recorded, plus copying `units-<scheme>.json` into `web/public/release/atlas/` (atlas export wiring is not done).
+- **Revisit when:** an official GN list per local authority or MOH area is held with rights recorded.
+
+---
+
+## D-056: Population-weighted grid v1 from WorldPop weights at H3 r9 and r10, built locally; web unchanged
+- **Status:** Proposed · 2026-11-21 (agent proposal; implements D-014, G07 steps 1, 5 and 6 in part; follows D-048's "revisit when"). The lead replied "approved" on 2026-11-21 to the report recommending WorldPop as the primary weight source; web adoption (`/area`) still waits for the bundle-size check.
+- **Context:** D-048 deferred population weights and resolution 10 until the G07 rights work was done.
+- **Decision:**
+  - `slf grid popweights` builds weights from WorldPop R2025A 100 m (CC BY 4.0): pixels to r10 cells by centre, normalised within each GN, r9 summed from r10. The weight file contains no census numbers and is commercial-capable. Kontur, Overture buildings and OSM are not used (unclear or ODbL); GHSL is not used as a weight.
+  - Census GN totals are apportioned in a separate `..._NONCOMMERCIAL` file that inherits D-030. Every row carries `weight_source`, `method`, `information_floor`, `data_nature`.
+  - Outputs stay local. `/area`, the resolver and the live release keep the D-048 equal-share r9 grid until the lead chooses a weight source (G07 step 4) and the bundle size is checked.
+- **Alternatives:** Kontur as weight (rights unclear); Overture/OSM buildings (ODbL, uneven completeness); GHSL built-up mask (not population).
+- **Consequences:** All GN totals reproduce exactly (max residual 3.6e-12 people over 13,967 GN). 53.5% of r10 cells carry no weight. 13 GN fall back to equal shares; 76 GN have no 2024 total. WorldPop's census input for Sri Lanka is unconfirmed.
+- **Revisit when:** the lead approves the weight source; DCS answers on reuse; web adopts r10 or the r9 population weights.
+
+---
+
+## D-057: LA and MOH memberships from gig-data are published in the non-commercial preview, flagged
+- **Status:** Accepted · 2026-11-21 (decided by the lead: "build the preview with no restrictions" until broader permissions are obtained; amends D-046 and D-055 on the rights gate only)
+- **Context:** No official GN list per local authority or MOH area is held (D-046). The only membership source, nuuuwan `gig-data`, has no licence and no stated origin. The lead wants the preview to carry LA and MOH profiles now and to stay a preview until permissions are obtained.
+- **Decision:** (1) A new catalogue entry `nuuuwan-gig-data-lg-moh` (`lg_id` and `moh_id` only) gets a `publication` block under this decision, as for D-030/D-032: non-commercial, attribution, notice, 7-day takedown; `rights.status` stays `unclear`. (2) LA and MOH compositions and profiles built from it are committed to `catalog/` and shown at `/units/la` and `/units/moh` with their known gaps and per-unit flags. (3) gig-data's polling-division columns stay local (D-040) and its shapes are not published. (4) The preview is non-commercial only; nothing is a commercial release.
+- **Alternatives:** wait for an official list (rejected by the lead for the preview); also publish gig-data shapes (rejected: not needed for tables, and the IoU shows many disagree).
+- **Consequences:** units show coverage gaps (423 GNs in no LA, 986 in no MOH area), flagged shape and type disagreements, and the notice. The site header/footer notice for D-030 is unchanged; the unit pages carry their own notice. An official list replaces this when obtained.
+- **Revisit when:** an official GN list per local authority or MOH area is held; permissions are obtained; nuuuwan states a licence.
+
+---
+
+## D-058: Building form, GHSL height and CTrees biomass roll-ups; place-level `form` and `context` spaces v0.1 (private)
+- **Status:** Accepted · 2026-11-21 (agent proposal; both recipes approved by the lead the same day, LA-007; builds on D-016, D-017, D-044, D-045, D-049)
+- **Context:** The review queue (2026-11-18) listed building shapes, canopy, biomass and the `form` and `context` spaces as blocked by data "held only as counts or not processed". The archive drive holds the Overture footprints, GHS-BUILT-H tiles and the CTrees GeoTIFF; canopy was already rolled up.
+- **Decision:** add shape and density indicators from the footprints (size classes, mean compactness in EPSG:5235, footprints per km², coverage), roll up GHS-BUILT-H and CTrees on the GN spine with the existing zonal machinery, and build `form` and `context` v0.1 as place-level spaces (GN and DS) with the profile method, 85% variance retention, blocks regrouped so no single input carries a block alone. Both stay private. `form` carries Overture's ODbL; it and its neighbour lists are not published, and nothing enters a release, the atlas or the live preview. No per-building vector or feature table is produced. The feature-level `form` and `context` spaces of vector-space-model.md remain unbuilt (rule 11, D-044; no road or coast layer held). The lead's permission for per-feature output is still pending; if it is not given, that item is dropped. Publication is unchanged: `form` stays internal under ODbL.
+- **Alternatives:** feature-level spaces now (rejected: rule 11 and ODbL, no road or coast data); one-input blocks (rejected: a single weak input such as listed places dominated two axes); putting ODbL-derived building values into `context` (rejected: it would make a CC BY space share-alike).
+- **Consequences:** 12 new ledger indicators and 108 in all. `form` shows modest neighbour coherence by district (14% against 5.6% by chance) and `context` more (21%). Compactness varies little between places and depends partly on the outline style of the footprint source (no correlation with source mix, QA §4). Biomass units come from the HDX record and need confirming against CTrees' own documentation.
+- **Addendum (2026-11-21, lead instruction):** the lead then said "yes to all ... what we are building will stay preview until we get permissions. so build the preview with no restrictions", so the per-feature `form-feature` and `context-feature` v0.1 were built (8.9 million footprints; method §7, QA `docs/qa/form-features-2026-11-21.md`). They are a private local preview: not published, no people attributes on any row, ODbL share-alike material. The "no per-building vector is produced" and "per-feature unbuilt" statements above describe the state before this addendum.
+- **Revisit when:** the lead approves or changes either recipe; the ODbL question is settled; CTrees or GHSL terms are read in full; the lead's broader permissions are in place (then decide what, if anything, of the feature spaces may be published).
+
+## D-059: OpenStreetMap basemap under the maps (public tile server)
 - **Status:** Proposed · 2026-11-22 (agent proposal, following the lead's request for an OpenStreetMap underlay on the Areas page and a basemap switcher elsewhere)
 - **Context:** The maps draw only boundaries on a flat background, so a clicked point on `/area` cannot be placed on the ground.
 - **Decision:** `/area` opens on an OpenStreetMap raster basemap; the home atlas and indicator maps get a Plain / OpenStreetMap switch and stay Plain by default. Boundary fills become semi-transparent when OSM is on. Tiles come from `tile.openstreetmap.org` and are requested by the visitor's browser only while the OSM view is on; the map shows "© OpenStreetMap contributors". No click coordinates are sent to any geocoder.
 - **Alternatives:** a hosted tile provider or self-served PMTiles extract (cost and a tile-stack decision; the fallback if traffic grows); a reverse-geocoding call on click (rejected: sends the visitor's chosen location to a third party).
 - **Consequences:** the OSM public tile policy suits light use only and offers no guarantee; OSM data is ODbL, with attribution required. The Plain view works offline of OSM. Visitors' IP addresses reach the OSM tile servers when they use the OSM view.
 - **Revisit when:** traffic grows, or the lead wants a self-hosted or vector basemap (see D-053 on tile stacks).
+
 
 ---
 

@@ -1,0 +1,14 @@
+// The website: a static export of web/ (pnpm build:static), served as Cloudflare Workers static
+// assets. Assets only, no Worker script, so requests are free and unlimited on the free plan.
+// Deploy: docs/ops/deploy.md.
+{
+  "name": "srilankafacts-site",
+  "compatibility_date": "2026-10-15",
+  "workers_dev": true,
+  "preview_urls": false,
+  "assets": {
+    "directory": "../../../web/out",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "404-page"
+  }
+}

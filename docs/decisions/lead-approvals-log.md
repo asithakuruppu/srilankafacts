@@ -64,3 +64,23 @@ Every approval the lead gives on a corrections entry, a QA sheet or a data judge
 - **Evidence:** [docs/qa/census-2024-age-sector-local-authority.md](../qa/census-2024-age-sector-local-authority.md) (trial release sizes); the agent's recommendation in PR 29.
 - **Lead's words:** "Yes, keep LA-004."
 - **How to reverse:** remove `distribution: downloads_only` from the 25 count files and rebuild the release.
+
+## LA-006: Follow the agent's recommendations on the four launch decisions; prepare a free deploy
+
+- **Date:** 2026-11-19
+- **Approved by:** Shamil Asitha Kuruppu (lead)
+- **What:** The four items of the 2026-11-18 review queue are decided as the agent recommended (D-054): neutral typology names, the 2012 comparison stays private, share-alike layers allowed under their own licences, a public release built for the site. The deploy is prepared on free plans only (D-053).
+- **Scope:** Decisions D-053 and D-054. It does not cover deploying: creating accounts, uploading and publishing are the lead's steps (docs/ops/deploy.md).
+- **Evidence:** docs/qa/review-queue-2026-11-18.md §1 and §3; this PR's report.
+- **Lead's words:** "follow your recommendations on the four decisions and prepare the deploy. check free usa limitations. dont make it cost me anything"
+- **How to reverse:** an LA entry withdrawing it; the D-054 code paths are flags (`--public`) and naming rules that can be changed back.
+
+## LA-007: Approve the `form` and `context` space recipes v0.1
+
+- **Date:** 2026-11-21
+- **Approved by:** Shamil Asitha Kuruppu (lead)
+- **What:** Both place-level recipes of D-058 are approved: `form` (intensity and character blocks) and `context` (vegetation, and land and services blocks).
+- **Scope:** The recipes only. Nothing is published: `form` stays internal because it derives from ODbL Overture Buildings, and per-feature (per-building) spaces are not built; permission for them is pending, and if it is not given they are dropped.
+- **Evidence:** [docs/qa/form-context-2026-11-21.md](../qa/form-context-2026-11-21.md); PR 105.
+- **Lead's words:** "Per-feature form and context - build. permission pending. if not we can remove this. approve both"
+- **How to reverse:** an LA entry withdrawing it; set the two space files back to `status: proposed`.

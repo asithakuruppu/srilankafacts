@@ -1,0 +1,19 @@
+id: buildings_small
+name: "Small building footprints"
+short_name: "Small building footprints"
+topic: [features]
+measure_type: count
+unit: buildings
+universe: mapped_features
+numerator: null
+denominator: null
+aggregation: sum
+higher_is: neutral
+distribution: api
+decimals: 0
+sensitivity: public
+definition: >
+  Mapped footprints under 20 m² (a chosen cut): mostly sheds, kiosks and outbuildings, plus some
+  false detections.
+source_definition_ref: "overture-buildings (catalog/datasets/overture-buildings.yaml)"
+methodology_notes: docs/methods/landscape.md

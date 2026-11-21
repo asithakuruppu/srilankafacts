@@ -1,0 +1,18 @@
+id: poor_population_updated_pl
+name: "Number of poor people (updated poverty line, 2019)"
+short_name: "Poor people (updated line)"
+topic: [poverty]
+measure_type: count
+unit: "persons"
+universe: persons
+numerator: null
+denominator: null
+aggregation: none
+higher_is: worse
+distribution: downloads_only
+decimals: 0
+sensitivity: public
+definition: >
+  Estimated number of persons below the updated official poverty line, HIES 2019, as printed (rounded to the nearest 100).
+source_definition_ref: "Poverty Indicators 2019, Table 04"
+methodology_notes: docs/methods/stat-tables.md

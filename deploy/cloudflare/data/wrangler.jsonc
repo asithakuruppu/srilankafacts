@@ -1,0 +1,13 @@
+// The data site: a public release's static API and downloads (deploy/stage-data-site.mjs),
+// served as Cloudflare Workers static assets with open CORS. Deploy: docs/ops/deploy.md.
+{
+  "name": "srilankafacts-data",
+  "compatibility_date": "2026-10-15",
+  "workers_dev": true,
+  "preview_urls": false,
+  "assets": {
+    "directory": "../../build/data-site",
+    "html_handling": "none",
+    "not_found_handling": "none"
+  }
+}

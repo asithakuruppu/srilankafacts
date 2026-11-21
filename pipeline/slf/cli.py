@@ -886,7 +886,7 @@ def composition_build(
         unit_rows, member_rows, geoms, totals = cg.gig_inputs(
             from_env(), spec, with_geometry=with_geometry
         )
-        source_dataset, code_system, method = cg.GIG_SOURCE_DATASET, "nuuuwan", "attribute"
+        source_dataset, code_system, method = cg.GIG_LG_MOH_DATASET, "nuuuwan", "attribute"
         vintage = vintage or "gig-2026-11"
     else:
         if units is None or membership is None or source_dataset is None or not vintage:
@@ -897,8 +897,6 @@ def composition_build(
             raise typer.Exit(2)
         unit_rows, member_rows = cg.read_units(units), cg.read_membership(membership)
     publishable, rights_note = cg.rights_allow_catalog(catalog, source_dataset)
-    if gig_internal:
-        publishable = False
     composed = cg.compose(
         spec,
         unit_rows,
@@ -932,6 +930,49 @@ def composition_build(
         typer.echo(f"  {key}: {value}")
     for p in result.outputs:
         typer.echo(f"wrote {p}")
+    from slf.datasets import composed_profiles as cp
+
+    out = out_dir or Path(DEFAULT_BUILD_DIR) / scheme
+    pub = cg.publication_text(catalog, source_dataset) if publishable else (None, None)
+    prof, summary = cp.build_profiles(
+        out,
+        scheme,
+        publishable=publishable,
+        source_note=f"{source_dataset} ({rights_note})",
+        attribution=pub[0],
+        notice=pub[1],
+    )
+    typer.echo(f"wrote {prof}: {summary}")
+
+
+@composition_app.command("profile")
+def composition_profile(
+    scheme: Annotated[str, typer.Option(help="la or health.")],
+    build_dir: Annotated[
+        Path | None, typer.Option(help="Composition build folder (default data/build/<scheme>).")
+    ] = None,
+    publishable: Annotated[
+        bool, typer.Option(help="Read the files without `_internal`; only after a rights gate.")
+    ] = False,
+    catalog: Annotated[Path, typer.Option(help="Catalogue folder.")] = Path("../catalog"),
+) -> None:
+    """Write per-unit profiles from an existing composition build (no download needed)."""
+    from slf.datasets import composed_geography as cg
+    from slf.datasets import composed_profiles as cp
+
+    folder = build_dir or Path(DEFAULT_BUILD_DIR) / scheme
+    pub = cg.publication_text(catalog, cg.GIG_LG_MOH_DATASET) if publishable else (None, None)
+    out, summary = cp.build_profiles(
+        folder,
+        scheme,
+        publishable=publishable,
+        source_note=f"{cg.GIG_LG_MOH_DATASET} (rights unclear; publication decision D-057)"
+        if publishable
+        else "internal run on nuuuwan gig-data; not for publication",
+        attribution=pub[0],
+        notice=pub[1],
+    )
+    typer.echo(f"wrote {out}: {summary}")
 
 
 atlas_app = typer.Typer(
@@ -971,7 +1012,27 @@ def atlas_export(
     events_dir: Annotated[
         Path | None, typer.Option(help="Events build folder (`slf events`).")
     ] = None,
+    hazard_dir: Annotated[
+        Path | None,
+        typer.Option(help="HeiGIT access and DesInventar build (`slf hazard-access build`)."),
+    ] = None,
+    units_dir: Annotated[
+        Path | None,
+        typer.Option(help="Build folder holding la/ and health/ (publishable profiles only)."),
+    ] = None,
+    stat_tables_dir: Annotated[
+        Path | None,
+        typer.Option(help="Stat-tables build folder (`slf stat-tables build`); private only."),
+    ] = None,
     out_dir: Annotated[Path, typer.Option(help="Output folder.")] = Path("./data/build/atlas"),
+    public: Annotated[
+        bool,
+        typer.Option(
+            "--public",
+            help="Bundle for a public site: needs a publishable release; leaves out the D-038 "
+            "change and trajectory files and the named features (D-049).",
+        ),
+    ] = False,
 ) -> None:
     """Write the derived files the map-first website reads (local, never part of a release)."""
     from slf.atlas import export
@@ -988,6 +1049,10 @@ def atlas_export(
         landscape_dir,
         subnational_dir,
         events_dir,
+        public=public,
+        hazard_dir=hazard_dir,
+        units_dir=units_dir,
+        stat_tables_dir=stat_tables_dir,
     )
     geometry = manifest["geometry"]
     typer.echo(f"atlas bundle for {manifest['release']} -> {out_dir / manifest['release']}")
@@ -1127,6 +1192,85 @@ def spatial_space(
     typer.echo(f"wrote {landscape_dir / 'vectors'}")
 
 
+@spatial_app.command("formspace")
+def spatial_formspace(
+    landscape_dir: Annotated[Path, typer.Option(help="Landscape build folder.")] = Path(
+        "./data/build/landscape-form"
+    ),
+    spine_dir: Annotated[Path, typer.Option(help="Spine build folder.")] = Path(
+        "./data/build/geography-spine"
+    ),
+    out_dir: Annotated[Path, typer.Option(help="Output folder.")] = Path("./data/build/form"),
+) -> None:
+    """Build the proposed `form` and `context` place spaces and their QA (private)."""
+    import json as _json
+
+    import pandas as pd
+
+    from slf.spatial import formspace
+
+    observations = pd.read_parquet(landscape_dir / "observations.parquet")
+    geographies = pd.read_parquet(spine_dir / "geographies.parquet")
+    summaries = {}
+    for spec in formspace.SPECS.values():
+        space_dir = out_dir / spec.space_id
+        summaries[spec.space_id] = formspace.build(spec, observations, geographies, space_dir)
+        (space_dir / "qa.md").write_text(
+            formspace.render_qa(spec, summaries[spec.space_id]), encoding="utf-8"
+        )
+        for level, info in summaries[spec.space_id]["levels"].items():
+            typer.echo(
+                f"{spec.space_id} {level}: {info['places']} places, {info['axes_retained']} axes, "
+                f"{info['variance_explained_retained']:.1%} of variance, "
+                f"{len(info['excluded'])} excluded"
+            )
+    cross = {
+        level: formspace.cross_space(
+            out_dir / "form", out_dir / "context", "form_v0.1", "context_v0.1", level
+        )
+        for level in ("ds",)
+    }
+    (out_dir / "cross_space.json").write_text(_json.dumps(cross, indent=1) + "\n")
+    typer.echo(f"form vs context distance rank correlation: {cross}")
+    typer.echo(f"wrote {out_dir}")
+
+
+@spatial_app.command("featurespace")
+def spatial_featurespace(
+    spine_dir: Annotated[Path, typer.Option(help="Spine build folder.")] = Path(
+        "./data/build/geography-spine"
+    ),
+    features_dir: Annotated[Path, typer.Option(help="Landscape build `features/` folder.")] = Path(
+        "./data/build/landscape-form/features"
+    ),
+    out_dir: Annotated[Path, typer.Option(help="Output folder.")] = Path(
+        "./data/build/form-features"
+    ),
+    data_root: Annotated[
+        list[Path] | None, typer.Option(help="Data roots holding raw/ (repeatable).")
+    ] = None,
+    limit_batches: Annotated[
+        int | None, typer.Option(help="Smoke test: read only this many 250,000-row batches.")
+    ] = None,
+) -> None:
+    """Build the private per-feature `form-feature` and `context-feature` spaces (preview only)."""
+    from slf.spatial import build, featurespace
+
+    summary = featurespace.build(
+        data_root or [Path("./data")],
+        build.load_zones(spine_dir),
+        features_dir,
+        out_dir,
+        limit_batches,
+    )
+    for space_id, info in summary["spaces"].items():
+        typer.echo(
+            f"{space_id}: {info['features_in_space']:,} features, {info['axes_retained']} axes, "
+            f"{info['variance_explained_retained']:.1%} of variance"
+        )
+    typer.echo(f"wrote {out_dir}")
+
+
 @spatial_app.command("findings")
 def spatial_findings(
     landscape_dir: Annotated[Path, typer.Option(help="Landscape build folder.")] = Path(
@@ -1172,6 +1316,56 @@ def grid_build(
     summary = grid.build(spine_dir, out_dir, resolution)
     for key, value in summary.items():
         typer.echo(f"{key}: {value}")
+
+
+@grid_app.command("popweights")
+def grid_popweights(
+    worldpop_tif: Annotated[
+        Path, typer.Option(help="WorldPop 100 m constrained population GeoTIFF.")
+    ],
+    census_parquet: Annotated[Path, typer.Option(help="Release census-2024-gnd-tables.parquet.")],
+    spine_dir: Annotated[Path, typer.Option(help="Geography spine build folder.")] = Path(
+        "./data/build/geography-spine"
+    ),
+    out_dir: Annotated[Path, typer.Option(help="Output folder.")] = Path(
+        "./data/build/grid-popweighted"
+    ),
+) -> None:
+    """Population-weighted H3 r10 and r9 grid: WorldPop weights, GN census totals (G07)."""
+    from slf import grid_weights
+
+    summary = grid_weights.build(spine_dir, worldpop_tif, census_parquet, out_dir)
+    typer.echo(json.dumps(summary, indent=2, default=str))
+
+
+@grid_app.command("covers")
+def grid_covers(
+    weights_parquet: Annotated[
+        Path, typer.Option(help="gn_h3r10_popweights_2024.parquet (`slf grid popweights`).")
+    ],
+    la_relations: Annotated[Path | None, typer.Option(help="la_relations_internal.csv.")] = None,
+    moh_relations: Annotated[
+        Path | None, typer.Option(help="health_relations_internal.csv.")
+    ] = None,
+    spine_dir: Annotated[Path, typer.Option(help="Geography spine build folder.")] = Path(
+        "./data/build/geography-spine"
+    ),
+    catalog_dir: Annotated[Path, typer.Option(help="Catalogue folder.")] = Path("../catalog"),
+    out_dir: Annotated[Path, typer.Option(help="Output folder.")] = Path(
+        "./data/build/grid-covers"
+    ),
+) -> None:
+    """Cell covers (footprint to H3 r10 cells with fractions) per footprint family (G07)."""
+    from slf import covers
+
+    internal = {
+        k: v for k, v in {"la": la_relations, "moh": moh_relations}.items() if v is not None
+    }
+    typer.echo(
+        json.dumps(
+            covers.build(spine_dir, weights_parquet, catalog_dir, out_dir, internal), indent=2
+        )
+    )
 
 
 @app.command("resolve")
@@ -1270,3 +1464,100 @@ def events_build(
 
     summary = events.build(raw_root, spine_dir, out_dir)
     typer.echo(json.dumps(summary, indent=2)[:3000])
+
+
+hazard_app = typer.Typer(
+    help="HeiGIT accessibility and DesInventar records: crosswalks, then indicators.",
+    no_args_is_help=True,
+)
+app.add_typer(hazard_app, name="hazard-access")
+
+
+@hazard_app.command("build")
+def hazard_access_build(
+    raw_root: Annotated[Path, typer.Option(help="Folder holding raw/<source>/<dataset>/.")] = Path(
+        "./data/raw"
+    ),
+    spine_dir: Annotated[Path, typer.Option(help="Geography spine build folder.")] = Path(
+        "./data/build/geography-spine"
+    ),
+    catalog: Annotated[
+        Path, typer.Option(help="Catalogue root (writes geographies/codes).")
+    ] = Path("../catalog"),
+    out_dir: Annotated[Path, typer.Option(help="Output folder.")] = Path(
+        "./data/build/hazard-access"
+    ),
+) -> None:
+    """Write the heigit-iso and desinventar crosswalks, then the joinable indicators."""
+    from slf import hazard_access
+
+    summary = hazard_access.build(raw_root, spine_dir, catalog, out_dir, out_dir / "_work")
+    typer.echo(f"{summary['rows']} rows, {len(summary['indicators'])} indicators")
+
+
+@hazard_app.command("checks")
+def hazard_access_checks(
+    raw_root: Annotated[Path, typer.Option(help="Folder holding raw/<source>/<dataset>/.")] = Path(
+        "./data/raw"
+    ),
+    spine_dir: Annotated[Path, typer.Option(help="Geography spine build folder.")] = Path(
+        "./data/build/geography-spine"
+    ),
+    release_dir: Annotated[
+        Path, typer.Option(help="A release folder (census 2024 figures).")
+    ] = Path("./data/build/releases/v2026.11.19"),
+    build_dir: Annotated[Path, typer.Option(help="`slf hazard-access build` output.")] = Path(
+        "./data/build/hazard-access"
+    ),
+    catalog: Annotated[Path, typer.Option(help="Catalogue root.")] = Path("../catalog"),
+) -> None:
+    """Cross-check the indicators against independent figures; writes checks.md and checks.json."""
+    from slf import hazard_checks
+
+    checks = hazard_checks.run(
+        raw_root, spine_dir, release_dir, build_dir / "observations.parquet", catalog
+    )
+    path = hazard_checks.write(checks, build_dir)
+    for c in checks:
+        typer.echo(f"{c.id}: {c.result}")
+    typer.echo(f"report -> {path}")
+
+
+stat_app = typer.Typer(help="Statistical tables (HIES, LFS, paddy).", no_args_is_help=True)
+app.add_typer(stat_app, name="stat-tables")
+
+
+@stat_app.command("build")
+def stat_tables_build(
+    raw_root: Annotated[Path, typer.Option(help="Folder holding raw/<source>/<dataset>/.")] = Path(
+        "./data/raw"
+    ),
+    catalog_root: Annotated[Path, typer.Option(help="Catalogue folder.")] = Path("../catalog"),
+    spine_dir: Annotated[Path, typer.Option(help="Geography spine build folder.")] = Path(
+        "./data/build/geography-spine"
+    ),
+    pages_dir: Annotated[
+        Path, typer.Option(help="PDF text per page: <dir>/<pdf name>/page-NNN.txt")
+    ] = Path("./data/build/stat-tables/pdf-pages"),
+    out_dir: Annotated[Path, typer.Option(help="Output folder.")] = Path(
+        "./data/build/stat-tables"
+    ),
+) -> None:
+    """Ingest HIES 2019 poverty, LFS 2024 district and paddy tables into private observations."""
+    from slf import stat_tables
+
+    results = stat_tables.build_all(
+        raw_root=raw_root,
+        catalog_root=catalog_root,
+        spine_dir=spine_dir,
+        pages_dir=pages_dir,
+        out_dir=out_dir,
+    )
+    for res, _ in results:
+        failed = [n for n, ok, _ in res.checks if not ok]
+        typer.echo(
+            f"{res.dataset_id}: {len(res.rows)} observations, {len(res.unmatched)} unmatched, "
+            f"{len(res.checks) - len(failed)}/{len(res.checks)} checks passed"
+        )
+        for n in failed:
+            typer.echo(f"  FAILED: {n}", err=True)

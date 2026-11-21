@@ -26,4 +26,4 @@ cross_checks: []
 status: proposed
 notes: Six CSV tables held (2026-11-17), not integrated. Population shares within travel-time bands by
   administrative unit, from OpenStreetMap roads and facilities and a modelled population grid. Share-alike.
-  Their unit ids are not p-codes, so joining needs a crosswalk (rule 5).
+  Their unit ids are not p-codes, so joining needs a crosswalk (rule 5). Crosswalk `codes/heigit-iso.csv` built 2026-11-21 (name_and_parent; ISO district numbers differ from p-code suffixes for four northern districts). Seven indicators built by `slf hazard-access build`, not in a release. Share-alike applies.

@@ -25,4 +25,4 @@ indicators: []
 cross_checks: []
 status: proposed
 notes: Release 20231101 held (2026-11-17), not yet opened. A modelled population grid already on H3; a
-  candidate bridge to the H3 analytic grid (D-014).
+  candidate bridge to the H3 analytic grid (D-014). G07 on 2026-11-21, NOT used as a weight. HDX says CC-BY-4.0, but the model is built from OSM buildings (ODbL) among other layers, so share-alike obligations on the derived grid are unclear; excluded from commercial-capable output until a rights memo settles it (docs/research/rights/g07-weighting-inputs.md).
