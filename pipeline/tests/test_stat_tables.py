@@ -110,3 +110,36 @@ def test_real_match_file_targets_exist_in_catalogue_names() -> None:
     assert len(ids - {"LK"}) == 34  # 9 provinces + 25 districts
     labels = [(r["source_label"], d) for r in rows for d in r["datasets"].split(";")]
     assert len(labels) == len(set(labels)), "a label is listed twice for one dataset"
+
+
+DENGUE = """Table 1: Reported dengue cases in week 27 and week
+26 of 2026
+Colombo 329 230 1178* 1676 7713 14995
+Vavuniya Nil Ni 4 10 28 94
+Kalmunai* 7 21 43 71 314 783
+Total* 1209 1059 5998* 7916 30060 61057
+"""
+
+
+def test_dengue_parser_handles_nil_footnote_marks_and_misprint() -> None:
+    week, rows = st.parse_dengue_table1(DENGUE)
+    assert week == 27
+    assert rows["Colombo"] == [329, 230, 1178, 1676, 7713, 14995]
+    assert rows["Vavuniya"] == [0, None, 4, 10, 28, 94]  # "Ni" is unreadable, not guessed
+    assert set(rows) == {"Colombo", "Vavuniya", "Kalmunai", "Total"}
+
+
+def test_dengue_parser_requires_title() -> None:
+    with pytest.raises(ValueError):
+        st.parse_dengue_table1("Colombo 1 2 3 4 5 6")
+
+
+def test_registry_has_the_stat_datasets() -> None:
+    from slf.datasets import REGISTRY
+
+    assert {
+        "hies-poverty",
+        "labour-force-survey",
+        "paddy-statistics",
+        "dengue-weekly-district",
+    } <= set(REGISTRY)

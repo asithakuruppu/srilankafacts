@@ -585,6 +585,188 @@ def build_paddy(raw_root: Path, catalog_root: Path, spine: dict[str, str]) -> Re
     return res
 
 
+# --- Dengue: weekly reports by district / RDHS ------------------------------------------------
+
+DENGUE_ID = "dengue-weekly-district"
+DENGUE_SOURCE = "epidemiology-unit"
+_DENGUE_ROW = re.compile(
+    r"^(?P<label>[A-Za-z .*]+?)\s+(?P<v>(?:(?:\d[\d,]*|Nil|Ni)\*?)(?:\s+(?:\d[\d,]*|Nil|Ni)\*?){5})\s*$"
+)
+_DENGUE_TITLE = re.compile(r"^Table 1: Reported dengue cases in week (\d+) and week$")
+
+
+def _dengue_cell(token: str) -> float | None:
+    """A cell; "Nil" is zero. The source misprints "Ni" in a few 2025 cells: unreadable, None."""
+    t = token.rstrip("*")
+    if t == "Ni":
+        return None
+    return 0.0 if t == "Nil" else _num(t)
+
+
+def parse_dengue_table1(text: str) -> tuple[int, dict[str, list[float | None]]]:
+    """(report week, label -> six values) from Table 1 of one weekly update.
+
+    Columns: 2025 week n-1, 2025 week n, 2026 week n-1, 2026 week n, 2025 up to week n, 2026 up
+    to week n. "Nil" is zero cases; a trailing * (duplicate-entry note) is dropped.
+    """
+    lines = [ln.strip() for ln in text.splitlines()]
+    m = _DENGUE_TITLE.match(lines[0]) if lines else None
+    if not m:
+        raise ValueError("Table 1 title not found at the top of page 1")
+    rows: dict[str, list[float | None]] = {}
+    for ln in lines:
+        r = _DENGUE_ROW.match(ln)
+        if r:
+            label = r.group("label").rstrip("*").strip()
+            if label in rows:
+                raise ValueError(f"{label!r} appears twice")
+            rows[label] = [_dengue_cell(t) for t in r.group("v").split()]
+    return int(m.group(1)), rows
+
+
+def build_dengue(
+    raw_root: Path, catalog_root: Path, spine: dict[str, str], pages_dir: Path
+) -> Result:
+    """One observation per district and week, from the latest report that carries that week.
+
+    A report gives its own week (current) and the week before (as revised one week later), so
+    week n is read from report n+1's previous-week column when that report is held (revision
+    status "revised"), else from report n (provisional).
+    """
+    res = Result(DENGUE_ID)
+    matches = load_matches(catalog_root, DENGUE_ID)
+    files = sorted(
+        (raw_root / DENGUE_SOURCE / DENGUE_ID).glob("*/Weekly-Dengue-Update-2026-Week-*.pdf")
+    )
+    if not files:
+        raise FileNotFoundError("no dengue weekly snapshots")
+    reports: dict[int, tuple[Snap, str, dict[str, list[float]]]] = {}
+    for path in files:
+        snap = find_snapshot(raw_root, DENGUE_SOURCE, DENGUE_ID, path.name)
+        week, raw_table = parse_dengue_table1((pages_dir / path.name / "page-001.txt").read_text())
+        if week != int(re.search(r"Week-(\d+)", path.name).group(1)):  # type: ignore[union-attr]
+            raise ValueError(f"{path.name}: title says week {week}")
+        for label, v in raw_table.items():
+            if v[2] is None or v[3] is None:
+                raise ValueError(f"{path.name}: unreadable 2026 cell in row {label!r}")
+        table = {k: [float("nan") if x is None else x for x in v] for k, v in raw_table.items()}
+        if len(table) != 27 or "Total" not in table:
+            raise ValueError(f"{path.name}: {len(table)} rows incl. Total={'Total' in table}")
+        reports[week] = (snap, path.name, table)
+    weeks = sorted(reports)
+    first_reported: dict[int, dict[str, float]] = {}
+    revised_count = 0
+    for week in weeks:
+        use_next = week + 1 in reports
+        snap, name, table = reports[week + 1] if use_next else reports[week]
+        col, status = (2, "revised") if use_next else (3, "provisional")
+        start, end = dt.date.fromisocalendar(2026, week, 1), dt.date.fromisocalendar(2026, week, 7)
+        period = f"2026-W{week:02d}"
+        values: dict[str, float] = {}
+        for label, v in table.items():
+            if label in ("Ampara", "Kalmunai", "Total"):
+                continue
+            m = matches.get(label)
+            if m is None or m.geography_id not in spine:
+                res.unmatched.append(f"week {week}: {label!r}")
+                continue
+            values[m.geography_id] = v[col]
+            _dengue_row(
+                res,
+                m.geography_id,
+                period,
+                start,
+                end,
+                v[col],
+                snap,
+                name,
+                label,
+                week,
+                col,
+                status,
+            )
+        # Ampara district is two RDHS (Ampara and Kalmunai); the district is their sum (derived).
+        values["LK52"] = table["Ampara"][col] + table["Kalmunai"][col]
+        _dengue_row(
+            res,
+            "LK52",
+            period,
+            start,
+            end,
+            values["LK52"],
+            snap,
+            name,
+            "Ampara + Kalmunai (RDHS rows summed)",
+            week,
+            col,
+            status,
+        )
+        values["LK"] = table["Total"][col]
+        _dengue_row(
+            res, "LK", period, start, end, values["LK"], snap, name, "Total", week, col, status
+        )
+        s_ = sum(v for g, v in values.items() if g != "LK")
+        res.checks.append(
+            (
+                f"week {week} ({status}): districts sum to the printed total",
+                abs(s_ - values["LK"]) <= max(5, 0.01 * values["LK"]),
+                f"sum {s_:,.0f} vs total {values['LK']:,.0f}",
+            )
+        )
+        if use_next:
+            first = reports[week][2]
+            changed = sum(1 for k in first if k != "Total" and first[k][3] != table[k][2])
+            revised_count += changed
+            first_reported[week] = {"changed_areas": changed}  # type: ignore[dict-item]
+    res.notes.append(
+        f"{len(files)} weekly reports (weeks {weeks[0]}-{weeks[-1]} of 2026). Week n is read from the "
+        f"next report's previous-week column when held ({len(weeks) - 1} weeks, status revised), else "
+        f"from its own report (week {weeks[-1]}, provisional). Revisions: {revised_count} area-week "
+        f"values differ between first report and the next report;."
+    )
+    res.notes.append(
+        "Not stored: the 2025 columns and the cumulative 'up to week' columns (their start dates are not stated). "
+        "Ampara and Kalmunai RDHS rows are not separate places in the spine; Ampara district (LK52) is their sum."
+    )
+    return res
+
+
+def _dengue_row(
+    res: Result,
+    geo: str,
+    period: str,
+    start: dt.date,
+    end: dt.date,
+    value: float,
+    snap: Snap,
+    pdf: str,
+    label: str,
+    week: int,
+    col: int,
+    status: str,
+) -> None:
+    res.rows.append(
+        _row(
+            dataset_id=DENGUE_ID,
+            indicator="dengue_cases_reported",
+            geography_id=geo,
+            period=period,
+            time_start=start,
+            time_end=end,
+            time_support="interval_total",
+            value=value,
+            unit="cases",
+            universe="notified_cases",
+            collection_method="admin_register",
+            data_nature="administrative_count",
+            snap=snap,
+            locator=f"{pdf} p.1 Table 1, row '{label}', column {col + 1} of 6 (2026 week {week})",
+            note="NaDSys notifications; the week's figure can be revised in the next report. 'Nil' read as 0.",
+            revision_status=status,
+        )
+    )
+
+
 # --- Output ---------------------------------------------------------------------------------
 
 
@@ -654,6 +836,10 @@ def build_all(
             "Labour Force Survey 2024, district tables",
         ),
         (build_paddy(raw_root, catalog_root, spine), "Paddy statistics by district and season"),
+        (
+            build_dengue(raw_root, catalog_root, spine, pages_dir),
+            "Dengue weekly reports by district (RDHS)",
+        ),
     ]
     write_outputs(
         results,
@@ -661,3 +847,78 @@ def build_all(
         "joined by the reviewed match file to spine ids (country, province, district)",
     )
     return results
+
+
+# --- Registry wrappers: let `slf release --preview` include these datasets ----------------------
+
+
+def _make_dataset(dataset_id: str, source_id: str, main: tuple[str, str, str], builder_name: str):
+    from slf.dataset import Dataset, QAReport
+    from slf.snapshot import SnapshotRef
+    from slf.storage import LocalStorage, Storage
+
+    class _D(Dataset):
+        def snapshot(self, storage: Storage) -> SnapshotRef:
+            assert isinstance(storage, LocalStorage)
+            source, folder, name = main
+            snap = find_snapshot(storage.root / "raw", source, folder, name)
+            return SnapshotRef(
+                key=str(snap.path.relative_to(storage.root)),
+                sha256=snap.sha256,
+                url=snap.url,
+                retrieved_at=snap.retrieved_at,
+                size_bytes=snap.path.stat().st_size,
+                reused=True,
+            )
+
+        def extract(self, storage: Storage, ref: SnapshotRef) -> list[Row]:
+            import os
+
+            assert isinstance(storage, LocalStorage)
+            catalog = Path(os.environ.get("SLF_CATALOG_DIR", "../catalog"))
+            spine_dir = Path(os.environ.get("SLF_SPINE_DIR", "./data/build/geography-spine"))
+            pages = Path(os.environ.get("SLF_STAT_PAGES_DIR", "./data/build/stat-tables/pdf-pages"))
+            spine = load_spine_ids(spine_dir)
+            raw = storage.root / "raw"
+            builder = {
+                "hies": lambda: build_hies(raw, catalog, spine, pages),
+                "lfs": lambda: build_lfs(raw, catalog, spine, pages),
+                "paddy": lambda: build_paddy(raw, catalog, spine),
+                "dengue": lambda: build_dengue(raw, catalog, spine, pages),
+            }[builder_name]
+            res = builder()
+            failed = [n for n, ok, _ in res.checks if not ok]
+            if failed:
+                raise RuntimeError(f"{dataset_id}: failed checks: {failed}")
+            return res.rows
+
+        def harmonise(self, rows: list[Row], ref: SnapshotRef) -> list[Row]:
+            return [{k: v for k, v in r.items() if k != "extraction_note"} for r in rows]
+
+        def validate(self, observations: list[Row]) -> QAReport:
+            report = super().validate(observations)
+            for r in observations:
+                if r.get("value") is not None and r["value"] < 0:
+                    report.errors.append(f"{r['claim_id']}: negative value")
+            return report
+
+        def publish(self, observations: list[Row], report: QAReport, out_dir: str) -> list[str]:
+            raise RuntimeError("use `slf stat-tables build` or `slf release --preview`")
+
+    _D.dataset_id = dataset_id
+    _D.source_id = source_id
+    _D.__name__ = f"StatTables_{builder_name}"
+    return _D
+
+
+HiesPoverty = _make_dataset(HIES_ID, "dcs", ("dcs", HIES_ID, HIES_FILE), "hies")
+LabourForceSurvey = _make_dataset(LFS_ID, "dcs", ("dcs", LFS_ID, LFS_FILE), "lfs")
+PaddyStatistics = _make_dataset(
+    PADDY_ID, "dcs", (PADDY_SOURCE, PADDY_RAW_DATASET, PADDY_FILES[0]["file"]), "paddy"
+)
+DengueWeeklyDistrict = _make_dataset(
+    DENGUE_ID,
+    "epidemiology-unit",
+    (DENGUE_SOURCE, DENGUE_ID, "Weekly-Dengue-Update-2026-Week-46.pdf"),
+    "dengue",
+)

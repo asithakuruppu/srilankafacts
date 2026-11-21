@@ -12,6 +12,8 @@ Legend: ✅ verified by me · 🟡 claimed by a source · ❌ not found / failed
 | `labour-force-survey` | DCS *LFS Annual Report 2024*, Tables 12, 12A, 12B (PDF pp.92-94) | Sri Lanka and 25 districts; both sexes, male, female | 2024 | 546 ✅ |
 | `paddy-statistics` | DCS district paddy tables, acres and bushels (data.gov.lk CSV copies) | 25 districts | Maha 2010/11, Yala 2012 | 250 ✅ |
 
+| `dengue-weekly-district` | NDCU *Weekly Dengue Update*, Table 1 (20 PDFs, weeks 27-46 of 2026) | Sri Lanka and 25 districts (Ampara = Ampara RDHS + Kalmunai RDHS, derived) | weeks 2026-W27 to W46 | 520 ✅ |
+
 Every row carries the snapshot sha256 (recomputed at build time) and a locator (PDF page, table, row label and column, or CSV row and column), `verification = machine_extracted`, and `data_nature` `survey_estimate` (HIES, LFS) or `official_estimate` (paddy).
 
 ## How
@@ -28,6 +30,13 @@ Every row carries the snapshot sha256 (recomputed at build time) and a locator (
 - LFS: 26 rows in each of three tables; employed + unemployed = labour force and labour force + not in labour force = population on every row (±1 rounding); districts sum to Sri Lanka; male + female = both sexes.
 - Paddy: the CSV's gross sown extent sums to the national total I read from the DCS PDF page image (1,804,204 acres Maha 2010/11; 900,795 Yala 2012) ✅. The data.gov.lk file named `maha_2011` is the **2010/11** season: the PDF title says so (the file name is misleading).
 
+## Dengue notes
+
+- Public reports are by district/RDHS, not MOH area, so this is a new dataset (`dengue-weekly-district`); `dengue-by-moh` stays open until NDCU supplies MOH-level counts.
+- Week n is read from the next report's previous-week column when held (status `revised`), else from its own report (`provisional`): 155 area-week values changed between first report and the next ✅. Week 46 is provisional.
+- Source misprints "Ni" in a few 2025 cells (not used) are read as unreadable, never as 0. Week dates are ISO weeks (report 46 states 9-15 Nov 2026 ✅).
+- Not stored: 2025 columns and cumulative "up to week" columns (start dates not stated).
+
 ## Unmatched and not ingested
 
 - Paddy: Uda Walawe and Mahaweli 'H' are paddy management areas, not districts; kept out of place output and listed (2 per season).
@@ -36,7 +45,7 @@ Every row carries the snapshot sha256 (recomputed at build time) and a locator (
 
 ## Rights
 
-DCS reuse terms are unclear and D-030/D-032 cover only the census. These datasets have **no `publication` decision**, so the release builder refuses them (`slf.release`), and this build writes only a private folder. The data.gov.lk copies are "License Not Specified" and held only. Nothing here changes any release.
+DCS and NDCU reuse terms are unclear and D-030/D-032 cover only the census. These datasets have **no `publication` decision**, so a public release is refused by the release builder; `slf release --preview` (private, `publishable: false`) accepts them. The lead (2026-11-21) said the preview is built without restrictions until permissions arrive. The data.gov.lk copies are "License Not Specified" and held only. Nothing here changes any release.
 
 ## Limits
 

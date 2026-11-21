@@ -1,0 +1,29 @@
+id: dengue-weekly-district
+source: epidemiology-unit
+title: "Dengue cases by district (RDHS), weekly reports"
+landing_page: https://www.dengue.health.gov.lk/weekly-report/
+pipeline_module: slf.stat_tables
+schedule: weekly
+geography_scheme: admin
+geography_vintage: "cod-ab-v03"
+reference_period: null
+rights: inherit
+spatial:
+  support: area
+  scheme: admin
+  level: district
+  vintage: "cod-ab-v03"
+  coverage: LK
+  measured_in: null
+  positional_accuracy: null
+  crs_source: not_applicable
+  resolution: null
+  information_unit: null
+  information_count: null
+  derived_by: null
+indicators:
+  - dengue_cases_reported
+cross_checks: []
+status: active
+notes: >
+  The public weekly reports of the National Dengue Control Unit carry Table 1 by district/RDHS, not by MOH area (see dengue-by-moh). Held: weeks 27 to 46 of 2026 (20 PDFs, snapshotted 2026-11-21). Ampara district is two RDHS (Ampara, Kalmunai); the district value is their sum. Only the current-week 2026 column is stored. Rights unclear and no publication decision; preview use only. Method: docs/methods/stat-tables.md.
