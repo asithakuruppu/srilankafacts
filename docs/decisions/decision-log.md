@@ -627,10 +627,18 @@ These were stated by you or are standing rules in [brainstorm-decisions.md](../b
 - **Consequences:** the OSM public tile policy suits light use only and offers no guarantee; OSM data is ODbL, with attribution required. The Plain view works offline of OSM. Visitors' IP addresses reach the OSM tile servers when they use the OSM view.
 - **Revisit when:** traffic grows, or the lead wants a self-hosted or vector basemap (see D-053 on tile stacks).
 
+## D-060: Finest view page and a resolution manifest; native raster tiles deferred
+- **Status:** Proposed · 2026-11-22 (agent proposal, following the lead's request for a page showing all data at its best resolution; builds on D-017, D-018, D-044, D-048)
+- **Context:** Every indicator is shown at GN level, but many sources are finer (10 m land cover, 1.2 m canopy height, 30 m terrain, 100 m built-up, 1 km soils, 375 m fire pixels, event polygons, points). The pipeline keeps only per-GN zonal sums, and no tile stack exists.
+- **Decision:** `slf atlas export --catalog-dir` writes `resolution.json`, one row per catalogue dataset (native resolution in metres only where the catalogue states it plainly, otherwise null and shown as "not recorded"; information unit; what the platform shows today; rights). A new `/resolution` page ("Finest view") lists them finest first and maps what the bundle really holds at fine scale: GN outlines, H3 r9 cells (always badged as modelled from GN totals) and named features (local preview only, D-049).
+- **Alternatives:** serving native rasters as PMTiles/COG now (needs a tile pipeline and storage decision; deferred); showing H3 cells without the modelled badge (rejected: resolution is not information).
+- **Consequences:** raster sources appear in the table as "finer in the source, shown only at GN" until a tile stack exists. Metres are missing for datasets whose catalogue text is not a plain size (for example "0.05 degree", "1:250,000").
+- **Revisit when:** the lead wants native raster layers on the map (needs a tile-stack decision and a storage budget).
 
 ---
 
 ## Template
+
 
 ```markdown
 ## D-NNN: Title

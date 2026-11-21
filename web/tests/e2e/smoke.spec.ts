@@ -470,3 +470,12 @@ test("the change lens shows fire detections and storm passes for a district", as
   await expect(events).toContainText("Active fire detections");
   await expect(events).toContainText("Storm tracks within 50 km");
 });
+
+test("finest view lists datasets by resolution, when the bundle has the manifest", async ({ page }) => {
+  test.skip(!(await hasAtlas(page)), "no atlas bundle for this release");
+  await page.goto("/resolution");
+  await expect(page.getByRole("heading", { level: 1, name: /best resolution/i })).toBeVisible();
+  const table = page.getByRole("table");
+  test.skip((await table.count()) === 0, "bundle has no resolution manifest");
+  await expect(table.getByRole("row").nth(1)).toBeVisible();
+});

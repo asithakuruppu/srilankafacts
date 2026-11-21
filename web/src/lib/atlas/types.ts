@@ -202,6 +202,8 @@ export type AtlasMeta = {
   features?: boolean;
   /** Landscape roll-ups (`landscape/`), modelled estimates from open spatial layers. */
   landscape?: boolean;
+  /** resolution.json: native resolution of every catalogue dataset (Finest view page). */
+  resolution?: boolean;
   /** Analytic grid files (`grid/<district>.json`) for the area tool (older bundles: undefined). */
   grid?: boolean;
   clusters: number;
@@ -323,4 +325,28 @@ export type StormFile = {
   snapshot_sha256: string;
   method: string;
   districts: Record<string, [string, string, number | null][]>;
+};
+
+/** One row of resolution.json (`slf atlas export`, from catalog/datasets). */
+export type ResolutionEntry = {
+  dataset_id: string;
+  title: string;
+  status: string;
+  support: string;
+  level: string | null;
+  native_resolution_text: string | null;
+  /** Null when the catalogue does not state a size plainly: shown as "not recorded". */
+  native_resolution_m: number | null;
+  information_unit: string | null;
+  information_count: number | null;
+  tier: "finer_than_gn" | "gn" | "coarser_than_gn" | "national" | "unknown";
+  shown_as: string;
+  derived_by: string | null;
+  indicators: number;
+  reference_period: string | null;
+  landing_page: string | null;
+  source_name: string | null;
+  rights_status: string;
+  use: string;
+  attribution: string | null;
 };
