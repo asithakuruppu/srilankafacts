@@ -15,7 +15,7 @@ Profiles: 335 LA and 323 MOH units, 100 and 88 with at least one flag. **Interna
 are `*_profiles_internal.json` in `pipeline/data/build/{la,health}/`, not committed, not copied to
 the site. Unmatched/unassigned rows stay in their CSVs (rule 6).
 
-## Later the same day: preview publication (D-056)
+## Later the same day: preview publication (D-057)
 
 After the lead's instruction, the gig-data run passes the rights gate through the new catalogue
 entry `nuuuwan-gig-data-lg-moh` and writes publishable files. Counts above are unchanged. The static

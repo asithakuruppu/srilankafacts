@@ -8,11 +8,11 @@ geography_scheme: admin
 geography_vintage: null
 reference_period: null
 rights: inherit
-# D-056: the lead's instruction to publish these two memberships in the non-commercial preview.
+# D-057: the lead's instruction to publish these two memberships in the non-commercial preview.
 # Not a licence; rights stay unclear. Covers lg_id and moh_id only, not the polling-division
 # columns (D-040 still holds) and not gig-data's shapes.
 publication:
-  decision: D-056
+  decision: D-057
   use: non_commercial
   attribution: "Membership of GN divisions in local authorities and MOH areas: nuuuwan/gig-data (community dataset, origin not stated by its author). Counts are from the Department of Census and Statistics, Census of Population and Housing 2024."
   notice: "No official list of GN divisions per local authority or MOH area is held. These memberships come from an unlicensed community dataset, are shown as a preview with their quality flags, and will be replaced by an official list or removed when one is obtained or on request."

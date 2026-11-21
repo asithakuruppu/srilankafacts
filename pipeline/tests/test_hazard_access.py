@@ -176,3 +176,46 @@ def test_access_ingest_only_total_cumulative(tmp_path: Path) -> None:
     assert [(r["indicator_id"], r["value"]) for r in rows] == [("access_hospital_30min", 80.5)]
     assert unmatched == ["heigit access: LK-99 Nowhere"]
     assert rows[0]["support_type"] == "area_mean" and rows[0]["verification"] == "machine_extracted"
+
+
+def test_ds_mapping_refuses_renames_and_splits(tmp_path: Path) -> None:
+    catalog = tmp_path / "catalog" / "geographies"
+    (catalog / "codes").mkdir(parents=True)
+    (catalog / "relations").mkdir()
+    pd.DataFrame(
+        {
+            "external_code": ["8101", "8102", "8103", "8104"],
+            "geography_id": ["LK8101", "LK8102", "LK8103", "LK8104"],
+        }
+    ).to_csv(catalog / "codes" / "dcs-census2024.csv", index=False)
+    pd.DataFrame(
+        {"relation": ["succeeded_by"], "related_id": ["LK8104"]},
+    ).to_csv(catalog / "relations" / "succession_ds_2012-2024.csv", index=False)
+    spine_ds = [
+        h.Place("LK8101", "Badulla", "LK81"),
+        h.Place("LK8102", "Ella", "LK81"),
+        h.Place("LK8103", "Seethawaka", "LK81"),
+        h.Place("LK8104", "Haputale", "LK81"),
+        h.Place("LK8105", "Passara", "LK81"),
+    ]
+    ds = pd.DataFrame(
+        {
+            "DISTRICT_N": ["Badulla"] * 6,
+            "dis_code": ["lka008001"] * 6,
+            "ds_code": [f"lka008001{n:03d}" for n in range(1, 7)],
+            "DSD_N": ["Badulla", "Ella(Town)", "Hanwella", "Haputale", "Passara", "Nowhere"],
+            # 5 has no DCS code, so it is matched by name; 6 matches nothing
+            "DSDCODE4": [8101, 8102, 8103, 8104, None, None],
+        }
+    )
+    cw = h.Crosswalk("desinventar")
+    h._map_ds(cw, spine_ds, ds, {"lka008001": "LK81"}, tmp_path / "catalog")
+    got = {r["external_code"]: (r["geography_id"], r["match_method"]) for r in cw.rows}
+    assert got == {
+        "lka008001001": ("LK8101", "exact_code"),
+        "lka008001002": ("LK8102", "exact_code"),  # name found inside the brackets? no: via code
+        "lka008001005": ("LK8105", "name_and_parent"),
+    }
+    assert any("Hanwella" in r and "renamed" in r for r in cw.review)  # code agrees, name does not
+    assert any("Haputale" in r and "split" in r for r in cw.review)  # lands on a split unit
+    assert any("Nowhere" in u for u in cw.unmatched)  # never forced

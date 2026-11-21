@@ -587,7 +587,20 @@ These were stated by you or are standing rules in [brainstorm-decisions.md](../b
 
 ---
 
-## D-056: LA and MOH memberships from gig-data are published in the non-commercial preview, flagged
+## D-056: Population-weighted grid v1 from WorldPop weights at H3 r9 and r10, built locally; web unchanged
+- **Status:** Proposed · 2026-11-21 (agent proposal; implements D-014, G07 steps 1, 5 and 6 in part; follows D-048's "revisit when"). The lead replied "approved" on 2026-11-21 to the report recommending WorldPop as the primary weight source; web adoption (`/area`) still waits for the bundle-size check.
+- **Context:** D-048 deferred population weights and resolution 10 until the G07 rights work was done.
+- **Decision:**
+  - `slf grid popweights` builds weights from WorldPop R2025A 100 m (CC BY 4.0): pixels to r10 cells by centre, normalised within each GN, r9 summed from r10. The weight file contains no census numbers and is commercial-capable. Kontur, Overture buildings and OSM are not used (unclear or ODbL); GHSL is not used as a weight.
+  - Census GN totals are apportioned in a separate `..._NONCOMMERCIAL` file that inherits D-030. Every row carries `weight_source`, `method`, `information_floor`, `data_nature`.
+  - Outputs stay local. `/area`, the resolver and the live release keep the D-048 equal-share r9 grid until the lead chooses a weight source (G07 step 4) and the bundle size is checked.
+- **Alternatives:** Kontur as weight (rights unclear); Overture/OSM buildings (ODbL, uneven completeness); GHSL built-up mask (not population).
+- **Consequences:** All GN totals reproduce exactly (max residual 3.6e-12 people over 13,967 GN). 53.5% of r10 cells carry no weight. 13 GN fall back to equal shares; 76 GN have no 2024 total. WorldPop's census input for Sri Lanka is unconfirmed.
+- **Revisit when:** the lead approves the weight source; DCS answers on reuse; web adopts r10 or the r9 population weights.
+
+---
+
+## D-057: LA and MOH memberships from gig-data are published in the non-commercial preview, flagged
 - **Status:** Accepted · 2026-11-21 (decided by the lead: "build the preview with no restrictions" until broader permissions are obtained; amends D-046 and D-055 on the rights gate only)
 - **Context:** No official GN list per local authority or MOH area is held (D-046). The only membership source, nuuuwan `gig-data`, has no licence and no stated origin. The lead wants the preview to carry LA and MOH profiles now and to stay a preview until permissions are obtained.
 - **Decision:** (1) A new catalogue entry `nuuuwan-gig-data-lg-moh` (`lg_id` and `moh_id` only) gets a `publication` block under this decision, as for D-030/D-032: non-commercial, attribution, notice, 7-day takedown; `rights.status` stays `unclear`. (2) LA and MOH compositions and profiles built from it are committed to `catalog/` and shown at `/units/la` and `/units/moh` with their known gaps and per-unit flags. (3) gig-data's polling-division columns stay local (D-040) and its shapes are not published. (4) The preview is non-commercial only; nothing is a commercial release.

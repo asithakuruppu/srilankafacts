@@ -32,7 +32,7 @@ export type UnitProfileFile = {
 
 export const UNAVAILABLE_REASON =
   "This build has no publishable membership list for this scheme: no official GN list per area is held, " +
-  "and a community list is shown only in builds that carry its preview notice (D-056).";
+  "and a community list is shown only in builds that carry its preview notice (D-057).";
 
 export function isUnitScheme(value: string): value is UnitScheme {
   return value in UNIT_SCHEMES;

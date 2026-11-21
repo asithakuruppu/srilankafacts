@@ -966,7 +966,7 @@ def composition_profile(
         folder,
         scheme,
         publishable=publishable,
-        source_note=f"{cg.GIG_LG_MOH_DATASET} (rights unclear; publication decision D-056)"
+        source_note=f"{cg.GIG_LG_MOH_DATASET} (rights unclear; publication decision D-057)"
         if publishable
         else "internal run on nuuuwan gig-data; not for publication",
         attribution=pub[0],
@@ -1234,6 +1234,26 @@ def grid_build(
         typer.echo(f"{key}: {value}")
 
 
+@grid_app.command("popweights")
+def grid_popweights(
+    worldpop_tif: Annotated[
+        Path, typer.Option(help="WorldPop 100 m constrained population GeoTIFF.")
+    ],
+    census_parquet: Annotated[Path, typer.Option(help="Release census-2024-gnd-tables.parquet.")],
+    spine_dir: Annotated[Path, typer.Option(help="Geography spine build folder.")] = Path(
+        "./data/build/geography-spine"
+    ),
+    out_dir: Annotated[Path, typer.Option(help="Output folder.")] = Path(
+        "./data/build/grid-popweighted"
+    ),
+) -> None:
+    """Population-weighted H3 r10 and r9 grid: WorldPop weights, GN census totals (G07)."""
+    from slf import grid_weights
+
+    summary = grid_weights.build(spine_dir, worldpop_tif, census_parquet, out_dir)
+    typer.echo(json.dumps(summary, indent=2, default=str))
+
+
 @app.command("resolve")
 def resolve(
     lon: Annotated[float, typer.Option(help="Longitude (EPSG:4326).")],
@@ -1359,3 +1379,31 @@ def hazard_access_build(
 
     summary = hazard_access.build(raw_root, spine_dir, catalog, out_dir, out_dir / "_work")
     typer.echo(f"{summary['rows']} rows, {len(summary['indicators'])} indicators")
+
+
+@hazard_app.command("checks")
+def hazard_access_checks(
+    raw_root: Annotated[Path, typer.Option(help="Folder holding raw/<source>/<dataset>/.")] = Path(
+        "./data/raw"
+    ),
+    spine_dir: Annotated[Path, typer.Option(help="Geography spine build folder.")] = Path(
+        "./data/build/geography-spine"
+    ),
+    release_dir: Annotated[
+        Path, typer.Option(help="A release folder (census 2024 figures).")
+    ] = Path("./data/build/releases/v2026.11.19"),
+    build_dir: Annotated[Path, typer.Option(help="`slf hazard-access build` output.")] = Path(
+        "./data/build/hazard-access"
+    ),
+    catalog: Annotated[Path, typer.Option(help="Catalogue root.")] = Path("../catalog"),
+) -> None:
+    """Cross-check the indicators against independent figures; writes checks.md and checks.json."""
+    from slf import hazard_checks
+
+    checks = hazard_checks.run(
+        raw_root, spine_dir, release_dir, build_dir / "observations.parquet", catalog
+    )
+    path = hazard_checks.write(checks, build_dir)
+    for c in checks:
+        typer.echo(f"{c.id}: {c.result}")
+    typer.echo(f"report -> {path}")

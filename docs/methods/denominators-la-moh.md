@@ -1,6 +1,6 @@
 # Method: local authorities and MOH areas as GN compositions (G05, schemes `la` and `health`)
 
-Status: **built; preview publishes gig-data memberships under D-056 (non-commercial, flagged); no official list held** · 2026-11-17 · Decision: D-046
+Status: **built; preview publishes gig-data memberships under D-057 (non-commercial, flagged); no official list held** · 2026-11-17 · Decision: D-046
 (Proposed) · Module `pipeline/slf/datasets/composed_geography.py` · command
 `uv run slf composition build` · QA: [la-moh-composition-2026-11-17.md](../qa/la-moh-composition-2026-11-17.md)
 
@@ -83,7 +83,7 @@ GN, some GN without census, shape IoU < 0.9, DCS type share < 0.9). The website 
 `units-health.json` into the atlas bundle, only from non-internal files that say
 `publishable: true`.
 
-## Preview publication (2026-11-21, D-056)
+## Preview publication (2026-11-21, D-057)
 
 The lead decided the preview carries LA and MOH profiles now. Catalogue entry
 `nuuuwan-gig-data-lg-moh` (lg_id and moh_id only) has a `publication` block; `rights.status` stays

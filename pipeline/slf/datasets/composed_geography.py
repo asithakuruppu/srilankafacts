@@ -574,5 +574,5 @@ def units_csv(units: Iterable[Unit]) -> str:
 
 
 GIG_SOURCE_DATASET = GIG_DATASET
-# Catalogue entry for the lg_id / moh_id memberships alone (D-056); the rights gate reads it.
+# Catalogue entry for the lg_id / moh_id memberships alone (D-057); the rights gate reads it.
 GIG_LG_MOH_DATASET = "nuuuwan-gig-data-lg-moh"
