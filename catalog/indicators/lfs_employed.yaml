@@ -1,0 +1,18 @@
+id: lfs_employed
+name: "Employed persons (LFS 2024)"
+short_name: "Employed (LFS)"
+topic: [labour]
+measure_type: count
+unit: "persons"
+universe: persons_15_plus
+numerator: null
+denominator: null
+aggregation: none
+higher_is: neutral
+distribution: downloads_only
+decimals: 0
+sensitivity: public
+definition: >
+  Currently employed persons aged 15+, Labour Force Survey 2024.
+source_definition_ref: "LFS Annual Report 2024, Table 12"
+methodology_notes: docs/methods/stat-tables.md

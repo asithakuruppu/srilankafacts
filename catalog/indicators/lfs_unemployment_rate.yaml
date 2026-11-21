@@ -1,0 +1,18 @@
+id: lfs_unemployment_rate
+name: "Unemployment rate (LFS 2024)"
+short_name: "Unemployment rate"
+topic: [labour]
+measure_type: rate
+unit: "percent"
+universe: labour_force
+numerator: null
+denominator: null
+aggregation: none
+higher_is: worse
+distribution: downloads_only
+decimals: 1
+sensitivity: public
+definition: >
+  Unemployed persons as a percentage of the labour force, Labour Force Survey 2024.
+source_definition_ref: "LFS Annual Report 2024, Table 12"
+methodology_notes: docs/methods/stat-tables.md

@@ -1398,3 +1398,43 @@ def hazard_access_checks(
     for c in checks:
         typer.echo(f"{c.id}: {c.result}")
     typer.echo(f"report -> {path}")
+
+
+stat_app = typer.Typer(help="Statistical tables (HIES, LFS, paddy).", no_args_is_help=True)
+app.add_typer(stat_app, name="stat-tables")
+
+
+@stat_app.command("build")
+def stat_tables_build(
+    raw_root: Annotated[Path, typer.Option(help="Folder holding raw/<source>/<dataset>/.")] = Path(
+        "./data/raw"
+    ),
+    catalog_root: Annotated[Path, typer.Option(help="Catalogue folder.")] = Path("../catalog"),
+    spine_dir: Annotated[Path, typer.Option(help="Geography spine build folder.")] = Path(
+        "./data/build/geography-spine"
+    ),
+    pages_dir: Annotated[
+        Path, typer.Option(help="PDF text per page: <dir>/<pdf name>/page-NNN.txt")
+    ] = Path("./data/build/stat-tables/pdf-pages"),
+    out_dir: Annotated[Path, typer.Option(help="Output folder.")] = Path(
+        "./data/build/stat-tables"
+    ),
+) -> None:
+    """Ingest HIES 2019 poverty, LFS 2024 district and paddy tables into private observations."""
+    from slf import stat_tables
+
+    results = stat_tables.build_all(
+        raw_root=raw_root,
+        catalog_root=catalog_root,
+        spine_dir=spine_dir,
+        pages_dir=pages_dir,
+        out_dir=out_dir,
+    )
+    for res, _ in results:
+        failed = [n for n, ok, _ in res.checks if not ok]
+        typer.echo(
+            f"{res.dataset_id}: {len(res.rows)} observations, {len(res.unmatched)} unmatched, "
+            f"{len(res.checks) - len(failed)}/{len(res.checks)} checks passed"
+        )
+        for n in failed:
+            typer.echo(f"  FAILED: {n}", err=True)

@@ -1,0 +1,18 @@
+id: poverty_contribution_updated_pl
+name: "Contribution to total poverty (updated poverty line, 2019)"
+short_name: "Share of all poor (updated line)"
+topic: [poverty]
+measure_type: share
+unit: "percent"
+universe: persons
+numerator: null
+denominator: null
+aggregation: none
+higher_is: neutral
+distribution: downloads_only
+decimals: 1
+sensitivity: public
+definition: >
+  Percentage of all persons below the updated poverty line in Sri Lanka who live in the area (HIES 2019).
+source_definition_ref: "Poverty Indicators 2019, Table 04"
+methodology_notes: docs/methods/stat-tables.md

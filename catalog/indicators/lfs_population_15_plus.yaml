@@ -1,0 +1,18 @@
+id: lfs_population_15_plus
+name: "Household population aged 15 and over (LFS 2024)"
+short_name: "Population 15+ (LFS)"
+topic: [labour]
+measure_type: count
+unit: "persons"
+universe: persons_15_plus
+numerator: null
+denominator: null
+aggregation: none
+higher_is: neutral
+distribution: downloads_only
+decimals: 0
+sensitivity: public
+definition: >
+  Household population aged 15 years and over, as estimated by the Labour Force Survey 2024 (a survey estimate, not the census count).
+source_definition_ref: "LFS Annual Report 2024, Table 12"
+methodology_notes: docs/methods/stat-tables.md

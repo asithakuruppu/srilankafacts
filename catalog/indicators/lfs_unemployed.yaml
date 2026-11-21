@@ -1,0 +1,18 @@
+id: lfs_unemployed
+name: "Unemployed persons (LFS 2024)"
+short_name: "Unemployed (LFS)"
+topic: [labour]
+measure_type: count
+unit: "persons"
+universe: persons_15_plus
+numerator: null
+denominator: null
+aggregation: none
+higher_is: worse
+distribution: downloads_only
+decimals: 0
+sensitivity: public
+definition: >
+  Currently unemployed persons aged 15+, Labour Force Survey 2024. DCS notes high coefficients of variation for some districts.
+source_definition_ref: "LFS Annual Report 2024, Table 12"
+methodology_notes: docs/methods/stat-tables.md
