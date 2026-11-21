@@ -1,0 +1,342 @@
+geography_id,vintage,code_system,external_code,external_name,match_method,confidence,notes
+LK-LA-11001,gig-2026-11,nuuuwan-gig-data-lg-moh,11001,Colombo MC,exact_code,1.0,kind MC
+LK-LA-11002,gig-2026-11,nuuuwan-gig-data-lg-moh,11002,Dehiwala Mount Lavinia MC,exact_code,1.0,kind MC
+LK-LA-11003,gig-2026-11,nuuuwan-gig-data-lg-moh,11003,Sri Jayawardenepura Kotte MC,exact_code,1.0,kind MC
+LK-LA-11004,gig-2026-11,nuuuwan-gig-data-lg-moh,11004,Moratuwa MC,exact_code,1.0,kind MC
+LK-LA-11005,gig-2026-11,nuuuwan-gig-data-lg-moh,11005,Kaduwela MC,exact_code,1.0,kind MC
+LK-LA-11006,gig-2026-11,nuuuwan-gig-data-lg-moh,11006,Kollonnawa UC,exact_code,1.0,kind UC
+LK-LA-11007,gig-2026-11,nuuuwan-gig-data-lg-moh,11007,Seethawakapura UC,exact_code,1.0,kind UC
+LK-LA-11008,gig-2026-11,nuuuwan-gig-data-lg-moh,11008,Maharagama UC,exact_code,1.0,kind UC
+LK-LA-11009,gig-2026-11,nuuuwan-gig-data-lg-moh,11009,Kesbewa UC,exact_code,1.0,kind UC
+LK-LA-11010,gig-2026-11,nuuuwan-gig-data-lg-moh,11010,Boralesgamuwa UC,exact_code,1.0,kind UC
+LK-LA-11011,gig-2026-11,nuuuwan-gig-data-lg-moh,11011,Kotikawatta Mulleriyawa PS,exact_code,1.0,kind PS
+LK-LA-11012,gig-2026-11,nuuuwan-gig-data-lg-moh,11012,Seethawaka PS,exact_code,1.0,kind PS
+LK-LA-11013,gig-2026-11,nuuuwan-gig-data-lg-moh,11013,Homagama PS,exact_code,1.0,kind PS
+LK-LA-12014,gig-2026-11,nuuuwan-gig-data-lg-moh,12014,Negombo MC,exact_code,1.0,kind MC
+LK-LA-12015,gig-2026-11,nuuuwan-gig-data-lg-moh,12015,Gampaha MC,exact_code,1.0,kind MC
+LK-LA-12016,gig-2026-11,nuuuwan-gig-data-lg-moh,12016,Wattala Mabola UC,exact_code,1.0,kind UC
+LK-LA-12017,gig-2026-11,nuuuwan-gig-data-lg-moh,12017,Katunayaka Seeduwa UC,exact_code,1.0,kind UC
+LK-LA-12018,gig-2026-11,nuuuwan-gig-data-lg-moh,12018,Minuwangoda UC,exact_code,1.0,kind UC
+LK-LA-12019,gig-2026-11,nuuuwan-gig-data-lg-moh,12019,Ja Ela UC,exact_code,1.0,kind UC
+LK-LA-12020,gig-2026-11,nuuuwan-gig-data-lg-moh,12020,Peliyagoda UC,exact_code,1.0,kind UC
+LK-LA-12021,gig-2026-11,nuuuwan-gig-data-lg-moh,12021,Wattala PS,exact_code,1.0,kind PS
+LK-LA-12022,gig-2026-11,nuuuwan-gig-data-lg-moh,12022,Katana PS,exact_code,1.0,kind PS
+LK-LA-12023,gig-2026-11,nuuuwan-gig-data-lg-moh,12023,Divulapitiya PS,exact_code,1.0,kind PS
+LK-LA-12024,gig-2026-11,nuuuwan-gig-data-lg-moh,12024,Mirigama PS,exact_code,1.0,kind PS
+LK-LA-12025,gig-2026-11,nuuuwan-gig-data-lg-moh,12025,Minuwangoda PS,exact_code,1.0,kind PS
+LK-LA-12026,gig-2026-11,nuuuwan-gig-data-lg-moh,12026,Attanagalla PS,exact_code,1.0,kind PS
+LK-LA-12027,gig-2026-11,nuuuwan-gig-data-lg-moh,12027,Gampaha PS,exact_code,1.0,kind PS
+LK-LA-12028,gig-2026-11,nuuuwan-gig-data-lg-moh,12028,Ja Ela PS,exact_code,1.0,kind PS
+LK-LA-12029,gig-2026-11,nuuuwan-gig-data-lg-moh,12029,Mahara PS,exact_code,1.0,kind PS
+LK-LA-12030,gig-2026-11,nuuuwan-gig-data-lg-moh,12030,Dompe PS,exact_code,1.0,kind PS
+LK-LA-12031,gig-2026-11,nuuuwan-gig-data-lg-moh,12031,Biyagama PS,exact_code,1.0,kind PS
+LK-LA-12032,gig-2026-11,nuuuwan-gig-data-lg-moh,12032,Kelaniya PS,exact_code,1.0,kind PS
+LK-LA-13033,gig-2026-11,nuuuwan-gig-data-lg-moh,13033,Panadura UC,exact_code,1.0,kind UC
+LK-LA-13034,gig-2026-11,nuuuwan-gig-data-lg-moh,13034,Horana UC,exact_code,1.0,kind UC
+LK-LA-13035,gig-2026-11,nuuuwan-gig-data-lg-moh,13035,Kalutara MC,exact_code,1.0,kind MC
+LK-LA-13036,gig-2026-11,nuuuwan-gig-data-lg-moh,13036,Beruwala UC,exact_code,1.0,kind UC
+LK-LA-13037,gig-2026-11,nuuuwan-gig-data-lg-moh,13037,Panadura PS,exact_code,1.0,kind PS
+LK-LA-13038,gig-2026-11,nuuuwan-gig-data-lg-moh,13038,Bandaragama PS,exact_code,1.0,kind PS
+LK-LA-13039,gig-2026-11,nuuuwan-gig-data-lg-moh,13039,Horana PS,exact_code,1.0,kind PS
+LK-LA-13040,gig-2026-11,nuuuwan-gig-data-lg-moh,13040,Madurawala PS,exact_code,1.0,kind PS
+LK-LA-13041,gig-2026-11,nuuuwan-gig-data-lg-moh,13041,Bulathsinhala PS,exact_code,1.0,kind PS
+LK-LA-13042,gig-2026-11,nuuuwan-gig-data-lg-moh,13042,Mathugama PS,exact_code,1.0,kind PS
+LK-LA-13043,gig-2026-11,nuuuwan-gig-data-lg-moh,13043,Dodangoda PS,exact_code,1.0,kind PS
+LK-LA-13044,gig-2026-11,nuuuwan-gig-data-lg-moh,13044,Kalutara PS,exact_code,1.0,kind PS
+LK-LA-13045,gig-2026-11,nuuuwan-gig-data-lg-moh,13045,Beruwala PS,exact_code,1.0,kind PS
+LK-LA-13046,gig-2026-11,nuuuwan-gig-data-lg-moh,13046,Palindanuwara PS,exact_code,1.0,kind PS
+LK-LA-13047,gig-2026-11,nuuuwan-gig-data-lg-moh,13047,Agalawaththa PS,exact_code,1.0,kind PS
+LK-LA-13048,gig-2026-11,nuuuwan-gig-data-lg-moh,13048,Millaniya PS,exact_code,1.0,kind PS
+LK-LA-13049,gig-2026-11,nuuuwan-gig-data-lg-moh,13049,Walallawita PS,exact_code,1.0,kind PS
+LK-LA-21050,gig-2026-11,nuuuwan-gig-data-lg-moh,21050,Kandy MC,exact_code,1.0,kind MC
+LK-LA-21051,gig-2026-11,nuuuwan-gig-data-lg-moh,21051,Wattegama UC,exact_code,1.0,kind UC
+LK-LA-21052,gig-2026-11,nuuuwan-gig-data-lg-moh,21052,Kadugannawa UC,exact_code,1.0,kind UC
+LK-LA-21053,gig-2026-11,nuuuwan-gig-data-lg-moh,21053,Gampola UC,exact_code,1.0,kind UC
+LK-LA-21054,gig-2026-11,nuuuwan-gig-data-lg-moh,21054,Nawalapitiya UC,exact_code,1.0,kind UC
+LK-LA-21055,gig-2026-11,nuuuwan-gig-data-lg-moh,21055,Thumpane PS,exact_code,1.0,kind PS
+LK-LA-21056,gig-2026-11,nuuuwan-gig-data-lg-moh,21056,Harispattuwa PS,exact_code,1.0,kind PS
+LK-LA-21057,gig-2026-11,nuuuwan-gig-data-lg-moh,21057,Akurana PS,exact_code,1.0,kind PS
+LK-LA-21058,gig-2026-11,nuuuwan-gig-data-lg-moh,21058,Poojapitiya PS,exact_code,1.0,kind PS
+LK-LA-21059,gig-2026-11,nuuuwan-gig-data-lg-moh,21059,Pathadumbara PS,exact_code,1.0,kind PS
+LK-LA-21060,gig-2026-11,nuuuwan-gig-data-lg-moh,21060,Panwila PS,exact_code,1.0,kind PS
+LK-LA-21061,gig-2026-11,nuuuwan-gig-data-lg-moh,21061,Udadumbara PS,exact_code,1.0,kind PS
+LK-LA-21062,gig-2026-11,nuuuwan-gig-data-lg-moh,21062,Minipe PS,exact_code,1.0,kind PS
+LK-LA-21063,gig-2026-11,nuuuwan-gig-data-lg-moh,21063,Medadumbara PS,exact_code,1.0,kind PS
+LK-LA-21064,gig-2026-11,nuuuwan-gig-data-lg-moh,21064,Kundasale PS,exact_code,1.0,kind PS
+LK-LA-21065,gig-2026-11,nuuuwan-gig-data-lg-moh,21065,Pathahewaheta PS,exact_code,1.0,kind PS
+LK-LA-21066,gig-2026-11,nuuuwan-gig-data-lg-moh,21066,Kandy Four Gravets And Gangawata Korale PS,exact_code,1.0,kind PS
+LK-LA-21067,gig-2026-11,nuuuwan-gig-data-lg-moh,21067,Yatinuwara PS,exact_code,1.0,kind PS
+LK-LA-21068,gig-2026-11,nuuuwan-gig-data-lg-moh,21068,Udunuwara PS,exact_code,1.0,kind PS
+LK-LA-21069,gig-2026-11,nuuuwan-gig-data-lg-moh,21069,Udapalatha PS,exact_code,1.0,kind PS
+LK-LA-21070,gig-2026-11,nuuuwan-gig-data-lg-moh,21070,Ganga Ihala Korale PS,exact_code,1.0,kind PS
+LK-LA-21071,gig-2026-11,nuuuwan-gig-data-lg-moh,21071,Pasbage Korale PS,exact_code,1.0,kind PS
+LK-LA-22072,gig-2026-11,nuuuwan-gig-data-lg-moh,22072,Dambulla MC,exact_code,1.0,kind MC
+LK-LA-22073,gig-2026-11,nuuuwan-gig-data-lg-moh,22073,Matale MC,exact_code,1.0,kind MC
+LK-LA-22074,gig-2026-11,nuuuwan-gig-data-lg-moh,22074,Pallepola PS,exact_code,1.0,kind PS
+LK-LA-22075,gig-2026-11,nuuuwan-gig-data-lg-moh,22075,Galewela PS,exact_code,1.0,kind PS
+LK-LA-22076,gig-2026-11,nuuuwan-gig-data-lg-moh,22076,Dambulla PS,exact_code,1.0,kind PS
+LK-LA-22077,gig-2026-11,nuuuwan-gig-data-lg-moh,22077,Ambanganga Korale PS,exact_code,1.0,kind PS
+LK-LA-22078,gig-2026-11,nuuuwan-gig-data-lg-moh,22078,Naula PS,exact_code,1.0,kind PS
+LK-LA-22079,gig-2026-11,nuuuwan-gig-data-lg-moh,22079,Laggala Pallegama PS,exact_code,1.0,kind PS
+LK-LA-22080,gig-2026-11,nuuuwan-gig-data-lg-moh,22080,Wilgamuwa PS,exact_code,1.0,kind PS
+LK-LA-22081,gig-2026-11,nuuuwan-gig-data-lg-moh,22081,Matale PS,exact_code,1.0,kind PS
+LK-LA-22082,gig-2026-11,nuuuwan-gig-data-lg-moh,22082,Yatawatta PS,exact_code,1.0,kind PS
+LK-LA-22083,gig-2026-11,nuuuwan-gig-data-lg-moh,22083,Ukuwela PS,exact_code,1.0,kind PS
+LK-LA-22084,gig-2026-11,nuuuwan-gig-data-lg-moh,22084,Rattota PS,exact_code,1.0,kind PS
+LK-LA-23085,gig-2026-11,nuuuwan-gig-data-lg-moh,23085,Nuwara Eliya MC,exact_code,1.0,kind MC
+LK-LA-23086,gig-2026-11,nuuuwan-gig-data-lg-moh,23086,Hatton Dickoya UC,exact_code,1.0,kind UC
+LK-LA-23087,gig-2026-11,nuuuwan-gig-data-lg-moh,23087,Thalawakele Lindula UC,exact_code,1.0,kind UC
+LK-LA-23088,gig-2026-11,nuuuwan-gig-data-lg-moh,23088,Maskeliya PS,exact_code,1.0,kind PS
+LK-LA-23089,gig-2026-11,nuuuwan-gig-data-lg-moh,23089,Norwood PS,exact_code,1.0,kind PS
+LK-LA-23090,gig-2026-11,nuuuwan-gig-data-lg-moh,23090,Ambagamuwa PS,exact_code,1.0,kind PS
+LK-LA-23091,gig-2026-11,nuuuwan-gig-data-lg-moh,23091,Agarapathana PS,exact_code,1.0,kind PS
+LK-LA-23092,gig-2026-11,nuuuwan-gig-data-lg-moh,23092,Kotagala PS,exact_code,1.0,kind PS
+LK-LA-23093,gig-2026-11,nuuuwan-gig-data-lg-moh,23093,Nuwaraeliya PS,exact_code,1.0,kind PS
+LK-LA-23094,gig-2026-11,nuuuwan-gig-data-lg-moh,23094,Kothmale PS,exact_code,1.0,kind PS
+LK-LA-23095,gig-2026-11,nuuuwan-gig-data-lg-moh,23095,Hanguranketha PS,exact_code,1.0,kind PS
+LK-LA-23096,gig-2026-11,nuuuwan-gig-data-lg-moh,23096,Walapane PS,exact_code,1.0,kind PS
+LK-LA-31097,gig-2026-11,nuuuwan-gig-data-lg-moh,31097,Galle MC,exact_code,1.0,kind MC
+LK-LA-31098,gig-2026-11,nuuuwan-gig-data-lg-moh,31098,Ambalangoda UC,exact_code,1.0,kind UC
+LK-LA-31099,gig-2026-11,nuuuwan-gig-data-lg-moh,31099,Hikkaduwa UC,exact_code,1.0,kind UC
+LK-LA-31100,gig-2026-11,nuuuwan-gig-data-lg-moh,31100,Balapitiya PS,exact_code,1.0,kind PS
+LK-LA-31101,gig-2026-11,nuuuwan-gig-data-lg-moh,31101,Ambalangoda PS,exact_code,1.0,kind PS
+LK-LA-31102,gig-2026-11,nuuuwan-gig-data-lg-moh,31102,Welivitiya Divithura PS,exact_code,1.0,kind PS
+LK-LA-31103,gig-2026-11,nuuuwan-gig-data-lg-moh,31103,Karandeniya PS,exact_code,1.0,kind PS
+LK-LA-31104,gig-2026-11,nuuuwan-gig-data-lg-moh,31104,Bentota PS,exact_code,1.0,kind PS
+LK-LA-31105,gig-2026-11,nuuuwan-gig-data-lg-moh,31105,Elpitiya PS,exact_code,1.0,kind PS
+LK-LA-31106,gig-2026-11,nuuuwan-gig-data-lg-moh,31106,Neluwa PS,exact_code,1.0,kind PS
+LK-LA-31107,gig-2026-11,nuuuwan-gig-data-lg-moh,31107,Thawalama PS,exact_code,1.0,kind PS
+LK-LA-31108,gig-2026-11,nuuuwan-gig-data-lg-moh,31108,Nagoda PS,exact_code,1.0,kind PS
+LK-LA-31109,gig-2026-11,nuuuwan-gig-data-lg-moh,31109,Niyagama PS,exact_code,1.0,kind PS
+LK-LA-31110,gig-2026-11,nuuuwan-gig-data-lg-moh,31110,Baddegama PS,exact_code,1.0,kind PS
+LK-LA-31111,gig-2026-11,nuuuwan-gig-data-lg-moh,31111,Yakkalamulla PS,exact_code,1.0,kind PS
+LK-LA-31112,gig-2026-11,nuuuwan-gig-data-lg-moh,31112,Rajgama PS,exact_code,1.0,kind PS
+LK-LA-31113,gig-2026-11,nuuuwan-gig-data-lg-moh,31113,Akmeemana PS,exact_code,1.0,kind PS
+LK-LA-31114,gig-2026-11,nuuuwan-gig-data-lg-moh,31114,Bope Poddala PS,exact_code,1.0,kind PS
+LK-LA-31115,gig-2026-11,nuuuwan-gig-data-lg-moh,31115,Imaduwa PS,exact_code,1.0,kind PS
+LK-LA-31116,gig-2026-11,nuuuwan-gig-data-lg-moh,31116,Habaraduwa PS,exact_code,1.0,kind PS
+LK-LA-32117,gig-2026-11,nuuuwan-gig-data-lg-moh,32117,Matara MC,exact_code,1.0,kind MC
+LK-LA-32118,gig-2026-11,nuuuwan-gig-data-lg-moh,32118,Weligama UC,exact_code,1.0,kind UC
+LK-LA-32119,gig-2026-11,nuuuwan-gig-data-lg-moh,32119,Pitabeddara PS,exact_code,1.0,kind PS
+LK-LA-32120,gig-2026-11,nuuuwan-gig-data-lg-moh,32120,Kotapola PS,exact_code,1.0,kind PS
+LK-LA-32121,gig-2026-11,nuuuwan-gig-data-lg-moh,32121,Kirinda Puhulwella PS,exact_code,1.0,kind PS
+LK-LA-32122,gig-2026-11,nuuuwan-gig-data-lg-moh,32122,Mulatiyana PS,exact_code,1.0,kind PS
+LK-LA-32123,gig-2026-11,nuuuwan-gig-data-lg-moh,32123,Pasgoda PS,exact_code,1.0,kind PS
+LK-LA-32124,gig-2026-11,nuuuwan-gig-data-lg-moh,32124,Athuraliya PS,exact_code,1.0,kind PS
+LK-LA-32125,gig-2026-11,nuuuwan-gig-data-lg-moh,32125,Akuressa PS,exact_code,1.0,kind PS
+LK-LA-32126,gig-2026-11,nuuuwan-gig-data-lg-moh,32126,Malimbada PS,exact_code,1.0,kind PS
+LK-LA-32127,gig-2026-11,nuuuwan-gig-data-lg-moh,32127,Hakmana PS,exact_code,1.0,kind PS
+LK-LA-32128,gig-2026-11,nuuuwan-gig-data-lg-moh,32128,Kamburupitiya PS,exact_code,1.0,kind PS
+LK-LA-32129,gig-2026-11,nuuuwan-gig-data-lg-moh,32129,Thihagoda PS,exact_code,1.0,kind PS
+LK-LA-32130,gig-2026-11,nuuuwan-gig-data-lg-moh,32130,Devinuwara PS,exact_code,1.0,kind PS
+LK-LA-32131,gig-2026-11,nuuuwan-gig-data-lg-moh,32131,Dickwella PS,exact_code,1.0,kind PS
+LK-LA-32132,gig-2026-11,nuuuwan-gig-data-lg-moh,32132,Matara PS,exact_code,1.0,kind PS
+LK-LA-32133,gig-2026-11,nuuuwan-gig-data-lg-moh,32133,Weligama PS,exact_code,1.0,kind PS
+LK-LA-33134,gig-2026-11,nuuuwan-gig-data-lg-moh,33134,Hambantota MC,exact_code,1.0,kind MC
+LK-LA-33135,gig-2026-11,nuuuwan-gig-data-lg-moh,33135,Tangalle UC,exact_code,1.0,kind UC
+LK-LA-33136,gig-2026-11,nuuuwan-gig-data-lg-moh,33136,Weeraketiya PS,exact_code,1.0,kind PS
+LK-LA-33137,gig-2026-11,nuuuwan-gig-data-lg-moh,33137,Katuwana PS,exact_code,1.0,kind PS
+LK-LA-33138,gig-2026-11,nuuuwan-gig-data-lg-moh,33138,Beliatta PS,exact_code,1.0,kind PS
+LK-LA-33139,gig-2026-11,nuuuwan-gig-data-lg-moh,33139,Tangalle PS,exact_code,1.0,kind PS
+LK-LA-33140,gig-2026-11,nuuuwan-gig-data-lg-moh,33140,Angunakolapelessa PS,exact_code,1.0,kind PS
+LK-LA-33141,gig-2026-11,nuuuwan-gig-data-lg-moh,33141,Ambalantota PS,exact_code,1.0,kind PS
+LK-LA-33142,gig-2026-11,nuuuwan-gig-data-lg-moh,33142,Thissamaharama PS,exact_code,1.0,kind PS
+LK-LA-33143,gig-2026-11,nuuuwan-gig-data-lg-moh,33143,Sooriyawewa PS,exact_code,1.0,kind PS
+LK-LA-33144,gig-2026-11,nuuuwan-gig-data-lg-moh,33144,Hambantota PS,exact_code,1.0,kind PS
+LK-LA-33145,gig-2026-11,nuuuwan-gig-data-lg-moh,33145,Lunugamwehera PS,exact_code,1.0,kind PS
+LK-LA-41146,gig-2026-11,nuuuwan-gig-data-lg-moh,41146,Jaffna MC,exact_code,1.0,kind MC
+LK-LA-41147,gig-2026-11,nuuuwan-gig-data-lg-moh,41147,Valvettithurai UC,exact_code,1.0,kind UC
+LK-LA-41148,gig-2026-11,nuuuwan-gig-data-lg-moh,41148,Point Pedro UC,exact_code,1.0,kind UC
+LK-LA-41149,gig-2026-11,nuuuwan-gig-data-lg-moh,41149,Chavakachcheri UC,exact_code,1.0,kind UC
+LK-LA-41150,gig-2026-11,nuuuwan-gig-data-lg-moh,41150,Karainagar PS,exact_code,1.0,kind PS
+LK-LA-41151,gig-2026-11,nuuuwan-gig-data-lg-moh,41151,Kayts PS,exact_code,1.0,kind PS
+LK-LA-41152,gig-2026-11,nuuuwan-gig-data-lg-moh,41152,Delft PS,exact_code,1.0,kind PS
+LK-LA-41153,gig-2026-11,nuuuwan-gig-data-lg-moh,41153,Velanai PS,exact_code,1.0,kind PS
+LK-LA-41154,gig-2026-11,nuuuwan-gig-data-lg-moh,41154,Valikamam West PS,exact_code,1.0,kind PS
+LK-LA-41155,gig-2026-11,nuuuwan-gig-data-lg-moh,41155,Walikamam North PS,exact_code,1.0,kind PS
+LK-LA-41156,gig-2026-11,nuuuwan-gig-data-lg-moh,41156,Walikamam South West PS,exact_code,1.0,kind PS
+LK-LA-41157,gig-2026-11,nuuuwan-gig-data-lg-moh,41157,Walikamam South PS,exact_code,1.0,kind PS
+LK-LA-41158,gig-2026-11,nuuuwan-gig-data-lg-moh,41158,Walikamam East PS,exact_code,1.0,kind PS
+LK-LA-41159,gig-2026-11,nuuuwan-gig-data-lg-moh,41159,Wadamarachchi South West PS,exact_code,1.0,kind PS
+LK-LA-41160,gig-2026-11,nuuuwan-gig-data-lg-moh,41160,Point Pedro PS,exact_code,1.0,kind PS
+LK-LA-41161,gig-2026-11,nuuuwan-gig-data-lg-moh,41161,Chawakachcheri PS,exact_code,1.0,kind PS
+LK-LA-41162,gig-2026-11,nuuuwan-gig-data-lg-moh,41162,Nallur PS,exact_code,1.0,kind PS
+LK-LA-42166,gig-2026-11,nuuuwan-gig-data-lg-moh,42166,Mannar UC,exact_code,1.0,kind UC
+LK-LA-42167,gig-2026-11,nuuuwan-gig-data-lg-moh,42167,Mannar PS,exact_code,1.0,kind PS
+LK-LA-42168,gig-2026-11,nuuuwan-gig-data-lg-moh,42168,Nanattan PS,exact_code,1.0,kind PS
+LK-LA-42169,gig-2026-11,nuuuwan-gig-data-lg-moh,42169,Musali PS,exact_code,1.0,kind PS
+LK-LA-42170,gig-2026-11,nuuuwan-gig-data-lg-moh,42170,Manthai West PS,exact_code,1.0,kind PS
+LK-LA-43171,gig-2026-11,nuuuwan-gig-data-lg-moh,43171,Vavuniya MC,exact_code,1.0,kind MC
+LK-LA-43172,gig-2026-11,nuuuwan-gig-data-lg-moh,43172,Vavuniya North PS,exact_code,1.0,kind PS
+LK-LA-43173,gig-2026-11,nuuuwan-gig-data-lg-moh,43173,Vengalasettikulam PS,exact_code,1.0,kind PS
+LK-LA-43174,gig-2026-11,nuuuwan-gig-data-lg-moh,43174,Vavuniya South Tamil PS,exact_code,1.0,kind PS
+LK-LA-43175,gig-2026-11,nuuuwan-gig-data-lg-moh,43175,Vavuniya South Sinhala PS,exact_code,1.0,kind PS
+LK-LA-44176,gig-2026-11,nuuuwan-gig-data-lg-moh,44176,Manthai East PS,exact_code,1.0,kind PS
+LK-LA-44177,gig-2026-11,nuuuwan-gig-data-lg-moh,44177,Thunukkai PS,exact_code,1.0,kind PS
+LK-LA-44178,gig-2026-11,nuuuwan-gig-data-lg-moh,44178,Puthukkudiyiruppu PS,exact_code,1.0,kind PS
+LK-LA-44179,gig-2026-11,nuuuwan-gig-data-lg-moh,44179,Maritime Pattu PS,exact_code,1.0,kind PS
+LK-LA-45163,gig-2026-11,nuuuwan-gig-data-lg-moh,45163,Pachchilaippalli PS,exact_code,1.0,kind PS
+LK-LA-45164,gig-2026-11,nuuuwan-gig-data-lg-moh,45164,Karachchi PS,exact_code,1.0,kind PS
+LK-LA-45165,gig-2026-11,nuuuwan-gig-data-lg-moh,45165,Poonakary PS,exact_code,1.0,kind PS
+LK-LA-51180,gig-2026-11,nuuuwan-gig-data-lg-moh,51180,Batticaloa MC,exact_code,1.0,kind MC
+LK-LA-51181,gig-2026-11,nuuuwan-gig-data-lg-moh,51181,Eravur UC,exact_code,1.0,kind UC
+LK-LA-51182,gig-2026-11,nuuuwan-gig-data-lg-moh,51182,Kaththankudi UC,exact_code,1.0,kind UC
+LK-LA-51183,gig-2026-11,nuuuwan-gig-data-lg-moh,51183,Eravur Pattu PS,exact_code,1.0,kind PS
+LK-LA-51184,gig-2026-11,nuuuwan-gig-data-lg-moh,51184,Koralai Pattu PS,exact_code,1.0,kind PS
+LK-LA-51185,gig-2026-11,nuuuwan-gig-data-lg-moh,51185,Koralai Pattu West PS,exact_code,1.0,kind PS
+LK-LA-51186,gig-2026-11,nuuuwan-gig-data-lg-moh,51186,Koralai Pattu North PS,exact_code,1.0,kind PS
+LK-LA-51187,gig-2026-11,nuuuwan-gig-data-lg-moh,51187,Manmunai South And Eruvil Pattu PS,exact_code,1.0,kind PS
+LK-LA-51188,gig-2026-11,nuuuwan-gig-data-lg-moh,51188,Manmunai Pattu PS,exact_code,1.0,kind PS
+LK-LA-51189,gig-2026-11,nuuuwan-gig-data-lg-moh,51189,Manmunai West PS,exact_code,1.0,kind PS
+LK-LA-51190,gig-2026-11,nuuuwan-gig-data-lg-moh,51190,Mamunai South West PS,exact_code,1.0,kind PS
+LK-LA-51191,gig-2026-11,nuuuwan-gig-data-lg-moh,51191,Porthivu Pattu PS,exact_code,1.0,kind PS
+LK-LA-52192,gig-2026-11,nuuuwan-gig-data-lg-moh,52192,Kalmunai MC,exact_code,1.0,kind MC
+LK-LA-52193,gig-2026-11,nuuuwan-gig-data-lg-moh,52193,Akkaraipattu MC,exact_code,1.0,kind MC
+LK-LA-52194,gig-2026-11,nuuuwan-gig-data-lg-moh,52194,Ampara UC,exact_code,1.0,kind UC
+LK-LA-52195,gig-2026-11,nuuuwan-gig-data-lg-moh,52195,Dehiaththakandiya PS,exact_code,1.0,kind PS
+LK-LA-52196,gig-2026-11,nuuuwan-gig-data-lg-moh,52196,Damana PS,exact_code,1.0,kind PS
+LK-LA-52197,gig-2026-11,nuuuwan-gig-data-lg-moh,52197,Uhana PS,exact_code,1.0,kind PS
+LK-LA-52198,gig-2026-11,nuuuwan-gig-data-lg-moh,52198,Mahaoya PS,exact_code,1.0,kind PS
+LK-LA-52199,gig-2026-11,nuuuwan-gig-data-lg-moh,52199,Namaloya PS,exact_code,1.0,kind PS
+LK-LA-52200,gig-2026-11,nuuuwan-gig-data-lg-moh,52200,Padiyathalawa PS,exact_code,1.0,kind PS
+LK-LA-52201,gig-2026-11,nuuuwan-gig-data-lg-moh,52201,Navithanveli PS,exact_code,1.0,kind PS
+LK-LA-52202,gig-2026-11,nuuuwan-gig-data-lg-moh,52202,Sammanthurai PS,exact_code,1.0,kind PS
+LK-LA-52203,gig-2026-11,nuuuwan-gig-data-lg-moh,52203,Irakkamam PS,exact_code,1.0,kind PS
+LK-LA-52204,gig-2026-11,nuuuwan-gig-data-lg-moh,52204,Akkaraipattu PS,exact_code,1.0,kind PS
+LK-LA-52205,gig-2026-11,nuuuwan-gig-data-lg-moh,52205,Potuvil PS,exact_code,1.0,kind PS
+LK-LA-52206,gig-2026-11,nuuuwan-gig-data-lg-moh,52206,Addalachchenai PS,exact_code,1.0,kind PS
+LK-LA-52207,gig-2026-11,nuuuwan-gig-data-lg-moh,52207,Alayadiwembu PS,exact_code,1.0,kind PS
+LK-LA-52208,gig-2026-11,nuuuwan-gig-data-lg-moh,52208,Lahugala PS,exact_code,1.0,kind PS
+LK-LA-52209,gig-2026-11,nuuuwan-gig-data-lg-moh,52209,Karaitheevu PS,exact_code,1.0,kind PS
+LK-LA-52210,gig-2026-11,nuuuwan-gig-data-lg-moh,52210,Ninthavur PS,exact_code,1.0,kind PS
+LK-LA-52211,gig-2026-11,nuuuwan-gig-data-lg-moh,52211,Thirukkovil PS,exact_code,1.0,kind PS
+LK-LA-53212,gig-2026-11,nuuuwan-gig-data-lg-moh,53212,Trincomalee MC,exact_code,1.0,kind MC
+LK-LA-53213,gig-2026-11,nuuuwan-gig-data-lg-moh,53213,Kinniya UC,exact_code,1.0,kind UC
+LK-LA-53214,gig-2026-11,nuuuwan-gig-data-lg-moh,53214,Verugal PS,exact_code,1.0,kind PS
+LK-LA-53215,gig-2026-11,nuuuwan-gig-data-lg-moh,53215,Seruwila PS,exact_code,1.0,kind PS
+LK-LA-53216,gig-2026-11,nuuuwan-gig-data-lg-moh,53216,Kanthale PS,exact_code,1.0,kind PS
+LK-LA-53217,gig-2026-11,nuuuwan-gig-data-lg-moh,53217,Morawewa PS,exact_code,1.0,kind PS
+LK-LA-53218,gig-2026-11,nuuuwan-gig-data-lg-moh,53218,Gomarankadawala PS,exact_code,1.0,kind PS
+LK-LA-53219,gig-2026-11,nuuuwan-gig-data-lg-moh,53219,Padavi Sri Pura PS,exact_code,1.0,kind PS
+LK-LA-53220,gig-2026-11,nuuuwan-gig-data-lg-moh,53220,Trincomalee Town And Gravets PS,exact_code,1.0,kind PS
+LK-LA-53221,gig-2026-11,nuuuwan-gig-data-lg-moh,53221,Kuchchaveli PS,exact_code,1.0,kind PS
+LK-LA-53222,gig-2026-11,nuuuwan-gig-data-lg-moh,53222,Thambalagamuwa PS,exact_code,1.0,kind PS
+LK-LA-53223,gig-2026-11,nuuuwan-gig-data-lg-moh,53223,Muttur PS,exact_code,1.0,kind PS
+LK-LA-53224,gig-2026-11,nuuuwan-gig-data-lg-moh,53224,Kinniya PS,exact_code,1.0,kind PS
+LK-LA-61225,gig-2026-11,nuuuwan-gig-data-lg-moh,61225,Kurunegala MC,exact_code,1.0,kind MC
+LK-LA-61226,gig-2026-11,nuuuwan-gig-data-lg-moh,61226,Kuliyapitiya UC,exact_code,1.0,kind UC
+LK-LA-61227,gig-2026-11,nuuuwan-gig-data-lg-moh,61227,Giribawa PS,exact_code,1.0,kind PS
+LK-LA-61228,gig-2026-11,nuuuwan-gig-data-lg-moh,61228,Galgamuwa PS,exact_code,1.0,kind PS
+LK-LA-61229,gig-2026-11,nuuuwan-gig-data-lg-moh,61229,Polpithigama PS,exact_code,1.0,kind PS
+LK-LA-61230,gig-2026-11,nuuuwan-gig-data-lg-moh,61230,Nikaweratiya PS,exact_code,1.0,kind PS
+LK-LA-61231,gig-2026-11,nuuuwan-gig-data-lg-moh,61231,Kobeigane PS,exact_code,1.0,kind PS
+LK-LA-61232,gig-2026-11,nuuuwan-gig-data-lg-moh,61232,Mahawa PS,exact_code,1.0,kind PS
+LK-LA-61233,gig-2026-11,nuuuwan-gig-data-lg-moh,61233,Ibbagamuwa PS,exact_code,1.0,kind PS
+LK-LA-61234,gig-2026-11,nuuuwan-gig-data-lg-moh,61234,Wariyapola PS,exact_code,1.0,kind PS
+LK-LA-61235,gig-2026-11,nuuuwan-gig-data-lg-moh,61235,Panduwasnuwara PS,exact_code,1.0,kind PS
+LK-LA-61236,gig-2026-11,nuuuwan-gig-data-lg-moh,61236,Bingiriya PS,exact_code,1.0,kind PS
+LK-LA-61237,gig-2026-11,nuuuwan-gig-data-lg-moh,61237,Udubaddawa PS,exact_code,1.0,kind PS
+LK-LA-61238,gig-2026-11,nuuuwan-gig-data-lg-moh,61238,Pannala PS,exact_code,1.0,kind PS
+LK-LA-61239,gig-2026-11,nuuuwan-gig-data-lg-moh,61239,Kuliyapitiya PS,exact_code,1.0,kind PS
+LK-LA-61240,gig-2026-11,nuuuwan-gig-data-lg-moh,61240,Alawwa PS,exact_code,1.0,kind PS
+LK-LA-61241,gig-2026-11,nuuuwan-gig-data-lg-moh,61241,Narammala PS,exact_code,1.0,kind PS
+LK-LA-61242,gig-2026-11,nuuuwan-gig-data-lg-moh,61242,Polgahawela PS,exact_code,1.0,kind PS
+LK-LA-61243,gig-2026-11,nuuuwan-gig-data-lg-moh,61243,Kurunegala PS,exact_code,1.0,kind PS
+LK-LA-61244,gig-2026-11,nuuuwan-gig-data-lg-moh,61244,Mawathagama PS,exact_code,1.0,kind PS
+LK-LA-61245,gig-2026-11,nuuuwan-gig-data-lg-moh,61245,Rideegama PS,exact_code,1.0,kind PS
+LK-LA-62246,gig-2026-11,nuuuwan-gig-data-lg-moh,62246,Puttalam MC,exact_code,1.0,kind MC
+LK-LA-62247,gig-2026-11,nuuuwan-gig-data-lg-moh,62247,Chilaw UC,exact_code,1.0,kind UC
+LK-LA-62248,gig-2026-11,nuuuwan-gig-data-lg-moh,62248,Kalpitiya PS,exact_code,1.0,kind PS
+LK-LA-62249,gig-2026-11,nuuuwan-gig-data-lg-moh,62249,Puttalam PS,exact_code,1.0,kind PS
+LK-LA-62250,gig-2026-11,nuuuwan-gig-data-lg-moh,62250,Wanathawilluwa PS,exact_code,1.0,kind PS
+LK-LA-62251,gig-2026-11,nuuuwan-gig-data-lg-moh,62251,Karuwalagaswewa PS,exact_code,1.0,kind PS
+LK-LA-62252,gig-2026-11,nuuuwan-gig-data-lg-moh,62252,Nawagattegama PS,exact_code,1.0,kind PS
+LK-LA-62253,gig-2026-11,nuuuwan-gig-data-lg-moh,62253,Anamaduwa PS,exact_code,1.0,kind PS
+LK-LA-62254,gig-2026-11,nuuuwan-gig-data-lg-moh,62254,Arachchikattuwa PS,exact_code,1.0,kind PS
+LK-LA-62255,gig-2026-11,nuuuwan-gig-data-lg-moh,62255,Chilaw PS,exact_code,1.0,kind PS
+LK-LA-62256,gig-2026-11,nuuuwan-gig-data-lg-moh,62256,Nattandiya PS,exact_code,1.0,kind PS
+LK-LA-62257,gig-2026-11,nuuuwan-gig-data-lg-moh,62257,Wennappuwa PS,exact_code,1.0,kind PS
+LK-LA-71258,gig-2026-11,nuuuwan-gig-data-lg-moh,71258,Anuradhapura MC,exact_code,1.0,kind MC
+LK-LA-71259,gig-2026-11,nuuuwan-gig-data-lg-moh,71259,Medawachchiya PS,exact_code,1.0,kind PS
+LK-LA-71260,gig-2026-11,nuuuwan-gig-data-lg-moh,71260,Rambewa PS,exact_code,1.0,kind PS
+LK-LA-71261,gig-2026-11,nuuuwan-gig-data-lg-moh,71261,Kebithigollewa PS,exact_code,1.0,kind PS
+LK-LA-71262,gig-2026-11,nuuuwan-gig-data-lg-moh,71262,Padaviya PS,exact_code,1.0,kind PS
+LK-LA-71263,gig-2026-11,nuuuwan-gig-data-lg-moh,71263,Kahatagasdigiliya PS,exact_code,1.0,kind PS
+LK-LA-71264,gig-2026-11,nuuuwan-gig-data-lg-moh,71264,Horowpothana PS,exact_code,1.0,kind PS
+LK-LA-71265,gig-2026-11,nuuuwan-gig-data-lg-moh,71265,Galenbindunuweva PS,exact_code,1.0,kind PS
+LK-LA-71266,gig-2026-11,nuuuwan-gig-data-lg-moh,71266,Thalawa PS,exact_code,1.0,kind PS
+LK-LA-71267,gig-2026-11,nuuuwan-gig-data-lg-moh,71267,Nuwaragampalatha East PS,exact_code,1.0,kind PS
+LK-LA-71268,gig-2026-11,nuuuwan-gig-data-lg-moh,71268,Nuwaragampalatha Central PS,exact_code,1.0,kind PS
+LK-LA-71269,gig-2026-11,nuuuwan-gig-data-lg-moh,71269,Nochchiyagama PS,exact_code,1.0,kind PS
+LK-LA-71270,gig-2026-11,nuuuwan-gig-data-lg-moh,71270,Rajanganaya PS,exact_code,1.0,kind PS
+LK-LA-71271,gig-2026-11,nuuuwan-gig-data-lg-moh,71271,Galnewa PS,exact_code,1.0,kind PS
+LK-LA-71272,gig-2026-11,nuuuwan-gig-data-lg-moh,71272,Ipalogama PS,exact_code,1.0,kind PS
+LK-LA-71273,gig-2026-11,nuuuwan-gig-data-lg-moh,71273,Mihintale PS,exact_code,1.0,kind PS
+LK-LA-71274,gig-2026-11,nuuuwan-gig-data-lg-moh,71274,Thirappane PS,exact_code,1.0,kind PS
+LK-LA-71275,gig-2026-11,nuuuwan-gig-data-lg-moh,71275,Kekirawa PS,exact_code,1.0,kind PS
+LK-LA-71276,gig-2026-11,nuuuwan-gig-data-lg-moh,71276,Palagala PS,exact_code,1.0,kind PS
+LK-LA-72277,gig-2026-11,nuuuwan-gig-data-lg-moh,72277,Polonnaruwa MC,exact_code,1.0,kind MC
+LK-LA-72278,gig-2026-11,nuuuwan-gig-data-lg-moh,72278,Elahera PS,exact_code,1.0,kind PS
+LK-LA-72279,gig-2026-11,nuuuwan-gig-data-lg-moh,72279,Hingurakgoda PS,exact_code,1.0,kind PS
+LK-LA-72280,gig-2026-11,nuuuwan-gig-data-lg-moh,72280,Medirigiriya PS,exact_code,1.0,kind PS
+LK-LA-72281,gig-2026-11,nuuuwan-gig-data-lg-moh,72281,Lankapura PS,exact_code,1.0,kind PS
+LK-LA-72282,gig-2026-11,nuuuwan-gig-data-lg-moh,72282,Welikanda PS,exact_code,1.0,kind PS
+LK-LA-72283,gig-2026-11,nuuuwan-gig-data-lg-moh,72283,Dimbulagala PS,exact_code,1.0,kind PS
+LK-LA-72284,gig-2026-11,nuuuwan-gig-data-lg-moh,72284,Polonnaruwa PS,exact_code,1.0,kind PS
+LK-LA-81285,gig-2026-11,nuuuwan-gig-data-lg-moh,81285,Badulla MC,exact_code,1.0,kind MC
+LK-LA-81286,gig-2026-11,nuuuwan-gig-data-lg-moh,81286,Bandarawela MC,exact_code,1.0,kind MC
+LK-LA-81287,gig-2026-11,nuuuwan-gig-data-lg-moh,81287,Haputhale UC,exact_code,1.0,kind UC
+LK-LA-81288,gig-2026-11,nuuuwan-gig-data-lg-moh,81288,Mahiyangana PS,exact_code,1.0,kind PS
+LK-LA-81289,gig-2026-11,nuuuwan-gig-data-lg-moh,81289,Rideemaliyadda PS,exact_code,1.0,kind PS
+LK-LA-81290,gig-2026-11,nuuuwan-gig-data-lg-moh,81290,Soranathota PS,exact_code,1.0,kind PS
+LK-LA-81291,gig-2026-11,nuuuwan-gig-data-lg-moh,81291,Meegahakivula PS,exact_code,1.0,kind PS
+LK-LA-81292,gig-2026-11,nuuuwan-gig-data-lg-moh,81292,Kandaketiya PS,exact_code,1.0,kind PS
+LK-LA-81293,gig-2026-11,nuuuwan-gig-data-lg-moh,81293,Passara PS,exact_code,1.0,kind PS
+LK-LA-81294,gig-2026-11,nuuuwan-gig-data-lg-moh,81294,Lunugala PS,exact_code,1.0,kind PS
+LK-LA-81295,gig-2026-11,nuuuwan-gig-data-lg-moh,81295,Badulla PS,exact_code,1.0,kind PS
+LK-LA-81296,gig-2026-11,nuuuwan-gig-data-lg-moh,81296,Hali Ela PS,exact_code,1.0,kind PS
+LK-LA-81297,gig-2026-11,nuuuwan-gig-data-lg-moh,81297,Uva Paranagama PS,exact_code,1.0,kind PS
+LK-LA-81298,gig-2026-11,nuuuwan-gig-data-lg-moh,81298,Welimada PS,exact_code,1.0,kind PS
+LK-LA-81299,gig-2026-11,nuuuwan-gig-data-lg-moh,81299,Bandarawela PS,exact_code,1.0,kind PS
+LK-LA-81300,gig-2026-11,nuuuwan-gig-data-lg-moh,81300,Ella PS,exact_code,1.0,kind PS
+LK-LA-81301,gig-2026-11,nuuuwan-gig-data-lg-moh,81301,Haputale PS,exact_code,1.0,kind PS
+LK-LA-81302,gig-2026-11,nuuuwan-gig-data-lg-moh,81302,Haldummulla PS,exact_code,1.0,kind PS
+LK-LA-82303,gig-2026-11,nuuuwan-gig-data-lg-moh,82303,Bibila PS,exact_code,1.0,kind PS
+LK-LA-82304,gig-2026-11,nuuuwan-gig-data-lg-moh,82304,Medagama PS,exact_code,1.0,kind PS
+LK-LA-82305,gig-2026-11,nuuuwan-gig-data-lg-moh,82305,Madulla PS,exact_code,1.0,kind PS
+LK-LA-82306,gig-2026-11,nuuuwan-gig-data-lg-moh,82306,Siyabalanduwa PS,exact_code,1.0,kind PS
+LK-LA-82307,gig-2026-11,nuuuwan-gig-data-lg-moh,82307,Monaragala PS,exact_code,1.0,kind PS
+LK-LA-82308,gig-2026-11,nuuuwan-gig-data-lg-moh,82308,Badalkumbura PS,exact_code,1.0,kind PS
+LK-LA-82309,gig-2026-11,nuuuwan-gig-data-lg-moh,82309,Buttala PS,exact_code,1.0,kind PS
+LK-LA-82310,gig-2026-11,nuuuwan-gig-data-lg-moh,82310,Kataragama PS,exact_code,1.0,kind PS
+LK-LA-82311,gig-2026-11,nuuuwan-gig-data-lg-moh,82311,Wellawaya PS,exact_code,1.0,kind PS
+LK-LA-82312,gig-2026-11,nuuuwan-gig-data-lg-moh,82312,Thanamalwila PS,exact_code,1.0,kind PS
+LK-LA-91313,gig-2026-11,nuuuwan-gig-data-lg-moh,91313,Ratnapura MC,exact_code,1.0,kind MC
+LK-LA-91314,gig-2026-11,nuuuwan-gig-data-lg-moh,91314,Balangoda UC,exact_code,1.0,kind UC
+LK-LA-91315,gig-2026-11,nuuuwan-gig-data-lg-moh,91315,Embilipitiya UC,exact_code,1.0,kind UC
+LK-LA-91316,gig-2026-11,nuuuwan-gig-data-lg-moh,91316,Eheliyagoda PS,exact_code,1.0,kind PS
+LK-LA-91317,gig-2026-11,nuuuwan-gig-data-lg-moh,91317,Ratnapura PS,exact_code,1.0,kind PS
+LK-LA-91318,gig-2026-11,nuuuwan-gig-data-lg-moh,91318,Kuruwita PS,exact_code,1.0,kind PS
+LK-LA-91319,gig-2026-11,nuuuwan-gig-data-lg-moh,91319,Pelmadulla PS,exact_code,1.0,kind PS
+LK-LA-91320,gig-2026-11,nuuuwan-gig-data-lg-moh,91320,Balangoda PS,exact_code,1.0,kind PS
+LK-LA-91321,gig-2026-11,nuuuwan-gig-data-lg-moh,91321,Imbulpe PS,exact_code,1.0,kind PS
+LK-LA-91322,gig-2026-11,nuuuwan-gig-data-lg-moh,91322,Godakawela PS,exact_code,1.0,kind PS
+LK-LA-91323,gig-2026-11,nuuuwan-gig-data-lg-moh,91323,Kahawatta PS,exact_code,1.0,kind PS
+LK-LA-91324,gig-2026-11,nuuuwan-gig-data-lg-moh,91324,Weligepola PS,exact_code,1.0,kind PS
+LK-LA-91325,gig-2026-11,nuuuwan-gig-data-lg-moh,91325,Niwitigala PS,exact_code,1.0,kind PS
+LK-LA-91326,gig-2026-11,nuuuwan-gig-data-lg-moh,91326,Ayagama PS,exact_code,1.0,kind PS
+LK-LA-91327,gig-2026-11,nuuuwan-gig-data-lg-moh,91327,Kalawana PS,exact_code,1.0,kind PS
+LK-LA-91328,gig-2026-11,nuuuwan-gig-data-lg-moh,91328,Embilipitiya PS,exact_code,1.0,kind PS
+LK-LA-91329,gig-2026-11,nuuuwan-gig-data-lg-moh,91329,Kolonna PS,exact_code,1.0,kind PS
+LK-LA-92330,gig-2026-11,nuuuwan-gig-data-lg-moh,92330,Kegalle MC,exact_code,1.0,kind MC
+LK-LA-92331,gig-2026-11,nuuuwan-gig-data-lg-moh,92331,Warakapola PS,exact_code,1.0,kind PS
+LK-LA-92332,gig-2026-11,nuuuwan-gig-data-lg-moh,92332,Galigamuwa PS,exact_code,1.0,kind PS
+LK-LA-92333,gig-2026-11,nuuuwan-gig-data-lg-moh,92333,Kegalle PS,exact_code,1.0,kind PS
+LK-LA-92334,gig-2026-11,nuuuwan-gig-data-lg-moh,92334,Rambukkana PS,exact_code,1.0,kind PS
+LK-LA-92335,gig-2026-11,nuuuwan-gig-data-lg-moh,92335,Mawanella PS,exact_code,1.0,kind PS
+LK-LA-92336,gig-2026-11,nuuuwan-gig-data-lg-moh,92336,Aranayaka PS,exact_code,1.0,kind PS
+LK-LA-92337,gig-2026-11,nuuuwan-gig-data-lg-moh,92337,Yatiyantotoa PS,exact_code,1.0,kind PS
+LK-LA-92338,gig-2026-11,nuuuwan-gig-data-lg-moh,92338,Bulatkohupitiya PS,exact_code,1.0,kind PS
+LK-LA-92339,gig-2026-11,nuuuwan-gig-data-lg-moh,92339,Ruwanwella PS,exact_code,1.0,kind PS
+LK-LA-92340,gig-2026-11,nuuuwan-gig-data-lg-moh,92340,Deraniyagala PS,exact_code,1.0,kind PS
+LK-LA-92341,gig-2026-11,nuuuwan-gig-data-lg-moh,92341,Dehiowita PS,exact_code,1.0,kind PS

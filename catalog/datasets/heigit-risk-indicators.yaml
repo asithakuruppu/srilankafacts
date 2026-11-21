@@ -24,6 +24,6 @@ spatial:
 indicators: []
 cross_checks: []
 status: proposed
-notes: 'Nine CSV tables by ADM2 p-code held (2026-11-17), not integrated: flood exposure by return period,
+notes: 'Crosswalk not needed (ADM2 p-codes, all 25 checked 2026-11-21); 44 indicators built by `slf hazard-access build` (not in a release), checked in docs/qa/hazard-access-checks-2026-11-21.md; share-alike, see docs/research/rights/heigit-share-alike.md. Nine CSV tables by ADM2 p-code held (2026-11-17), not integrated: flood exposure by return period,
   facilities, access, coping. Derived from other open datasets; each input needs its own check before
   use.'

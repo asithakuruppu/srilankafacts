@@ -1,6 +1,6 @@
 # QA: building form, GHSL height, CTrees biomass and the `form` and `context` spaces (2026-11-21)
 
-Private build. Numbers below were produced in this run (`slf spatial build --out-dir data/build/landscape-form`, then `slf spatial formspace`). Method: [form-context.md](../methods/form-context.md) · Decision: D-056 (Proposed). Legend: ✅ verified by running or reading it · 🟡 from a source, not independently checked · ❓ assumption.
+Private build. Numbers below were produced in this run (`slf spatial build --out-dir data/build/landscape-form`, then `slf spatial formspace`). Method: [form-context.md](../methods/form-context.md) · Decision: D-058 (Proposed). Legend: ✅ verified by running or reading it · 🟡 from a source, not independently checked · ❓ assumption.
 
 ## 1. Inputs read (all ✅ held on the archive drive)
 

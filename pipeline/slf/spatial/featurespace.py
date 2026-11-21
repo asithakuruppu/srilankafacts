@@ -1,7 +1,7 @@
 """Feature-level `form-feature` and `context-feature` spaces v0.1: one vector per mapped building.
 
 PRIVATE PREVIEW BUILD. The lead asked on 2026-11-21 for the per-feature spaces to be built for the
-private preview, with publication waiting for permissions (LA-007, D-056). Everything is written to
+private preview, with publication waiting for permissions (LA-007, D-058). Everything is written to
 the gitignored build folder and nothing is added to a release, the atlas or the live preview.
 
 Rule 11 still holds inside the preview: a feature row carries only physical attributes (geometry

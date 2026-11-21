@@ -886,7 +886,7 @@ def composition_build(
         unit_rows, member_rows, geoms, totals = cg.gig_inputs(
             from_env(), spec, with_geometry=with_geometry
         )
-        source_dataset, code_system, method = cg.GIG_SOURCE_DATASET, "nuuuwan", "attribute"
+        source_dataset, code_system, method = cg.GIG_LG_MOH_DATASET, "nuuuwan", "attribute"
         vintage = vintage or "gig-2026-11"
     else:
         if units is None or membership is None or source_dataset is None or not vintage:
@@ -897,8 +897,6 @@ def composition_build(
             raise typer.Exit(2)
         unit_rows, member_rows = cg.read_units(units), cg.read_membership(membership)
     publishable, rights_note = cg.rights_allow_catalog(catalog, source_dataset)
-    if gig_internal:
-        publishable = False
     composed = cg.compose(
         spec,
         unit_rows,
@@ -935,8 +933,14 @@ def composition_build(
     from slf.datasets import composed_profiles as cp
 
     out = out_dir or Path(DEFAULT_BUILD_DIR) / scheme
+    pub = cg.publication_text(catalog, source_dataset) if publishable else (None, None)
     prof, summary = cp.build_profiles(
-        out, scheme, publishable=publishable, source_note=f"{source_dataset} ({rights_note})"
+        out,
+        scheme,
+        publishable=publishable,
+        source_note=f"{source_dataset} ({rights_note})",
+        attribution=pub[0],
+        notice=pub[1],
     )
     typer.echo(f"wrote {prof}: {summary}")
 
@@ -950,18 +954,23 @@ def composition_profile(
     publishable: Annotated[
         bool, typer.Option(help="Read the files without `_internal`; only after a rights gate.")
     ] = False,
+    catalog: Annotated[Path, typer.Option(help="Catalogue folder.")] = Path("../catalog"),
 ) -> None:
     """Write per-unit profiles from an existing composition build (no download needed)."""
+    from slf.datasets import composed_geography as cg
     from slf.datasets import composed_profiles as cp
 
     folder = build_dir or Path(DEFAULT_BUILD_DIR) / scheme
+    pub = cg.publication_text(catalog, cg.GIG_LG_MOH_DATASET) if publishable else (None, None)
     out, summary = cp.build_profiles(
         folder,
         scheme,
         publishable=publishable,
-        source_note="internal run on nuuuwan gig-data (no licence); not for publication"
-        if not publishable
-        else "see composition QA",
+        source_note=f"{cg.GIG_LG_MOH_DATASET} (rights unclear; publication decision D-057)"
+        if publishable
+        else "internal run on nuuuwan gig-data; not for publication",
+        attribution=pub[0],
+        notice=pub[1],
     )
     typer.echo(f"wrote {out}: {summary}")
 
@@ -1304,6 +1313,56 @@ def grid_build(
         typer.echo(f"{key}: {value}")
 
 
+@grid_app.command("popweights")
+def grid_popweights(
+    worldpop_tif: Annotated[
+        Path, typer.Option(help="WorldPop 100 m constrained population GeoTIFF.")
+    ],
+    census_parquet: Annotated[Path, typer.Option(help="Release census-2024-gnd-tables.parquet.")],
+    spine_dir: Annotated[Path, typer.Option(help="Geography spine build folder.")] = Path(
+        "./data/build/geography-spine"
+    ),
+    out_dir: Annotated[Path, typer.Option(help="Output folder.")] = Path(
+        "./data/build/grid-popweighted"
+    ),
+) -> None:
+    """Population-weighted H3 r10 and r9 grid: WorldPop weights, GN census totals (G07)."""
+    from slf import grid_weights
+
+    summary = grid_weights.build(spine_dir, worldpop_tif, census_parquet, out_dir)
+    typer.echo(json.dumps(summary, indent=2, default=str))
+
+
+@grid_app.command("covers")
+def grid_covers(
+    weights_parquet: Annotated[
+        Path, typer.Option(help="gn_h3r10_popweights_2024.parquet (`slf grid popweights`).")
+    ],
+    la_relations: Annotated[Path | None, typer.Option(help="la_relations_internal.csv.")] = None,
+    moh_relations: Annotated[
+        Path | None, typer.Option(help="health_relations_internal.csv.")
+    ] = None,
+    spine_dir: Annotated[Path, typer.Option(help="Geography spine build folder.")] = Path(
+        "./data/build/geography-spine"
+    ),
+    catalog_dir: Annotated[Path, typer.Option(help="Catalogue folder.")] = Path("../catalog"),
+    out_dir: Annotated[Path, typer.Option(help="Output folder.")] = Path(
+        "./data/build/grid-covers"
+    ),
+) -> None:
+    """Cell covers (footprint to H3 r10 cells with fractions) per footprint family (G07)."""
+    from slf import covers
+
+    internal = {
+        k: v for k, v in {"la": la_relations, "moh": moh_relations}.items() if v is not None
+    }
+    typer.echo(
+        json.dumps(
+            covers.build(spine_dir, weights_parquet, catalog_dir, out_dir, internal), indent=2
+        )
+    )
+
+
 @app.command("resolve")
 def resolve(
     lon: Annotated[float, typer.Option(help="Longitude (EPSG:4326).")],
@@ -1429,3 +1488,31 @@ def hazard_access_build(
 
     summary = hazard_access.build(raw_root, spine_dir, catalog, out_dir, out_dir / "_work")
     typer.echo(f"{summary['rows']} rows, {len(summary['indicators'])} indicators")
+
+
+@hazard_app.command("checks")
+def hazard_access_checks(
+    raw_root: Annotated[Path, typer.Option(help="Folder holding raw/<source>/<dataset>/.")] = Path(
+        "./data/raw"
+    ),
+    spine_dir: Annotated[Path, typer.Option(help="Geography spine build folder.")] = Path(
+        "./data/build/geography-spine"
+    ),
+    release_dir: Annotated[
+        Path, typer.Option(help="A release folder (census 2024 figures).")
+    ] = Path("./data/build/releases/v2026.11.19"),
+    build_dir: Annotated[Path, typer.Option(help="`slf hazard-access build` output.")] = Path(
+        "./data/build/hazard-access"
+    ),
+    catalog: Annotated[Path, typer.Option(help="Catalogue root.")] = Path("../catalog"),
+) -> None:
+    """Cross-check the indicators against independent figures; writes checks.md and checks.json."""
+    from slf import hazard_checks
+
+    checks = hazard_checks.run(
+        raw_root, spine_dir, release_dir, build_dir / "observations.parquet", catalog
+    )
+    path = hazard_checks.write(checks, build_dir)
+    for c in checks:
+        typer.echo(f"{c.id}: {c.result}")
+    typer.echo(f"report -> {path}")

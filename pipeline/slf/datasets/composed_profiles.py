@@ -89,7 +89,13 @@ def unit_profile(row: pd.Series, iou: float | None, type_share: float | None) ->
 
 
 def build_profiles(
-    build_dir: Path, scheme: str, *, publishable: bool, source_note: str
+    build_dir: Path,
+    scheme: str,
+    *,
+    publishable: bool,
+    source_note: str,
+    attribution: str | None = None,
+    notice: str | None = None,
 ) -> tuple[Path, dict[str, Any]]:
     """Write ``<scheme>_profiles[_internal].json`` next to the composition build; return summary."""
     tag = "" if publishable else "_internal"
@@ -102,6 +108,8 @@ def build_profiles(
         if type_path.exists()
         else {}
     )
+    gap_path = build_dir / f"{scheme}_spine_gn_without_unit{tag}.csv"
+    gaps = len(pd.read_csv(gap_path)) if gap_path.exists() else None
     profiles = [
         unit_profile(row, _num(iou.get(row["geography_id"])), _num(types.get(row["geography_id"])))
         for _, row in den.iterrows()
@@ -116,6 +124,9 @@ def build_profiles(
         "source": source_note,
         "method": "docs/methods/denominators-la-moh.md",
         "support": "sum(weight x GN value) over Census 2024 GN tables; rates from counts",
+        "attribution": attribution,
+        "notice": notice,
+        "spine_gns_without_unit": gaps,
         "units": profiles,
     }
     out = build_dir / f"{scheme}_profiles{tag}.json"

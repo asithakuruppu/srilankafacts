@@ -79,7 +79,7 @@ Every approval the lead gives on a corrections entry, a QA sheet or a data judge
 
 - **Date:** 2026-11-21
 - **Approved by:** Shamil Asitha Kuruppu (lead)
-- **What:** Both place-level recipes of D-056 are approved: `form` (intensity and character blocks) and `context` (vegetation, and land and services blocks).
+- **What:** Both place-level recipes of D-058 are approved: `form` (intensity and character blocks) and `context` (vegetation, and land and services blocks).
 - **Scope:** The recipes only. Nothing is published: `form` stays internal because it derives from ODbL Overture Buildings, and per-feature (per-building) spaces are not built; permission for them is pending, and if it is not given they are dropped.
 - **Evidence:** [docs/qa/form-context-2026-11-21.md](../qa/form-context-2026-11-21.md); PR 105.
 - **Lead's words:** "Per-feature form and context - build. permission pending. if not we can remove this. approve both"

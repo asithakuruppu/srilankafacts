@@ -587,7 +587,30 @@ These were stated by you or are standing rules in [brainstorm-decisions.md](../b
 
 ---
 
-## D-056: Building form, GHSL height and CTrees biomass roll-ups; place-level `form` and `context` spaces v0.1 (private)
+## D-056: Population-weighted grid v1 from WorldPop weights at H3 r9 and r10, built locally; web unchanged
+- **Status:** Proposed · 2026-11-21 (agent proposal; implements D-014, G07 steps 1, 5 and 6 in part; follows D-048's "revisit when"). The lead replied "approved" on 2026-11-21 to the report recommending WorldPop as the primary weight source; web adoption (`/area`) still waits for the bundle-size check.
+- **Context:** D-048 deferred population weights and resolution 10 until the G07 rights work was done.
+- **Decision:**
+  - `slf grid popweights` builds weights from WorldPop R2025A 100 m (CC BY 4.0): pixels to r10 cells by centre, normalised within each GN, r9 summed from r10. The weight file contains no census numbers and is commercial-capable. Kontur, Overture buildings and OSM are not used (unclear or ODbL); GHSL is not used as a weight.
+  - Census GN totals are apportioned in a separate `..._NONCOMMERCIAL` file that inherits D-030. Every row carries `weight_source`, `method`, `information_floor`, `data_nature`.
+  - Outputs stay local. `/area`, the resolver and the live release keep the D-048 equal-share r9 grid until the lead chooses a weight source (G07 step 4) and the bundle size is checked.
+- **Alternatives:** Kontur as weight (rights unclear); Overture/OSM buildings (ODbL, uneven completeness); GHSL built-up mask (not population).
+- **Consequences:** All GN totals reproduce exactly (max residual 3.6e-12 people over 13,967 GN). 53.5% of r10 cells carry no weight. 13 GN fall back to equal shares; 76 GN have no 2024 total. WorldPop's census input for Sri Lanka is unconfirmed.
+- **Revisit when:** the lead approves the weight source; DCS answers on reuse; web adopts r10 or the r9 population weights.
+
+---
+
+## D-057: LA and MOH memberships from gig-data are published in the non-commercial preview, flagged
+- **Status:** Accepted · 2026-11-21 (decided by the lead: "build the preview with no restrictions" until broader permissions are obtained; amends D-046 and D-055 on the rights gate only)
+- **Context:** No official GN list per local authority or MOH area is held (D-046). The only membership source, nuuuwan `gig-data`, has no licence and no stated origin. The lead wants the preview to carry LA and MOH profiles now and to stay a preview until permissions are obtained.
+- **Decision:** (1) A new catalogue entry `nuuuwan-gig-data-lg-moh` (`lg_id` and `moh_id` only) gets a `publication` block under this decision, as for D-030/D-032: non-commercial, attribution, notice, 7-day takedown; `rights.status` stays `unclear`. (2) LA and MOH compositions and profiles built from it are committed to `catalog/` and shown at `/units/la` and `/units/moh` with their known gaps and per-unit flags. (3) gig-data's polling-division columns stay local (D-040) and its shapes are not published. (4) The preview is non-commercial only; nothing is a commercial release.
+- **Alternatives:** wait for an official list (rejected by the lead for the preview); also publish gig-data shapes (rejected: not needed for tables, and the IoU shows many disagree).
+- **Consequences:** units show coverage gaps (423 GNs in no LA, 986 in no MOH area), flagged shape and type disagreements, and the notice. The site header/footer notice for D-030 is unchanged; the unit pages carry their own notice. An official list replaces this when obtained.
+- **Revisit when:** an official GN list per local authority or MOH area is held; permissions are obtained; nuuuwan states a licence.
+
+---
+
+## D-058: Building form, GHSL height and CTrees biomass roll-ups; place-level `form` and `context` spaces v0.1 (private)
 - **Status:** Accepted · 2026-11-21 (agent proposal; both recipes approved by the lead the same day, LA-007; builds on D-016, D-017, D-044, D-045, D-049)
 - **Context:** The review queue (2026-11-18) listed building shapes, canopy, biomass and the `form` and `context` spaces as blocked by data "held only as counts or not processed". The archive drive holds the Overture footprints, GHS-BUILT-H tiles and the CTrees GeoTIFF; canopy was already rolled up.
 - **Decision:** add shape and density indicators from the footprints (size classes, mean compactness in EPSG:5235, footprints per km², coverage), roll up GHS-BUILT-H and CTrees on the GN spine with the existing zonal machinery, and build `form` and `context` v0.1 as place-level spaces (GN and DS) with the profile method, 85% variance retention, blocks regrouped so no single input carries a block alone. Both stay private. `form` carries Overture's ODbL; it and its neighbour lists are not published, and nothing enters a release, the atlas or the live preview. No per-building vector or feature table is produced. The feature-level `form` and `context` spaces of vector-space-model.md remain unbuilt (rule 11, D-044; no road or coast layer held). The lead's permission for per-feature output is still pending; if it is not given, that item is dropped. Publication is unchanged: `form` stays internal under ODbL.
@@ -595,6 +618,7 @@ These were stated by you or are standing rules in [brainstorm-decisions.md](../b
 - **Consequences:** 12 new ledger indicators and 108 in all. `form` shows modest neighbour coherence by district (14% against 5.6% by chance) and `context` more (21%). Compactness varies little between places and depends partly on the outline style of the footprint source (no correlation with source mix, QA §4). Biomass units come from the HDX record and need confirming against CTrees' own documentation.
 - **Addendum (2026-11-21, lead instruction):** the lead then said "yes to all ... what we are building will stay preview until we get permissions. so build the preview with no restrictions", so the per-feature `form-feature` and `context-feature` v0.1 were built (8.9 million footprints; method §7, QA `docs/qa/form-features-2026-11-21.md`). They are a private local preview: not published, no people attributes on any row, ODbL share-alike material. The "no per-building vector is produced" and "per-feature unbuilt" statements above describe the state before this addendum.
 - **Revisit when:** the lead approves or changes either recipe; the ODbL question is settled; CTrees or GHSL terms are read in full; the lead's broader permissions are in place (then decide what, if anything, of the feature spaces may be published).
+
 
 ---
 

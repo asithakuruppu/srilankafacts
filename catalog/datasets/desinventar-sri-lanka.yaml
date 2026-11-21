@@ -27,4 +27,4 @@ status: proposed
 notes: 'Report workbook, data dictionary and a boundary shapefile set (province, district, DS division)
   held (2026-11-17), not yet opened beyond the file list. Event records by administrative unit; their
   boundary vintage is unknown, so joining needs a crosswalk (rule 5). Supersedes nothing: dmc-situation-reports
-  stays the entry for the DMC''s own PDFs. Crosswalk `codes/desinventar.csv` built 2026-11-21 (province and district, name_and_parent, one reviewed spelling alias); district record counts built by `slf hazard-access build`, not in a release. DS and GN levels not mapped.'
+  stays the entry for the DMC''s own PDFs. Crosswalk `codes/desinventar.csv` built 2026-11-21 (province and district, name_and_parent, one reviewed spelling alias); district record counts built by `slf hazard-access build`, not in a release. DS divisions mapped 309 of 328 (17 to review); GN level not mapped (free text).'

@@ -1,6 +1,6 @@
 # Method: building form, canopy, biomass and the `form` and `context` spaces
 
-Status: **private build, 2026-11-21** · Decision: D-056 (Accepted) · Builds on D-016, D-017, D-044, D-045, D-049 · QA: [form-context-2026-11-21.md](../qa/form-context-2026-11-21.md) · Roll-up method: [landscape.md](landscape.md)
+Status: **private build, 2026-11-21** · Decision: D-058 (Accepted) · Builds on D-016, D-017, D-044, D-045, D-049 · QA: [form-context-2026-11-21.md](../qa/form-context-2026-11-21.md) · Roll-up method: [landscape.md](landscape.md)
 
 Legend: ✅ verified directly · 🟡 from a secondary source · ❌ not found · ❓ assumption.
 
