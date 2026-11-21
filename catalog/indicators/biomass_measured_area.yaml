@@ -1,0 +1,19 @@
+id: biomass_measured_area
+name: "Area with biomass data"
+short_name: "Area with biomass data"
+topic: [landscape, context]
+measure_type: count
+unit: hectares
+universe: land_area_measured
+numerator: null
+denominator: null
+aggregation: sum
+higher_is: neutral
+distribution: api
+decimals: 1
+sensitivity: public
+definition: >
+  Ground area of the place covered by valid CTrees above-ground biomass pixels. The weight for the
+  mean biomass.
+source_definition_ref: "ctrees-aboveground-biomass (catalog/datasets/ctrees-aboveground-biomass.yaml)"
+methodology_notes: docs/methods/landscape.md

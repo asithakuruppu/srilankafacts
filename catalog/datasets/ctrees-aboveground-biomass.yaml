@@ -2,11 +2,11 @@ id: ctrees-aboveground-biomass
 source: ctrees
 title: CTrees above-ground biomass, Sri Lanka
 landing_page: https://data.humdata.org/dataset/lka-ctrees-aboveground-biomass
-pipeline_module: null
+pipeline_module: slf.spatial.build
 schedule: manual
 geography_scheme: grid
 geography_vintage: null
-reference_period: null
+reference_period: '2025'
 rights: inherit
 spatial:
   support: grid
@@ -20,9 +20,11 @@ spatial:
   resolution: about 100 m (0.00089 degrees)
   information_unit: null
   information_count: null
-  derived_by: null
-indicators: []
+  derived_by: zonal_area_v1 (docs/methods/landscape.md)
+indicators:
+- biomass_measured_area
+- biomass_agb_mean
+- biomass_agb_total
 cross_checks: []
-status: proposed
-notes: GeoTIFF held (2026-11-17); CRS and pixel size read from the file. Units and reference year not
-  yet read from CTrees' documentation, so it is not rolled up.
+status: active
+notes: 'GeoTIFF held (2026-11-17), rolled up 2026-11-21. Units and year read from the HDX dataset record (lka-ctrees-aboveground-biomass, 2025, CC BY): int16 stored times 10, megagrams per hectare of above-ground live biomass; -9999 is no data. The file is clipped to the country boundary, so coastal GN divisions are partly uncovered (measured area is 99.6% of the spine area; 6 GN divisions have no pixel). CTrees'' per-pixel uncertainty and belowground biomass are not in this dataset. Modelled, not measured on the ground; not compared with a published national figure.'

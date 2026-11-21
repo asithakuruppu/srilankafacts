@@ -217,6 +217,7 @@ def build(
     label_points: gpd.GeoSeries,
     out_dir: Path,
     buildings_out: dict[str, Any],
+    land_m2: np.ndarray | None = None,
 ) -> tuple[pd.DataFrame, dict[str, PointSet]]:
     geos = hierarchy
     emitter = Emitter(geos)
@@ -368,6 +369,24 @@ def build(
         emitter.add(lay, "buildings_mapped", number, **obs, **kw)
         emitter.add(lay, "building_footprint_area", area / 10_000.0, **obs, **kw)
         emitter.add(lay, "building_footprint_mean", _ratio(area, number), **obs, **kw)
+        small = geos.total(rolled.small)
+        large = geos.total(rolled.large)
+        emitter.add(lay, "buildings_small", small, **obs, **kw)
+        emitter.add(lay, "buildings_large", large, **obs, **kw)
+        emitter.add(lay, "buildings_small_share", _ratio(small, number, 100), **obs, **kw)
+        emitter.add(lay, "buildings_large_share", _ratio(large, number, 100), **obs, **kw)
+        emitter.add(
+            lay,
+            "building_compactness_mean",
+            _ratio(geos.total(rolled.compact_sum), geos.total(rolled.shaped)),
+            **obs,
+            **{**kw, "how": "mean over footprints per GN division"},
+        )
+        if land_m2 is not None:
+            land = geos.total(land_m2)
+            where = {**kw, "how": "footprints per land area of the GN division"}
+            emitter.add(lay, "buildings_per_km2", _ratio(number, land, 1e6), **obs, **where)
+            emitter.add(lay, "building_coverage_share", _ratio(area, land, 100), **obs, **where)
         buildings_out["rollup"] = rolled
     frame = pd.concat(emitter.frames, ignore_index=True) if emitter.frames else pd.DataFrame()
     if len(frame):

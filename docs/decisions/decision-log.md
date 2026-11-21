@@ -587,6 +587,16 @@ These were stated by you or are standing rules in [brainstorm-decisions.md](../b
 
 ---
 
+## D-056: Building form, GHSL height and CTrees biomass roll-ups; place-level `form` and `context` spaces v0.1 (private)
+- **Status:** Accepted · 2026-11-21 (agent proposal; both recipes approved by the lead the same day, LA-007; builds on D-016, D-017, D-044, D-045, D-049)
+- **Context:** The review queue (2026-11-18) listed building shapes, canopy, biomass and the `form` and `context` spaces as blocked by data "held only as counts or not processed". The archive drive holds the Overture footprints, GHS-BUILT-H tiles and the CTrees GeoTIFF; canopy was already rolled up.
+- **Decision:** add shape and density indicators from the footprints (size classes, mean compactness in EPSG:5235, footprints per km², coverage), roll up GHS-BUILT-H and CTrees on the GN spine with the existing zonal machinery, and build `form` and `context` v0.1 as place-level spaces (GN and DS) with the profile method, 85% variance retention, blocks regrouped so no single input carries a block alone. Both stay private. `form` carries Overture's ODbL; it and its neighbour lists are not published, and nothing enters a release, the atlas or the live preview. No per-building vector or feature table is produced. The feature-level `form` and `context` spaces of vector-space-model.md remain unbuilt (rule 11, D-044; no road or coast layer held). The lead's permission for per-feature output is still pending; if it is not given, that item is dropped. Publication is unchanged: `form` stays internal under ODbL.
+- **Alternatives:** feature-level spaces now (rejected: rule 11 and ODbL, no road or coast data); one-input blocks (rejected: a single weak input such as listed places dominated two axes); putting ODbL-derived building values into `context` (rejected: it would make a CC BY space share-alike).
+- **Consequences:** 12 new ledger indicators and 108 in all. `form` shows modest neighbour coherence by district (14% against 5.6% by chance) and `context` more (21%). Compactness varies little between places and depends partly on the outline style of the footprint source (no correlation with source mix, QA §4). Biomass units come from the HDX record and need confirming against CTrees' own documentation.
+- **Revisit when:** the lead approves or changes either recipe; the ODbL question is settled; CTrees or GHSL terms are read in full; road and coast layers are held.
+
+---
+
 ## Template
 
 ```markdown

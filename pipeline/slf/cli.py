@@ -1178,6 +1178,49 @@ def spatial_space(
     typer.echo(f"wrote {landscape_dir / 'vectors'}")
 
 
+@spatial_app.command("formspace")
+def spatial_formspace(
+    landscape_dir: Annotated[Path, typer.Option(help="Landscape build folder.")] = Path(
+        "./data/build/landscape-form"
+    ),
+    spine_dir: Annotated[Path, typer.Option(help="Spine build folder.")] = Path(
+        "./data/build/geography-spine"
+    ),
+    out_dir: Annotated[Path, typer.Option(help="Output folder.")] = Path("./data/build/form"),
+) -> None:
+    """Build the proposed `form` and `context` place spaces and their QA (private)."""
+    import json as _json
+
+    import pandas as pd
+
+    from slf.spatial import formspace
+
+    observations = pd.read_parquet(landscape_dir / "observations.parquet")
+    geographies = pd.read_parquet(spine_dir / "geographies.parquet")
+    summaries = {}
+    for spec in formspace.SPECS.values():
+        space_dir = out_dir / spec.space_id
+        summaries[spec.space_id] = formspace.build(spec, observations, geographies, space_dir)
+        (space_dir / "qa.md").write_text(
+            formspace.render_qa(spec, summaries[spec.space_id]), encoding="utf-8"
+        )
+        for level, info in summaries[spec.space_id]["levels"].items():
+            typer.echo(
+                f"{spec.space_id} {level}: {info['places']} places, {info['axes_retained']} axes, "
+                f"{info['variance_explained_retained']:.1%} of variance, "
+                f"{len(info['excluded'])} excluded"
+            )
+    cross = {
+        level: formspace.cross_space(
+            out_dir / "form", out_dir / "context", "form_v0.1", "context_v0.1", level
+        )
+        for level in ("ds",)
+    }
+    (out_dir / "cross_space.json").write_text(_json.dumps(cross, indent=1) + "\n")
+    typer.echo(f"form vs context distance rank correlation: {cross}")
+    typer.echo(f"wrote {out_dir}")
+
+
 @spatial_app.command("findings")
 def spatial_findings(
     landscape_dir: Annotated[Path, typer.Option(help="Landscape build folder.")] = Path(

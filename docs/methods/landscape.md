@@ -77,6 +77,8 @@ Vector doc naming: [vector-space-model.md](../architecture/vector-space-model.md
 
 - **Historical map sheets** (Stanford index of the Survey Department of Ceylon one-inch series, public domain): the 72 sheet footprints are intersected with every GN division in EPSG:5235. A sheet covers a division if it overlaps at least 1% of its area (a chosen rule); a district, province or the country lists the sheets that cover any of its divisions, so the lists are unions and counts are distinct sheets. Two indicators (`map_sheets_one_inch`, `map_sheets_one_inch_scanned`) and a place-to-sheet table (`place_map_sheets.parquet`, with overlap and share) are written; the sheet table with links is `features/ceylon-one-inch-sheets.parquet`. It locates sheets only: no scan is downloaded and no map content is read.
 
+- **Building form, GHSL height and CTrees biomass** (added 2026-11-21): see [form-context.md](form-context.md) for the new building shape indicators (size classes, compactness, density, coverage), GHS-BUILT-H and CTrees roll-ups, and the `form` and `context` spaces.
+
 ## 5. Licences of the outputs
 
 | Derived from | Output licence |

@@ -1,0 +1,20 @@
+id: building_compactness_mean
+name: "Mean building compactness"
+short_name: "Mean building compactness"
+topic: [features]
+measure_type: ratio
+unit: index
+universe: mapped_features
+numerator: null
+denominator: null
+aggregation: none
+higher_is: neutral
+distribution: api
+decimals: 3
+sensitivity: public
+definition: >
+  Mean of 4 pi x area / perimeter squared over the mapped footprints (Polsby-Popper, computed in
+  EPSG:5235): 1 for a circle, about 0.79 for a square, near 0 for a sliver. Machine-detected
+  outlines are smoothed or blocky depending on the source, so compare places, not buildings.
+source_definition_ref: "overture-buildings (catalog/datasets/overture-buildings.yaml)"
+methodology_notes: docs/methods/landscape.md
