@@ -70,7 +70,7 @@ On 2026-11-17 the lead asked for every coding stage of the roadmap to be built, 
 | `/si` and `/ta` routes, translated indicator names | No reviewed translation (D-012) |
 | HIES poverty, LFS labour, school census, health bulletin, dengue, paddy, CBSL strip | No tables held |
 | ~~DesInventar and HeiGIT travel-time indicators~~ | Crosswalks and district indicators built 2026-11-21, not yet in a release (`docs/methods/hazard-access.md`); DS level and GN names still unmapped |
-| Population-weighted grid, resolution 10 | G07 completeness and rights work first |
+| Population-weighted grid, resolution 10 | Built locally 2026-11-21 (D-056, `docs/qa/g07-popweighted-grid-2026-11-21.md`); not in the web or the live release until the lead approves the weight source |
 | Building shapes, canopy, biomass, `form` and `context` spaces | Data held only as counts or not processed |
 | Chart embeds, hosted MCP endpoint, newsletter | Hosting and outward actions |
 | Live feeds, Movement (trains, aircraft) | No scheduler by policy; no timetable data |
