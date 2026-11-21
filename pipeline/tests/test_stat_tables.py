@@ -143,3 +143,29 @@ def test_registry_has_the_stat_datasets() -> None:
         "paddy-statistics",
         "dengue-weekly-district",
     } <= set(REGISTRY)
+
+
+def test_atlas_stat_part_keeps_headline_rows_and_skips_public(tmp_path):
+    import json
+
+    import pandas as pd
+
+    from slf.atlas_landscape import _stat_table_part
+
+    folder = tmp_path / "labour-force-survey"
+    folder.mkdir()
+    base = {"indicator_id": "lfs_unemployment_rate", "geography_id": "LK11", "value": 1.0}
+    pd.DataFrame(
+        [
+            {**base, "breakdown": json.dumps({"sex": "both"})},
+            {**base, "breakdown": json.dumps({"sex": "male"})},
+        ]
+    ).to_parquet(folder / "observations.parquet")
+    catalog = Path(__file__).resolve().parents[2] / "catalog"
+    part = _stat_table_part(tmp_path, catalog, public=False)
+    assert part is not None
+    frame, specs = part
+    assert len(frame) == 1
+    assert bool(frame["breakdown"].isna().all())
+    assert [s.id for s in specs] == ["lfs_unemployment_rate"] and specs[0].group == "Labour"
+    assert _stat_table_part(tmp_path, catalog, public=True) is None

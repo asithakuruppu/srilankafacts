@@ -201,6 +201,7 @@ def build_extra(
     events_dir: Path | None = None,
     hazard_dir: Path | None = None,
     public: bool = False,
+    stat_tables_dir: Path | None = None,
 ) -> dict[str, Any]:
     """Stage 3 indicators (`slf subnational build`, `slf events`), shown in the Geography lens."""
     from slf.events import SPECS as EVENT_SPECS
@@ -225,6 +226,10 @@ def build_extra(
             if len(frame):
                 parts.append(frame)
                 specs += spec_list
+    stat = _stat_table_part(stat_tables_dir, catalog_dir, public)
+    if stat is not None:
+        parts.append(stat[0])
+        specs += stat[1]
     if not parts:
         return {"available": False, "reason": "no subnational or events build found"}
     source = out_dir / "extra" / "_observations.parquet"
@@ -252,6 +257,64 @@ def build_extra(
     source.unlink()
     timelines = _timelines(events_dir, out_dir) if events_dir is not None else {}
     return {"available": True, "indicators": len(index), "skipped": skipped, "timelines": timelines}
+
+
+STAT_TABLE_GROUPS = {
+    "poverty": "Poverty",
+    "labour": "Labour",
+    "agriculture": "Agriculture",
+    "health": "Health",
+}
+
+
+def _stat_table_part(
+    stat_tables_dir: Path | None, catalog_dir: Path | None, public: bool
+) -> tuple[pd.DataFrame, list[Any]] | None:
+    """Rows and specs of the statistical-table datasets (`slf stat-tables build`).
+
+    The rights of these tables are unclear (D-030/D-032 cover only the census), so a public
+    bundle leaves them out. Only whole-population rows are shown on the map: the survey
+    breakdowns (poverty by sector, labour by sex) stay in the observation downloads, except
+    both-sexes labour rows, which are the headline figures.
+    """
+    from types import SimpleNamespace
+
+    if stat_tables_dir is None or catalog_dir is None or public:
+        return None
+    from slf.catalog import CatalogReport, load_catalog
+
+    catalog = load_catalog(catalog_dir, catalog_dir.parent / "overrides", CatalogReport())
+    frames: list[pd.DataFrame] = []
+    for path in sorted(stat_tables_dir.glob("*/observations.parquet")):
+        frame = pd.read_parquet(path)
+        both = frame["breakdown"].map(
+            lambda b: isinstance(b, str) and json.loads(b) == {"sex": "both"}
+        )
+        frame = pd.DataFrame(frame[frame["breakdown"].isna() | both])
+        frame["breakdown"] = None
+        frames.append(frame)
+    if not frames:
+        return None
+    frame = pd.concat(frames, ignore_index=True)
+    specs = []
+    for ind_id in sorted(frame["indicator_id"].unique()):
+        ind = catalog.indicators.get(str(ind_id))
+        if ind is None:
+            continue
+        topic = next((t for t in ind.topic if t in STAT_TABLE_GROUPS), "health")
+        specs.append(
+            SimpleNamespace(
+                id=ind.id,
+                name=ind.name,
+                unit=ind.unit,
+                decimals=ind.decimals,
+                measure_type=ind.measure_type,
+                higher_is=ind.higher_is,
+                definition=ind.definition,
+                group=STAT_TABLE_GROUPS[topic],
+            )
+        )
+    return frame, specs
 
 
 def _timelines(events_dir: Path, out_dir: Path) -> dict[str, Any]:
