@@ -1,0 +1,42 @@
+id: dcs-vital-statistics
+source: dcs
+title: "Vital statistics and mid-year population by district (births, deaths, marriages, crude rates, 2014-2026)"
+landing_page: https://www.statistics.gov.lk/Population/StaticalInformation/VitalStatistics
+pipeline_module: slf.stat_tables
+schedule: manual
+geography_scheme: admin
+geography_vintage: "cod-ab-v03"
+reference_period: null
+rights: inherit
+# D-060 extends the D-030/D-032 position to these DCS tables. Not a licence; rights stay unclear.
+publication:
+  decision: D-060
+  use: non_commercial
+  attribution: "Source: Department of Census and Statistics, Sri Lanka, Vital Statistics (figures from the Registrar General's Department)."
+  notice: "DCS has not published reuse terms; Sri Lanka Facts publishes these figures non-commercially for public information, has asked DCS for terms, and will correct or remove them on DCS's request."
+  takedown_days: 7
+  decided: 2026-11-22
+spatial:
+  support: area
+  scheme: admin
+  level: district
+  vintage: "cod-ab-v03"
+  coverage: LK
+  measured_in: null
+  positional_accuracy: null
+  crs_source: not_applicable
+  resolution: null
+  information_unit: null
+  information_count: null
+  derived_by: null
+indicators:
+  - births_registered
+  - deaths_registered
+  - marriages_registered
+  - crude_birth_rate
+  - crude_death_rate
+  - population_midyear_estimate
+cross_checks: []
+status: active
+notes: >
+  Stage 3. Held: two DCS Excel workbooks (births, deaths and marriages registered by district 2019-2025, by place of occurrence; crude birth and death rates by province, district and sex 2019-2025, by usual residence) and two PDFs of the Registrar General's mid-year population estimates by district and sex (2014-2024 on the Census 2012 basis; 2025-2026 on the Census 2024 basis, a series break). Values from 2021/2022 on are provisional as marked. Not yet ingested from the same page: infant, neonatal, under-five and maternal mortality by district 2012-2021, and district life tables. Method: docs/methods/stat-tables.md.

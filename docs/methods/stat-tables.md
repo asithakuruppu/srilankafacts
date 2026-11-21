@@ -12,6 +12,7 @@ Legend: ✅ verified by me · 🟡 claimed by a source · ❌ not found / failed
 | `labour-force-survey` | DCS *LFS Annual Report 2024*, Tables 12, 12A, 12B (PDF pp.92-94) | Sri Lanka and 25 districts; both sexes, male, female | 2024 | 546 ✅ |
 | `paddy-statistics` | DCS district paddy tables, acres and bushels (data.gov.lk CSV copies) | 25 districts | Maha 2010/11, Yala 2012 | 250 ✅ |
 
+| `dcs-vital-statistics` | DCS Vital Statistics: births, deaths, marriages registered by district (xlsx Table 2); crude birth and death rates by sex (xlsx Table 1); Registrar General's mid-year population by district and sex (2 PDFs) | Sri Lanka, 9 provinces (rates only), 25 districts | 2014-2026 | 3,030 ✅ |
 | `dengue-weekly-district` | NDCU *Weekly Dengue Update*, Table 1 (20 PDFs, weeks 27-46 of 2026) | Sri Lanka and 25 districts (Ampara = Ampara RDHS + Kalmunai RDHS, derived) | weeks 2026-W27 to W46 | 520 ✅ |
 
 Every row carries the snapshot sha256 (recomputed at build time) and a locator (PDF page, table, row label and column, or CSV row and column), `verification = machine_extracted`, and `data_nature` `survey_estimate` (HIES, LFS) or `official_estimate` (paddy).
@@ -29,6 +30,17 @@ Every row carries the snapshot sha256 (recomputed at build time) and a locator (
 - HIES: 1 + 3 + 9 + 25 rows; sector, province and district poor counts sum to the national figure within the printed rounding (to 100).
 - LFS: 26 rows in each of three tables; employed + unemployed = labour force and labour force + not in labour force = population on every row (±1 rounding); districts sum to Sri Lanka; male + female = both sexes.
 - Paddy: the CSV's gross sown extent sums to the national total I read from the DCS PDF page image (1,804,204 acres Maha 2010/11; 900,795 Yala 2012) ✅. The data.gov.lk file named `maha_2011` is the **2010/11** season: the PDF title says so (the file name is misleading).
+
+## Vital statistics notes (D-060, 2026-11-22)
+
+- Snapshots: `raw/dcs/dcs-vital-statistics/` (two `.xlsx` workbooks from the page's Excel links, two PDFs, and the page itself), fetched with the pipeline's own user agent, 4 s apart.
+- Excel cells are read with `openpyxl`; the year and measure headers carry `*` for provisional values (for example 2021 births and marriages, every column from 2022). These rows get `revision_status = provisional`.
+- Mid-year PDFs are read from their text layer; the year order of the columns is taken from the page image (2014-2017, 2018-2021, 2022-2024; 2025-2026). Values are stored as printed, in **thousands** (`unit = thousand persons`). The source marks 2018 onwards as provisional.
+- **Two universes:** counts are by place of occurrence, rates and population by usual residence (both stated in the DCS notes). Counts divided by population do not give the printed rates, and the pipeline never derives them.
+- **Series break:** 2014-2024 estimates are carried forward from Census 2012 and 2025-2026 from Census 2024 (Sri Lanka 21,916 thousand in 2024, 21,756 thousand in 2025). The step is a change of basis.
+- Checks ✅ ([QA](../qa/stat-tables-2026-11-22/dcs-vital-statistics.md)): district counts sum exactly to Sri Lanka every year; the both-sexes rate lies between the male and female rates; male + female = total; district populations sum exactly to Sri Lanka; 26 places in each of 13 years.
+- Not yet ingested from the same page: infant, neonatal, under-five and maternal mortality by district (2012-2021) and the district life tables.
+- Publication: `dcs-vital-statistics` carries a `publication` block under D-060 (non-commercial, attribution, notice), unlike HIES, LFS, paddy and dengue.
 
 ## Dengue notes
 

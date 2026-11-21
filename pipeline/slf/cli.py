@@ -1561,3 +1561,30 @@ def stat_tables_build(
         )
         for n in failed:
             typer.echo(f"  FAILED: {n}", err=True)
+
+
+cropix_app = typer.Typer(
+    help="CROPIX geography lists (Department of Agriculture; local only, D-061).",
+    no_args_is_help=True,
+)
+app.add_typer(cropix_app, name="cropix")
+
+
+@cropix_app.command("crosswalk")
+def cropix_crosswalk(
+    raw_root: Annotated[Path, typer.Option(help="Folder holding raw/<source>/<dataset>/.")] = Path(
+        "./data/raw"
+    ),
+    catalog_root: Annotated[Path, typer.Option(help="Catalogue folder.")] = Path("../catalog"),
+    out_dir: Annotated[Path, typer.Option(help="Output folder (private).")] = Path(
+        "./data/build/cropix"
+    ),
+) -> None:
+    """Match CROPIX GN divisions to the spine through DCS 2024 codes; write memberships and QA."""
+    from slf import cropix
+
+    cw = cropix.build(raw_root, catalog_root)
+    path = cropix.write(cw, out_dir)
+    total = cw.counts["CROPIX GN records"]
+    typer.echo(f"CROPIX GN: {total}, matched {len(cw.rows)}, unmatched {len(cw.unmatched)}")
+    typer.echo(f"report -> {path}")

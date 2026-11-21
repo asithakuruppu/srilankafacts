@@ -1,0 +1,15 @@
+id: department-of-examinations
+name: Department of Examinations
+publisher_type: government
+homepage: https://www.doenets.lk
+contact: "exams@doenets.lk (site footer)"
+access_classes: [pdf]
+rights:
+  status: unclear
+  licence: null
+  commercial_reuse: unknown
+  attribution: null
+  evidence: []
+  last_reviewed: 2026-11-22
+notes: >
+  "Copyright © 2022 - Department of Examinations, Sri Lanka. All Rights Reserved" on the site footer; no reuse terms found (2026-11-22). Statistics page https://www.doenets.lk/statistics lists performance reports for O/L, A/L and Grade 5 and school performance indices. D-062: aggregates only.

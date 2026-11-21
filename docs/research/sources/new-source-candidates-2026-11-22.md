@@ -2,6 +2,8 @@
 
 A web scan for data sources the project does not yet hold or list. It builds on the [spatial discovery catalogue](../spatial/discovery-catalogue.md) (global rasters, HDX, NSDI) and the [ecosystem landscape](../ecosystem-landscape.md) (official producers), and skips everything already in `catalog/datasets/` or assessed there. **Nothing was downloaded or ingested**; this is a shortlist for the lead.
 
+**Follow-up (same day):** the lead accepted the recommendations as D-060 to D-063. #1 is ingested (`dcs-vital-statistics`, 3,030 observations); #2 is snapshotted and matched to the spine for internal use (`cropix-geographies`, 96.8% of GN by code); #3 is catalogued as proposed; the CROPIX and Aswesuma letters are drafted in `docs/outreach/`.
+
 **Legend:** ✅ read on the primary page today · 🟡 from a search result or secondary page, not opened · ❌ looked for, not found or failed · ❓ assumption or open question.
 
 **Method and limits:** about 25 web searches, primary-page reads by a fetch agent, and JavaScript-rendered pages (CROPIX, Department of Examinations, Global Solar Atlas terms) read in the app's browser. The Epidemiology Unit site returned "509 Bandwidth Limit Exceeded" ❌; the CBSL press-release PDF and the HREA site returned HTTP 403 ❌; the EOG licence PDF and the RGD mid-year PDF could not be turned into text ❌. No API endpoint was called.

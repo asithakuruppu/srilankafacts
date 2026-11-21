@@ -1,0 +1,28 @@
+id: cropix-geographies
+source: department-of-agriculture
+title: "CROPIX geography lists: GN divisions with agro-ecological zone, AI region, ASC/ARPA area and Mahaweli unit"
+landing_page: https://apiweb.doa.gov.lk
+pipeline_module: slf.cropix
+schedule: manual
+geography_scheme: admin
+geography_vintage: "cod-ab-v03"
+reference_period: null
+rights: inherit
+spatial:
+  support: area
+  scheme: admin
+  level: gn
+  vintage: null
+  coverage: LK
+  measured_in: null
+  positional_accuracy: null
+  crs_source: not_applicable
+  resolution: null
+  information_unit: null
+  information_count: null
+  derived_by: null
+indicators: []
+cross_checks: []
+status: active
+notes: >
+  D-061: local crosswalk use only; nothing enters a release, the atlas or the preview. Held: 34 snapshots of public CROPIX endpoints (2026-11-21/22): 13,721 GN records (each with DS, agro-ecological zone, AI region, ARPA and ASC area, Mahaweli unit where present), 340 DS, 25 districts, 545 ASC divisions, 544 ARPA areas, 1,141 AI regions, Mahaweli systems, blocks and units, 54 seasons. Two endpoints returned HTTP 500 (provincial ADA segments, soil types). `slf cropix crosswalk` matches 13,279 GN (96.8%) to the spine through DCS 2024 codes; 438 codes have no DCS 2024 counterpart and 4 are not in the P-D-SS-GGG form. No farmer or seed-handler endpoint is fetched (rule 11). Reuse terms requested (draft): docs/outreach/2026-11-22-doa-cropix-reuse-terms.md.

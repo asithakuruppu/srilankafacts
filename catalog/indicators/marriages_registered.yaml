@@ -1,0 +1,18 @@
+id: marriages_registered
+name: "Marriages registered (by district of occurrence)"
+short_name: "Marriages registered"
+topic: [population]
+measure_type: count
+unit: "marriages"
+universe: marriages
+numerator: null
+denominator: null
+aggregation: sum
+higher_is: neutral
+distribution: downloads_only
+decimals: 0
+sensitivity: public
+definition: >
+  Marriages registered in the calendar year, by the district where they were registered. Recent years are provisional.
+source_definition_ref: "DCS Vital Statistics, Table 2: Number of Births, Deaths and Marriages registered by District, 2019-2025"
+methodology_notes: docs/methods/stat-tables.md

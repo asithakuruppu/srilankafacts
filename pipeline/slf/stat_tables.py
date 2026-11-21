@@ -770,6 +770,349 @@ def _dengue_row(
 # --- Output ---------------------------------------------------------------------------------
 
 
+# --- DCS vital statistics and mid-year population (D-060) ------------------------------------
+
+VITAL_ID = "dcs-vital-statistics"
+VITAL_COUNTS_FILE = "NumberofBirthsDeathsMarriagesDistrict2019-2025.xlsx"
+VITAL_RATES_FILE = "CrudeBirthRatesCrudeDeathRatesProvinceDistrictSex2019-2025.xlsx"
+MIDYEAR_2012_FILE = "Mid-year_population_by_district_and_sex_2014_2024.pdf"
+MIDYEAR_2024_FILE = "Mid-year_population_by_district_and_sex_2025-2026.pdf"
+# (pdf, page, years in printed column order, estimate basis). Column order checked on the page image.
+MIDYEAR_PAGES: tuple[tuple[str, int, tuple[int, ...], str], ...] = (
+    (MIDYEAR_2012_FILE, 1, (2014, 2015, 2016, 2017), "Census 2012"),
+    (MIDYEAR_2012_FILE, 2, (2018, 2019, 2020, 2021), "Census 2012"),
+    (MIDYEAR_2012_FILE, 3, (2022, 2023, 2024), "Census 2012"),
+    (MIDYEAR_2024_FILE, 1, (2025, 2026), "Census 2024"),
+)
+MIDYEAR_PROVISIONAL_FROM = 2018  # printed with '*' from 2018 on (2014-2017 carry no mark)
+VITAL_COUNT_MEASURES = {
+    "Births": "births_registered",
+    "Deaths": "deaths_registered",
+    "Marriages": "marriages_registered",
+}
+VITAL_RATE_MEASURES = {
+    "Crude Birth Rate": "crude_birth_rate",
+    "Crude Death Rate": "crude_death_rate",
+}
+SEXES = {"Total": "both", "Male": "male", "Female": "female"}
+_MIDYEAR_ROW = re.compile(
+    rf"^(?P<label>[A-Za-z][A-Za-z .-]*?)\s+(?P<nums>(?:{NUM})(?:\s+(?:{NUM}))+)\s*$"
+)
+
+
+def _year_cell(v: Any) -> tuple[int, bool] | None:
+    """A header cell such as 2019 or '2022*' -> (year, provisional)."""
+    if isinstance(v, int | float) and 1900 < v < 2100:
+        return int(v), False
+    if isinstance(v, str) and re.fullmatch(r"\s*\d{4}\*?\s*", v):
+        return int(v.strip().rstrip("*")), v.strip().endswith("*")
+    return None
+
+
+def _clean_label(v: Any) -> str:
+    return re.sub(r"\s+", " ", str(v)).strip()
+
+
+def parse_vital_counts(
+    sheet_rows: list[tuple[Any, ...]],
+) -> list[tuple[str, int, int, str, bool, float]]:
+    """Table 2: (label, sheet row, year, measure, provisional, value) for every district/country cell.
+
+    Row 2 holds the years (merged over three columns), row 3 the measure; a '*' on either marks
+    the value provisional.
+    """
+    years: dict[int, tuple[int, bool]] = {}
+    current: tuple[int, bool] | None = None
+    for j, v in enumerate(sheet_rows[1]):
+        yc = _year_cell(v)
+        if yc is not None:
+            current = yc
+        if j > 0 and current is not None:
+            years[j] = current
+    out = []
+    for i, row in enumerate(sheet_rows[3:], start=4):
+        label = _clean_label(row[0]) if row[0] is not None else ""
+        if not label or label.startswith(("*", "Note")):
+            continue
+        for j, v in enumerate(row):
+            if j == 0 or v is None or j not in years:
+                continue
+            measure_raw = str(sheet_rows[2][j]).strip()
+            measure = measure_raw.rstrip("*")
+            year, prov = years[j]
+            out.append((label, i, year, measure, prov or measure_raw.endswith("*"), float(v)))
+    return out
+
+
+def parse_vital_rates(
+    sheet_rows: list[tuple[Any, ...]],
+) -> list[tuple[str, int, int, str, str, bool, float]]:
+    """Table 1: (label, sheet row, year, measure, sex, provisional, value).
+
+    Row 3 holds the years, row 4 the measure (merged over three sexes), row 5 the sex.
+    """
+    cols: dict[int, tuple[int, bool, str, str]] = {}
+    year: tuple[int, bool] | None = None
+    measure: str | None = None
+    for j in range(1, len(sheet_rows[4])):
+        yc = _year_cell(sheet_rows[2][j])
+        if yc is not None:
+            year = yc
+        m = sheet_rows[3][j]
+        if isinstance(m, str) and m.strip():
+            measure = m.strip()
+        sex = sheet_rows[4][j]
+        if year and measure and isinstance(sex, str) and sex.strip() in SEXES:
+            cols[j] = (year[0], year[1], measure, sex.strip())
+    out = []
+    for i, row in enumerate(sheet_rows[5:], start=6):
+        label = _clean_label(row[0]) if row[0] is not None else ""
+        if not label or label.startswith(("*", "Note")):
+            continue
+        for j, (y, prov, measure, sex) in cols.items():
+            v = row[j] if j < len(row) else None
+            if v is not None:
+                out.append((label, i, y, measure, sex, prov, float(v)))
+    return out
+
+
+def parse_midyear_page(text: str, n_years: int) -> list[tuple[str, int, list[float]]]:
+    """Rows of a mid-year page: (label, text line, [total, male, female] * n_years) in thousands."""
+    out = []
+    for line_no, line in enumerate(text.splitlines(), start=1):
+        m = _MIDYEAR_ROW.match(line.strip())
+        if not m:
+            continue
+        nums = [_num(x) for x in m.group("nums").split()]
+        if len(nums) != 3 * n_years:
+            continue
+        out.append((m.group("label").strip(), line_no, nums))
+    return out
+
+
+def _xlsx_sheets(path: Path) -> dict[str, list[tuple[Any, ...]]]:
+    import openpyxl
+
+    wb = openpyxl.load_workbook(path, data_only=True, read_only=True)
+    sheets = {ws.title: [tuple(r) for r in ws.iter_rows(values_only=True)] for ws in wb.worksheets}
+    wb.close()
+    return sheets
+
+
+def build_vital(
+    raw_root: Path, catalog_root: Path, spine: dict[str, str], pages_dir: Path
+) -> Result:
+    res = Result(VITAL_ID)
+    matches = load_matches(catalog_root, VITAL_ID)
+    unmatched: set[str] = set()
+
+    def geo(label: str, where: str) -> str | None:
+        m = matches.get(label)
+        if m is None or m.geography_id not in spine:
+            unmatched.add(f"{label!r} ({where})")
+            return None
+        return m.geography_id
+
+    # Counts: place of occurrence, calendar year totals.
+    snap = find_snapshot(raw_root, "dcs", VITAL_ID, VITAL_COUNTS_FILE)
+    counts: dict[tuple[str, int, str], float] = {}
+    for sheet, rows in _xlsx_sheets(snap.path).items():
+        for label, i, year, measure, prov, value in parse_vital_counts(rows):
+            indicator = VITAL_COUNT_MEASURES.get(measure)
+            gid = geo(label, f"{VITAL_COUNTS_FILE} sheet '{sheet}' row {i}")
+            if indicator is None or gid is None:
+                continue
+            counts[(gid, year, indicator)] = value
+            res.rows.append(
+                _row(
+                    dataset_id=VITAL_ID,
+                    indicator=indicator,
+                    geography_id=gid,
+                    period=str(year),
+                    time_start=dt.date(year, 1, 1),
+                    time_end=dt.date(year, 12, 31),
+                    time_support="interval_total",
+                    value=value,
+                    unit=measure.lower(),
+                    universe=f"{measure.lower()} registered, by district of occurrence",
+                    collection_method="admin_register",
+                    data_nature="administrative_count",
+                    snap=snap,
+                    locator=f"{VITAL_COUNTS_FILE} sheet '{sheet}' row {i} ('{label}'), {year} {measure}",
+                    note=(
+                        "Registered events by place of occurrence (DCS note), not usual residence. "
+                        + ("Marked provisional by DCS." if prov else "")
+                    ).strip(),
+                    revision_status="provisional" if prov else "final",
+                )
+            )
+    # Rates: usual residence, per 1,000 persons, by sex.
+    snap = find_snapshot(raw_root, "dcs", VITAL_ID, VITAL_RATES_FILE)
+    rates: dict[tuple[str, int, str, str], float] = {}
+    for sheet, rows in _xlsx_sheets(snap.path).items():
+        for label, i, year, measure, sex, prov, value in parse_vital_rates(rows):
+            indicator = VITAL_RATE_MEASURES.get(measure)
+            gid = geo(label, f"{VITAL_RATES_FILE} sheet '{sheet}' row {i}")
+            if indicator is None or gid is None:
+                continue
+            rates[(gid, year, indicator, SEXES[sex])] = value
+            res.rows.append(
+                _row(
+                    dataset_id=VITAL_ID,
+                    indicator=indicator,
+                    geography_id=gid,
+                    period=str(year),
+                    time_start=dt.date(year, 1, 1),
+                    time_end=dt.date(year, 12, 31),
+                    time_support="interval_mean",
+                    value=value,
+                    unit="per 1,000 persons",
+                    universe="persons, by district of usual residence",
+                    collection_method="admin_register",
+                    data_nature="official_estimate",
+                    snap=snap,
+                    locator=f"{VITAL_RATES_FILE} sheet '{sheet}' row {i} ('{label}'), {year} {measure} {sex}",
+                    breakdown={"sex": SEXES[sex]},
+                    note=(
+                        "Rate by usual residence (DCS note); its denominator is the mid-year estimate. "
+                        + ("Marked provisional by DCS." if prov else "")
+                    ).strip(),
+                    revision_status="provisional" if prov else "final",
+                )
+            )
+    # Mid-year population, thousands, usual residence.
+    pops: dict[tuple[str, int], list[float]] = {}
+    for pdf, page, years, basis in MIDYEAR_PAGES:
+        snap = find_snapshot(raw_root, "dcs", VITAL_ID, pdf)
+        text = (pages_dir / pdf / f"page-{page:03d}.txt").read_text()
+        parsed = parse_midyear_page(text, len(years))
+        res.notes.append(
+            f"{pdf} p.{page}: {len(parsed)} rows for {', '.join(map(str, years))} ({basis} basis)"
+        )
+        for label, line_no, nums in parsed:
+            gid = geo(label, f"{pdf} p.{page} line {line_no}")
+            if gid is None:
+                continue
+            for k, year in enumerate(years):
+                trio = nums[3 * k : 3 * k + 3]
+                pops[(gid, year)] = trio
+                prov = year >= MIDYEAR_PROVISIONAL_FROM
+                for s, sex in enumerate(("both", "male", "female")):
+                    res.rows.append(
+                        _row(
+                            dataset_id=VITAL_ID,
+                            indicator="population_midyear_estimate",
+                            geography_id=gid,
+                            period=str(year),
+                            time_start=dt.date(year, 7, 1),
+                            time_end=dt.date(year, 7, 1),
+                            time_support="instant",
+                            value=trio[s],
+                            unit="thousand persons",
+                            universe="persons, by district of usual residence",
+                            collection_method="model",
+                            data_nature="official_estimate",
+                            snap=snap,
+                            locator=f"{pdf} p.{page}, row '{label}', {year} {('Total', 'Male', 'Female')[s]} (text line {line_no})",
+                            breakdown={"sex": sex},
+                            note=(
+                                f"Registrar General's Department estimate on the {basis} basis, "
+                                "printed in thousands. " + ("Marked provisional." if prov else "")
+                            ).strip(),
+                            revision_status="provisional" if prov else "final",
+                        )
+                    )
+    res.unmatched = sorted(unmatched)
+    _vital_checks(res, counts, rates, pops)
+    res.notes.append(
+        "Series break: 2014-2024 estimates are on the Census 2012 basis, 2025-2026 on the Census 2024 "
+        f"basis (Sri Lanka 2024: {pops.get(('LK', 2024), [0])[0]:,.0f} thousand; "
+        f"2025: {pops.get(('LK', 2025), [0])[0]:,.0f} thousand). Do not read the step as a change."
+    )
+    res.notes.append(
+        "Counts are by place of occurrence and rates by usual residence: counts / population "
+        "does not reproduce the printed rates and must not be computed that way."
+    )
+    return res
+
+
+def _vital_checks(
+    res: Result,
+    counts: dict[tuple[str, int, str], float],
+    rates: dict[tuple[str, int, str, str], float],
+    pops: dict[tuple[str, int], list[float]],
+) -> None:
+    districts = {g for g, _, _ in counts if len(g) == 4}
+    res.checks.append(
+        ("counts cover 25 districts", len(districts) == 25, f"{len(districts)} district ids")
+    )
+    worst = 0.0
+    for year in sorted({y for _, y, _ in counts}):
+        for ind in VITAL_COUNT_MEASURES.values():
+            total = counts.get(("LK", year, ind))
+            if total is None:
+                continue
+            s = sum(v for (g, y, i), v in counts.items() if y == year and i == ind and len(g) == 4)
+            worst = max(worst, abs(s - total))
+    res.checks.append(
+        ("district counts sum to Sri Lanka", worst == 0, f"largest difference {worst:,.0f} events")
+    )
+    bad = []
+    for (g, y, ind, sex), v in rates.items():
+        if sex != "both":
+            continue
+        m, f = rates.get((g, y, ind, "male")), rates.get((g, y, ind, "female"))
+        if m is not None and f is not None and not (min(m, f) - 0.1 <= v <= max(m, f) + 0.1):
+            bad.append(f"{g} {y} {ind}")
+    res.checks.append(
+        (
+            "rate for both sexes lies between male and female",
+            not bad,
+            f"{len(bad)} exceptions {bad[:5]}",
+        )
+    )
+    n_rates = {(g, y) for g, y, _, _ in rates}
+    res.checks.append(
+        (
+            "rates cover country, 9 provinces, 25 districts each year",
+            all(sum(1 for g2, y2 in n_rates if y2 == y) == 35 for _, y in n_rates),
+            f"{len(n_rates)} place-years",
+        )
+    )
+    sex_bad = [f"{g} {y}" for (g, y), t in pops.items() if abs(t[1] + t[2] - t[0]) > 1]
+    res.checks.append(
+        (
+            "mid-year male + female = total (±1 thousand)",
+            not sex_bad,
+            f"{len(sex_bad)} exceptions {sex_bad[:5]}",
+        )
+    )
+    worst_pop, worst_at = 0.0, ""
+    for year in sorted({y for _, y in pops}):
+        total = pops.get(("LK", year))
+        if total is None:
+            continue
+        s = sum(v[0] for (g, y), v in pops.items() if y == year and len(g) == 4)
+        if abs(s - total[0]) > worst_pop:
+            worst_pop, worst_at = abs(s - total[0]), str(year)
+    res.checks.append(
+        (
+            "mid-year districts sum to Sri Lanka (±13 thousand: 25 values rounded to thousands)",
+            worst_pop <= 13,
+            f"largest difference {worst_pop:,.0f} thousand ({worst_at or 'none'})",
+        )
+    )
+    years = sorted({y for _, y in pops})
+    res.checks.append(
+        (
+            "mid-year: 26 places in each of 13 years 2014-2026",
+            years == list(range(2014, 2027))
+            and all(sum(1 for _, y in pops if y == yr) == 26 for yr in years),
+            f"years {years[0] if years else '-'}-{years[-1] if years else '-'}, {len(pops)} place-years",
+        )
+    )
+
+
 def qa_markdown(res: Result, title: str, spine_note: str) -> str:
     qa = check_observations(res.dataset_id, [dict(r) for r in res.rows])
     for r in res.rows:
@@ -840,6 +1183,10 @@ def build_all(
             build_dengue(raw_root, catalog_root, spine, pages_dir),
             "Dengue weekly reports by district (RDHS)",
         ),
+        (
+            build_vital(raw_root, catalog_root, spine, pages_dir),
+            "DCS vital statistics and mid-year population by district",
+        ),
     ]
     write_outputs(
         results,
@@ -885,6 +1232,7 @@ def _make_dataset(dataset_id: str, source_id: str, main: tuple[str, str, str], b
                 "lfs": lambda: build_lfs(raw, catalog, spine, pages),
                 "paddy": lambda: build_paddy(raw, catalog, spine),
                 "dengue": lambda: build_dengue(raw, catalog, spine, pages),
+                "vital": lambda: build_vital(raw, catalog, spine, pages),
             }[builder_name]
             res = builder()
             failed = [n for n, ok, _ in res.checks if not ok]
@@ -922,3 +1270,4 @@ DengueWeeklyDistrict = _make_dataset(
     (DENGUE_SOURCE, DENGUE_ID, "Weekly-Dengue-Update-2026-Week-46.pdf"),
     "dengue",
 )
+DcsVitalStatistics = _make_dataset(VITAL_ID, "dcs", ("dcs", VITAL_ID, VITAL_COUNTS_FILE), "vital")

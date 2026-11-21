@@ -1,0 +1,15 @@
+id: department-of-agriculture
+name: Department of Agriculture (CROPIX API gateway)
+publisher_type: government
+homepage: https://apiweb.doa.gov.lk
+contact: null
+access_classes: [api]
+rights:
+  status: unclear
+  licence: null
+  commercial_reuse: unknown
+  attribution: null
+  evidence: []
+  last_reviewed: 2026-11-22
+notes: >
+  CROPIX gateway, launched January 2026. 102 public endpoints with no credentials and 140+ registered endpoints (read 2026-11-22). No licence or terms text found on the gateway pages. D-061: local crosswalk use only; reuse terms requested in docs/outreach/2026-11-22-doa-cropix-reuse-terms.md (draft). Endpoints about individual farmers or seed handlers are never collected.

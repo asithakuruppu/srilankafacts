@@ -264,6 +264,7 @@ STAT_TABLE_GROUPS = {
     "labour": "Labour",
     "agriculture": "Agriculture",
     "health": "Health",
+    "population": "Population",
 }
 
 

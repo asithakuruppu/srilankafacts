@@ -1,0 +1,28 @@
+id: exam-performance-reports
+source: department-of-examinations
+title: "Performance of candidates: G.C.E. O/L, A/L and Grade 5 Scholarship examinations (province, district, education zone)"
+landing_page: https://www.doenets.lk/statistics
+pipeline_module: null
+schedule: manual
+geography_scheme: education
+geography_vintage: null
+reference_period: null
+rights: inherit
+spatial:
+  support: area
+  scheme: education
+  level: zone
+  vintage: null
+  coverage: LK
+  measured_in: null
+  positional_accuracy: null
+  crs_source: not_applicable
+  resolution: null
+  information_unit: null
+  information_count: null
+  derived_by: null
+indicators: []
+cross_checks: []
+status: proposed
+notes: >
+  Stage 3. Annual PDF reports, O/L 2011-2025, A/L to 2025, Grade 5 to 2026 (statistics page read 2026-11-22). Geography inside the reports (province, district, education zone) is from a secondary page and not yet checked. D-062: only zone, district and province aggregates; school performance indices are not ingested. Rights: "All Rights Reserved", no terms.

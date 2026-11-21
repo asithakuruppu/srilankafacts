@@ -1,0 +1,18 @@
+id: crude_birth_rate
+name: "Crude birth rate (per 1,000 persons)"
+short_name: "Crude birth rate"
+topic: [health, population]
+measure_type: rate
+unit: "per 1,000 persons"
+universe: persons
+numerator: births_registered
+denominator: population_midyear_estimate
+aggregation: none
+higher_is: neutral
+distribution: downloads_only
+decimals: 1
+sensitivity: public
+definition: >
+  Live births in the year per 1,000 mid-year population, by district of usual residence, as published by DCS. Not reproducible from the registered counts here, which are by place of occurrence.
+source_definition_ref: "DCS Vital Statistics, Table 1: Crude Birth Rates & Crude Death Rates by Province, District & Sex, 2019-2025"
+methodology_notes: docs/methods/stat-tables.md
