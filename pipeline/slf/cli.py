@@ -1254,6 +1254,36 @@ def grid_popweights(
     typer.echo(json.dumps(summary, indent=2, default=str))
 
 
+@grid_app.command("covers")
+def grid_covers(
+    weights_parquet: Annotated[
+        Path, typer.Option(help="gn_h3r10_popweights_2024.parquet (`slf grid popweights`).")
+    ],
+    la_relations: Annotated[Path | None, typer.Option(help="la_relations_internal.csv.")] = None,
+    moh_relations: Annotated[
+        Path | None, typer.Option(help="health_relations_internal.csv.")
+    ] = None,
+    spine_dir: Annotated[Path, typer.Option(help="Geography spine build folder.")] = Path(
+        "./data/build/geography-spine"
+    ),
+    catalog_dir: Annotated[Path, typer.Option(help="Catalogue folder.")] = Path("../catalog"),
+    out_dir: Annotated[Path, typer.Option(help="Output folder.")] = Path(
+        "./data/build/grid-covers"
+    ),
+) -> None:
+    """Cell covers (footprint to H3 r10 cells with fractions) per footprint family (G07)."""
+    from slf import covers
+
+    internal = {
+        k: v for k, v in {"la": la_relations, "moh": moh_relations}.items() if v is not None
+    }
+    typer.echo(
+        json.dumps(
+            covers.build(spine_dir, weights_parquet, catalog_dir, out_dir, internal), indent=2
+        )
+    )
+
+
 @app.command("resolve")
 def resolve(
     lon: Annotated[float, typer.Option(help="Longitude (EPSG:4326).")],
