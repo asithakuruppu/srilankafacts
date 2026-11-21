@@ -546,6 +546,14 @@ These were stated by you or are standing rules in [brainstorm-decisions.md](../b
 - **Consequences:** events are historical snapshots, not live. The landslide points and cloud-obstruction mask in the UNOSAT file are not used yet.
 - **Revisit when:** a timetable source with clear rights is found (Sri Lanka Railways GTFS or similar); the lead wants near-real-time feeds and accepts a scheduler.
 
+## D-054: OpenStreetMap basemap under the maps (public tile server)
+- **Status:** Proposed · 2026-11-22 (agent proposal, following the lead's request for an OpenStreetMap underlay on the Areas page and a basemap switcher elsewhere)
+- **Context:** The maps draw only boundaries on a flat background, so a clicked point on `/area` cannot be placed on the ground.
+- **Decision:** `/area` opens on an OpenStreetMap raster basemap; the home atlas and indicator maps get a Plain / OpenStreetMap switch and stay Plain by default. Boundary fills become semi-transparent when OSM is on. Tiles come from `tile.openstreetmap.org` and are requested by the visitor's browser only while the OSM view is on; the map shows "© OpenStreetMap contributors". No click coordinates are sent to any geocoder.
+- **Alternatives:** a hosted tile provider or self-served PMTiles extract (cost and a tile-stack decision; the fallback if traffic grows); a reverse-geocoding call on click (rejected: sends the visitor's chosen location to a third party).
+- **Consequences:** the OSM public tile policy suits light use only and offers no guarantee; OSM data is ODbL, with attribution required. The Plain view works offline of OSM. Visitors' IP addresses reach the OSM tile servers when they use the OSM view.
+- **Revisit when:** traffic grows, or the lead wants a self-hosted or vector basemap (see D-053 on tile stacks).
+
 ---
 
 ## Template

@@ -5,6 +5,16 @@ import { useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
 
 import { MAP_TOKENS } from "@/components/atlas/atlas-map";
+import BasemapSwitch from "@/components/atlas/basemap-switch";
+import {
+  basemapStyle,
+  OSM_FILL_OPACITY,
+  osmLink,
+  readBasemap,
+  saveBasemap,
+  setBasemap,
+  type Basemap,
+} from "@/lib/atlas/basemap";
 import { estimateArea, type AreaEstimate, type AreaShape, type GridFile } from "@/lib/atlas/area";
 import { loadDetail, loadElectoral, loadJson, loadLevelValues, loadMesh, loadOverview, loadUnits } from "@/lib/atlas/data";
 import {
@@ -45,7 +55,7 @@ function shapeFeatures(shape: AreaShape | null, draft: LonLat[], point: LonLat |
     }
   }
   if (point) {
-    features.push({ type: "Feature", properties: { vertex: 1 }, geometry: { type: "Point", coordinates: point } });
+    features.push({ type: "Feature", properties: { pin: 1 }, geometry: { type: "Point", coordinates: point } });
   }
   return { type: "FeatureCollection" as const, features };
 }
@@ -66,6 +76,9 @@ export default function AreaTool({ indicators }: { indicators: CountIndicator[] 
   const container = useRef<HTMLDivElement>(null);
   const mapRef = useRef<MapLibreMap | null>(null);
   const [ready, setReady] = useState(false);
+  // OpenStreetMap is this page's default; a remembered choice applies after the first render.
+  const [basemap, setBasemapState] = useState<Basemap>("osm");
+  const basemapRef = useRef<Basemap>("osm");
   const [mode, setMode] = useState<Mode>("circle");
   const searchParams = useSearchParams();
   const [initial] = useState(() => readParams(new URLSearchParams(searchParams.toString())));
@@ -104,12 +117,12 @@ export default function AreaTool({ indicators }: { indicators: CountIndicator[] 
       const tokens = MAP_TOKENS[document.documentElement.dataset.theme === "dark" ? "dark" : "light"];
       map = new MapLibrary({
         container: container.current,
-        style: { version: 8, sources: {}, layers: [{ id: "sea", type: "background", paint: { "background-color": tokens.sea } }] },
+        style: basemapStyle(tokens.sea, basemapRef.current),
         bounds: [79.4, 5.8, 82.1, 9.95],
         minZoom: 5,
-        maxZoom: 15,
+        maxZoom: 18,
         maxBounds: [76.5, 3.5, 85, 12.5],
-        attributionControl: false,
+        attributionControl: { compact: true },
         dragRotate: false,
         pitchWithRotate: false,
         doubleClickZoom: false,
@@ -124,7 +137,12 @@ export default function AreaTool({ indicators }: { indicators: CountIndicator[] 
         map.addSource("overview", { type: "geojson", data: overview as never, tolerance: 0 });
         map.addSource("mesh", { type: "geojson", data: mesh as never, tolerance: 0 });
         map.addSource("shape", { type: "geojson", data: EMPTY });
-        map.addLayer({ id: "land", type: "fill", source: "overview", paint: { "fill-color": tokens.land, "fill-antialias": false } });
+        map.addLayer({
+          id: "land",
+          type: "fill",
+          source: "overview",
+          paint: { "fill-color": tokens.land, "fill-antialias": false, "fill-opacity": basemapRef.current === "osm" ? OSM_FILL_OPACITY * 0.4 : 1 },
+        });
         map.addLayer({
           id: "mesh",
           type: "line",
@@ -134,7 +152,14 @@ export default function AreaTool({ indicators }: { indicators: CountIndicator[] 
         });
         map.addLayer({ id: "shape-fill", type: "fill", source: "shape", filter: ["==", "$type", "Polygon"], paint: { "fill-color": tokens.select, "fill-opacity": 0.22 } });
         map.addLayer({ id: "shape-line", type: "line", source: "shape", filter: ["!=", "$type", "Point"], paint: { "line-color": tokens.highlight, "line-width": 1.6 } });
-        map.addLayer({ id: "shape-vertex", type: "circle", source: "shape", filter: ["==", "$type", "Point"], paint: { "circle-radius": 4, "circle-color": tokens.select, "circle-stroke-color": tokens.highlight, "circle-stroke-width": 1.2 } });
+        map.addLayer({
+          id: "shape-pin",
+          type: "circle",
+          source: "shape",
+          filter: ["==", ["get", "pin"], 1],
+          paint: { "circle-radius": 9, "circle-color": "#d62828", "circle-stroke-color": "#ffffff", "circle-stroke-width": 3 },
+        });
+        map.addLayer({ id: "shape-vertex", type: "circle", source: "shape", filter: ["all", ["==", ["geometry-type"], "Point"], ["!", ["has", "pin"]]], paint: { "circle-radius": 4, "circle-color": tokens.select, "circle-stroke-color": tokens.highlight, "circle-stroke-width": 1.2 } });
         const start = initialShape.current;
         if (start?.kind === "circle") {
           const box = circleBox(start.centre, start.radiusKm * 2.5);
@@ -150,6 +175,8 @@ export default function AreaTool({ indicators }: { indicators: CountIndicator[] 
           setDraft((current) => [...current, point]);
         } else {
           setResolved({ point, rows: [], note: "Looking up…" });
+          // Street level, so the basemap shows exactly where the point is.
+          map?.easeTo({ center: point, zoom: Math.max(map.getZoom(), 13), duration: 600 });
         }
       });
       map.on("dblclick", () => {
@@ -180,10 +207,29 @@ export default function AreaTool({ indicators }: { indicators: CountIndicator[] 
     map.setPaintProperty("land", "fill-color", tokens.land);
   }, [ready, theme]);
 
+  // Basemap: apply the remembered choice, then follow the switch.
+  useEffect(() => {
+    const stored = readBasemap("osm");
+    basemapRef.current = stored;
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- storage is only readable after hydration
+    setBasemapState(stored);
+  }, []);
+  useEffect(() => {
+    basemapRef.current = basemap;
+    const map = mapRef.current;
+    if (!ready || !map) {
+      return;
+    }
+    setBasemap(map, basemap);
+    map.setPaintProperty("land", "fill-opacity", basemap === "osm" ? OSM_FILL_OPACITY * 0.4 : 1);
+  }, [ready, basemap]);
+
   // Draw the shape.
   useEffect(() => {
     const source = mapRef.current?.getSource("shape") as GeoJSONSource | undefined;
-    source?.setData(shapeFeatures(shape, draft, mode === "point" ? (resolved?.point ?? null) : null) as never);
+    const pin: LonLat | null =
+      mode === "point" ? (resolved?.point ?? null) : mode === "circle" && shape?.kind === "circle" ? shape.centre : null;
+    source?.setData(shapeFeatures(shape, draft, pin) as never);
   }, [shape, draft, ready, resolved, mode]);
 
   // Keep the URL shareable for circles.
@@ -281,7 +327,16 @@ export default function AreaTool({ indicators }: { indicators: CountIndicator[] 
 
   return (
     <div className="area-tool">
-      <div className="area-map" ref={container} role="img" aria-label="Map for drawing an area" />
+      <div className="area-map" role="img" aria-label="Map for drawing an area">
+        <div className="area-canvas" ref={container} />
+        <BasemapSwitch
+          value={basemap}
+          onChange={(next) => {
+            saveBasemap(next);
+            setBasemapState(next);
+          }}
+        />
+      </div>
       <aside className="area-panel" aria-live="polite">
         <div className="area-modes" role="radiogroup" aria-label="Tool">
           {(
@@ -314,6 +369,11 @@ export default function AreaTool({ indicators }: { indicators: CountIndicator[] 
               <>
                 <p className="area-coords">
                   {resolved.point[1].toFixed(5)}° N, {resolved.point[0].toFixed(5)}° E
+                </p>
+                <p className="atlas-note">
+                  <a href={osmLink(resolved.point[0], resolved.point[1])} target="_blank" rel="noopener noreferrer">
+                    Open this spot in OpenStreetMap
+                  </a>
                 </p>
                 {resolved.rows.length ? (
                   <table className="mini-table" data-testid="resolver-table">
